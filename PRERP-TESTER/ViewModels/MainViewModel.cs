@@ -1,5 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using PRERP_TESTER.Models;
 using PRERP_TESTER.Services;
 
@@ -8,12 +12,14 @@ namespace PRERP_TESTER.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private readonly WebViewService _webViewService;
-        private readonly ThemeService _themeService;
 
-        // Danh sách các Module đang mở (thanh menu bên trái)
-        public ObservableCollection<ModuleViewModel> ActiveModules { get; set; } = new ObservableCollection<ModuleViewModel>();
+        // Giả lập Database chứa toàn bộ Account của hệ thống
+        private List<Account> _allSystemAccounts;
 
-        // Module hiện tại đang được chọn để hiển thị Workspace
+        // Danh sách các Module đang mở
+        public ObservableCollection<ModuleViewModel> ActiveModules { get; set; }
+
+        // Module đang được chọn để hiển thị
         private ModuleViewModel _currentModule;
         public ModuleViewModel CurrentModule
         {
@@ -21,39 +27,94 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _currentModule, value);
         }
 
-        public MainViewModel( WebViewService webViewService)
+        public ICommand CreateModuleCommand { get; }
+
+        public MainViewModel()
         {
-            // Khởi tạo các Service dùng chung
-            _webViewService = webViewService;
-            _themeService = new ThemeService();
+            // 1. Khởi tạo Service (Dùng chung cho cả App)
+            _webViewService = new WebViewService();
+            ActiveModules = new ObservableCollection<ModuleViewModel>();
+
+            // 2. Load dữ liệu giả lập (System Accounts)
+            LoadMockSystemAccounts();
+
+            // 3. Tự động tạo một Module mẫu khi mở App
+            CreateDemoModule();
+
+            // Command tạo module mới (nếu cần)
+            CreateModuleCommand = new RelayCommand(CreateDemoModule);
         }
 
-        public void LoadModulesFromDatabase()
+        private void LoadMockSystemAccounts()
         {
-            // 1. Lấy danh sách Entity thô từ Models
-            List<ModuleEntity> moduleEntities = _databaseService.GetAllModules();
-            List<Account> accountEntities = _databaseService.GetAllAccounts();
-
-            foreach (var mEntity in moduleEntities)
+            // Dựa trên class Account trong file classes.txt
+            _allSystemAccounts = new List<Account>
             {
-                // 2. Chuyển đổi Entity thành ViewModel để hiển thị
-                var vm = new ModuleViewModel(_webViewService, mEntity, accountEntities);
-                ActiveModules.Add(vm);
-            }
-        }
-
-        // Logic đổi Theme Dark/Light
-        private bool _isDarkMode;
-        public bool IsDarkMode
-        {
-            get => _isDarkMode;
-            set
-            {
-                if (SetProperty(ref _isDarkMode, value))
+                new Account
                 {
-                    _themeService.SetTheme(value);
+                    Id = "acc_admin",
+                    Username = "admin_user",
+                    DisplayName = "Administrator",
+                    Role = new Role { Name = "Admin" }
+                },
+                new Account
+                {
+                    Id = "acc_teacher",
+                    Username = "teacher_ha",
+                    DisplayName = "Nguyễn Văn Hà",
+                    Role = new Role { Name = "Teacher" }
+                },
+                 new Account
+                {
+                    Id = "acc_student",
+                    Username = "student_linh",
+                    DisplayName = "Trần Mỹ Linh",
+                    Role = new Role { Name = "Student" }
                 }
-            }
+            };
+        }
+
+        private void CreateDemoModule()
+        {
+            // --- TẠO MOCK DATA ĐÚNG CẤU TRÚC ENTITY ---
+
+            // Bước 1: Tạo ModuleEntity
+            var moduleEntity = new ModuleEntity
+            {
+                Name = $"Module Test {ActiveModules.Count + 1}",
+                Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
+                // Bước 2: Tạo mảng AccountTabs (Cấu hình Account tham gia Module)
+                AccountTabs = new AccountTab[]
+                {
+                    // Cấu hình cho Account Admin
+                    new AccountTab
+                    {
+                        AccountId = "acc_admin", // Phải khớp với Id trong _allSystemAccounts
+                        TabWebItems = new TabWeb[] // Danh sách TabWeb (Title, Url)
+                        {
+                            new TabWeb { Title = "Q.Lý Hệ Thống", Url = "https://google.com" },
+                            new TabWeb { Title = "Logs", Url = "https://bing.com" }
+                        }
+                    },
+                    // Cấu hình cho Account Teacher
+                    new AccountTab
+                    {
+                        AccountId = "acc_teacher",
+                        TabWebItems = new TabWeb[]
+                        {
+                            new TabWeb { Title = "Chấm điểm", Url = "https://stackoverflow.com" }
+                        }
+                    }
+                }
+            };
+
+            // Bước 3: Khởi tạo ModuleViewModel
+            // Truyền vào: Service, Entity vừa tạo, và Danh sách Account tổng để lookup tên
+            var moduleVM = new ModuleViewModel(_webViewService, moduleEntity, _allSystemAccounts);
+
+            // Bước 4: Đưa vào danh sách hiển thị
+            ActiveModules.Add(moduleVM);
+            CurrentModule = moduleVM;
         }
     }
 }

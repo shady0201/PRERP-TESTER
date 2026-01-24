@@ -16,12 +16,10 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        var webViewService = new WebViewService();
-
         // Truyền Service vào bộ não MainViewModel
-        var mainVM = new MainViewModel(webViewService);
+        var mainVM = new MainViewModel();
 
-        var shell = new PRERP_TESTER.Views.ShellWindow();
+        var shell = new ShellWindow();
         shell.DataContext = mainVM;
         shell.Show();
     }

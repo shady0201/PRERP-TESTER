@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PRERP_TESTER.Views.Pages
+namespace PRERP_TESTER.Views
 {
     /// <summary>
-    /// Interaction logic for ModulePage.xaml
+    /// Interaction logic for ModuleView.xaml
     /// </summary>
-    public partial class ModulePage : Window
+    public partial class ModuleView : UserControl
     {
-        //private DataService _service;
-        public ModulePage()
+        public ModuleView()
         {
             InitializeComponent();
         }

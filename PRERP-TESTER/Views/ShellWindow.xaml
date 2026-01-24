@@ -9,30 +9,23 @@
         Width="1400" Height="900"
         WindowStartupLocation="CenterScreen"
         Background="#FFF7F7F7">
-
-    <Window.DataContext>
-        <vm:ShellViewModel/>
-    </Window.DataContext>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- LEFT: Modules -->
+        <!-- LEFT -->
         <Border Grid.Column="0"
                 Background="White"
                 BorderBrush="#FFE1E1E1"
                 BorderThickness="0,0,1,0">
             <DockPanel>
-
                 <TextBlock DockPanel.Dock="Top"
                            Margin="16,16,16,10"
                            FontSize="14"
                            FontWeight="SemiBold"
                            Text="Modules"/>
-
                 <ListBox Margin="10"
                          ItemsSource="{Binding Modules}"
                          SelectedItem="{Binding SelectedModule, Mode=TwoWay}"
@@ -68,14 +61,13 @@
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
-                        
+
                     </ListBox.ItemContainerStyle>
                 </ListBox>
-
             </DockPanel>
         </Border>
 
-        <!-- RIGHT: Content -->
+        <!-- RIGHT -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -96,12 +88,10 @@
                 </StackPanel>
             </Border>
 
-            <!-- Frame -->
-            <Frame x:Name="MainFrame"
-                   Grid.Row="1"
-                   Margin="16"
-                   Background="White"
-                   NavigationUIVisibility="Hidden"/>
+            <!-- Content area -->
+            <ContentControl Grid.Row="1"
+                            Content="ABC"/>
+
         </Grid>
 
     </Grid>

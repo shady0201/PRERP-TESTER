@@ -24,7 +24,8 @@ namespace PRERP_TESTER.Views
     {
         public ShellWindow()
         {
-            
+            // TODO: Load danh sách module từ stored
+            DataContext = new ShellViewModel();
             InitializeComponent();
         }
 

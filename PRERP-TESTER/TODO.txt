@@ -1,0 +1,4 @@
+﻿- Cấu trúc lại dữ liệu:
+ + Danh sách account
+ + Danh sách module
+ + Danh sách view ??

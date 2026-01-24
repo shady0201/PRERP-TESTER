@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PRERP_TESTER.Views.Pages"
         mc:Ignorable="d"
         Title="WorkspacePage" Height="450" Width="800">
+    
     <Grid Margin="24">
         <StackPanel>
             <TextBlock FontSize="22" FontWeight="SemiBold"
@@ -14,4 +14,5 @@
                        Text="Sprint 1 - Step 4: ShellWindow điều hướng tới trang này."/>
         </StackPanel>
     </Grid>
+    
 </Window>

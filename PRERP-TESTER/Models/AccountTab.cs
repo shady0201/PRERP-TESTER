@@ -11,6 +11,6 @@ namespace PRERP_TESTER.Models
     public class AccountTab
     {
         public string AccountId { get; set; } = "";
-        public TabWebItem[] TabWebItems { get; set; } = [];
+        public TabWeb[] TabWebItems { get; set; } = [];
     }
 }

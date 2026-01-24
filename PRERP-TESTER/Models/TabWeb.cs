@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRERP_TESTER.Models
 {
-    public class TabWebItem
+    public class TabWeb
     {
         public string Id { get; set; } = Guid.NewGuid().ToString("N");
         public string ModuleId { get; set; } = "";

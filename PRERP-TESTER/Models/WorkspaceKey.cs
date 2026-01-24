@@ -8,6 +8,6 @@ namespace PRERP_TESTER.Models
 {
     public readonly record struct WorkspaceKey(string ModuleId, string AccountId)
     {
-        public override string ToString() => $"{ModuleId}__{AccountId}";
+        public override string ToString() => $"{ModuleId}_{AccountId}";
     }
 }

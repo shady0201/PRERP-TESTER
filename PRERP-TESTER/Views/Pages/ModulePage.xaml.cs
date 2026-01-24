@@ -15,11 +15,12 @@ using System.Windows.Shapes;
 namespace PRERP_TESTER.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for WorkspacePage.xaml
+    /// Interaction logic for ModulePage.xaml
     /// </summary>
-    public partial class WorkspacePage : Window
+    public partial class ModulePage : Window
     {
-        public WorkspacePage()
+        private DataService _service;
+        public ModulePage()
         {
             InitializeComponent();
         }

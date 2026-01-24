@@ -89,8 +89,7 @@
             </Border>
 
             <!-- Content area -->
-            <ContentControl Grid.Row="1"
-                            Content="ABC"/>
+            <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
 
         </Grid>
 

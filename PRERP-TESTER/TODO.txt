@@ -1,4 +1,3 @@
-﻿- Cấu trúc lại dữ liệu:
- + Danh sách account: Chứa thông tin user
- + Danh sách module: chứa danh sách pages user.
- + Danh sách view ??
+﻿- Service:
+ + WebViewService : Quản lý CoreWebView2Environment theo account ID
+ +

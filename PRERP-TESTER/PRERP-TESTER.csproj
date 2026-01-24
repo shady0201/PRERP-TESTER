@@ -10,6 +10,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="Resources\DarkMode.xaml" />
+    <Page Remove="Resources\LightMode.xaml" />
+    <Page Remove="Resources\Style.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\DarkMode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Resources\LightMode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Resources\Style.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />

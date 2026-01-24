@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using PRERP_TESTER.Models;
 using PRERP_TESTER.Services;
 
 namespace PRERP_TESTER.ViewModels
@@ -20,26 +21,25 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _currentModule, value);
         }
 
-        public MainViewModel()
+        public MainViewModel( WebViewService webViewService)
         {
             // Khởi tạo các Service dùng chung
-            _webViewService = new WebViewService();
+            _webViewService = webViewService;
             _themeService = new ThemeService();
-
-            // Giả lập thêm 2 Module động khi khởi động
-            CreateNewModule("Hệ Thống Đào Tạo");
-            CreateNewModule("Quản Lý Thanh Toán");
         }
 
-        public void CreateNewModule(string name)
+        public void LoadModulesFromDatabase()
         {
-            // Tạo một instance mới của ModuleViewModel
-            // Mỗi instance này sẽ giữ các WebView riêng của nó
-            var newModule = new ModuleViewModel(_webViewService);
-            ActiveModules.Add(newModule);
+            // 1. Lấy danh sách Entity thô từ Models
+            List<ModuleEntity> moduleEntities = _databaseService.GetAllModules();
+            List<Account> accountEntities = _databaseService.GetAllAccounts();
 
-            // Tự động chọn module vừa tạo
-            CurrentModule = newModule;
+            foreach (var mEntity in moduleEntities)
+            {
+                // 2. Chuyển đổi Entity thành ViewModel để hiển thị
+                var vm = new ModuleViewModel(_webViewService, mEntity, accountEntities);
+                ActiveModules.Add(vm);
+            }
         }
 
         // Logic đổi Theme Dark/Light

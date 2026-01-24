@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRERP_TESTER.Models
 {
-    class TestCase
+    public class TestCase
     {
         public int Id { get; set; }
         public string Title { get; set; } = "";

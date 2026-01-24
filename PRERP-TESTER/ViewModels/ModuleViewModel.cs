@@ -2,15 +2,22 @@
 using PRERP_TESTER.Services;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using PRERP_TESTER.Views.Pages;
+using System.Reflection;
+using PRERP_TESTER.Models;
 
 namespace PRERP_TESTER.ViewModels
 {
     public class ModuleViewModel : ViewModelBase
     {
         private readonly WebViewService _webViewService;
+        private readonly ModuleEntity _moduleEntity;
+
+        public string DisplayName => _moduleEntity.Name;
 
         // Danh sách Account hiển thị trên giao diện
         public ObservableCollection<AccountViewModel> Accounts { get; set; }
+        public ObservableCollection<TestCase> TestCases => _moduleEntity.TestCases;
 
         private AccountViewModel _selectedAccount;
         public AccountViewModel SelectedAccount
@@ -21,28 +28,26 @@ namespace PRERP_TESTER.ViewModels
 
         public ICommand OpenAllCommand { get; }
 
-        public ModuleViewModel(WebViewService webViewService)
+        public ModuleViewModel(WebViewService webService, ModuleEntity entity, List<Account> allAccounts)
         {
-            _webViewService = webViewService;
-            Accounts = new ObservableCollection<AccountViewModel>();
+            _webViewService = webService;
+            _moduleEntity = entity;
 
-            // Command thực thi logic Open All
-            OpenAllCommand = new RelayCommand(async () => await ExecuteOpenAll());
+            // Lọc ra các Account thuộc về Module này từ danh sách tổng
+            var relevantAccounts = allAccounts.Where(a => _moduleEntity.AssignedAccountIds.Contains(a.Id));
 
-            // Load dữ liệu mẫu (Sau này bạn sẽ load từ Database/Model)
-            LoadMockData();
+            foreach (var acc in relevantAccounts)
+            {
+                Accounts.Add(new AccountViewModel(acc));
+            }
         }
 
         private void LoadMockData()
         {
-            Accounts.Add(new AccountViewModel("acc01", "acc01 - Admin", "#78B688"));
-            Accounts.Add(new AccountViewModel("acc02", "acc02 - GV", "#7A96D0"));
-            Accounts.Add(new AccountViewModel("acc03", "acc03 - SV", "#A689C8"));
-
-            if (Accounts.Count > 0) SelectedAccount = Accounts[0];
+            
         }
 
-        private async System.Threading.Tasks.Task ExecuteOpenAll()
+        private async Task ExecuteOpenAll()
         {
             foreach (var acc in Accounts)
             {

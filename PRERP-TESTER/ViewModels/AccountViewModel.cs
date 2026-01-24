@@ -6,8 +6,12 @@ namespace PRERP_TESTER.ViewModels
 {
     public class AccountViewModel : ViewModelBase
     {
-        public string AccountId { get; set; }
-        public string DisplayName { get; set; }
+
+        // Giữ nguyên Entity gốc để xử lý logic nghiệp vụ
+        public Account Account { get; private set; }
+
+        public string AccountId => Account.Id;
+        public string DisplayName => Account.Username;
 
         // Danh sách các Tab (Dashboard, Approve...) của tài khoản này
         public ObservableCollection<WebViewTabModel> Tabs { get; set; } = new ObservableCollection<WebViewTabModel>();
@@ -19,13 +23,14 @@ namespace PRERP_TESTER.ViewModels
             set { _selectedTab = value; OnPropertyChanged(); }
         }
 
-        public AccountViewModel(string id, string name, string hexColor)
+        public AccountViewModel(Account _account)
         {
-            AccountId = id;
-            DisplayName = name;
-            // Khởi tạo một tab mặc định
-            Tabs.Add(new WebViewTabModel { Header = "Dashboard", Url = "about:blank" });
-            SelectedTab = Tabs[0];
+            this.Account = _account;
+            // Khởi tạo các Tab dựa trên dữ liệu lưu trữ trong Entity
+            foreach (var tabInfo in _account.SavedTabs)
+            {
+                Tabs.Add(new WebViewTabModel { Header = tabInfo.Title, Url = tabInfo.Url });
+            }
         }
     }
 

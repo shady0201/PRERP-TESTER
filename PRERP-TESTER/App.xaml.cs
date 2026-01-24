@@ -1,4 +1,7 @@
-﻿using System.Configuration;
+﻿using PRERP_TESTER.Services;
+using PRERP_TESTER.ViewModels;
+using PRERP_TESTER.Views;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
@@ -9,5 +12,18 @@ namespace PRERP_TESTER;
 /// </summary>
 public partial class App : Application
 {
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+
+        var webViewService = new WebViewService();
+
+        // Truyền Service vào bộ não MainViewModel
+        var mainVM = new MainViewModel(webViewService);
+
+        var shell = new PRERP_TESTER.Views.ShellWindow();
+        shell.DataContext = mainVM;
+        shell.Show();
+    }
 }
 

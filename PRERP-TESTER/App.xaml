@@ -1,13 +1,16 @@
 ﻿<Application x:Class="PRERP_TESTER.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:PRERP_TESTER"
-             StartupUri="Views/ShellWindow.xaml">
+             xmlns:local="clr-namespace:PRERP_TESTER">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Templates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type vm:ModuleViewModel}">
+                <views:ModuleView />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

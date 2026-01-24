@@ -1,24 +1,24 @@
-﻿using System.Collections.ObjectModel;
-using PRERP_TESTER.Services;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
-using PRERP_TESTER.Views.Pages;
-using System.Reflection;
 using PRERP_TESTER.Models;
+using PRERP_TESTER.Services; // Namespace chứa WebViewService
 
 namespace PRERP_TESTER.ViewModels
 {
     public class ModuleViewModel : ViewModelBase
     {
         private readonly WebViewService _webViewService;
-        private readonly ModuleEntity _moduleEntity;
 
-        public string DisplayName => _moduleEntity.Name;
+        // Entity gốc: ModuleEntity
+        public ModuleEntity ModuleEntity { get; }
 
-        // Danh sách Account hiển thị trên giao diện
+        // Danh sách các Account tham gia Module này
         public ObservableCollection<AccountViewModel> Accounts { get; set; }
-        public ObservableCollection<TestCase> TestCases => _moduleEntity.TestCases;
 
+        // Account đang được chọn trên giao diện
         private AccountViewModel _selectedAccount;
         public AccountViewModel SelectedAccount
         {
@@ -28,32 +28,51 @@ namespace PRERP_TESTER.ViewModels
 
         public ICommand OpenAllCommand { get; }
 
-        public ModuleViewModel(WebViewService webService, ModuleEntity entity, List<Account> allAccounts)
+        // Constructor
+        public ModuleViewModel(WebViewService webViewService, ModuleEntity moduleData, List<Account> allSystemAccounts)
         {
-            _webViewService = webService;
-            _moduleEntity = entity;
+            _webViewService = webViewService;
+            ModuleEntity = moduleData;
+            Accounts = new ObservableCollection<AccountViewModel>();
 
-            // Lọc ra các Account thuộc về Module này từ danh sách tổng
-            var relevantAccounts = allAccounts.Where(a => _moduleEntity.AssignedAccountIds.Contains(a.Id));
+            // Load dữ liệu từ ModuleEntity.AccountTabs
+            LoadAccountsFromEntity(allSystemAccounts);
 
-            foreach (var acc in relevantAccounts)
+            // Chọn account đầu tiên mặc định nếu có
+            SelectedAccount = Accounts.FirstOrDefault();
+
+            // Command cho nút "Open All"
+            OpenAllCommand = new RelayCommand(ExecuteOpenAll);
+        }
+
+        private void LoadAccountsFromEntity(List<Account> allAccounts)
+        {
+            if (ModuleEntity.AccountTabs == null) return;
+
+            foreach (var accTabConfig in ModuleEntity.AccountTabs)
             {
-                Accounts.Add(new AccountViewModel(acc));
+                // Tìm thông tin Account gốc dựa vào AccountId
+                var accInfo = allAccounts.FirstOrDefault(a => a.Id == accTabConfig.AccountId);
+
+                if (accInfo != null)
+                {
+                    // Tạo ViewModel kết hợp
+                    var accVM = new AccountViewModel(accInfo, accTabConfig);
+                    Accounts.Add(accVM);
+                }
             }
         }
 
-        private void LoadMockData()
+        // Logic khi nhấn nút "Open All"
+        private async void ExecuteOpenAll()
         {
-            
-        }
-
-        private async Task ExecuteOpenAll()
-        {
-            foreach (var acc in Accounts)
+            foreach (var accVM in Accounts)
             {
-                // Gọi Service để lấy Environment chung cho Account ID này
-                var env = await _webViewService.GetEnvironmentAsync(acc.AccountId);
-                // Logic tiếp theo: Khởi tạo các WebView control cho từng Tab
+                // Gọi WebViewService để chuẩn bị Environment (Session) cho AccountId này
+                await _webViewService.GetEnvironmentAsync(accVM.AccountId);
+
+                // Sau đó khởi tạo WebView cho từng Tab (Logic chi tiết sẽ nằm ở WebViewService)
+                // Ví dụ: await _webViewService.InitializeTabsForAccount(accVM);
             }
         }
     }

@@ -1,51 +1,38 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Media;
-using PRERP_TESTER.Models; // Giả sử bạn có AccountModel trong này
+using PRERP_TESTER.Models;
 
 namespace PRERP_TESTER.ViewModels
 {
     public class AccountViewModel : ViewModelBase
     {
+        // 1. Thông tin định danh (Từ class Account)
+        public Account AccountInfo { get; }
 
-        // Giữ nguyên Entity gốc để xử lý logic nghiệp vụ
-        public Account Account { get; private set; }
+        // 2. Cấu hình Tab của account này trong Module (Từ class AccountTab)
+        public AccountTab AccountTabConfig { get; }
 
-        public string AccountId => Account.Id;
-        public string DisplayName => Account.Username;
+        // 3. Danh sách Tab hiển thị lên giao diện
+        public ObservableCollection<TabViewModel> Tabs { get; set; }
 
-        // Danh sách các Tab (Dashboard, Approve...) của tài khoản này
-        public ObservableCollection<WebViewTabModel> Tabs { get; set; } = new ObservableCollection<WebViewTabModel>();
-
-        private WebViewTabModel _selectedTab;
-        public WebViewTabModel SelectedTab
+        public AccountViewModel(Account account, AccountTab accountTabConfig)
         {
-            get => _selectedTab;
-            set { _selectedTab = value; OnPropertyChanged(); }
-        }
+            AccountInfo = account;
+            AccountTabConfig = accountTabConfig;
+            Tabs = new ObservableCollection<TabViewModel>();
 
-        public AccountViewModel(Account _account)
-        {
-            this.Account = _account;
-            // Khởi tạo các Tab dựa trên dữ liệu lưu trữ trong Entity
-            foreach (var tabInfo in _account.SavedTabs)
+            // Load danh sách TabWebItems từ AccountTab vào ViewModel
+            if (AccountTabConfig.TabWebItems != null)
             {
-                Tabs.Add(new WebViewTabModel { Header = tabInfo.Title, Url = tabInfo.Url });
+                foreach (var tabWeb in AccountTabConfig.TabWebItems)
+                {
+                    Tabs.Add(new TabViewModel(tabWeb));
+                }
             }
         }
-    }
 
-    // Model đơn giản cho mỗi Tab bên trong Account
-    public class WebViewTabModel : ViewModelBase
-    {
-        public string Header { get; set; }
-        public string Url { get; set; }
-
-        // Quan trọng: Giữ instance WebView2 để không bị load lại
-        private object _webViewInstance;
-        public object WebViewInstance
-        {
-            get => _webViewInstance;
-            set { _webViewInstance = value; OnPropertyChanged(); }
-        }
+        // Binding Properties
+        public string DisplayName => AccountInfo.DisplayName; // Dùng DisplayName như trong model của bạn
+        public string RoleName => AccountInfo.Role?.Name ?? "N/A";
+        public string AccountId => AccountInfo.Id;
     }
 }

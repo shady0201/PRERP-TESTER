@@ -12,7 +12,7 @@ namespace PRERP_TESTER.Models
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
 
-        
+        public AccountTab[] accountTabs { get; set; } = [];
 
     }
 }

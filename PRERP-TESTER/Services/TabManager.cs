@@ -20,11 +20,11 @@ namespace PRERP_TESTER.Services
         public string ModuleId { get; set; } = "";
         public string AccountId { get; set; } = "";
 
-        public ObservableCollection<TabState> Tabs { get; } = new();
+        public ObservableCollection<TabWebItem> Tabs { get; } = new();
         private readonly Dictionary<string, TabRuntime> _runtime = new();
 
         [ObservableProperty]
-        private TabState? selectedTab;
+        private TabWebItem? selectedTab;
 
         public TabManager(SessionManager sessions, JsonStorageService storage, Action<object?> setHostContent)
         {
@@ -35,9 +35,9 @@ namespace PRERP_TESTER.Services
 
         private string StorageFileName => $"tabs_{ModuleId}__{AccountId}.json";
 
-        public TabState OpenTab(string? url = null, string? title = null)
+        public TabWebItem OpenTab(string? url = null, string? title = null)
         {
-            var tab = new TabState
+            var tab = new TabWebItem
             {
                 AccountId = AccountId,
                 ModuleId = ModuleId,
@@ -54,7 +54,7 @@ namespace PRERP_TESTER.Services
             return tab;
         }
 
-        public async Task ActivateTabAsync(TabState tab)
+        public async Task ActivateTabAsync(TabWebItem tab)
         {
             SelectedTab = tab;
             tab.LastActiveUtc = DateTime.UtcNow;
@@ -93,7 +93,7 @@ namespace PRERP_TESTER.Services
             _setHostContent(rt.WebView);
         }
 
-        public void CloseTab(TabState tab)
+        public void CloseTab(TabWebItem tab)
         {
             if (!_runtime.TryGetValue(tab.Id, out var rt)) return;
 
@@ -120,7 +120,7 @@ namespace PRERP_TESTER.Services
             Tabs.Clear();
             _runtime.Clear();
 
-            var list = await _storage.LoadAsync<List<TabState>>(StorageFileName) ?? new();
+            var list = await _storage.LoadAsync<List<TabWebItem>>(StorageFileName) ?? new();
 
             foreach (var t in list)
             {

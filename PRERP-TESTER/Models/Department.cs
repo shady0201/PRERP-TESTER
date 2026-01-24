@@ -11,6 +11,6 @@ namespace PRERP_TESTER.Models
         public int Id { get; set; }
         public string Name { get; set; } = "";
 
-        public PositionJob[] PositionJobs { get; set; } = Array.Empty<PositionJob>();
+        public PositionJob[] PositionJobs { get; set; } = [];
     }
 }

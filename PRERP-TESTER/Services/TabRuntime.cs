@@ -10,12 +10,12 @@ namespace PRERP_TESTER.Services
 {
     public sealed class TabRuntime
     {
-        public TabState State { get; }
+        public TabWebItem State { get; }
         public WebView2? WebView { get; private set; }
 
         public bool IsWebViewCreated => WebView is not null;
 
-        public TabRuntime(TabState state) => State = state;
+        public TabRuntime(TabWebItem state) => State = state;
 
         public void AttachWebView(WebView2 wv) => WebView = wv;
 

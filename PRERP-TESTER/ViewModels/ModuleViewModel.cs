@@ -17,9 +17,11 @@ namespace PRERP_TESTER.ViewModels
         public ObservableCollection<AccountViewModel> Accounts { get; set; }
 
         // Account đang được chọn trên giao diện
-        private AccountViewModel SelectedAccount;
+        public AccountViewModel SelectedAccount { get; set; }
 
         public ICommand OpenAllCommand { get; }
+
+        public string Name => ModuleEntity.Name;
 
         // Constructor
         public ModuleViewModel(WebViewService webViewService, ModuleEntity module, List<Account> allSystemAccounts)

@@ -14,12 +14,16 @@ namespace PRERP_TESTER.ViewModels
 {
     public class MainViewModel
     {
+        // service
         private readonly WebViewService _webViewService;
+           
+        // data
         private List<Account> Accounts;
         public ObservableCollection<ModuleViewModel> Modules { get; set; }
+        public ModuleViewModel CurrentModule { get; set; }
 
-        // Module đang được chọn để hiển thị
-        private ModuleViewModel CurrentModule;
+        // settings
+        public bool IsDarkMode { get; set; } = false;
 
         // command
         public ICommand CreateModuleCommand { get; }

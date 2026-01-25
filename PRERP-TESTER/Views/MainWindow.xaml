@@ -6,69 +6,48 @@
         Title="PRERP TESTER - Automation System" 
         Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
-    
-    
 
-    <Grid Background="{DynamicResource SecondaryBackground}">
+
+
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="260"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="201.575"/>
+            <ColumnDefinition Width="58.425"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="533*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Background="#2D2D30" BorderBrush="#1E1E1E" BorderThickness="0,0,1,0">
+        <Border Grid.Column="0" Background="White" BorderBrush="#FFCCCCCC" BorderThickness="0,0,1,0" Grid.ColumnSpan="2">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="24*"/>
+                    <ColumnDefinition Width="235*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0">
+                <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.RowSpan="2">
                     <TextBlock Text="PRERP TESTER" Foreground="White" FontSize="20" FontWeight="Bold"/>
-                    <TextBlock Text="V 1.0.0" Foreground="#888" FontSize="10"/>
                 </StackPanel>
 
                 <ListBox Grid.Row="1" 
                          ItemsSource="{Binding Modules}" 
                          SelectedItem="{Binding CurrentModule}"
                          Background="Transparent" BorderThickness="0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="ListBoxItem">
-                                        <Border x:Name="ItemBorder" Background="Transparent" Padding="15,12" Margin="5,2" CornerRadius="5">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Path x:Name="Icon" Data="M3,4H7V8H3V4M9,4H13V8H9V4M15,4H19V8H15V4M3,10H7V14H3V10M9,10H13V14H9V10M15,10H19V14H15V10M3,16H7V20H3V16M9,16H13V20H9V16M15,16H19V20H15V16Z" 
-                                                      Fill="#66FFFFFF" Stretch="Uniform" Width="16" Height="16" Margin="0,0,12,0"/>
-                                                <ContentPresenter VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter TargetName="ItemBorder" Property="Background" Value="#3E3E42"/>
-                                                <Setter TargetName="Icon" Property="Fill" Value="#3794FF"/>
-                                                <Setter Property="Foreground" Value="White"/>
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="ItemBorder" Property="Background" Value="#333337"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Foreground" Value="#CCCCCC"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.ColumnSpan="2" Margin="0,0,0,57" Grid.RowSpan="2">
+
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding ModuleEntity.Name}" FontSize="14" FontWeight="SemiBold"/>
+                            <ContentControl Content="{Binding}"
+                                            ContentTemplate="{StaticResource MenuItem}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <StackPanel Grid.Row="2" Background="#252526">
+                <StackPanel Grid.Row="2" Background="White" Grid.ColumnSpan="2">
                     <CheckBox Content="Dark Mode" 
                               IsChecked="{Binding IsDarkMode}" 
                               Foreground="White" Margin="0,0,0,10"/>
@@ -86,7 +65,7 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="2" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>

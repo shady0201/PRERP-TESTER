@@ -60,7 +60,7 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <!-- Chevron phải -->
+            <!-- phải -->
             <TextBlock Grid.Column="2"
 						VerticalAlignment="Center"
 						HorizontalAlignment="Center"

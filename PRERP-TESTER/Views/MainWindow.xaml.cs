@@ -21,8 +21,7 @@ namespace PRERP_TESTER.Views
     {
         public MainWindow()
         {
-            var mainVM = new MainViewModel();
-            DataContext = mainVM;
+            DataContext = new MainViewModel();
             InitializeComponent();
         }
     }

@@ -7,8 +7,6 @@
         Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
 
-    
-
     <Grid Background="{DynamicResource SecondaryBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"/>
@@ -73,7 +71,7 @@
                               IsChecked="{Binding IsDarkMode}" 
                               Foreground="White" Margin="0,0,0,10"/>
                     <Button Content="+ Create Module" 
-                            Command="{Binding CreateModuleCommand}"
+                            Command="{Binding ExecuteCreateModule}"
                             Background="#3794FF" Foreground="White" 
                             Padding="10,8" BorderThickness="0">
                         <Button.Resources>
@@ -103,6 +101,10 @@
                             Content="{Binding CurrentModule}" 
                             HorizontalContentAlignment="Stretch" 
                             VerticalContentAlignment="Stretch"/>
+            <ContentControl Grid.Row="1" 
+                Content="{Binding CurrentModule}" 
+                HorizontalContentAlignment="Stretch" 
+                VerticalContentAlignment="Stretch"/>
         </Grid>
     </Grid>
 </Window>

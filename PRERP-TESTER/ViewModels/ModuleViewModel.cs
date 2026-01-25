@@ -38,10 +38,8 @@ namespace PRERP_TESTER.ViewModels
             // Load dữ liệu từ ModuleEntity.AccountTabs
             LoadAccountsFromEntity(allSystemAccounts);
 
-            // Chọn account đầu tiên mặc định nếu có
             SelectedAccount = Accounts.FirstOrDefault();
 
-            // Command cho nút "Open All"
             OpenAllCommand = new RelayCommand(ExecuteOpenAll);
         }
 
@@ -63,7 +61,6 @@ namespace PRERP_TESTER.ViewModels
             }
         }
 
-        // Logic khi nhấn nút "Open All"
         private async void ExecuteOpenAll()
         {
             foreach (var accVM in Accounts)

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
+using System.Xml.Linq;
 using CommunityToolkit.Mvvm.Input;
 using PRERP_TESTER.Models;
 using PRERP_TESTER.Services;
+using PRERP_TESTER.Views.Dialogs;
 
 namespace PRERP_TESTER.ViewModels
 {
@@ -43,6 +46,26 @@ namespace PRERP_TESTER.ViewModels
 
             // Command tạo module mới (nếu cần)
             CreateModuleCommand = new RelayCommand(CreateDemoModule);
+        }
+
+        private void ExecuteCreateModule()
+        {
+            var dialog = new AddModuleDialog { Owner = Application.Current.MainWindow };
+
+            if (dialog.ShowDialog() == true)
+            {
+               // Khởi tạo Entity chuẩn theo classes.txt 
+                var newEntity = new ModuleEntity
+                {
+                    Name = dialog.ResultName,
+                    AccountTabs = []
+                };
+
+                // Tạo ViewModel và tự động Focus
+                var moduleVM = new ModuleViewModel(_webViewService, newEntity, _allSystemAccounts);
+                ActiveModules.Add(moduleVM);
+                CurrentModule = moduleVM;
+            }
         }
 
         private void LoadMockSystemAccounts()

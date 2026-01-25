@@ -14,10 +14,10 @@ namespace PRERP_TESTER.ViewModels
 
         public ModuleEntity ModuleEntity { get; }
 
-        public ObservableCollection<AccountViewModel> Accounts { get; set; }
+        public ObservableCollection<AccountViewModel> ModuleAccounts { get; set; }
 
-        // Account đang được chọn trên giao diện
-        public AccountViewModel SelectedAccount { get; set; }
+        // AccountID đang được chọn trên giao diện
+        public AccountViewModel SelectedAccountModule { get; set; }
 
         public ICommand OpenAllCommand { get; }
 
@@ -28,37 +28,38 @@ namespace PRERP_TESTER.ViewModels
         {
             _webViewService = webViewService;
             ModuleEntity = module;
-            Accounts = new ObservableCollection<AccountViewModel>();
+            
+            ModuleAccounts = new ObservableCollection<AccountViewModel>();
 
-            // Load dữ liệu từ ModuleEntity.AccountTabs
+            // Load dữ liệu từ ModuleEntity.Tabs
             LoadAccountsFromEntity(allSystemAccounts);
 
-            SelectedAccount = Accounts.FirstOrDefault();
+            SelectedAccountModule = ModuleAccounts.FirstOrDefault();
 
             OpenAllCommand = new RelayCommand(ExecuteOpenAll);
         }
 
         private void LoadAccountsFromEntity(List<Account> allAccounts)
         {
-            if (ModuleEntity.AccountTabs == null) return;
+            if (ModuleEntity.AccountModule == null) return;
 
-            foreach (var accTabConfig in ModuleEntity.AccountTabs)
+            foreach (var tabs in ModuleEntity.AccountModule)
             {
-                // Tìm thông tin Account gốc dựa vào AccountId
-                var accInfo = allAccounts.FirstOrDefault(a => a.Id == accTabConfig.AccountId);
+                // Tìm thông tin AccountID gốc dựa vào AccountId
+                var account = allAccounts.FirstOrDefault(a => a.Id == tabs.AccountID);
 
-                if (accInfo != null)
+                if (account != null)
                 {
                     // Tạo ViewModel kết hợp
-                    var accVM = new AccountViewModel(accInfo, accTabConfig);
-                    Accounts.Add(accVM);
+                    var accVM = new AccountViewModel(account, tabs);
+                    ModuleAccounts.Add(accVM);
                 }
             }
         }
 
         private async void ExecuteOpenAll()
         {
-            foreach (var accVM in Accounts)
+            foreach (var accVM in ModuleAccounts)
             {
                 // Gọi WebViewService để chuẩn bị Environment (Session) cho AccountId này
                 await _webViewService.GetEnvironmentAsync(accVM.AccountId);

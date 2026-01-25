@@ -6,29 +6,24 @@ namespace PRERP_TESTER.ViewModels
     public class AccountViewModel
     {
         public Account Account { get; }
-        public AccountTab AccountTabs { get; }
-        public ObservableCollection<TabViewModel> Tabs { get; set; }
+        public AccountModule AccountModule { get; }
 
-        public AccountViewModel(Account account, AccountTab accountTabs)
+        public TabWeb SelectTab { get; set; }
+        public ObservableCollection<TabWeb> Tabs { get; set; }
+
+        public AccountViewModel(Account account, AccountModule accountModule)
         {
             Account = account;
-            AccountTabs = accountTabs;
-            Tabs = new ObservableCollection<TabViewModel>();
-
-            // Load danh sách TabWebItems từ AccountTabs vào ViewModel
-            if (AccountTabs.TabWebItems != null)
-            {
-                foreach (var tabWeb in AccountTabs.TabWebItems)
-                {
-                    Tabs.Add(new TabViewModel(tabWeb));
-                }
-            }
+            AccountModule = accountModule;
+            Tabs = [.. accountModule.TabWebItems];
+            SelectTab = accountModule.TabWebItems.FirstOrDefault();
         }
 
         // Binding Properties
         public string DisplayName => Account.DisplayName;
         public string RoleName => Account.Role?.Name ?? "N/A";
         public string AccountId => Account.Id;
+
 
     }
 }

@@ -50,7 +50,7 @@ namespace PRERP_TESTER.ViewModels
                 var newEntity = new ModuleEntity
                 {
                     Name = dialog.ResultName,
-                    AccountTabs = []
+                    AccountModule = []
                 };
 
                 // Tạo ViewModel và tự động Focus
@@ -61,7 +61,7 @@ namespace PRERP_TESTER.ViewModels
 
         private void LoadMockSystemAccounts()
         {
-            // Dựa trên class Account trong file classes.txt
+            // Dựa trên class AccountID trong file classes.txt
             Accounts =
             [
                 new Account
@@ -96,22 +96,22 @@ namespace PRERP_TESTER.ViewModels
                 {
                     Name = $"Module Test {Modules.Count + 1}",
                     Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
-                    AccountTabs = new AccountTab[]
+                    AccountModule = new AccountModule[]
                     {
-                        // Cấu hình cho Account Admin
-                        new AccountTab
+                        // Cấu hình cho AccountID Admin
+                        new AccountModule
                         {
-                            AccountId = "acc_admin", // Phải khớp với Id trong Accounts
+                            AccountID = "acc_admin", // Phải khớp với Id trong ModuleAccounts
                             TabWebItems = new TabWeb[] // Danh sách TabWeb (Title, Url)
                             {
                                 new TabWeb { Title = "Q.Lý Hệ Thống", Url = "https://google.com" },
                                 new TabWeb { Title = "Logs", Url = "https://bing.com" }
                             }
                         },
-                        // Cấu hình cho Account Teacher
-                        new AccountTab
+                        // Cấu hình cho AccountID Teacher
+                        new AccountModule
                         {
-                            AccountId = "acc_teacher",
+                            AccountID = "acc_teacher",
                             TabWebItems = new TabWeb[]
                             {
                                 new TabWeb { Title = "Chấm điểm", Url = "https://stackoverflow.com" }

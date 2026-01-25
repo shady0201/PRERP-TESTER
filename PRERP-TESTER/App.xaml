@@ -5,12 +5,14 @@
              xmlns:vm="clr-namespace:PRERP_TESTER.ViewModels"
              xmlns:views="clr-namespace:PRERP_TESTER.Views">
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/MenuItem.xaml"/>
                 <ResourceDictionary Source="Resources/ModuleAccounts.xaml"/>
+                <ResourceDictionary Source="Resources/WebTab.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
+            
             <DataTemplate DataType="{x:Type vm:ModuleViewModel}">
                 <views:ModuleView />
             </DataTemplate>

@@ -15,7 +15,7 @@ namespace PRERP_TESTER.Services
         // Cache account path
         private readonly string _baseDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "UserSessions");
 
-        // Lấy hoặc tạo mới CoreWebView2Environment theo Account ID
+        // Lấy hoặc tạo mới CoreWebView2Environment theo AccountID ID
         public async Task<CoreWebView2Environment> GetEnvironmentAsync(string accountId)
         {
             if (_environments.ContainsKey(accountId))

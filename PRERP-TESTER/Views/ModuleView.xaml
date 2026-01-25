@@ -29,7 +29,7 @@
                     BorderThickness="0.5,0.5"
                     CornerRadius="4">
             <StackPanel Orientation="Horizontal">
-                <ListBox ItemsSource="{Binding Accounts}"
+                <ListBox ItemsSource="{Binding ModuleAccounts}"
                          SelectedItem="{Binding SelectedAccount}"
                          ItemContainerStyle="{StaticResource AccountTabItemStyle}"
                          Background="Transparent"
@@ -48,26 +48,13 @@
             </StackPanel>
         </Border>
 
-        <TabControl Grid.Row="2" 
-                    ItemsSource="{Binding Accounts}" 
-                    SelectedItem="{Binding SelectedAccount}"
+            <TabControl Grid.Row="2"
+                    ItemsSource="{Binding SelectedAccountModule.Tabs}"
+                    SelectedItem="{Binding SelectedAccountModule.SelectTab}"
+                    ItemTemplate="{StaticResource WebTabHeaderTemplate}"
+                    ContentTemplate="{StaticResource WebTabContentTemplate}"
                     BorderThickness="0" Background="Transparent">
-
-            <TabControl.ItemContainerStyle>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                </Style>
-            </TabControl.ItemContainerStyle>
-
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <wv2:WebView2 Source="https://google.com.vn"
-                                      Margin="10" />
-                    </Grid>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </TabControl>
+            </TabControl>
     </Grid>
     </Border>
 </UserControl>

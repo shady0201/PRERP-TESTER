@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 // Dùng trong ModuleItem.cs
 namespace PRERP_TESTER.Models
 {
-    public class AccountTab
+    public class AccountModule
     {
-        public string AccountId { get; set; } = "";
+        public string AccountID { get; set; }
         public TabWeb[] TabWebItems { get; set; } = [];
     }
 }

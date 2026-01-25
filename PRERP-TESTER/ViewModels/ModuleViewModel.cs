@@ -22,10 +22,10 @@ namespace PRERP_TESTER.ViewModels
         public ICommand OpenAllCommand { get; }
 
         // Constructor
-        public ModuleViewModel(WebViewService webViewService, ModuleEntity moduleData, List<Account> allSystemAccounts)
+        public ModuleViewModel(WebViewService webViewService, ModuleEntity module, List<Account> allSystemAccounts)
         {
             _webViewService = webViewService;
-            ModuleEntity = moduleData;
+            ModuleEntity = module;
             Accounts = new ObservableCollection<AccountViewModel>();
 
             // Load dữ liệu từ ModuleEntity.AccountTabs

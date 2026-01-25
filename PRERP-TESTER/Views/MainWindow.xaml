@@ -29,7 +29,7 @@
                 </StackPanel>
 
                 <ListBox Grid.Row="1" 
-                         ItemsSource="{Binding ActiveModules}" 
+                         ItemsSource="{Binding Modules}" 
                          SelectedItem="{Binding CurrentModule}"
                          Background="Transparent" BorderThickness="0"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">

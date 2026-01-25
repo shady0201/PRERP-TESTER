@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 
 namespace PRERP_TESTER.Views
 {
-    /// <summary>
-    /// Interaction logic for ModuleView.xaml
-    /// </summary>
+
     public partial class ModuleView : UserControl
     {
         public ModuleView()
         {
             InitializeComponent();
         }
+
     }
 }

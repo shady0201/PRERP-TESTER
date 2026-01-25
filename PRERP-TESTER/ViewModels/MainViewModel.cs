@@ -26,16 +26,13 @@ namespace PRERP_TESTER.ViewModels
 
         public MainViewModel()
         {
-            // 1. Khởi tạo Service (Dùng chung cho cả App)
             _webViewService = new WebViewService();
             Modules = new ObservableCollection<ModuleViewModel>();
 
-            // 2. Load dữ liệu giả lập (System Accounts)
-            // 3. Tự động tạo một Module mẫu khi mở App
             LoadMockSystemAccounts();
             CreateDemoModule();
 
-            // Command tạo module mới
+            // Command list
             CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
         }
 
@@ -55,15 +52,14 @@ namespace PRERP_TESTER.ViewModels
                 // Tạo ViewModel và tự động Focus
                 var moduleVM = new ModuleViewModel(_webViewService, newEntity, Accounts);
                 Modules.Add(moduleVM);
-                CurrentModule = moduleVM;
             }
         }
 
         private void LoadMockSystemAccounts()
         {
             // Dựa trên class Account trong file classes.txt
-            Accounts = new List<Account>
-            {
+            Accounts =
+            [
                 new Account
                 {
                     Id = "acc_admin",
@@ -85,19 +81,16 @@ namespace PRERP_TESTER.ViewModels
                     DisplayName = "Trần Mỹ Linh",
                     Role = new Role { Name = "Student" }
                 }
-            };
+            ];
         }
 
         private void CreateDemoModule()
         {
-            // --- TẠO MOCK DATA ĐÚNG CẤU TRÚC ENTITY ---
 
-            // Bước 1: Tạo ModuleEntity
             var moduleEntity = new ModuleEntity
             {
                 Name = $"Module Test {Modules.Count + 1}",
                 Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
-                // Bước 2: Tạo mảng AccountTabs (Cấu hình Account tham gia Module)
                 AccountTabs = new AccountTab[]
                 {
                     // Cấu hình cho Account Admin
@@ -121,12 +114,8 @@ namespace PRERP_TESTER.ViewModels
                     }
                 }
             };
-
-            // Bước 3: Khởi tạo ModuleViewModel
-            // Truyền vào: Service, Entity vừa tạo, và Danh sách Account tổng để lookup tên
             var moduleVM = new ModuleViewModel(_webViewService, moduleEntity, Accounts);
 
-            // Bước 4: Đưa vào danh sách hiển thị
             Modules.Add(moduleVM);
             CurrentModule = moduleVM;
         }

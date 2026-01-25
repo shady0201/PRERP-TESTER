@@ -6,6 +6,7 @@
         Title="PRERP TESTER - Automation System" 
         Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
+    
 
     <Grid Background="{DynamicResource SecondaryBackground}">
         <Grid.ColumnDefinitions>

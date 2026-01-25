@@ -12,40 +12,31 @@ using PRERP_TESTER.Views.Dialogs;
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel
     {
         private readonly WebViewService _webViewService;
-
-        // Giả lập Database chứa toàn bộ Account của hệ thống
-        private List<Account> _allSystemAccounts;
-
-        // Danh sách các Module đang mở
-        public ObservableCollection<ModuleViewModel> ActiveModules { get; set; }
+        private List<Account> Accounts;
+        public ObservableCollection<ModuleViewModel> Modules { get; set; }
 
         // Module đang được chọn để hiển thị
-        private ModuleViewModel _currentModule;
-        public ModuleViewModel CurrentModule
-        {
-            get => _currentModule;
-            set => SetProperty(ref _currentModule, value);
-        }
+        private ModuleViewModel CurrentModule;
 
+        // command
         public ICommand CreateModuleCommand { get; }
 
         public MainViewModel()
         {
             // 1. Khởi tạo Service (Dùng chung cho cả App)
             _webViewService = new WebViewService();
-            ActiveModules = new ObservableCollection<ModuleViewModel>();
+            Modules = new ObservableCollection<ModuleViewModel>();
 
             // 2. Load dữ liệu giả lập (System Accounts)
-            LoadMockSystemAccounts();
-
             // 3. Tự động tạo một Module mẫu khi mở App
+            LoadMockSystemAccounts();
             CreateDemoModule();
 
-            // Command tạo module mới (nếu cần)
-            CreateModuleCommand = new RelayCommand(CreateDemoModule);
+            // Command tạo module mới
+            CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
         }
 
         private void ExecuteCreateModule()
@@ -62,8 +53,8 @@ namespace PRERP_TESTER.ViewModels
                 };
 
                 // Tạo ViewModel và tự động Focus
-                var moduleVM = new ModuleViewModel(_webViewService, newEntity, _allSystemAccounts);
-                ActiveModules.Add(moduleVM);
+                var moduleVM = new ModuleViewModel(_webViewService, newEntity, Accounts);
+                Modules.Add(moduleVM);
                 CurrentModule = moduleVM;
             }
         }
@@ -71,7 +62,7 @@ namespace PRERP_TESTER.ViewModels
         private void LoadMockSystemAccounts()
         {
             // Dựa trên class Account trong file classes.txt
-            _allSystemAccounts = new List<Account>
+            Accounts = new List<Account>
             {
                 new Account
                 {
@@ -104,7 +95,7 @@ namespace PRERP_TESTER.ViewModels
             // Bước 1: Tạo ModuleEntity
             var moduleEntity = new ModuleEntity
             {
-                Name = $"Module Test {ActiveModules.Count + 1}",
+                Name = $"Module Test {Modules.Count + 1}",
                 Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
                 // Bước 2: Tạo mảng AccountTabs (Cấu hình Account tham gia Module)
                 AccountTabs = new AccountTab[]
@@ -112,7 +103,7 @@ namespace PRERP_TESTER.ViewModels
                     // Cấu hình cho Account Admin
                     new AccountTab
                     {
-                        AccountId = "acc_admin", // Phải khớp với Id trong _allSystemAccounts
+                        AccountId = "acc_admin", // Phải khớp với Id trong Accounts
                         TabWebItems = new TabWeb[] // Danh sách TabWeb (Title, Url)
                         {
                             new TabWeb { Title = "Q.Lý Hệ Thống", Url = "https://google.com" },
@@ -133,10 +124,10 @@ namespace PRERP_TESTER.ViewModels
 
             // Bước 3: Khởi tạo ModuleViewModel
             // Truyền vào: Service, Entity vừa tạo, và Danh sách Account tổng để lookup tên
-            var moduleVM = new ModuleViewModel(_webViewService, moduleEntity, _allSystemAccounts);
+            var moduleVM = new ModuleViewModel(_webViewService, moduleEntity, Accounts);
 
             // Bước 4: Đưa vào danh sách hiển thị
-            ActiveModules.Add(moduleVM);
+            Modules.Add(moduleVM);
             CurrentModule = moduleVM;
         }
     }

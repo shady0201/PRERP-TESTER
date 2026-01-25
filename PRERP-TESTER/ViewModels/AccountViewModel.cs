@@ -3,27 +3,22 @@ using PRERP_TESTER.Models;
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class AccountViewModel : ViewModelBase
+    public class AccountViewModel
     {
-        // 1. Thông tin định danh (Từ class Account)
-        public Account AccountInfo { get; }
-
-        // 2. Cấu hình Tab của account này trong Module (Từ class AccountTab)
-        public AccountTab AccountTabConfig { get; }
-
-        // 3. Danh sách Tab hiển thị lên giao diện
+        public Account Account { get; }
+        public AccountTab AccountTabs { get; }
         public ObservableCollection<TabViewModel> Tabs { get; set; }
 
-        public AccountViewModel(Account account, AccountTab accountTabConfig)
+        public AccountViewModel(Account account, AccountTab accountTabs)
         {
-            AccountInfo = account;
-            AccountTabConfig = accountTabConfig;
+            Account = account;
+            AccountTabs = accountTabs;
             Tabs = new ObservableCollection<TabViewModel>();
 
-            // Load danh sách TabWebItems từ AccountTab vào ViewModel
-            if (AccountTabConfig.TabWebItems != null)
+            // Load danh sách TabWebItems từ AccountTabs vào ViewModel
+            if (AccountTabs.TabWebItems != null)
             {
-                foreach (var tabWeb in AccountTabConfig.TabWebItems)
+                foreach (var tabWeb in AccountTabs.TabWebItems)
                 {
                     Tabs.Add(new TabViewModel(tabWeb));
                 }
@@ -31,8 +26,9 @@ namespace PRERP_TESTER.ViewModels
         }
 
         // Binding Properties
-        public string DisplayName => AccountInfo.DisplayName; // Dùng DisplayName như trong model của bạn
-        public string RoleName => AccountInfo.Role?.Name ?? "N/A";
-        public string AccountId => AccountInfo.Id;
+        public string DisplayName => Account.DisplayName;
+        public string RoleName => Account.Role?.Name ?? "N/A";
+        public string AccountId => Account.Id;
+
     }
 }

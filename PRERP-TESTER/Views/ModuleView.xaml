@@ -1,7 +1,11 @@
-﻿<UserControl x:Class="PRERP_TESTER.Views.ModuleView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf">
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+            xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="av"
+            x:Class="PRERP_TESTER.Views.ModuleView"
+            av:DesignHeight="290.913" av:DesignWidth="642.208"> 
 
     <Grid Background="#F4F7F9">
         <Grid.RowDefinitions>
@@ -13,13 +17,12 @@
         <Border Grid.Row="0" Padding="20,15" Background="White">
             <StackPanel>
                 <TextBlock Text="Workspace" FontSize="18" FontWeight="Bold" Foreground="#333"/>
-                <TextBlock Text="Chọn module -> Chọn tài khoản -> Tabs" Foreground="#888" FontSize="12"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="1" Background="White" BorderBrush="#EEE" BorderThickness="0,1">
             <StackPanel Orientation="Horizontal" Margin="15,5">
-                <ListBox ItemsSource="{Binding Accounts}" 
+                <ListBox ItemsSource="{Binding Accounts}"
                          SelectedItem="{Binding SelectedAccount}"
                          ItemContainerStyle="{StaticResource AccountTabItemStyle}"
                          Background="Transparent" BorderThickness="0">
@@ -34,8 +37,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
-                <Button Content="+ Add account" Margin="10,0" Padding="10,2" 
+                <Button Content="+ Add account" Padding="10,2" 
                         Background="Transparent" BorderBrush="#DDD" BorderThickness="1"/>
             </StackPanel>
         </Border>
@@ -46,7 +48,7 @@
                     BorderThickness="0" Background="Transparent">
 
             <TabControl.ItemContainerStyle>
-                <Style TargetType="TabItem">
+                <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </Style>
             </TabControl.ItemContainerStyle>
@@ -54,7 +56,7 @@
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <Grid>
-                        <wv2:WebView2 Source="{Binding CurrentUrl}" 
+                        <wv2:WebView2 Source="https://google.com.vn"
                                       Margin="10" />
                     </Grid>
                 </DataTemplate>

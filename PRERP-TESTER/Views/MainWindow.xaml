@@ -1,4 +1,4 @@
-﻿<Window x:Class="PRERP_TESTER.Views.ShellWindow"
+﻿<Window x:Class="PRERP_TESTER.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:PRERP_TESTER.ViewModels"
@@ -6,6 +6,7 @@
         Title="PRERP TESTER - Automation System" 
         Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
+    
     
 
     <Grid Background="{DynamicResource SecondaryBackground}">
@@ -62,7 +63,7 @@
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding DisplayName}" FontSize="14" FontWeight="SemiBold"/>
+                            <TextBlock Text="{Binding ModuleEntity.Name}" FontSize="14" FontWeight="SemiBold"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -72,7 +73,7 @@
                               IsChecked="{Binding IsDarkMode}" 
                               Foreground="White" Margin="0,0,0,10"/>
                     <Button Content="+ Create Module" 
-                            Command="{Binding ExecuteCreateModule}"
+                            Command="{Binding CreateModuleCommand}"
                             Background="#3794FF" Foreground="White" 
                             Padding="10,8" BorderThickness="0">
                         <Button.Resources>
@@ -91,19 +92,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" Height="40" Background="White" BorderBrush="#EEE" BorderThickness="0,0,0,1">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
-                    <TextBlock Text="System Ready" VerticalAlignment="Center" Foreground="Green" FontSize="11" Margin="0,0,10,0"/>
-                    <Ellipse Width="8" Height="8" Fill="Green" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Border>
-
             <ContentControl Grid.Row="1" 
-                            Content="{Binding CurrentModule}" 
-                            HorizontalContentAlignment="Stretch" 
-                            VerticalContentAlignment="Stretch"/>
-            <ContentControl Grid.Row="1" 
-                Content="{Binding CurrentModule}" 
+                Content="{Binding CurrentModule}"
                 HorizontalContentAlignment="Stretch" 
                 VerticalContentAlignment="Stretch"/>
         </Grid>

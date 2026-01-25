@@ -16,11 +16,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        // Truyền Service vào bộ não MainViewModel
-        var mainVM = new MainViewModel();
-
-        var shell = new ShellWindow();
-        shell.DataContext = mainVM;
+        var shell = new MainWindow();
         shell.Show();
     }
 }

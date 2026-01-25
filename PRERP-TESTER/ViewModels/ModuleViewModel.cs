@@ -8,23 +8,16 @@ using PRERP_TESTER.Services; // Namespace chứa WebViewService
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class ModuleViewModel : ViewModelBase
+    public class ModuleViewModel
     {
         private readonly WebViewService _webViewService;
 
-        // Entity gốc: ModuleEntity
         public ModuleEntity ModuleEntity { get; }
 
-        // Danh sách các Account tham gia Module này
         public ObservableCollection<AccountViewModel> Accounts { get; set; }
 
         // Account đang được chọn trên giao diện
-        private AccountViewModel _selectedAccount;
-        public AccountViewModel SelectedAccount
-        {
-            get => _selectedAccount;
-            set => SetProperty(ref _selectedAccount, value);
-        }
+        private AccountViewModel SelectedAccount;
 
         public ICommand OpenAllCommand { get; }
 

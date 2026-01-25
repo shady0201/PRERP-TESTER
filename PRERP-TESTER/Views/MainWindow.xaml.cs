@@ -17,13 +17,12 @@ using PRERP_TESTER.Models;
 
 namespace PRERP_TESTER.Views
 {
-    /// <summary>
-    /// Interaction logic for ShellWindow.xaml
-    /// </summary>
-    public partial class ShellWindow : Window
+    public partial class MainWindow : Window
     {
-        public ShellWindow()
+        public MainWindow()
         {
+            var mainVM = new MainViewModel();
+            DataContext = mainVM;
             InitializeComponent();
         }
     }

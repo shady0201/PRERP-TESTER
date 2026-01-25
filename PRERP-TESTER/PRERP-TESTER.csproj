@@ -22,7 +22,7 @@
     <Page Update="Resources\LightMode.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Resources\Style.xaml">
+    <Page Update="Resources\ModuleAccounts.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

@@ -90,38 +90,40 @@ namespace PRERP_TESTER.ViewModels
 
         private void CreateDemoModule()
         {
-
-            var moduleEntity = new ModuleEntity
+            for (int i = 0; i < 10; i++)
             {
-                Name = $"Module Test {Modules.Count + 1}",
-                Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
-                AccountTabs = new AccountTab[]
+                var moduleEntity = new ModuleEntity
                 {
-                    // Cấu hình cho Account Admin
-                    new AccountTab
+                    Name = $"Module Test {Modules.Count + 1}",
+                    Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
+                    AccountTabs = new AccountTab[]
                     {
-                        AccountId = "acc_admin", // Phải khớp với Id trong Accounts
-                        TabWebItems = new TabWeb[] // Danh sách TabWeb (Title, Url)
+                        // Cấu hình cho Account Admin
+                        new AccountTab
                         {
-                            new TabWeb { Title = "Q.Lý Hệ Thống", Url = "https://google.com" },
-                            new TabWeb { Title = "Logs", Url = "https://bing.com" }
-                        }
-                    },
-                    // Cấu hình cho Account Teacher
-                    new AccountTab
-                    {
-                        AccountId = "acc_teacher",
-                        TabWebItems = new TabWeb[]
+                            AccountId = "acc_admin", // Phải khớp với Id trong Accounts
+                            TabWebItems = new TabWeb[] // Danh sách TabWeb (Title, Url)
+                            {
+                                new TabWeb { Title = "Q.Lý Hệ Thống", Url = "https://google.com" },
+                                new TabWeb { Title = "Logs", Url = "https://bing.com" }
+                            }
+                        },
+                        // Cấu hình cho Account Teacher
+                        new AccountTab
                         {
-                            new TabWeb { Title = "Chấm điểm", Url = "https://stackoverflow.com" }
+                            AccountId = "acc_teacher",
+                            TabWebItems = new TabWeb[]
+                            {
+                                new TabWeb { Title = "Chấm điểm", Url = "https://stackoverflow.com" }
+                            }
                         }
                     }
-                }
-            };
-            var moduleVM = new ModuleViewModel(_webViewService, moduleEntity, Accounts);
+                };
+                var moduleVM = new ModuleViewModel(_webViewService, moduleEntity, Accounts);
 
-            Modules.Add(moduleVM);
-            CurrentModule = moduleVM;
+                Modules.Add(moduleVM);
+            }
+            CurrentModule = Modules.FirstOrDefault();
         }
     }
 }

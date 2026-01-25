@@ -6,38 +6,33 @@
         Title="PRERP TESTER - Automation System" 
         Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
-
-
-
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="201.575"/>
-            <ColumnDefinition Width="58.425"/>
-            <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="533*"/>
+            <ColumnDefinition Width="201"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <Border Grid.Column="0" Background="White" BorderBrush="#FFCCCCCC" BorderThickness="0,0,1,0" Grid.ColumnSpan="2">
+        <!-- Menu Left -->
+        <Border Grid.Column="0" Background="White" BorderBrush="#FFCCCCCC" BorderThickness="0,0,1,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="24*"/>
                     <ColumnDefinition Width="235*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-
-                <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Grid.RowSpan="2">
-                    <TextBlock Text="PRERP TESTER" Foreground="White" FontSize="20" FontWeight="Bold"/>
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="PRERP TESTER" Foreground="#FF868686" FontSize="20" FontWeight="Bold"/>
                 </StackPanel>
-
-                <ListBox Grid.Row="1" 
-                         ItemsSource="{Binding Modules}" 
-                         SelectedItem="{Binding CurrentModule}"
-                         Background="Transparent" BorderThickness="0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.ColumnSpan="2" Margin="0,0,0,57" Grid.RowSpan="2">
+                <ListBox Grid.Row="1"
+                        ItemsSource="{Binding Modules}" 
+                        SelectedItem="{Binding CurrentModule}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        Padding="5,0,5,0"
+                        VerticalAlignment="Stretch">
 
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -46,35 +41,19 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
-                <StackPanel Grid.Row="2" Background="White" Grid.ColumnSpan="2">
-                    <CheckBox Content="Dark Mode" 
-                              IsChecked="{Binding IsDarkMode}" 
-                              Foreground="White" Margin="0,0,0,10"/>
-                    <Button Content="+ Create Module" 
-                            Command="{Binding CreateModuleCommand}"
-                            Background="#3794FF" Foreground="White" 
-                            Padding="10,8" BorderThickness="0">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="4"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
-                </StackPanel>
             </Grid>
         </Border>
-
-        <Grid Grid.Column="2" Grid.ColumnSpan="2">
+        
+        <!-- Content Right -->
+        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <ContentControl Grid.Row="1" 
-                Content="{Binding CurrentModule}"
-                HorizontalContentAlignment="Stretch" 
-                VerticalContentAlignment="Stretch"/>
+            <ContentControl Grid.Row="1"
+                        HorizontalContentAlignment="Stretch" 
+                        VerticalContentAlignment="Stretch"
+                        Content="{Binding CurrentModule}"/>
         </Grid>
     </Grid>
 </Window>

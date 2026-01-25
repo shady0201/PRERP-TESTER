@@ -23,8 +23,7 @@
             </StackPanel>
         </Border>
 
-            <Border Grid.Row="1" 
-                    Height="25px"
+            <Border Grid.Row="1"
                     Background="#F2F0F3"
                     BorderBrush="#FFC5C5C5"
                     BorderThickness="0.5,0.5"
@@ -33,7 +32,8 @@
                 <ListBox ItemsSource="{Binding Accounts}"
                          SelectedItem="{Binding SelectedAccount}"
                          ItemContainerStyle="{StaticResource AccountTabItemStyle}"
-                         Background="Transparent" BorderThickness="0">
+                         Background="Transparent"
+                         BorderThickness="0">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -41,8 +41,8 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding DisplayName}" Foreground="White" FontWeight="Medium"/>
-                        </DataTemplate>
+                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
+                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>

@@ -8,7 +8,7 @@ using PRERP_TESTER.Views.Dialogs;
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : LazyLoadViewModel
     {
         // service
         private readonly WebViewService _webViewService;

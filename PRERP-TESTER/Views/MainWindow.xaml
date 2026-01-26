@@ -24,6 +24,7 @@
                 <StackPanel Grid.Row="0">
                     <TextBlock Text="PRERP TESTER" Foreground="#FF353535" FontSize="11" FontWeight="SemiBold"/>
                 </StackPanel>
+                
                 <ListBox Grid.Row="1"
                         ItemsSource="{Binding Modules}"
                         SelectedItem="{Binding CurrentModule}"

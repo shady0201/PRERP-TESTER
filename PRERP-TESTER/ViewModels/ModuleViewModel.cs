@@ -17,10 +17,11 @@ namespace PRERP_TESTER.ViewModels
         public ObservableCollection<AccountViewModel> ModuleAccounts { get; set; }
 
         // AccountID đang được chọn trên giao diện
-        public AccountViewModel SelectedAccountModule { get; set; }
+        public AccountViewModel? SelectedAccountModule { get; set; }
 
         public ICommand OpenAllCommand { get; }
 
+        // Tempalte menuitem
         public string Name => ModuleEntity.Name;
 
         // Constructor

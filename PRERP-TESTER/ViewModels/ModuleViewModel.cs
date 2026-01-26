@@ -8,7 +8,7 @@ using PRERP_TESTER.Services;
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class ModuleViewModel : BaseViewModel
+    public class ModuleViewModel : LazyLoadViewModel
     {
         private readonly WebViewService _webViewService;
 

@@ -16,7 +16,34 @@ namespace PRERP_TESTER.ViewModels
         // data
         private List<Account>? Accounts;
         public ObservableCollection<ModuleViewModel> Modules { get; set; }
-        public ModuleViewModel? CurrentModule { get; set; }
+
+        private ModuleViewModel? _selectedModule;
+        public ModuleViewModel? SelectedModule
+        {   get => _selectedModule;
+            set {
+                if (SetProperty(ref _selectedModule, value))
+                {
+                    ActivateItem(Modules,value);
+                }
+            }
+        }
+
+        public static void ActivateItem(IEnumerable<LazyLoadViewModel> list, LazyLoadViewModel? selectedItem)
+        {
+            if (selectedItem == null || list == null) return;
+
+            foreach (var vm in list)
+            {
+                // So sánh trực tiếp các đối tượng ViewModel
+                vm.IsVisible = (vm == selectedItem);
+
+                if (vm.IsVisible && !vm.IsLoaded)
+                {
+                    vm.IsLoaded = true;
+                }
+            }
+        }
+
 
         // settings
         public bool IsDarkMode { get; set; } = false;
@@ -118,7 +145,7 @@ namespace PRERP_TESTER.ViewModels
 
                 Modules.Add(moduleVM);
             }
-            CurrentModule = Modules.FirstOrDefault();
+            SelectedModule = Modules.FirstOrDefault();
         }
     }
 }

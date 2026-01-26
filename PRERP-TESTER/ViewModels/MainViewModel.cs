@@ -15,6 +15,7 @@ namespace PRERP_TESTER.ViewModels
            
         // data
         private List<Account>? Accounts;
+
         public ObservableCollection<ModuleViewModel> Modules { get; set; }
 
         private ModuleViewModel? _selectedModule;
@@ -34,7 +35,6 @@ namespace PRERP_TESTER.ViewModels
 
             foreach (var vm in list)
             {
-                // So sánh trực tiếp các đối tượng ViewModel
                 vm.IsVisible = (vm == selectedItem);
 
                 if (vm.IsVisible && !vm.IsLoaded)

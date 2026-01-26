@@ -47,14 +47,14 @@
                 </ListBox>
             </StackPanel>
         </Border>
-
-            <TabControl Grid.Row="2"
-                    ItemsSource="{Binding SelectedAccountModule.Tabs}"
-                    SelectedItem="{Binding SelectedAccountModule.SelectTab}"
-                    ItemTemplate="{StaticResource WebTabHeaderTemplate}"
-                    ContentTemplate="{StaticResource WebTabContentTemplate}"
-                    BorderThickness="0" Background="Transparent">
-            </TabControl>
+        
+        <TabControl Grid.Row="2"
+                ItemsSource="{Binding SelectedAccountModule.Tabs}"
+                SelectedItem="{Binding SelectedAccountModule.SelectTab}"
+                ItemTemplate="{StaticResource WebTabHeaderTemplate}"
+                ContentTemplate="{StaticResource WebTabContentTemplate}"
+                BorderThickness="0" Background="Transparent">
+        </TabControl>
     </Grid>
     </Border>
 </UserControl>

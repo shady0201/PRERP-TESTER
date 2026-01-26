@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using System.Xml.Linq;
 using CommunityToolkit.Mvvm.Input;
 using PRERP_TESTER.Models;
 using PRERP_TESTER.Services;
@@ -96,15 +92,15 @@ namespace PRERP_TESTER.ViewModels
                 {
                     Name = $"Module Test {Modules.Count + 1}",
                     Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
-                    AccountModule = new AccountModule[]
-                    {
+                    AccountModule =
+                    [
                         // Cấu hình cho AccountID Admin
                         new() {
                             AccountID = "acc_admin", // Phải khớp với Id trong ModuleAccounts
                             TabWebItems = new TabWeb[] // Danh sách TabWeb (Title, Url)
                             {
-                                new TabWeb { Title = "Q.Lý Hệ Thống", Url = "https://google.com" },
-                                new TabWeb { Title = "Logs", Url = "https://bing.com" }
+                                new() { Title = "Q.Lý Hệ Thống", Url = "https://google.com" },
+                                new() { Title = "Logs", Url = "https://bing.com" }
                             }
                         },
                         // Cấu hình cho AccountID Teacher
@@ -113,10 +109,10 @@ namespace PRERP_TESTER.ViewModels
                             AccountID = "acc_teacher",
                             TabWebItems = new TabWeb[]
                             {
-                                new TabWeb { Title = "Chấm điểm", Url = "https://stackoverflow.com" }
+                                new() { Title = "Chấm điểm", Url = "https://stackoverflow.com" }
                             }
                         }
-                    }
+                    ]
                 };
                 var moduleVM = new ModuleViewModel(_webViewService, moduleEntity, Accounts);
 

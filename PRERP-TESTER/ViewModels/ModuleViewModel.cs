@@ -8,7 +8,7 @@ using PRERP_TESTER.Services; // Namespace chứa WebViewService
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class ModuleViewModel
+    public class ModuleViewModel : BaseViewModel
     {
         private readonly WebViewService _webViewService;
 

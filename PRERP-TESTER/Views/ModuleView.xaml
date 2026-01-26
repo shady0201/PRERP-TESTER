@@ -19,7 +19,7 @@
 
         <Border Grid.Row="0" Margin="0,0,0,4">
             <StackPanel>
-                <TextBlock Text="Module Name" FontSize="18" FontWeight="Bold" Foreground="#333"/>
+                    <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="#333"/>
             </StackPanel>
         </Border>
 
@@ -30,7 +30,7 @@
                     CornerRadius="4">
             <StackPanel Orientation="Horizontal">
                 <ListBox ItemsSource="{Binding ModuleAccounts}"
-                         SelectedItem="{Binding SelectedAccount}"
+                         SelectedItem="{Binding SelectedAccountModule}"
                          ItemContainerStyle="{StaticResource AccountTabItemStyle}"
                          Background="Transparent"
                          BorderThickness="0">

@@ -3,7 +3,7 @@ using PRERP_TESTER.Models;
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class AccountViewModel
+    public class AccountViewModel : BaseViewModel
     {
         public Account Account { get; }
         public AccountModule AccountModule { get; }

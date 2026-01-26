@@ -2,7 +2,7 @@
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class TabViewModel
+    public class TabViewModel : BaseViewModel
     {
         public TabWeb TabData { get; }
 

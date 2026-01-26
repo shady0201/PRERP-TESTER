@@ -12,15 +12,15 @@ using PRERP_TESTER.Views.Dialogs;
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
         // service
         private readonly WebViewService _webViewService;
            
         // data
-        private List<Account> Accounts;
+        private List<Account>? Accounts;
         public ObservableCollection<ModuleViewModel> Modules { get; set; }
-        public ModuleViewModel CurrentModule { get; set; }
+        public ModuleViewModel? CurrentModule { get; set; }
 
         // settings
         public bool IsDarkMode { get; set; } = false;
@@ -99,8 +99,7 @@ namespace PRERP_TESTER.ViewModels
                     AccountModule = new AccountModule[]
                     {
                         // Cấu hình cho AccountID Admin
-                        new AccountModule
-                        {
+                        new() {
                             AccountID = "acc_admin", // Phải khớp với Id trong ModuleAccounts
                             TabWebItems = new TabWeb[] // Danh sách TabWeb (Title, Url)
                             {

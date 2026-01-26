@@ -25,7 +25,7 @@
                     <TextBlock Text="PRERP TESTER" Foreground="#FF353535" FontSize="11" FontWeight="SemiBold"/>
                 </StackPanel>
                 <ListBox Grid.Row="1"
-                        ItemsSource="{Binding Modules}" 
+                        ItemsSource="{Binding Modules}"
                         SelectedItem="{Binding CurrentModule}"
                         ItemContainerStyle="{StaticResource MenuItemStyle}"
                         Background="Transparent"
@@ -44,17 +44,18 @@
                 </ListBox>
             </Grid>
         </Border>
-        
+
         <!-- Content Right -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="187*"/>
+                <RowDefinition Height="565*"/>
             </Grid.RowDefinitions>
             <ContentControl Grid.Row="1"
                         HorizontalContentAlignment="Stretch" 
                         VerticalContentAlignment="Stretch"
-                        Content="{Binding CurrentModule}"/>
+                        Content="{Binding CurrentModule}" Grid.RowSpan="2"/>
         </Grid>
     </Grid>
 </Window>

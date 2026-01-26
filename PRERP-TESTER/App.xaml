@@ -16,7 +16,8 @@
             <DataTemplate DataType="{x:Type vm:ModuleViewModel}">
                 <views:ModuleView />
             </DataTemplate>
-            
+        
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

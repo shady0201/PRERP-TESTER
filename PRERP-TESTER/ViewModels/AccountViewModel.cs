@@ -8,15 +8,15 @@ namespace PRERP_TESTER.ViewModels
         public Account Account { get; }
         public AccountModule AccountModule { get; }
 
-        public TabWeb SelectTab { get; set; }
-        public ObservableCollection<TabWeb> Tabs { get; set; }
+        public TabViewModel SelectTab { get; set; }
+        public ObservableCollection<TabViewModel> TabViewModels { get; set; }
 
         public AccountViewModel(Account account, AccountModule accountModule)
         {
             Account = account;
             AccountModule = accountModule;
-            Tabs = [.. accountModule.TabWebItems];
-            SelectTab = accountModule.TabWebItems.FirstOrDefault();
+            TabViewModels = accountModule.TabWebItems != null ? [.. accountModule.TabWebItems.Select(tab => new TabViewModel(tab))] : [];
+            SelectTab = TabViewModels.FirstOrDefault();
         }
 
         // Binding Properties

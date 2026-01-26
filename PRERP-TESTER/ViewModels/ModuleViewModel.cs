@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using PRERP_TESTER.Models;
@@ -65,6 +66,14 @@ namespace PRERP_TESTER.ViewModels
 
                 // Sau đó khởi tạo WebView cho từng Tab (Logic chi tiết sẽ nằm ở WebViewService)
                 // Ví dụ: await _webViewService.InitializeTabsForAccount(accVM);
+            }
+        }
+
+        public void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is TabViewModel tab)
+            {
+                tab.IsLoaded = true;
             }
         }
     }

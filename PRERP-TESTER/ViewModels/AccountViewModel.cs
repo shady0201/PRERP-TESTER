@@ -6,16 +6,14 @@ namespace PRERP_TESTER.ViewModels
     public class AccountViewModel : LazyLoadViewModel
     {
         public Account Account { get; }
-        public AccountModule AccountModule { get; }
 
-        public TabViewModel SelectTab { get; set; }
         public ObservableCollection<TabViewModel> TabViewModels { get; set; }
+        public TabViewModel SelectTab { get; set; }
 
-        public AccountViewModel(Account account, AccountModule accountModule)
+        public AccountViewModel(Account account, ObservableCollection<TabViewModel> tabViewModels)
         {
             Account = account;
-            AccountModule = accountModule;
-            TabViewModels = accountModule.TabWebItems != null ? [.. accountModule.TabWebItems.Select(tab => new TabViewModel(tab))] : [];
+            TabViewModels = tabViewModels;
             SelectTab = TabViewModels.FirstOrDefault();
         }
 

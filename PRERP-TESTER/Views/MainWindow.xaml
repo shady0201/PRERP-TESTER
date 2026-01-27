@@ -51,9 +51,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="187*"/>
-                <RowDefinition Height="565*"/>
             </Grid.RowDefinitions>
-            <ContentControl Grid.Row="1"
+            <ContentControl Grid.Row="0"
                         HorizontalContentAlignment="Stretch" 
                         VerticalContentAlignment="Stretch"
                         Content="{Binding SelectedModule}" Grid.RowSpan="2"/>

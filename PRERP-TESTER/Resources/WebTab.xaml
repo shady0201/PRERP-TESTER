@@ -14,8 +14,6 @@
             <TextBlock Text="Loadding..." VerticalAlignment="Center"/>
         </StackPanel>
     </DataTemplate>
-    
-    
 
     <DataTemplate x:Key="WebTabContentTemplate">
         <Grid>

@@ -73,7 +73,7 @@ namespace PRERP_TESTER.ViewModels
                 var newEntity = new ModuleEntity
                 {
                     Name = dialog.ResultName,
-                    AccountModule = []
+                    AccountModules = []
                 };
 
                 // Tạo ViewModel và tự động Focus
@@ -119,7 +119,7 @@ namespace PRERP_TESTER.ViewModels
                 {
                     Name = $"Module Test {Modules.Count + 1}",
                     Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
-                    AccountModule =
+                    AccountModules =
                     [
                         // Cấu hình cho AccountID Admin
                         new() {

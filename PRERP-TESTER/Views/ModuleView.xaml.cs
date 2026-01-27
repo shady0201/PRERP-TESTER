@@ -23,18 +23,6 @@ namespace PRERP_TESTER.Views
         {
             InitializeComponent();
         }
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Lấy ViewModel từ DataContext
-            if (this.DataContext is ModuleViewModel vm)
-            {
-                // Gọi hàm xử lý logic lazy load
-                if (e.AddedItems.Count > 0 && e.AddedItems[0] is TabViewModel selectedTab)
-                {
-                    selectedTab.IsLoaded = true;
-                }
-            }
-        }
     }
 
-    }
+}

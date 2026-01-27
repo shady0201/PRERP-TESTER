@@ -15,7 +15,7 @@ namespace PRERP_TESTER.ViewModels
 
         public ModuleEntity ModuleEntity { get; }
 
-        public ObservableCollection<AccountViewModel> ModuleAccounts { get; set; }
+        public ObservableCollection<AccountViewModel> ModuleAccounts { get; set; } = [];
 
         public AccountViewModel? SelectedAccountModule { get; set; }
 
@@ -28,33 +28,25 @@ namespace PRERP_TESTER.ViewModels
         {
             _webViewService = webViewService;
             ModuleEntity = module;
-            
-            ModuleAccounts = new ObservableCollection<AccountViewModel>();
 
-            // Load dữ liệu từ ModuleEntity.Tabs
-            LoadAccountsFromEntity(allSystemAccounts);
+            for (int i = 0; i < module.AccountModules.Length; i++)
+            {
+                var account = allSystemAccounts.Find(a => a.Id == module.AccountModules[i].AccountID);
+                if (account != null)
+                {
+                    ObservableCollection<TabViewModel> tabs = [];
+                    foreach (var tab in module.AccountModules[i].TabWebItems)
+                    {
+                        tabs.Add(new TabViewModel(tab));
+                    }
+                    var accountVM = new AccountViewModel(account, tabs);
+                    ModuleAccounts.Add(accountVM);
+                }
+            }
 
             SelectedAccountModule = ModuleAccounts.FirstOrDefault();
 
             OpenAllCommand = new RelayCommand(ExecuteOpenAll);
-        }
-
-        private void LoadAccountsFromEntity(List<Account> allAccounts)
-        {
-            if (ModuleEntity.AccountModule == null) return;
-
-            foreach (var tabs in ModuleEntity.AccountModule)
-            {
-                // Tìm thông tin AccountID gốc dựa vào AccountId
-                var account = allAccounts.FirstOrDefault(a => a.Id == tabs.AccountID);
-
-                if (account != null)
-                {
-                    // Tạo ViewModel kết hợp
-                    var accVM = new AccountViewModel(account, tabs);
-                    ModuleAccounts.Add(accVM);
-                }
-            }
         }
 
         private async void ExecuteOpenAll()

@@ -44,10 +44,6 @@ namespace PRERP_TESTER.ViewModels
             }
         }
 
-
-        // settings
-        public bool IsDarkMode { get; set; } = false;
-
         // command
         public ICommand CreateModuleCommand { get; }
 

@@ -9,7 +9,7 @@ namespace PRERP_TESTER.ViewModels
         public string ModuleID { get; set; }
 
         public ObservableCollection<TabViewModel> TabViewModels { get; set; } = [];
-        public TabViewModel SelectedTab { get; set; }
+        public TabViewModel? SelectedTab { get; set; }
 
         public AccountViewModel(Account account,string moduleID, TabWeb[] tabWebs)
         {
@@ -22,19 +22,6 @@ namespace PRERP_TESTER.ViewModels
             }
 
             SelectedTab = TabViewModels.FirstOrDefault();
-        }
-
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set
-            {
-                if (SetProperty(ref _isSelected, value) && value)
-                {
-                    IsLoaded = true;
-                }
-            }
         }
 
         // Binding Properties

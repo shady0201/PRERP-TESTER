@@ -6,9 +6,6 @@
             mc:Ignorable="av"
             x:Class="PRERP_TESTER.Views.ModuleView"
             av:DesignHeight="290.913" av:DesignWidth="642.208">
-    <!-- button 
-        <Button Content="+ Add account" Padding="10,2" Background="Transparent" BorderBrush="#DDD" BorderThickness="1"/>
-    -->
 
     <Border Padding="6" Background="#EEECF0">
         <Grid>
@@ -32,7 +29,11 @@
                     Margin="0,0,0,5">
                 
                 <Border.Effect>
-                    <DropShadowEffect Color="#FFCECECE" Direction="0" ShadowDepth="0" Opacity="0.3" BlurRadius="6"/>
+                    <DropShadowEffect Color="#FFCECECE" 
+                                      Direction="0" 
+                                      ShadowDepth="0"
+                                      Opacity="0.3"
+                                      BlurRadius="6"/>
                 </Border.Effect>
                 
                 <StackPanel Orientation="Horizontal">
@@ -54,12 +55,39 @@
                     </ListBox>
                 </StackPanel>
             </Border>
-            
-            <ContentControl Grid.Row="2"
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch"
-                Content="{Binding SelectedAccountModule}" Grid.RowSpan="2"/>
 
+            <ItemsControl ItemsSource="{Binding ModuleAccounts}" Grid.Row="2">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Visibility="{Binding IsSelected, Converter={StaticResource BoolToVis}}">
+                            <ContentControl Content="{Binding}">
+                                <ContentControl.Style>
+                                    <Style TargetType="ContentControl">
+                                        <Setter Property="ContentTemplate" Value="{x:Null}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsLoaded}" Value="True">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <ContentPresenter Content="{Binding}" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Border>
 </UserControl>

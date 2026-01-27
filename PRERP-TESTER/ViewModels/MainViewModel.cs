@@ -16,7 +16,7 @@ namespace PRERP_TESTER.ViewModels
         // data
         private List<Account>? Accounts;
 
-        public ObservableCollection<ModuleViewModel> Modules { get; set; }
+        public ObservableCollection<ModuleViewModel> Modules { get; set; } = [];
 
         private ModuleViewModel? _selectedModule;
         public ModuleViewModel? SelectedModule
@@ -54,7 +54,6 @@ namespace PRERP_TESTER.ViewModels
         public MainViewModel()
         {
             _webViewService = new WebViewService();
-            Modules = new ObservableCollection<ModuleViewModel>();
 
             LoadMockSystemAccounts();
             CreateDemoModule();
@@ -91,29 +90,22 @@ namespace PRERP_TESTER.ViewModels
                 {
                     Id = "acc_admin",
                     Username = "admin_user",
-                    DisplayName = "Administrator",
+                    DisplayName = "Trưởng phòng",
                     Role = new Role { Name = "Admin" }
                 },
                 new Account
                 {
                     Id = "acc_teacher",
                     Username = "teacher_ha",
-                    DisplayName = "Nguyễn Văn Hà",
+                    DisplayName = "Giảng viên 1",
                     Role = new Role { Name = "Teacher" }
-                },
-                 new Account
-                {
-                    Id = "acc_student",
-                    Username = "student_linh",
-                    DisplayName = "Trần Mỹ Linh",
-                    Role = new Role { Name = "Student" }
                 }
             ];
         }
 
         private void CreateDemoModule()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 var moduleEntity = new ModuleEntity
                 {
@@ -121,23 +113,23 @@ namespace PRERP_TESTER.ViewModels
                     Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
                     AccountModules =
                     [
-                        // Cấu hình cho AccountID Admin
                         new() {
-                            AccountID = "acc_admin", // Phải khớp với Id trong ModuleAccounts
-                            TabWebItems = new TabWeb[] // Danh sách TabWeb (Title, Url)
-                            {
+                            AccountID = "acc_admin",
+                            TabWebItems =
+                            [
                                 new() { Title = "Q.Lý Hệ Thống", Url = "https://google.com" },
-                                new() { Title = "Logs", Url = "https://bing.com" }
-                            }
+                                new() { Title = "Prerp", Url = "https://prerp.bmtu.edu.vn/landingpage?lang=vi" }
+                            ]
                         },
                         // Cấu hình cho AccountID Teacher
                         new AccountModule
                         {
                             AccountID = "acc_teacher",
-                            TabWebItems = new TabWeb[]
-                            {
-                                new() { Title = "Chấm điểm", Url = "https://stackoverflow.com" }
-                            }
+                            TabWebItems =
+                            [
+                                new() { Title = "Chấm điểm", Url = "https://stackoverflow.com" },
+                                new() { Title = "Trang duyệt", Url = "https://youtube.com" },
+                            ]
                         }
                     ]
                 };

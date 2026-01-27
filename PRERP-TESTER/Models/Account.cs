@@ -13,7 +13,7 @@ namespace PRERP_TESTER.Models
         public string Username { get; set; } = "";
         public string Password { get; set; } = "";
         public string DisplayName { get; set; } = "";
-        public Role? Role { get; set; }
+        public Role? Role { get; set; } // dùng để làm gì?
 
         public string session { get; set; } = "";
 

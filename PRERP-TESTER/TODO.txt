@@ -1,6 +1,5 @@
-﻿- Quản lý tabs:
- + Load tab
- + Show/Hide tab
+﻿- Cập nhật lại select module
+
 - Service:
  + WebViewService : Quản lý CoreWebView2Environment theo account ID
 - Tự động dọn dẹp (Dispose) các WebView khi đóng ứng dụng để giải phóng RAM.

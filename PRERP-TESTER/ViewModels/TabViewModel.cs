@@ -1,35 +1,24 @@
-﻿using PRERP_TESTER.Models; // Namespace chứa các entity của bạn
+﻿using PRERP_TESTER.Models;
+using System.Web; // Namespace chứa các entity của bạn
 
 namespace PRERP_TESTER.ViewModels
 {
     public class TabViewModel : LazyLoadViewModel
     {
-
+        public string AccountID { get; set; }
+        public string ModuleID { get; set; }
         public TabWeb TabData { get; }
 
         public string Url => TabData.Url;
         public string Title => TabData.Title;
 
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set
-            {
-                if (SetProperty(ref _isSelected, value) && value)
-                {
-                    // Tự động set IsLoaded = true ngay khi tab được chọn lần đầu
-                    IsLoaded = true;
-                }
-            }
-        }
-
-        public TabViewModel(TabWeb tabWeb)
+        public TabViewModel(TabWeb tabWeb, string accountID, string moduleID)
         {
             TabData = tabWeb;
             IsLoaded = false;
+            AccountID = accountID;
+            ModuleID = moduleID;
         }
-
 
     }
 }

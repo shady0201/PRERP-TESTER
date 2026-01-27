@@ -23,5 +23,18 @@ namespace PRERP_TESTER.ViewModels
             get => _isVisible;
             set => SetProperty(ref _isVisible, value);
         }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (SetProperty(ref _isSelected, value) && value)
+                {
+                    IsLoaded = true;
+                }
+            }
+        }
     }
 }

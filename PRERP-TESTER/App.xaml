@@ -9,12 +9,16 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/MenuItem.xaml"/>
-                <ResourceDictionary Source="Resources/ModuleAccounts.xaml"/>
+                <ResourceDictionary Source="Resources/ModuleAccountsList.xaml"/>
                 <ResourceDictionary Source="Resources/WebTab.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
             <DataTemplate DataType="{x:Type vm:ModuleViewModel}">
                 <views:ModuleView />
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type vm:AccountViewModel}">
+                <views:AccountView />
             </DataTemplate>
         
             <BooleanToVisibilityConverter x:Key="BoolToVis" />

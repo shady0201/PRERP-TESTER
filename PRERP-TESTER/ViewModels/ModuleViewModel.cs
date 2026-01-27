@@ -34,12 +34,7 @@ namespace PRERP_TESTER.ViewModels
                 var account = allSystemAccounts.Find(a => a.Id == module.AccountModules[i].AccountID);
                 if (account != null)
                 {
-                    ObservableCollection<TabViewModel> tabs = [];
-                    foreach (var tab in module.AccountModules[i].TabWebItems)
-                    {
-                        tabs.Add(new TabViewModel(tab));
-                    }
-                    var accountVM = new AccountViewModel(account, tabs);
+                    var accountVM = new AccountViewModel(account,module.Id, module.AccountModules[i].TabWebItems);
                     ModuleAccounts.Add(accountVM);
                 }
             }

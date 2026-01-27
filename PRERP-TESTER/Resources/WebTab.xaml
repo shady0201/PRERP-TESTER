@@ -2,18 +2,47 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf">
 
-    <DataTemplate x:Key="WebTabHeaderTemplate">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="👤" Margin="0,0,5,0"/>
-            <TextBlock Text="{Binding Title}" VerticalAlignment="Center"/>
-        </StackPanel>
-    </DataTemplate>
+    <Style x:Key="TabWebHeaderStyle" TargetType="ListBoxItem">
+        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+        <Setter Property="Background" Value="#f0f0f0"/>
+        <Setter Property="BorderBrush" Value="#ccc"/>
+        <Setter Property="BorderThickness" Value="1,1,1,0"/>
+        <Setter Property="Padding" Value="15,5"/>
 
-    <DataTemplate x:Key="EmptyTemplate">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Loadding..." VerticalAlignment="Center"/>
-        </StackPanel>
-    </DataTemplate>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border x:Name="border" 
+                                Background="Transparent"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0,0,0,0"
+                                CornerRadius="0,0,0,0"
+                                Padding="5,5,10,5"
+                                Margin="0,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="SFT" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="#FF2A6FDE" FontWeight="Bold" FontSize="10"/>
+                            <TextBlock Text="{Binding Title}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                            <Setter TargetName="border" Property="CornerRadius" Value="4,0,0,0"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#FFFBFBFB"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="White"/>
+                            <Setter TargetName="border" Property="BorderThickness" Value="0,0,0,2"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF3579D4"/>
+                            <Setter Property="Panel.ZIndex" Value="1"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <DataTemplate x:Key="WebTabContentTemplate">
         <Grid>
@@ -37,5 +66,12 @@
             </ContentControl>
         </Grid>
     </DataTemplate>
-    
+
+    <DataTemplate x:Key="EmptyTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Loadding..." VerticalAlignment="Center"/>
+        </StackPanel>
+    </DataTemplate>
+
+
 </ResourceDictionary>

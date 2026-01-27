@@ -9,8 +9,8 @@
     <!-- button 
         <Button Content="+ Add account" Padding="10,2" Background="Transparent" BorderBrush="#DDD" BorderThickness="1"/>
     -->
-    
-    <Border Padding="6" Background="#E5E4E8">
+
+    <Border Padding="6" Background="#EEECF0">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -23,12 +23,18 @@
                     <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="#333"/>
                 </StackPanel>
             </Border>
-
+             <!-- Account List-->
             <Border Grid.Row="1"
-                    Background="#F2F0F3"
-                    BorderBrush="#FFC5C5C5"
-                    BorderThickness="0.5,0.5"
-                    CornerRadius="4">
+                    Background="#FFF7F7F7"
+                    BorderBrush="#FFF3F3F3"
+                    BorderThickness="0"
+                    CornerRadius="4"
+                    Margin="0,0,0,5">
+                
+                <Border.Effect>
+                    <DropShadowEffect Color="#FFCECECE" Direction="0" ShadowDepth="0" Opacity="0.3" BlurRadius="6"/>
+                </Border.Effect>
+                
                 <StackPanel Orientation="Horizontal">
                     <ListBox ItemsSource="{Binding ModuleAccounts}"
                          SelectedItem="{Binding SelectedAccountModule}"
@@ -49,57 +55,11 @@
                 </StackPanel>
             </Border>
             
-            <TabControl Grid.Row="2" ItemsSource="{Binding SelectedAccountModule.TabViewModels}">
-                <TabControl.ItemContainerStyle>
-                    <Style TargetType="TabItem">
-                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                        <Setter Property="Header" Value="{Binding Title}" />
-                    </Style>
-                </TabControl.ItemContainerStyle>
+            <ContentControl Grid.Row="2"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Content="{Binding SelectedAccountModule}" Grid.RowSpan="2"/>
 
-                <TabControl.Template>
-                    <ControlTemplate TargetType="TabControl">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TabPanel IsItemsHost="True" Grid.Row="0" Panel.ZIndex="1"/>
-                            <ItemsControl ItemsSource="{TemplateBinding ItemsSource}" Grid.Row="1">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <Grid />
-                                    </ItemsPanelTemplate>
-                                 </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                    <Grid Visibility="{Binding IsSelected, Converter={StaticResource BoolToVis}}">
-                                            <ContentControl Content="{Binding}">
-                                                <ContentControl.Style>
-                                                    <Style TargetType="ContentControl">
-                                                        <Setter Property="ContentTemplate" Value="{x:Null}" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsLoaded}" Value="True">
-                                                                <Setter Property="ContentTemplate">
-                                                                    <Setter.Value>
-                                                                        <DataTemplate>
-                                                                            <wv2:WebView2 Source="{Binding Url}" />
-                                                                        </DataTemplate>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </ContentControl.Style> 
-                                            </ContentControl>
-                                        </Grid>
-                                </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </ControlTemplate>
-                </TabControl.Template>
-            </TabControl>
         </Grid>
     </Border>
 </UserControl>

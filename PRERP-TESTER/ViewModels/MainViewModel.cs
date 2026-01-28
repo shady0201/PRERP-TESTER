@@ -10,8 +10,6 @@ namespace PRERP_TESTER.ViewModels
 {
     public class MainViewModel : LazyLoadViewModel
     {
-        // service
-        private readonly WebViewService _webViewService;
            
         // data
         private List<Account>? Accounts;
@@ -49,7 +47,6 @@ namespace PRERP_TESTER.ViewModels
 
         public MainViewModel()
         {
-            _webViewService = new WebViewService();
 
             LoadMockSystemAccounts();
             CreateDemoModule();
@@ -65,14 +62,14 @@ namespace PRERP_TESTER.ViewModels
             if (dialog.ShowDialog() == true)
             {
                // Khởi tạo Entity chuẩn theo classes.txt 
-                var newEntity = new ModuleEntity
+                var moduleEntity = new ModuleEntity
                 {
                     Name = dialog.ResultName,
                     AccountModules = []
                 };
 
                 // Tạo ViewModel và tự động Focus
-                var moduleVM = new ModuleViewModel(_webViewService, newEntity, Accounts);
+                var moduleVM = new ModuleViewModel( moduleEntity, Accounts);
                 Modules.Add(moduleVM);
             }
         }
@@ -85,15 +82,16 @@ namespace PRERP_TESTER.ViewModels
                 new Account
                 {
                     Id = "acc_admin",
-                    Username = "admin_user",
-                    DisplayName = "Trưởng phòng",
-                    Role = new Role { Name = "Admin" }
+                    Username = "bmtu02",
+                    DisplayName = "Giảng Viên 1",
+                    Password = "12345678Aa@",
+                    Role = new Role { Name = "GV" }
                 },
                 new Account
                 {
                     Id = "acc_teacher",
                     Username = "teacher_ha",
-                    DisplayName = "Giảng viên 1",
+                    DisplayName = "Giảng viên 2",
                     Role = new Role { Name = "Teacher" }
                 }
             ];
@@ -113,8 +111,9 @@ namespace PRERP_TESTER.ViewModels
                             AccountID = "acc_admin",
                             TabWebItems =
                             [
-                                new() { Title = "Q.Lý Hệ Thống", Url = "https://google.com" },
-                                new() { Title = "Prerp", Url = "https://prerp.bmtu.edu.vn/landingpage?lang=vi" }
+                                new() { Title = "Q.Lý Hệ Thống", Url = "https://prerp.bmtu.edu.vn" },
+                                new() { Title = "Prerp - debug", Url = "https://prerp.bmtu.edu.vn/regulation/index?lang=vi" },
+                                new() { Title = "SFT debug", Url = "https://prerp.bmtu.edu.vn/sftraining/debug?lang=vi" }
                             ]
                         },
                         // Cấu hình cho AccountID Teacher
@@ -123,13 +122,13 @@ namespace PRERP_TESTER.ViewModels
                             AccountID = "acc_teacher",
                             TabWebItems =
                             [
-                                new() { Title = "Chấm điểm", Url = "https://stackoverflow.com" },
-                                new() { Title = "Trang duyệt", Url = "https://youtube.com" },
+                                new() { Title = "Chấm điểm", Url = "https://prerp.bmtu.edu.vn/" },
+                                new() { Title = "Trang duyệt", Url = "https://prerp.bmtu.edu.vn/" },
                             ]
                         }
                     ]
                 };
-                var moduleVM = new ModuleViewModel(_webViewService, moduleEntity, Accounts);
+                var moduleVM = new ModuleViewModel(moduleEntity, Accounts);
 
                 Modules.Add(moduleVM);
             }

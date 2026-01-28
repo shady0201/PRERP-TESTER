@@ -59,6 +59,7 @@
     </DataTemplate>
     
     <Style x:Key="MenuItemStyle" TargetType="ListBoxItem">
+        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="Template">

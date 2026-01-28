@@ -11,7 +11,6 @@ namespace PRERP_TESTER.ViewModels
 {
     public class ModuleViewModel : LazyLoadViewModel
     {
-        private readonly WebViewService _webViewService;
 
         public ModuleEntity ModuleEntity { get; }
 
@@ -24,9 +23,8 @@ namespace PRERP_TESTER.ViewModels
         // Tempalte menuitem
         public string Name => ModuleEntity.Name;
 
-        public ModuleViewModel(WebViewService webViewService, ModuleEntity module, List<Account> allSystemAccounts)
+        public ModuleViewModel( ModuleEntity module, List<Account> allSystemAccounts)
         {
-            _webViewService = webViewService;
             ModuleEntity = module;
 
             for (int i = 0; i < module.AccountModules.Length; i++)
@@ -41,19 +39,6 @@ namespace PRERP_TESTER.ViewModels
 
             SelectedAccountModule = ModuleAccounts.FirstOrDefault();
 
-            OpenAllCommand = new RelayCommand(ExecuteOpenAll);
-        }
-
-        private async void ExecuteOpenAll()
-        {
-            foreach (var accVM in ModuleAccounts)
-            {
-                // Gọi WebViewService để chuẩn bị Environment (Session) cho AccountId này
-                await _webViewService.GetEnvironmentAsync(accVM.AccountId);
-
-                // Sau đó khởi tạo WebView cho từng Tab (Logic chi tiết sẽ nằm ở WebViewService)
-                // Ví dụ: await _webViewService.InitializeTabsForAccount(accVM);
-            }
         }
 
         public void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

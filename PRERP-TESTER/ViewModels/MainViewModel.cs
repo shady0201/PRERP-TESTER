@@ -16,10 +16,7 @@ namespace PRERP_TESTER.ViewModels
 
         public ObservableCollection<ModuleViewModel> Modules { get; set; } = [];
 
-        public ModuleViewModel? SelectedModule
-        {   get;
-            set;
-        }
+        public ModuleViewModel? SelectedModule { get; set; }
 
         // command
         public ICommand CreateModuleCommand { get; }

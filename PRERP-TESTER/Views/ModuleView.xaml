@@ -22,18 +22,18 @@
             </Border>
              <!-- Account List-->
             <Border Grid.Row="1"
-                    Background="#FFF7F7F7"
+                    Background="#FFF8F8F9"
                     BorderBrush="#FFF3F3F3"
-                    BorderThickness="0"
-                    CornerRadius="4"
+                    BorderThickness="0.5"
+                    CornerRadius="5"
                     Margin="0,0,0,5">
                 
                 <Border.Effect>
                     <DropShadowEffect Color="#FFCECECE" 
                                       Direction="0" 
-                                      ShadowDepth="0"
+                                      ShadowDepth="2"
                                       Opacity="0.3"
-                                      BlurRadius="6"/>
+                                      BlurRadius="7"/>
                 </Border.Effect>
                 
                 <StackPanel Orientation="Horizontal">

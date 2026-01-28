@@ -7,7 +7,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="Border"
-							CornerRadius="1"
+							CornerRadius="4"
 							Margin="5,2"
 							Padding="10,5"
 							Background="White">
@@ -29,4 +29,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
 </ResourceDictionary>

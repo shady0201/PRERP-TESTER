@@ -6,34 +6,62 @@
              xmlns:local="clr-namespace:PRERP_TESTER.Views"
              xmlns:ext="clr-namespace:PRERP_TESTER.Extensions"
              xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Border Background="#F3F2F5"
-            CornerRadius="6"
+            CornerRadius="6,6,0,0"
             BorderThickness="1"
             BorderBrush="#FFB9B9B9"
             ClipToBounds="True">
+        <Border.Effect>
+            <DropShadowEffect Color="#FFCECECE"
+                      Direction="0"
+                      ShadowDepth="2"
+                      Opacity="0.3"
+                      BlurRadius="7"/>
+        </Border.Effect>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <ListBox ItemsSource="{Binding TabViewModels}" 
-                     SelectedItem="{Binding SelectedTab}"
-                     ItemContainerStyle="{StaticResource TabWebHeaderStyle}"
-                     BorderThickness="0"
-                     Background="Transparent"
-                     Grid.Row="0">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
+            <Border Grid.Row="0"
+                        BorderBrush="#DCDCDC" 
+                        BorderThickness="0,0,0,1" 
+                        VerticalAlignment="Bottom">
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
 
-            </ListBox>
-            
+                    <ListBox Grid.Column="0"
+                             AlternationCount="1000"
+                             ItemsSource="{Binding TabViewModels}" 
+                             SelectedItem="{Binding SelectedTab}"
+                             ItemContainerStyle="{StaticResource TabWebHeaderStyle}"
+                             BorderThickness="0,0,0,0"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             Background="Transparent"
+                             Grid.Row="0">
+                        
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                    <Button Grid.Column="1"
+                            Command="{Binding AddTabCommand}" 
+                            Content="+"
+                            Width="25" Height="25" Margin="5,8,0,8"
+                            Style="{StaticResource AddTabButtonStyle}" FontSize="20"/>
+                </Grid>
+            </Border>
+
             <ItemsControl ItemsSource="{Binding TabViewModels}" Grid.Row="1">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -52,7 +80,83 @@
                                                 <Setter Property="ContentTemplate">
                                                     <Setter.Value>
                                                         <DataTemplate>
-                                                            <wv2:WebView2 ext:WebView2Extensions.AccountID="{Binding AccountID}" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                    <RowDefinition Height="*"/>
+                                                                </Grid.RowDefinitions>
+                                                                <!--  wwebview control  -->
+                                                                <Border Grid.Row="0" Background="#F8F9FA" BorderBrush="#DCDCDC" BorderThickness="0,0,0,1" Padding="5">
+                                                                    <Grid>
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="*"/>
+                                                                        </Grid.ColumnDefinitions>
+
+                                                                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,5,0">
+                                                                            <Button Command="{Binding BackCommand}"
+                                                                                    Style="{StaticResource NavButtonStyle}">
+                                                                                <iconPacks:PackIconMaterial Kind="ArrowLeft" Width="14" Height="14" VerticalAlignment="Center"/>
+                                                                            </Button>
+                                                                            <Button Command="{Binding ForwardCommand}"
+                                                                                    Style="{StaticResource NavButtonStyle}"
+                                                                                    Margin="5,0">
+                                                                                <iconPacks:PackIconMaterial Kind="ArrowRight" Width="14" Height="14" VerticalAlignment="Center"/>
+                                                                            </Button>
+                                                                            <Button Command="{Binding ReloadCommand}"
+                                                                                    Style="{StaticResource NavButtonStyle}">
+                                                                                <iconPacks:PackIconMaterial Kind="Refresh" Width="14" Height="14" VerticalAlignment="Center"/>
+                                                                            </Button>
+                                                                        </StackPanel>
+
+                                                                        <Border Grid.Column="1" Background="White" BorderBrush="#DCDCDC" BorderThickness="1" CornerRadius="15" Padding="10,2">
+                                                                            <Grid>
+                                                                                <Grid.ColumnDefinitions>
+                                                                                    <ColumnDefinition Width="Auto"/>
+                                                                                    <ColumnDefinition Width="*"/>
+                                                                                    <ColumnDefinition Width="Auto"/>
+                                                                                </Grid.ColumnDefinitions>
+
+                                                                                <iconPacks:PackIconMaterial x:Name="SecurityIcon" 
+                                                                                                            Grid.Column="0" 
+                                                                                                            VerticalAlignment="Center" 
+                                                                                                            Width="12" Height="12" 
+                                                                                                            Margin="0,0,8,0">
+                                                                                    <iconPacks:PackIconMaterial.Style>
+                                                                                        <Style TargetType="iconPacks:PackIconMaterial">
+                                                                                            <Setter Property="Kind" Value="LockOpenVariantOutline"/>
+                                                                                            <Setter Property="Foreground" Value="Gray"/>
+                                                                                            <Style.Triggers>
+                                                                                                <DataTrigger Binding="{Binding IsSecure}" Value="True">
+                                                                                                    <Setter Property="Kind" Value="Lock"/>
+                                                                                                    <Setter Property="Foreground" Value="#28a745"/>
+                                                                                                </DataTrigger>
+                                                                                                <DataTrigger Binding="{Binding IsSecure}" Value="False">
+                                                                                                    <Setter Property="Kind" Value="AlertCircleOutline"/>
+                                                                                                    <Setter Property="Foreground" Value="#dc3545"/>
+                                                                                                </DataTrigger>
+                                                                                            </Style.Triggers>
+                                                                                        </Style>
+                                                                                    </iconPacks:PackIconMaterial.Style>
+                                                                                </iconPacks:PackIconMaterial>
+
+                                                                                <TextBox Grid.Column="1" 
+                                                                                         Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" 
+                                                                                         Style="{StaticResource AddressBarTextBoxStyle}"
+                                                                                         BorderThickness="0" 
+                                                                                         VerticalAlignment="Center"
+                                                                                         Background="Transparent">
+                                                                                    <TextBox.InputBindings>
+                                                                                        <KeyBinding Key="Enter" Command="{Binding GoToUrlCommand}"/>
+                                                                                    </TextBox.InputBindings>
+                                                                                </TextBox>
+                                                                            </Grid>
+                                                                        </Border>
+                                                                    </Grid>
+                                                                </Border>
+                                                                <!--  wwebview content  -->
+                                                                <wv2:WebView2 Grid.Row="1" ext:WebView2Extensions.AccountID="{Binding AccountID}" />
+                                                            </Grid>
                                                         </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
@@ -65,7 +169,6 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            
         </Grid>
     </Border>
 </UserControl>

@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using PRERP_TESTER.Models;
 
 namespace PRERP_TESTER.ViewModels
@@ -9,7 +11,20 @@ namespace PRERP_TESTER.ViewModels
         public string ModuleID { get; set; }
 
         public ObservableCollection<TabViewModel> TabViewModels { get; set; } = [];
-        public TabViewModel? SelectedTab { get; set; }
+
+        private TabViewModel? _selectedTab;
+        public TabViewModel? SelectedTab
+        {
+            get => _selectedTab;
+            set
+            {
+                _selectedTab = value;
+                OnPropertyChanged(nameof(SelectedTab));
+            }
+        }
+
+        public ICommand AddTabCommand { get; }
+
 
         public AccountViewModel(Account account,string moduleID, TabWeb[] tabWebs)
         {
@@ -18,10 +33,33 @@ namespace PRERP_TESTER.ViewModels
             ObservableCollection<TabViewModel> tabs = [];
             foreach (var tab in tabWebs)
             {
-                TabViewModels.Add(new TabViewModel(tab,account.Username,ModuleID));
+                TabViewModels.Add(CreateTab(tab));
             }
 
             SelectedTab = TabViewModels.FirstOrDefault();
+
+            AddTabCommand = new RelayCommand(ExecuteAddTab);
+        }
+
+        public void ExecuteAddTab()
+        {
+            var tabWeb = new TabWeb { Title = "Thẻ mới", Url = "https://prerp.bmtu.edu.vn" };
+            var tabViewModel = CreateTab(tabWeb);
+            TabViewModels.Add(tabViewModel);
+            SelectedTab = tabViewModel;
+        }
+
+        
+        private TabViewModel CreateTab(TabWeb tab)
+        {
+            return new TabViewModel(tab, Account.Username, ModuleID, (tabToDelete) => {
+                // truyền hàm xoá vào TabViewModel
+                TabViewModels.Remove(tabToDelete);
+                if (SelectedTab == null && TabViewModels.Count > 0)
+                {
+                    SelectedTab = TabViewModels.Last();
+                }
+            });
         }
 
         // Binding Properties

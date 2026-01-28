@@ -26,7 +26,6 @@ namespace PRERP_TESTER.ViewModels
 
         // Binding Properties
         public string DisplayName => Account.DisplayName;
-        public string RoleName => Account.Role?.Name ?? "N/A";
         public string AccountId => Account.Id;
 
 

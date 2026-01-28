@@ -85,14 +85,12 @@ namespace PRERP_TESTER.ViewModels
                     Username = "bmtu02",
                     DisplayName = "Giảng Viên 1",
                     Password = "12345678Aa@",
-                    Role = new Role { Name = "GV" }
                 },
                 new Account
                 {
                     Id = "acc_teacher",
                     Username = "teacher_ha",
                     DisplayName = "Giảng viên 2",
-                    Role = new Role { Name = "Teacher" }
                 }
             ];
         }

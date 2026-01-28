@@ -1,2 +1,7 @@
-﻿
-- Tự động dọn dẹp (Dispose) các WebView khi đóng ứng dụng để giải phóng RAM.
+﻿- Thêm module
+- Thêm account
+- Thêm tab
+
+- Chức năng tự đăng nhập
+- Chức năng hỗ trợ debug: thêm code debug
+- Tự động dọn dẹp (Dispose) các WebView khi đóng ứng dụng để giải phóng RAM. ???

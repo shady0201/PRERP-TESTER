@@ -20,10 +20,14 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" MaxHeight="350px"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" MaxHeight="350px"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="PRERP TESTER" Foreground="#FF353535" FontSize="11" FontWeight="SemiBold"/>
+                    <Border Padding="10,0,5,0">
+                        <TextBlock Text="MODULE" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection"/>
+                    </Border>
                 </StackPanel>
                 <!-- Danh sách module -->
                 <ListBox Grid.Row="1"
@@ -34,7 +38,7 @@
                         BorderThickness="0"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Padding="5,0,5,0"
+                        Padding="10,0,5,0"
                         VerticalAlignment="Stretch">
 
                     <ListBox.ItemTemplate>
@@ -44,6 +48,12 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+
+                <StackPanel Grid.Row="2">
+                    <Border Padding="10,0,5,0">
+                        <TextBlock Text="TÀI KHOẢN" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection"/>
+                    </Border>
+                </StackPanel>
                 
             </Grid>
         </Border>

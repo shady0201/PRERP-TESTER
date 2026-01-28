@@ -12,11 +12,11 @@ namespace PRERP_TESTER.ViewModels
         public string Url => TabData.Url;
         public string Title => TabData.Title;
 
-        public TabViewModel(TabWeb tabWeb, string accountID, string moduleID)
+        public TabViewModel(TabWeb tabWeb, string username, string moduleID)
         {
             TabData = tabWeb;
             IsLoaded = false;
-            AccountID = accountID;
+            AccountID = username;
             ModuleID = moduleID;
         }
 

@@ -18,7 +18,7 @@ namespace PRERP_TESTER.ViewModels
             ObservableCollection<TabViewModel> tabs = [];
             foreach (var tab in tabWebs)
             {
-                TabViewModels.Add(new TabViewModel(tab,account.Id,ModuleID));
+                TabViewModels.Add(new TabViewModel(tab,account.Username,ModuleID));
             }
 
             SelectedTab = TabViewModels.FirstOrDefault();

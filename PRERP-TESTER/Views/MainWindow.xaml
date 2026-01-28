@@ -24,16 +24,16 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto" MaxHeight="350px"/>
                 </Grid.RowDefinitions>
+                <!-- Danh sách Module -->
                 <StackPanel Grid.Row="0">
                     <Border Padding="10,0,5,0">
                         <TextBlock Text="MODULE" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection"/>
                     </Border>
                 </StackPanel>
-                <!-- Danh sách module -->
                 <ListBox Grid.Row="1"
                         ItemsSource="{Binding Modules}"
                         SelectedItem="{Binding SelectedModule}"
-                        ItemContainerStyle="{StaticResource MenuItemStyle}"
+                        ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
                         Background="Transparent"
                         BorderThickness="0"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -44,17 +44,34 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <ContentControl Content="{Binding}"
-                                            ContentTemplate="{StaticResource MenuItem}" />
+                                            ContentTemplate="{StaticResource MenuItemModule}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
                 <StackPanel Grid.Row="2">
                     <Border Padding="10,0,5,0">
                         <TextBlock Text="TÀI KHOẢN" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection"/>
                     </Border>
                 </StackPanel>
-                
+                <!-- Danh sách Account -->
+                <ListBox Grid.Row="1"
+                        ItemsSource="{Binding Accounts}"
+                        SelectedItem="{Binding SelectedModule}"
+                        ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        Padding="10,0,5,0"
+                        VerticalAlignment="Stretch">
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <ContentControl Content="{Binding}"
+                            ContentTemplate="{StaticResource MenuItem}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </Border>
 

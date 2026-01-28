@@ -12,34 +12,13 @@ namespace PRERP_TESTER.ViewModels
     {
            
         // data
-        private List<Account>? Accounts;
+        public List<Account>? Accounts;
 
         public ObservableCollection<ModuleViewModel> Modules { get; set; } = [];
 
-        private ModuleViewModel? _selectedModule;
         public ModuleViewModel? SelectedModule
-        {   get => _selectedModule;
-            set {
-                if (SetProperty(ref _selectedModule, value))
-                {
-                    ActivateItem(Modules,value);
-                }
-            }
-        }
-
-        public static void ActivateItem(IEnumerable<LazyLoadViewModel> list, LazyLoadViewModel? selectedItem)
-        {
-            if (selectedItem == null || list == null) return;
-
-            foreach (var vm in list)
-            {
-                vm.IsVisible = (vm == selectedItem);
-
-                if (vm.IsVisible && !vm.IsLoaded)
-                {
-                    vm.IsLoaded = true;
-                }
-            }
+        {   get;
+            set;
         }
 
         // command
@@ -61,14 +40,12 @@ namespace PRERP_TESTER.ViewModels
 
             if (dialog.ShowDialog() == true)
             {
-               // Khởi tạo Entity chuẩn theo classes.txt 
                 var moduleEntity = new ModuleEntity
                 {
                     Name = dialog.ResultName,
                     AccountModules = []
                 };
 
-                // Tạo ViewModel và tự động Focus
                 var moduleVM = new ModuleViewModel( moduleEntity, Accounts);
                 Modules.Add(moduleVM);
             }

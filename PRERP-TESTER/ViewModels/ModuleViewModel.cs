@@ -20,7 +20,6 @@ namespace PRERP_TESTER.ViewModels
 
         public ICommand OpenAllCommand { get; }
 
-        // Tempalte menuitem
         public string Name => ModuleEntity.Name;
 
         public ModuleViewModel( ModuleEntity module, List<Account> allSystemAccounts)

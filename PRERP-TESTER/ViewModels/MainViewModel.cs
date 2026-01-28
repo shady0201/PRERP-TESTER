@@ -12,7 +12,7 @@ namespace PRERP_TESTER.ViewModels
     {
            
         // data
-        public List<Account>? Accounts;
+        public List<Account>? Accounts { get; set; } = [];
 
         public ObservableCollection<ModuleViewModel> Modules { get; set; } = [];
 

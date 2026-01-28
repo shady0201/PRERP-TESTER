@@ -54,10 +54,9 @@
                     </Border>
                 </StackPanel>
                 <!-- Danh sách Account -->
-                <ListBox Grid.Row="1"
+                <ListBox Grid.Row="3"
                         ItemsSource="{Binding Accounts}"
-                        SelectedItem="{Binding SelectedModule}"
-                        ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
+                        ItemContainerStyle="{StaticResource MenuItemAccountStyle}"
                         Background="Transparent"
                         BorderThickness="0"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -68,7 +67,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <ContentControl Content="{Binding}"
-                            ContentTemplate="{StaticResource MenuItem}" />
+                                            ContentTemplate="{StaticResource MenuItemAccount}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

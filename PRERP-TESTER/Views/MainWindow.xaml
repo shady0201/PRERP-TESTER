@@ -85,11 +85,29 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text= "{Binding Modules.Count, StringFormat='MODULE ({0})'}" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection"/>
+                            <TextBlock Grid.Column="0" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="{Binding Modules.Count, StringFormat='MODULE ({0})'}"/>
+                                        <Setter Property="FontSize" Value="11"/>
+                                        <Setter Property="FontWeight" Value="Normal"/>
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                                <Setter Property="Text" Value="M"/>
+                                                <Setter Property="FontSize" Value="20"/>
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                <Setter Property="Margin" Value="0,0,5,0"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                             <Button Grid.Column="1"
                                     Command="{Binding CreateModuleCommand}"
                                     Width="25" Height="25"
-                                    Style="{StaticResource AddTabButtonStyle}">
+                                    Style="{StaticResource CreateDataMenuStyle}">
                                 <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center"/>
                             </Button>
                         </Grid>
@@ -115,7 +133,7 @@
                 </ListBox>
                 
                 <!-- Danh sách Account -->
-                <Border Grid.Row="3" Padding="0,0,0,0">
+                <Border Grid.Row="3" Padding="0,0,0,0" Margin="0,10,0,0">
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="61*"/>
@@ -127,7 +145,7 @@
                         <Button Grid.Column="2"
                                     Command="{Binding CreateAccountCommand}" 
                                     Width="25" Height="25"
-                                    Style="{StaticResource AddTabButtonStyle}" Margin="0,2,0,2">
+                                    Style="{StaticResource CreateDataMenuStyle}" Margin="0,2,0,2">
                             <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center"/>
                         </Button>
                     </Grid>

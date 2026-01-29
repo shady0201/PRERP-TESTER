@@ -15,7 +15,7 @@
         <conv:SubtractValueConverter x:Key="SubtractValueConverter" />
     </Control.Resources>
 
-    <Border Background="#F3F2F5"
+    <Border Background="WhiteSmoke"
             CornerRadius="6,6,0,0"
             BorderThickness="1"
             BorderBrush="#FFB9B9B9"

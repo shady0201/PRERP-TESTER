@@ -34,4 +34,46 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+
+    <Style x:Key="CreateDataMenuStyle" TargetType="Button">
+        <Setter Property="Visibility" Value="Visible"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Foreground" Value="#FF757575"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="Transparent">
+                        <Ellipse x:Name="bg" Fill="{TemplateBinding Background}"/>
+
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bg" Property="Fill" Value="#E8EAED"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bg" Property="Fill" Value="#DADCE0"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
 </ResourceDictionary>

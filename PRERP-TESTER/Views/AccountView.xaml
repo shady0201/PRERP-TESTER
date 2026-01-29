@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PRERP_TESTER.Views"
+             xmlns:conv="clr-namespace:PRERP_TESTER.Converters"
              xmlns:ext="clr-namespace:PRERP_TESTER.Extensions"
              xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <Control.Resources>
+        <conv:SubtractValueConverter x:Key="SubtractValueConverter" />
+    </Control.Resources>
 
     <Border Background="#F3F2F5"
             CornerRadius="6,6,0,0"
@@ -32,12 +37,13 @@
                         BorderBrush="#DCDCDC" 
                         BorderThickness="0,0,0,1" 
                         VerticalAlignment="Bottom">
-                <Grid Grid.Row="0">
+
+                <Grid Grid.Row="0" x:Name="ParentGrid">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-
+                    
                     <ListBox Grid.Column="0"
                              AlternationCount="1000"
                              ItemsSource="{Binding TabViewModels}" 
@@ -46,7 +52,8 @@
                              BorderThickness="0,0,0,0"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              Background="Transparent"
-                             Grid.Row="0">
+                             Grid.Row="0"
+                             MaxWidth="{Binding ActualWidth, ElementName=ParentGrid, Converter={StaticResource SubtractValueConverter}, ConverterParameter=40}">
                         
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -57,7 +64,7 @@
                     <Button Grid.Column="1"
                             Command="{Binding AddTabCommand}" 
                             Content="+"
-                            Width="25" Height="25" Margin="5,8,0,8"
+                            Width="25" Height="25" Margin="5,8,5,8"
                             Style="{StaticResource AddTabButtonStyle}" FontSize="20"/>
                 </Grid>
             </Border>

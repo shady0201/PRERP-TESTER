@@ -9,7 +9,7 @@ namespace PRERP_TESTER.Views.Dialogs
         public AddModuleDialog()
         {
             InitializeComponent();
-            TxtModuleName.Focus(); // Tự động focus vào ô nhập khi mở lên
+            TxtModuleName.Focus();
         }
 
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)
@@ -30,7 +30,7 @@ namespace PRERP_TESTER.Views.Dialogs
 
         private void TxtModuleName_GotFocus(object sender, RoutedEventArgs e)
         {
-            TxtModuleName.SelectAll(); // Tự động bôi đen để dễ nhập mới
+            TxtModuleName.SelectAll();
         }
     }
 }

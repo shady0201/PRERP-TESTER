@@ -10,9 +10,14 @@ namespace PRERP_TESTER.ViewModels
 {
     public class MainViewModel : LazyLoadViewModel
     {
-           
+
         // data
-        public List<Account>? Accounts { get; set; } = [];
+        private ObservableCollection<Account> _accounts = [];
+        public ObservableCollection<Account> Accounts
+        {
+            get => _accounts;
+            set => SetProperty(ref _accounts, value);
+        }
 
         public ObservableCollection<ModuleViewModel> Modules { get; set; } = [];
 
@@ -20,6 +25,9 @@ namespace PRERP_TESTER.ViewModels
 
         // command
         public ICommand CreateModuleCommand { get; }
+        public ICommand AddAccountCommand { get; }
+
+
 
         public MainViewModel()
         {
@@ -29,6 +37,8 @@ namespace PRERP_TESTER.ViewModels
 
             // Command list
             CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
+            AddAccountCommand = new RelayCommand(ExecuteAddAccount);
+
         }
 
         private void ExecuteCreateModule()
@@ -43,8 +53,25 @@ namespace PRERP_TESTER.ViewModels
                     AccountModules = []
                 };
 
-                var moduleVM = new ModuleViewModel( moduleEntity, Accounts);
+                var moduleVM = new ModuleViewModel(moduleEntity, Accounts);
                 Modules.Add(moduleVM);
+            }
+        }
+
+        private void ExecuteAddAccount()
+        {
+            var dialog = new AddAccountDialog { Owner = Application.Current.MainWindow };
+
+            if (dialog.ShowDialog() == true)
+            {
+                var account = new Account
+                {
+                    Username = dialog.Username,
+                    Password = dialog.Password,
+                    DisplayName = dialog.DisplayName,
+                    Stype = dialog.Stype,
+                };
+                Accounts.Add(account);
             }
         }
 

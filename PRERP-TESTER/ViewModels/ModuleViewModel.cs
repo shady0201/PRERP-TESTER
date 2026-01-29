@@ -22,13 +22,13 @@ namespace PRERP_TESTER.ViewModels
 
         public string Name => ModuleEntity.Name;
 
-        public ModuleViewModel( ModuleEntity module, List<Account> allSystemAccounts)
+        public ModuleViewModel( ModuleEntity module, ObservableCollection<Account> allSystemAccounts)
         {
             ModuleEntity = module;
 
             for (int i = 0; i < module.AccountModules.Length; i++)
             {
-                var account = allSystemAccounts.Find(a => a.Id == module.AccountModules[i].AccountID);
+                var account = allSystemAccounts.First(a => a.Id == module.AccountModules[i].AccountID);
                 if (account != null)
                 {
                     var accountVM = new AccountViewModel(account,module.Id, module.AccountModules[i].TabWebItems);
@@ -37,7 +37,6 @@ namespace PRERP_TESTER.ViewModels
             }
 
             SelectedAccountModule = ModuleAccounts.FirstOrDefault();
-
         }
 
         public void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

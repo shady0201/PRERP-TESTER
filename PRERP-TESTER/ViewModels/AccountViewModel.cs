@@ -48,7 +48,6 @@ namespace PRERP_TESTER.ViewModels
             TabViewModels.Add(tabViewModel);
             SelectedTab = tabViewModel;
         }
-
         
         private TabViewModel CreateTab(TabWeb tab)
         {

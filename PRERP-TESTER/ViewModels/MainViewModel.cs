@@ -10,8 +10,6 @@ namespace PRERP_TESTER.ViewModels
 {
     public class MainViewModel : LazyLoadViewModel
     {
-
-        // data
         private ObservableCollection<Account> _accounts = [];
         public ObservableCollection<Account> Accounts
         {
@@ -19,15 +17,23 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _accounts, value);
         }
 
+        private bool _isMenuCollapsed;
+        public bool IsMenuCollapsed
+        {
+            get => _isMenuCollapsed;
+            set => SetProperty(ref _isMenuCollapsed, value);
+        }
+
+       
+
         public ObservableCollection<ModuleViewModel> Modules { get; set; } = [];
 
         public ModuleViewModel? SelectedModule { get; set; }
 
         // command
         public ICommand CreateModuleCommand { get; }
-        public ICommand AddAccountCommand { get; }
-
-
+        public ICommand CreateAccountCommand { get; }
+        public ICommand ToggleMenuCommand { get; }
 
         public MainViewModel()
         {
@@ -37,7 +43,9 @@ namespace PRERP_TESTER.ViewModels
 
             // Command list
             CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
-            AddAccountCommand = new RelayCommand(ExecuteAddAccount);
+            CreateAccountCommand = new RelayCommand(ExecuteCreateAccount);
+
+            ToggleMenuCommand = new RelayCommand(() => IsMenuCollapsed = !IsMenuCollapsed);
 
         }
 
@@ -58,7 +66,7 @@ namespace PRERP_TESTER.ViewModels
             }
         }
 
-        private void ExecuteAddAccount()
+        private void ExecuteCreateAccount()
         {
             var dialog = new AddAccountDialog { Owner = Application.Current.MainWindow };
 

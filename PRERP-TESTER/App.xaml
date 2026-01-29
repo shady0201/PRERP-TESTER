@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Resources/ModuleAccountsList.xaml"/>
                 <ResourceDictionary Source="Resources/AccountTab.xaml"/>
                 <ResourceDictionary Source="Resources/WebTab.xaml"/>
+                <ResourceDictionary Source="Resources/Main.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vm:ModuleViewModel}">

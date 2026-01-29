@@ -3,34 +3,99 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:PRERP_TESTER.ViewModels"
         xmlns:views="clr-namespace:PRERP_TESTER.Views"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="PRERP TESTER - Automation System" 
         Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
+    
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="201"/>
+            <ColumnDefinition>
+                <ColumnDefinition.Style>
+                    <Style TargetType="ColumnDefinition">
+                        <Setter Property="Width" Value="250"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                <Setter Property="Width" Value="50"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ColumnDefinition.Style>
+            </ColumnDefinition>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <!-- Menu Left -->
-        <Border Grid.Column="0" BorderBrush="#FFCCCCCC" BorderThickness="0,0,1,0">
+        <Border Grid.Column="0" BorderBrush="#FFCCCCCC" BorderThickness="0,0,1,0" Padding="5,0,5,0">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="235*"/>
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto" MaxHeight="350px"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto" MaxHeight="350px"/>
                 </Grid.RowDefinitions>
+                
+                <!--- Title -->
+                <Border Grid.Row="0" Height="37" Padding="0,0,0,0" Margin="0,10,0,10">
+                    <Grid VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0"  Source="/Assets/logo.png" 
+                                   Width="25" Height="25" 
+                                   Stretch="Uniform"
+                                   Margin="5,0,5,0"
+                                       Cursor="Hand">
+                                <Image.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleMenuCommand}"/>
+                                 </Image.InputBindings>
+                            </Image>
+
+                        <TextBlock Grid.Column="1" Width="auto" Height="auto" Text="Prerp Tester" Foreground="#FF404040" FontSize="14" FontWeight="SemiBold" FontFamily="Sans Serif Collection">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Button Grid.Column="2"
+                                Command="{Binding ToggleMenuCommand}"
+                                Style="{StaticResource StyleButtonCollapse}"
+                                Margin="0,0,5,0">
+                            <iconPacks:PackIconMaterial Kind="ChevronDoubleLeft" Width="14" Height="14" VerticalAlignment="Center"/>
+                        </Button>
+                    </Grid>
+                </Border>
+
                 <!-- Danh sách Module -->
-                <StackPanel Grid.Row="0">
-                    <Border Padding="10,0,5,0">
-                        <TextBlock Text="MODULE" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection"/>
+                <StackPanel Grid.Row="1">
+                    <Border Grid.Row="2" Padding="0,0,0,0">
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text= "{Binding Modules.Count, StringFormat='MODULE ({0})'}" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection"/>
+                            <Button Grid.Column="1"
+                                    Command="{Binding CreateModuleCommand}"
+                                    Width="25" Height="25"
+                                    Style="{StaticResource AddTabButtonStyle}">
+                                <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center"/>
+                            </Button>
+                        </Grid>
                     </Border>
                 </StackPanel>
-                <ListBox Grid.Row="1"
+                <ListBox Grid.Row="2"
                         ItemsSource="{Binding Modules}"
                         SelectedItem="{Binding SelectedModule}"
                         ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
@@ -38,7 +103,7 @@
                         BorderThickness="0"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Padding="10,0,5,0"
+                        Padding="0,0,0,0"
                         VerticalAlignment="Stretch">
 
                     <ListBox.ItemTemplate>
@@ -48,25 +113,26 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
-                <Border Grid.Row="2" Padding="10,0,5,0">
+                
+                <!-- Danh sách Account -->
+                <Border Grid.Row="3" Padding="0,0,0,0">
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="61*"/>
+                            <ColumnDefinition Width="19*"/>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text= "{Binding Accounts.Count, StringFormat='TÀI KHOẢN ({0})'}" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection"/>
-                        <Button Grid.Column="1"
-                                    Command="{Binding AddAccountCommand}" 
-                                    Content="+"
+                        <TextBlock Grid.Column="0" Text= "{Binding Accounts.Count, StringFormat='TÀI KHOẢN ({0})'}" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection" Grid.ColumnSpan="2"/>
+                        <Button Grid.Column="2"
+                                    Command="{Binding CreateAccountCommand}" 
                                     Width="25" Height="25"
-                                    Style="{StaticResource AddTabButtonStyle}" FontSize="20"/>
+                                    Style="{StaticResource AddTabButtonStyle}" Margin="0,2,0,2">
+                            <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center"/>
+                        </Button>
                     </Grid>
                 </Border>
-                
-                <!-- Danh sách Account -->
-                <ListBox Grid.Row="3"
+                <ListBox Grid.Row="4"
                         ItemsSource="{Binding Accounts}"
                         ItemContainerStyle="{StaticResource MenuItemAccountStyle}"
                         Background="Transparent"
@@ -119,6 +185,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
+
     </Grid>
 </Window>

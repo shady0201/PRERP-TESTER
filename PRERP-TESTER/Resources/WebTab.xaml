@@ -6,26 +6,32 @@
     <!--  Nút thêm tab  -->
     <Style x:Key="AddTabButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Foreground" Value="#FF757575"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid>
-                        <Ellipse x:Name="BackgroundEllipse" Fill="{TemplateBinding Background}"/>
+                    <Grid Background="Transparent">
+                        <Ellipse x:Name="bg" Fill="{TemplateBinding Background}"/>
 
-                        <Path Data="M 6,12 H 18 M 12,6 V 18" 
-                              Stroke="DimGray" 
-                              StrokeThickness="2" 
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Stretch="Uniform"
-                              Width="14" Height="14"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Grid>
+
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="BackgroundEllipse" Property="Fill" Value="#FFE2E2E2"/>
+                            <Setter TargetName="bg" Property="Fill" Value="#E8EAED"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bg" Property="Fill" Value="#DADCE0"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.3"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

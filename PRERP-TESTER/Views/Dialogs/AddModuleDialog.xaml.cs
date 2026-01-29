@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace PRERP_TESTER.Views.Dialogs
 {
@@ -31,6 +32,14 @@ namespace PRERP_TESTER.Views.Dialogs
         private void TxtModuleName_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtModuleName.SelectAll();
+        }
+
+        private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
         }
     }
 }

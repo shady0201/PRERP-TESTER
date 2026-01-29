@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PRERP_TESTER.Views.Dialogs"
-        Title="Add New Account" Height="auto" Width="450"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Title="Add New Account"
+        Height="auto" Width="450"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
         SizeToContent="Height"
-        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
     <Grid>
         <Border Background="White" CornerRadius="20" Margin="15" BorderThickness="0.5" BorderBrush="#FF8E8E8E">
             <Border.Effect>
@@ -23,13 +27,17 @@
                     <Border Background="#FFECECEC" CornerRadius="12" Height="50" Margin="0,0,0,15">
                         <TextBox x:Name="TxtUsername" Background="Transparent" BorderThickness="0"
                                  VerticalContentAlignment="Center" Padding="15,0"
+                                 PreviewTextInput="TxtUsername_PreviewTextInput"
+                                 PreviewKeyDown="TxtUsername_PreviewKeyDown"
+                                 DataObject.Pasting="TxtUsername_Pasting"
                                  FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"/>
                     </Border>
 
                     <TextBlock Text="Password" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
                     <Border Background="#FFECECEC" CornerRadius="12" Height="50" Margin="0,0,0,20">
-                        <TextBox x:Name="TxtPassword" Background="Transparent" BorderThickness="0"
+                        <PasswordBox x:Name="TxtPassword" Background="Transparent" BorderThickness="0"
                                  VerticalContentAlignment="Center" Padding="15,0"
+                                  PasswordChar="●"
                                  FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"/>
                     </Border>
                         
@@ -56,18 +64,17 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="Hủy" Click="BtnCancel_Click" 
-                                 Background="Transparent" Foreground="#999" BorderThickness="0" 
-                                 Padding="20,8" Cursor="Hand" Margin="0,0,10,0"/>
+                                IsDefault="False"
+                                Padding="25,10"
+                                Cursor="Hand"
+                                Style="{StaticResource CancelStyle}"/>
 
-                        <Button Content="Thêm tài khoản" Click="BtnConfirm_Click" IsDefault="True"
-                                 Background="#3794FF" Foreground="White" FontWeight="Bold"
-                                 Padding="25,10" Cursor="Hand">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="10"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
+                        <Button Content="Thêm tài khoản"
+                                Click="BtnConfirm_Click"
+                                IsDefault="True"
+                                Padding="25,10"
+                                Cursor="Hand"
+                                Style="{StaticResource ConfirmStyle}"/>
                     </StackPanel>
                 </StackPanel>
 

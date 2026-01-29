@@ -1,51 +1,50 @@
 ﻿<Window x:Class="PRERP_TESTER.Views.Dialogs.AddModuleDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="New Module" Height="220" Width="450"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        Title="New Module"
+        Height="auto"
+        Width="450"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
 
-    <Border Background="White" CornerRadius="20" Margin="15">
-        <Border.Effect>
-            <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="0" Opacity="0.2"/>
-        </Border.Effect>
+    <Grid>
+        <Border Background="White" CornerRadius="20" Margin="15" BorderThickness="0.5" BorderBrush="#FF8E8E8E">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="0" Opacity="0.2"/>
+            </Border.Effect>
+            <StackPanel>
+                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FFEFEFEF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
+                    <TextBlock Text="Thêm mới Module" FontSize="20" Foreground="#FF2F2F2F" FontWeight="Medium"/>
+                </Border>
+                <StackPanel Margin="25,18,25,25">
+                    <TextBlock Text="Tên module" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
+                    <Border Background="#FFECECEC" CornerRadius="12" Height="50" Margin="0,0,0,15">
+                        <TextBox x:Name="TxtModuleName" Background="Transparent"
+                                 BorderThickness="0"
+                                 VerticalContentAlignment="Center" Padding="15,0"
+                                 FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"/>
+                    </Border>
 
-        <Grid Margin="25">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="169*"/>
-                <ColumnDefinition Width="201*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Hủy" Click="BtnCancel_Click" 
+                                Padding="20,8" Cursor="Hand" Margin="0,0,10,0"
+                                Style="{StaticResource CancelStyle}"/>
 
-            <TextBlock Text="Tên Module mới" FontSize="14" Foreground="#888" FontWeight="Medium" Margin="5,0,0,10" Grid.ColumnSpan="2"/>
+                        <Button  Content="Thêm module"
+                                 Click="BtnConfirm_Click"
+                                 IsDefault="True"
+                                 Padding="25,10"
+                                 Cursor="Hand"
+                                 Style="{StaticResource ConfirmStyle}"/>
 
-            <Border Grid.Row="1" Background="#F5F7FA" CornerRadius="12" Height="50" VerticalAlignment="Center" Grid.ColumnSpan="2">
-                <TextBox x:Name="TxtModuleName" 
-                         Background="Transparent" BorderThickness="0"
-                         VerticalContentAlignment="Center" Padding="15,0"
-                         FontSize="18" FontWeight="SemiBold" Foreground="#2D3E50"
-                         GotFocus="TxtModuleName_GotFocus"/>
-            </Border>
+                    </StackPanel>
+                </StackPanel>
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0" Grid.Column="1">
-                <Button Content="Hủy" Click="BtnCancel_Click" 
-                        Background="Transparent" Foreground="#999" BorderThickness="0" 
-                        Padding="20,8" Cursor="Hand" Margin="0,0,10,0"/>
-
-                <Button Content="Tạo Module" Click="BtnConfirm_Click" IsDefault="True"
-                        Background="#3794FF" Foreground="White" FontWeight="Bold"
-                        Padding="25,10" Cursor="Hand">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
             </StackPanel>
-        </Grid>
-    </Border>
+        </Border>
+    </Grid>
 </Window>

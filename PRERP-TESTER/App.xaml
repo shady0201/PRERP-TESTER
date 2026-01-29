@@ -8,9 +8,11 @@
         
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/TooltipStyle.xaml"/>
                 <ResourceDictionary Source="Resources/MenuLeftItem.xaml"/>
                 <ResourceDictionary Source="Resources/ModuleAccountsList.xaml"/>
                 <ResourceDictionary Source="Resources/AccountTab.xaml"/>
+                <ResourceDictionary Source="Resources/Dialog.xaml"/>
                 <ResourceDictionary Source="Resources/WebTab.xaml"/>
                 <ResourceDictionary Source="Resources/Main.xaml"/>
             </ResourceDictionary.MergedDictionaries>

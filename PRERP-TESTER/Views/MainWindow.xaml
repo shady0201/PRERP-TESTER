@@ -46,10 +46,10 @@
                         </Grid.ColumnDefinitions>
 
                             <Image Grid.Column="0"  Source="/Assets/logo.png" 
-                                   Width="25" Height="25" 
-                                   Stretch="Uniform"
+                                   Width="28" Height="28" 
+                                   Stretch="Fill"
                                    Margin="5,0,5,0"
-                                       Cursor="Hand">
+                                   Cursor="Hand">
                                 <Image.InputBindings>
                                     <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleMenuCommand}"/>
                                  </Image.InputBindings>
@@ -71,7 +71,7 @@
                                 Command="{Binding ToggleMenuCommand}"
                                 Style="{StaticResource StyleButtonCollapse}"
                                 Margin="0,0,5,0">
-                            <iconPacks:PackIconMaterial Kind="ChevronDoubleLeft" Width="14" Height="14" VerticalAlignment="Center"/>
+                            <iconPacks:PackIconMaterial Kind="ChevronLeftBox" Width="14" Height="14" VerticalAlignment="Center"/>
                         </Button>
                     </Grid>
                 </Border>
@@ -134,6 +134,15 @@
                 
                 <!-- Danh sách Account -->
                 <Border Grid.Row="3" Padding="0,0,0,0" Margin="0,10,0,0">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="61*"/>
@@ -143,9 +152,9 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text= "{Binding Accounts.Count, StringFormat='TÀI KHOẢN ({0})'}" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection" Grid.ColumnSpan="2"/>
                         <Button Grid.Column="2"
-                                    Command="{Binding CreateAccountCommand}" 
-                                    Width="25" Height="25"
-                                    Style="{StaticResource CreateDataMenuStyle}" Margin="0,2,0,2">
+                                Command="{Binding CreateAccountCommand}" 
+                                Width="25" Height="25"
+                                Style="{StaticResource CreateDataMenuStyle}" Margin="0,2,0,2">
                             <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center"/>
                         </Button>
                     </Grid>
@@ -157,7 +166,7 @@
                         BorderThickness="0"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Padding="10,0,5,0"
+                        Padding="0,0,0,0"
                         VerticalAlignment="Stretch">
 
                     <ListBox.ItemTemplate>
@@ -177,7 +186,6 @@
                     <Grid />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Visibility="{Binding IsSelected, Converter={StaticResource BoolToVis}}">

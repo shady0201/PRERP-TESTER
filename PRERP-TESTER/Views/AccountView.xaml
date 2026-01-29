@@ -34,8 +34,8 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0"
-                        BorderBrush="#DCDCDC" 
-                        BorderThickness="0,0,0,1" 
+                        BorderBrush="#DCDCDC"
+                        BorderThickness="0,0,0,1"
                         VerticalAlignment="Bottom">
 
                 <Grid Grid.Row="0" x:Name="ParentGrid">
@@ -43,10 +43,10 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <ListBox Grid.Column="0"
                              AlternationCount="1000"
-                             ItemsSource="{Binding TabViewModels}" 
+                             ItemsSource="{Binding TabViewModels}"
                              SelectedItem="{Binding SelectedTab}"
                              ItemContainerStyle="{StaticResource TabWebHeaderStyle}"
                              BorderThickness="0,0,0,0"
@@ -54,7 +54,6 @@
                              Background="Transparent"
                              Grid.Row="0"
                              MaxWidth="{Binding ActualWidth, ElementName=ParentGrid, Converter={StaticResource SubtractValueConverter}, ConverterParameter=40}">
-                        
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Rows="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>

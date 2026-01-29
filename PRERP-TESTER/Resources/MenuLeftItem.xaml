@@ -16,7 +16,11 @@
                         <Setter Property="ToolTip" Value="{x:Null}"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
-                                <Setter Property="ToolTip" Value="{Binding Name}"/>
+                                <Setter Property="ToolTip">
+                                    <Setter.Value>
+                                        <ToolTip Style="{StaticResource TooltipMenuLeft}" Content="{Binding Name}"/>
+                                    </Setter.Value>
+                                </Setter>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -52,18 +56,32 @@
                                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
                                     <Setter Property="FontWeight" Value="SemiBold"/>
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
                             </Style.Triggers>
+                            
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
 
                 <!-- phải -->
                 <TextBlock Grid.Column="2"
-						    VerticalAlignment="Center"
-						    HorizontalAlignment="Center"
-						    FontSize="20"
-                            Foreground="#FF9CA3AF"
-						    Text="›">
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Center"
+						   FontSize="20"
+                           FontWeight="SemiBold"
+                           Foreground="#FF9CA3AF"
+						   Text="›">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
                 </TextBlock>
             </Grid>
         </Border>
@@ -102,31 +120,22 @@
         <Border>
             <Grid Height="40">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="32"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="28"/>
                 </Grid.ColumnDefinitions>
-                
-                <TextBlock  Grid.Column="1"
-					    VerticalAlignment="Center"
-					    Text="{Binding DisplayName}"
-					    TextTrimming="CharacterEllipsis">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Foreground" Value="#FF1F2937"/>
-                            <Setter Property="FontSize" Value="13"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
-                                    <Setter Property="FontWeight" Value="SemiBold"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
+
+                <TextBlock  Grid.Column="0"
+					        VerticalAlignment="Center"
+					        Text="{Binding DisplayName}"
+                            Foreground="#FF1F2937"
+                            FontSize="13"
+                            Margin="10,0,0,0"
+					        TextTrimming="CharacterEllipsis">
                 </TextBlock>
                 
             </Grid>
         </Border>
     </DataTemplate>
+    
     <Style x:Key="MenuItemAccountStyle" TargetType="ListBoxItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="Background" Value="White"/>
@@ -143,10 +152,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="MainBorder" Property="Background" Value="#15000000"/>
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="MainBorder" Property="Background" Value="#15000000"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="WhiteSmoke"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

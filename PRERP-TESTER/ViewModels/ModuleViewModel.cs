@@ -18,7 +18,7 @@ namespace PRERP_TESTER.ViewModels
 
         public ObservableCollection<AccountViewModel> ModuleAccounts { get; set; } = [];
 
-        private ObservableCollection<Account> AllSystemAccounts;
+        private readonly ObservableCollection<Account> AllSystemAccounts;
 
         public AccountViewModel? SelectedAccountModule { get; set; }
 

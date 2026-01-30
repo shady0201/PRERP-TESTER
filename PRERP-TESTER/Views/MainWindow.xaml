@@ -4,7 +4,7 @@
         xmlns:vm="clr-namespace:PRERP_TESTER.ViewModels"
         xmlns:views="clr-namespace:PRERP_TESTER.Views"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        Title="PRERP TESTER - Automation System" 
+        Title="PRERP TESTER" 
         Height="768" Width="1366"
         WindowStartupLocation="CenterScreen">
     
@@ -41,7 +41,7 @@
                     <Grid VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0"  Source="/Assets/logo.png" 

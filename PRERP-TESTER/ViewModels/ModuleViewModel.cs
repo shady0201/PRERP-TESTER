@@ -48,7 +48,7 @@ namespace PRERP_TESTER.ViewModels
 
         private void ExecuteAddAccountToModule()
         {
-            List<string> accountIds = ModuleEntity.AccountModules.Select(am => am.AccountID).ToList();
+            List<string> accountIds = [.. ModuleEntity.AccountModules.Select(am => am.AccountID)];
             var dialog = new AccountPickerDialog(AllSystemAccounts, accountIds)
             {
                 Owner = Application.Current.MainWindow
@@ -60,8 +60,18 @@ namespace PRERP_TESTER.ViewModels
 
                 foreach (var acc in selectedAccounts)
                 {
-                    
+                    var newAccountModule = new AccountModule
+                    {
+                        AccountID = acc.Id,
+                        TabWebItems = []
+                    };
+                    var list = ModuleEntity.AccountModules.ToList();
+                    list.Add(newAccountModule);
+                    ModuleEntity.AccountModules = list.ToArray();
+                    var accountVM = new AccountViewModel(acc, ModuleEntity.Id, newAccountModule.TabWebItems);
+                    ModuleAccounts.Add(accountVM);
                 }
+                SelectedAccountModule = ModuleAccounts.FirstOrDefault();
             }
         }
 

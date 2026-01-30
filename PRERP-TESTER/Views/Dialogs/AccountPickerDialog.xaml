@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PRERP_TESTER.Views.Dialogs"
+        xmlns:conv="clr-namespace:PRERP_TESTER.Converters"
         mc:Ignorable="d"
         Title="Thêm account"
         Height="auto" Width="450"
@@ -13,6 +14,11 @@
         SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
+    
+    <Window.Resources>
+        <conv:IDToEnabledConverter x:Key="IDToEnabledConverter"/>
+    </Window.Resources>
+    
     <Grid>
         <Border Background="White" CornerRadius="20" Margin="15" BorderThickness="0.5" BorderBrush="#FF8E8E8E">
             <Border.Effect>
@@ -20,22 +26,45 @@
             </Border.Effect>
             <StackPanel>
                 <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FFEFEFEF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
-                    <TextBlock Text="{Binding Accounts.count}" FontSize="20" Foreground="#FF2F2F2F" FontWeight="Medium"/>
+                    <TextBlock Text="{Binding Accounts.Count, StringFormat='Chọn tài khoản ({0})'}" FontSize="20" Foreground="#FF2F2F2F" FontWeight="Medium"/>
                 </Border>
-                <ListBox ItemsSource="{Binding Accounts}"
+                <ListBox x:Name="AccountListBox"
+                         ItemsSource="{Binding Accounts}"
                          SelectionMode="Multiple"
                          BorderThickness="0" Background="Transparent">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="IsEnabled">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource IDToEnabledConverter}">
+                                        <Binding Path="Id"/>
+                                        <Binding Path="DataContext.ExistingAccountIds" 
+                                 RelativeSource="{RelativeSource AncestorType=Window}"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" 
-                                          VerticalAlignment="Center" 
-                                          Margin="0,0,10,0"/>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold"/>
-                                    <TextBlock Text="{Binding Username}" FontSize="11" Foreground="Gray"/>
+                            <Border Padding="10,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" 
+                              VerticalAlignment="Center" 
+                              IsHitTestVisible="False" 
+                              Margin="0,0,10,0"/>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" Foreground="#2F2F2F"/>
+                                        <TextBlock Text="{Binding Username}" FontSize="11" Foreground="Gray"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
+                            </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

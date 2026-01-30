@@ -23,15 +23,21 @@ namespace PRERP_TESTER.Views.Dialogs
     {
         public List<Account> SelectedAccounts { get; private set; } = [];
         public ObservableCollection<Account> Accounts { get; set; } = [];
+        public List<string> ExistingAccountIds { get; set; }
         public AccountPickerDialog(ObservableCollection<Account> accounts, List<string> moduleAccounts)
         {
             Accounts = accounts;
-           
+            ExistingAccountIds = moduleAccounts;
+            DataContext = this;
             InitializeComponent();
         }
 
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
+            foreach (var item in AccountListBox.SelectedItems)
+            {
+                if (item is Account acc) SelectedAccounts.Add(acc);
+            }
             DialogResult = true;
             Close();
         }

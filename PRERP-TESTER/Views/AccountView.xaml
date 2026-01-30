@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PRERP_TESTER.Views"
              xmlns:conv="clr-namespace:PRERP_TESTER.Converters"
              xmlns:ext="clr-namespace:PRERP_TESTER.Extensions"
              xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
@@ -162,7 +161,7 @@
                                                                     </Grid>
                                                                 </Border>
                                                                 <!--  wwebview content  -->
-                                                                <wv2:WebView2 Grid.Row="1" ext:WebView2Extensions.AccountID="{Binding AccountID}" />
+                                                                <wv2:WebView2 Grid.Row="1" ext:WebView2Extensions.AccountID="{Binding UserName}" />
                                                             </Grid>
                                                         </DataTemplate>
                                                     </Setter.Value>

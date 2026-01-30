@@ -9,7 +9,7 @@ namespace PRERP_TESTER.ViewModels
 {
     public class TabViewModel : LazyLoadViewModel
     {
-        public string AccountID { get; set; }
+        public string UserName { get; set; }
         public string Password { get; set; }
         public string ModuleID { get; set; }
         public string Stype { get; set; }
@@ -19,9 +19,14 @@ namespace PRERP_TESTER.ViewModels
         public string Url
         {
             get => _url;
-            set => SetProperty(ref _url, value); // Đảm bảo OnPropertyChanged được gọi
+            set => SetProperty(ref _url, value);
         }
-        public string Title => TabData.Title;
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
 
         private bool _isSecure;
         public bool IsSecure
@@ -48,12 +53,13 @@ namespace PRERP_TESTER.ViewModels
         public TabViewModel(TabWeb tabWeb, string username,string password, string stype, string moduleID, Action<TabViewModel> closeAction)
         {
             Url = tabWeb.Url;
+            Title = tabWeb.Title;
             Password = password;
             Stype = stype;
             UpdateSecurityStatus(Url);
             TabData = tabWeb;
             IsLoaded = false;
-            AccountID = username;
+            UserName = username;
             ModuleID = moduleID;
 
             BackCommand = new RelayCommand(() => NavigationRequested?.Invoke("Back"));
@@ -86,8 +92,6 @@ namespace PRERP_TESTER.ViewModels
             UpdateSecurityStatus(Url);
             NavigationRequested?.Invoke("GoTo");
         }
-
-
 
     }
 }

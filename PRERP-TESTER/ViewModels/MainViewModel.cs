@@ -95,18 +95,16 @@ namespace PRERP_TESTER.ViewModels
 
         public void SaveAllData()
         {
-            // 1. Thu thập dữ liệu từ các ViewModel con để cập nhật vào Entity
             foreach (var moduleVM in Modules)
             {
                 var accountModuleList = new List<AccountModule>();
 
                 foreach (var accVM in moduleVM.ModuleAccounts)
                 {
-                    // Chuyển đổi TabViewModels (UI) ngược thành mảng TabWeb (Data)
                     var tabEntities = accVM.TabViewModels.Select(t => new TabWeb
                     {
                         ModuleId = t.ModuleID,
-                        AccountId = t.AccountID,
+                        AccountId = t.UserName,
                         Title = t.Title,
                         Url = t.Url,
                     }).ToArray();
@@ -117,12 +115,9 @@ namespace PRERP_TESTER.ViewModels
                         TabWebItems = tabEntities
                     });
                 }
-
-                // Cập nhật lại mảng AccountModules trong Entity của Module
                 moduleVM.ModuleEntity.AccountModules = accountModuleList.ToArray();
             }
 
-            // 2. Đóng gói và lưu xuống file
             var data = new ApplicationData
             {
                 Accounts = this.Accounts.ToList(),

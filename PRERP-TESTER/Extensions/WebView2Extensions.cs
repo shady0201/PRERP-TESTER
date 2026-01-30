@@ -37,6 +37,21 @@ namespace PRERP_TESTER.Extensions
                     await webView.EnsureCoreWebView2Async(env);
                     var context = webView.DataContext;
                     webView.NavigationCompleted += OnNavigationCompleted;
+
+                    // title change
+                    webView.CoreWebView2.DocumentTitleChanged += (s, args) =>
+                    {
+                        if (webView.DataContext is TabViewModel vm)
+                        {
+                            string webTitle = webView.CoreWebView2.DocumentTitle;
+                            if (!string.IsNullOrEmpty(webTitle))
+                            {
+                                vm.Title = webTitle;
+                            }
+                        }
+                    };
+
+                    // TabWeb contrl handle
                     if (webView.DataContext is TabViewModel vm && vm.Url != null)
                     {
 
@@ -122,35 +137,35 @@ namespace PRERP_TESTER.Extensions
                         : "https://prerp.bmtu.edu.vn/login?lang=vi";
 
                     string selectTypeScript = $@"
-                (function() {{
-                    var links = document.querySelectorAll('a.card-link_button');
-                    for (var i = 0; i < links.length; i++) {{
-                        if (links[i].href.indexOf('{targetLink}') !== -1) {{
-                            links[i].click();
-                            break;
-                        }}
-                    }}
-                }})();";
+                                                (function() {{
+                                                    var links = document.querySelectorAll('a.card-link_button');
+                                                    for (var i = 0; i < links.length; i++) {{
+                                                        if (links[i].href.indexOf('{targetLink}') !== -1) {{
+                                                            links[i].click();
+                                                            break;
+                                                        }}
+                                                    }}
+                                                }})();";
                     await webView.CoreWebView2.ExecuteScriptAsync(selectTypeScript);
                 }
 
                 else if (currentUrl.Contains("/login"))
                 {
                     string loginScript = $@"
-                (function() {{
-                    var userField = document.getElementsByName('email_txt')[0];
-                    var passField = document.getElementsByName('password_txt')[0];
-                    var loginBtn = document.querySelector('input[type=""submit""]');
+                                            (function() {{
+                                                var userField = document.getElementsByName('email_txt')[0];
+                                                var passField = document.getElementsByName('password_txt')[0];
+                                                var loginBtn = document.querySelector('input[type=""submit""]');
 
-                    if (userField && passField && userField.value === '') {{
-                        userField.value = '{vm.AccountID}';
-                        passField.value = '{vm.Password}';
+                                                if (userField && passField && userField.value === '') {{
+                                                    userField.value = '{vm.UserName}';
+                                                    passField.value = '{vm.Password}';
                         
-                        setTimeout(function() {{
-                            if (loginBtn) loginBtn.click();
-                        }}, 500);
-                    }}
-                }})();";
+                                                    setTimeout(function() {{
+                                                        if (loginBtn) loginBtn.click();
+                                                    }}, 500);
+                                                }}
+                                            }})();";
                     await webView.CoreWebView2.ExecuteScriptAsync(loginScript);
                 }
             }
@@ -160,5 +175,6 @@ namespace PRERP_TESTER.Extensions
             }
 
         }
+
     }
 }

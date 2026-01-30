@@ -36,7 +36,7 @@ namespace PRERP_TESTER.ViewModels
             {
                 var tabVM = CreateTab(tab);
                 tabVM.ModuleID = ModuleID;
-                tabVM.AccountID = account.Id;
+                tabVM.UserName = account.Username;
 
                 TabViewModels.Add(tabVM);
             }

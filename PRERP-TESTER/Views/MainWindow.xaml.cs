@@ -19,7 +19,7 @@ namespace PRERP_TESTER.Views
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (this.DataContext is MainViewModel vm)
+            if (DataContext is MainViewModel vm)
             {
                 vm.SaveAllData();
             }

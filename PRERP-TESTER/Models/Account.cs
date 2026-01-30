@@ -15,9 +15,6 @@ namespace PRERP_TESTER.Models
         public string DisplayName { get; set; } = "";
 
         public string Stype { get; set; } // STUDENT || STAFF
-        
-        public bool IsLogin { get; set; } = false;
-
 
         public string session { get; set; } = "";
 

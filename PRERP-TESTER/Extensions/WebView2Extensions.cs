@@ -24,8 +24,11 @@ namespace PRERP_TESTER.Extensions
         {
             if (d is WebView2 webView && e.NewValue is string accountId && !string.IsNullOrEmpty(accountId))
             {
-                webView.Unloaded -= OnWebViewUnloaded; // Đảm bảo không đăng ký trùng lặp
+                webView.Unloaded -= OnWebViewUnloaded;
                 webView.Unloaded += OnWebViewUnloaded;
+
+                webView.NavigationCompleted -= OnNavigationCompleted;
+
                 try
                 {
                     var envTask = _envCache.GetOrAdd(accountId, id => CreateEnvironmentForAccount(id));
@@ -33,9 +36,10 @@ namespace PRERP_TESTER.Extensions
                     var env = await envTask;
                     await webView.EnsureCoreWebView2Async(env);
                     var context = webView.DataContext;
-
+                    webView.NavigationCompleted += OnNavigationCompleted;
                     if (webView.DataContext is TabViewModel vm && vm.Url != null)
                     {
+
                         webView.Source = new Uri(vm.Url.ToString());
 
                         vm.NavigationRequested += (action) =>
@@ -57,8 +61,6 @@ namespace PRERP_TESTER.Extensions
                                     break;
                             }
                         };
-
-                        // Cập nhật ngược lại URL vào TextBox khi người dùng click link trên web
                         webView.SourceChanged += (s, args) => {
                             vm.Url = webView.Source.ToString();
                         };
@@ -81,7 +83,7 @@ namespace PRERP_TESTER.Extensions
         }
 
 
-        // tránh memory leak
+        // tránh memory leak khi đóng tab
         private static void OnWebViewUnloaded(object sender, RoutedEventArgs e)
         {
             if (sender is WebView2 webView)
@@ -93,18 +95,70 @@ namespace PRERP_TESTER.Extensions
                     {
                         webView.CoreWebView2.Stop();
                     }
-
-                    // 2. Dispose WebView2
-                    // Lưu ý: Việc Dispose sẽ đóng trình xử lý trình duyệt (Browser Process) liên quan nếu là tab cuối
                     webView.Dispose();
 
-                    System.Diagnostics.Debug.WriteLine("WebView2 has been disposed successfully.");
+                    System.Diagnostics.Debug.WriteLine("WebView2 has been disposed successfully");
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine($"Error disposing WebView2: {ex.Message}");
                 }
             }
+        }
+
+        private static async void OnNavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            if (!e.IsSuccess || sender is not WebView2 webView) return;
+            if (webView.DataContext is not TabViewModel vm) return;
+
+            string currentUrl = webView.Source.ToString();
+
+            try
+            {
+                if (currentUrl.Contains("landingpage") && currentUrl.Contains("prerp.bmtu.edu.vn"))
+                {
+                    string targetLink = (vm.Stype == "STUDENT")
+                        ? "https://prerp.bmtu.edu.vn/sftraining/login?lang=vi"
+                        : "https://prerp.bmtu.edu.vn/login?lang=vi";
+
+                    string selectTypeScript = $@"
+                (function() {{
+                    var links = document.querySelectorAll('a.card-link_button');
+                    for (var i = 0; i < links.length; i++) {{
+                        if (links[i].href.indexOf('{targetLink}') !== -1) {{
+                            links[i].click();
+                            break;
+                        }}
+                    }}
+                }})();";
+                    await webView.CoreWebView2.ExecuteScriptAsync(selectTypeScript);
+                }
+
+                else if (currentUrl.Contains("/login"))
+                {
+                    string loginScript = $@"
+                (function() {{
+                    var userField = document.getElementsByName('email_txt')[0];
+                    var passField = document.getElementsByName('password_txt')[0];
+                    var loginBtn = document.querySelector('input[type=""submit""]');
+
+                    if (userField && passField && userField.value === '') {{
+                        userField.value = '{vm.AccountID}';
+                        passField.value = '{vm.Password}';
+                        
+                        setTimeout(function() {{
+                            if (loginBtn) loginBtn.click();
+                        }}, 500);
+                    }}
+                }})();";
+                    await webView.CoreWebView2.ExecuteScriptAsync(loginScript);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Auto-Login Script Error: {ex.Message}");
+            }
+
         }
     }
 }

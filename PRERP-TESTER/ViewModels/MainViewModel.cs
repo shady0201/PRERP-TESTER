@@ -41,10 +41,9 @@ namespace PRERP_TESTER.ViewModels
             LoadMockSystemAccounts();
             CreateDemoModule();
 
-            // Command list
+            // Commands
             CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
             CreateAccountCommand = new RelayCommand(ExecuteCreateAccount);
-
             ToggleMenuCommand = new RelayCommand(() => IsMenuCollapsed = !IsMenuCollapsed);
 
         }
@@ -91,15 +90,18 @@ namespace PRERP_TESTER.ViewModels
                 new Account
                 {
                     Id = "acc_admin",
-                    Username = "bmtu02",
                     DisplayName = "Giảng Viên 1",
+                    Username = "bmtu02",
                     Password = "12345678Aa@",
+                    Stype = "STAFF",
                 },
                 new Account
                 {
                     Id = "acc_teacher",
-                    Username = "teacher_ha",
                     DisplayName = "Giảng viên 2",
+                    Username = "BMTU00953",
+                    Password="12345678Aa@",
+                    Stype= "STAFF"
                 }
             ];
         }

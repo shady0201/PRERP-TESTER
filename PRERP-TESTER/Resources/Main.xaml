@@ -3,8 +3,8 @@
 
     <Style x:Key="StyleButtonCollapse" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Width" Value="30"/>
-        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="14"/>
+        <Setter Property="Height" Value="14"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Foreground" Value="#FF757575"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>

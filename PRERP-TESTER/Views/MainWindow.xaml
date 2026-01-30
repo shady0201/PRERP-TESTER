@@ -41,20 +41,18 @@
                     <Grid VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-
-                            <Image Grid.Column="0"  Source="/Assets/logo.png" 
+                        <Image Grid.Column="0"  Source="/Assets/logo.png" 
                                    Width="28" Height="28" 
                                    Stretch="Fill"
                                    Margin="5,0,5,0"
                                    Cursor="Hand">
-                                <Image.InputBindings>
-                                    <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleMenuCommand}"/>
-                                 </Image.InputBindings>
-                            </Image>
-
+                            <Image.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleMenuCommand}"/>
+                            </Image.InputBindings>
+                        </Image>
                         <TextBlock Grid.Column="1" Width="auto" Height="auto" Text="Prerp Tester" Foreground="#FF404040" FontSize="14" FontWeight="SemiBold" FontFamily="Sans Serif Collection">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
@@ -71,7 +69,7 @@
                                 Command="{Binding ToggleMenuCommand}"
                                 Style="{StaticResource StyleButtonCollapse}"
                                 Margin="0,0,5,0">
-                            <iconPacks:PackIconMaterial Kind="ChevronLeftBox" Width="14" Height="14" VerticalAlignment="Center"/>
+                            <iconPacks:PackIconMaterial Kind="DockLeft" VerticalAlignment="Center"/>
                         </Button>
                     </Grid>
                 </Border>

@@ -51,8 +51,7 @@ namespace PRERP_TESTER.ViewModels
         
         private TabViewModel CreateTab(TabWeb tab)
         {
-            return new TabViewModel(tab, Account.Username, ModuleID, (tabToDelete) => {
-                // truyền hàm xoá vào TabViewModel
+            return new TabViewModel(tab, Account.Username,Account.Password,Account.Stype, ModuleID, (tabToDelete) => {
                 TabViewModels.Remove(tabToDelete);
                 if (SelectedTab == null && TabViewModels.Count > 0)
                 {

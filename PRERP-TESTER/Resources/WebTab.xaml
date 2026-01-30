@@ -97,6 +97,7 @@
                                 Height="40"
                                 Padding="8,0,8,0"
                                 HorizontalAlignment="Stretch"
+                                Width="200"
                                 MaxWidth="200"
                                 MinWidth="40">
                             

@@ -26,6 +26,7 @@ namespace PRERP_TESTER.Views.Dialogs
         public AccountPickerDialog(ObservableCollection<Account> accounts, List<string> moduleAccounts)
         {
             Accounts = accounts;
+           
             InitializeComponent();
         }
 

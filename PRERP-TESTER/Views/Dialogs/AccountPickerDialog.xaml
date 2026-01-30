@@ -20,7 +20,7 @@
             </Border.Effect>
             <StackPanel>
                 <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FFEFEFEF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
-                    <TextBlock Text="Chọn tài khoản" FontSize="20" Foreground="#FF2F2F2F" FontWeight="Medium"/>
+                    <TextBlock Text="{Binding Accounts.count}" FontSize="20" Foreground="#FF2F2F2F" FontWeight="Medium"/>
                 </Border>
                 <ListBox ItemsSource="{Binding Accounts}"
                          SelectionMode="Multiple"

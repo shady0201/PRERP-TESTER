@@ -32,6 +32,8 @@ namespace PRERP_TESTER.ViewModels
         public ICommand CreateModuleCommand { get; }
         public ICommand CreateAccountCommand { get; }
         public ICommand ToggleMenuCommand { get; }
+        public ICommand EditAccountCommand { get; }
+        public ICommand RemoveAccountFromModuleCommand { get; }
 
         public MainViewModel()
         {
@@ -43,6 +45,7 @@ namespace PRERP_TESTER.ViewModels
             // Commands
             CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
             CreateAccountCommand = new RelayCommand(ExecuteCreateAccount);
+            EditAccountCommand = new RelayCommand<Account>(ExecuteEditAccount);
             ToggleMenuCommand = new RelayCommand(() => IsMenuCollapsed = !IsMenuCollapsed);
 
         }
@@ -80,6 +83,25 @@ namespace PRERP_TESTER.ViewModels
                 };
                 Accounts.Add(account);
             }
+        }
+
+        private void ExecuteEditAccount(Account account) {
+            if (account == null) return;
+
+            var dialog = new AddAccountDialog(account);
+            dialog.Owner = Application.Current.MainWindow;
+
+            if (dialog.ShowDialog() == true)
+            {
+                int index = Accounts.IndexOf(account);
+                if (index >= 0)
+                {
+                    Accounts[index] = null;
+                    Accounts[index] = account;
+                }
+                SaveAllData();
+            }
+
         }
 
         public void LoadAllData()
@@ -127,72 +149,8 @@ namespace PRERP_TESTER.ViewModels
             DataService.SaveData(data);
         }
 
-        /**
-         * 
-         * new Account
-                {
-                    Id = "acc_admin",
-                    DisplayName = "Giảng Viên 1",
-                    Username = "bmtu02",
-                    Password = "12345678Aa@",
-                    Stype = "STAFF",
-                },
-         * ***/
 
-        private void LoadMockSystemAccounts()
-        {
-            // Dựa trên class AccountID trong file classes.txt
-            Accounts =
-            [
-                
-                new Account
-                {
-                    Id = "acc_teacher",
-                    DisplayName = "Giảng viên 2",
-                    Username = "BMTU00953",
-                    Password="12345678Aa@",
-                    Stype= "STAFF"
-                }
-            ];
-        }
-
-        private void CreateDemoModule()
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                var moduleEntity = new ModuleEntity
-                {
-                    Name = $"Module Test {Modules.Count + 1}",
-                    Description = "Kịch bản kiểm thử tự động hệ thống đào tạo",
-                    AccountModules =
-                    [
-                        new() {
-                            AccountID = "acc_admin",
-                            TabWebItems =
-                            [
-                                new() { Title = "Q.Lý Hệ Thống", Url = "https://prerp.bmtu.edu.vn" },
-                                new() { Title = "Prerp - debug", Url = "https://prerp.bmtu.edu.vn/regulation/index?lang=vi" },
-                                new() { Title = "SFT debug", Url = "https://prerp.bmtu.edu.vn/sftraining/debug?lang=vi" }
-                            ]
-                        },
-                        // Cấu hình cho AccountID Teacher
-                        new AccountModule
-                        {
-                            AccountID = "acc_teacher",
-                            TabWebItems =
-                            [
-                                new() { Title = "Chấm điểm", Url = "https://prerp.bmtu.edu.vn/" },
-                                new() { Title = "Trang duyệt", Url = "https://prerp.bmtu.edu.vn/" },
-                            ]
-                        }
-                    ]
-                };
-                var moduleVM = new ModuleViewModel(moduleEntity, Accounts);
-
-                Modules.Add(moduleVM);
-            }
-            SelectedModule = Modules.FirstOrDefault();
-        }
+        
 
     }
 }

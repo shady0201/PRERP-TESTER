@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRERP_TESTER.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,10 @@ using System.Windows.Shapes;
 
 namespace PRERP_TESTER.Views.Dialogs
 {
-
     public partial class AddAccountDialog : Window
     {
+        private Account _editingAccount;
+
         public string Username { get; private set; }
         public string Password { get; private set; }
         public string DisplayName { get; private set; }
@@ -28,16 +30,45 @@ namespace PRERP_TESTER.Views.Dialogs
             InitializeComponent();
 
         }
+        public AddAccountDialog(Account account) : this()
+        {
+            _editingAccount = account;
+
+            // 1. Đổi tiêu đề và nút bấm
+            Title.Text = "Chỉnh Sửa Tài Khoản";
+            BtnConfirm.Content = "Lưu thay đổi";
+
+            TxtUsername.Text = account.Username;
+            TxtUsername.IsEnabled = false;
+            TxtPassword.Password = account.Password;
+            TxtDisplayName.Text = account.DisplayName;
+
+            if (account.Stype == "STUDENT")
+                RbStudent.IsChecked = true;
+            else
+                RbStaff.IsChecked = true;
+        }
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(TxtUsername.Text) && !string.IsNullOrWhiteSpace(TxtPassword.Password))
+            if (_editingAccount != null)
             {
-                Username = TxtUsername.Text;
-                Password = TxtPassword.Password;
-                DisplayName = TxtDisplayName.Text;
-                Stype = RbStaff.IsChecked == true ? "STAFF" : "STUDENT";
+                _editingAccount.Password = TxtPassword.Password;
+                _editingAccount.DisplayName = TxtDisplayName.Text;
+                _editingAccount.Stype = RbStudent.IsChecked == true ? "STUDENT" : "STAFF";
                 DialogResult = true;
                 Close();
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(TxtUsername.Text) && !string.IsNullOrWhiteSpace(TxtPassword.Password))
+                {
+                    Username = TxtUsername.Text;
+                    Password = TxtPassword.Password;
+                    DisplayName = TxtDisplayName.Text;
+                    Stype = RbStaff.IsChecked == true ? "STAFF" : "STUDENT";
+                    DialogResult = true;
+                    Close();
+                }
             }
         }
 

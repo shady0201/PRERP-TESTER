@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
     
     <!-- Module item -->
     <DataTemplate x:Key="MenuItemModule">
@@ -121,6 +121,7 @@
             <Grid Height="40">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock  Grid.Column="0"
@@ -129,9 +130,18 @@
                             Foreground="#FF1F2937"
                             FontSize="13"
                             Margin="10,0,0,0"
-					        TextTrimming="CharacterEllipsis">
-                </TextBlock>
-                
+					        TextTrimming="CharacterEllipsis"/>
+                <Button Grid.Column="1"
+                        Command="{Binding DataContext.EditAccountCommand, 
+                                          RelativeSource={RelativeSource AncestorType=ListBox}}"
+                        CommandParameter="{Binding}"
+                        Width="25" Height="25"
+                        Margin="5,0,20,0"
+                        Style="{StaticResource EditAccountButtonStyle}">
+                    <iconPacks:PackIconMaterial Kind="AccountEdit" />
+                </Button>
+
+
             </Grid>
         </Border>
     </DataTemplate>

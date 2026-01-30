@@ -73,6 +73,7 @@
                         <Button Content="Hủy" Click="BtnCancel_Click" 
                                 IsDefault="False"
                                 Padding="25,10"
+                                Margin="0,0,10,0"
                                 Cursor="Hand"
                                 Style="{StaticResource CancelStyle}"/>
                         <Button Content="Xác nhận"

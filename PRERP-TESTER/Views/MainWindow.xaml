@@ -81,11 +81,10 @@
                     <Border Grid.Row="2" Padding="0,0,0,0">
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection">
+                            <TextBlock Grid.Column="0" Foreground="#FF404040" FontSize="12" FontFamily="Sans Serif Collection">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Text" Value="{Binding Modules.Count, StringFormat='MODULE ({0})'}"/>
@@ -107,8 +106,9 @@
                             <Button Grid.Column="1"
                                     Command="{Binding CreateModuleCommand}"
                                     Width="25" Height="25"
+                                    Margin="10,0,0,0"
                                     Style="{StaticResource CreateDataMenuStyle}">
-                                <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center"/>
+                                <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center" Foreground="Green"/>
                             </Button>
                         </Grid>
                     </Border>
@@ -145,17 +145,15 @@
                     </Border.Style>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="61*"/>
-                            <ColumnDefinition Width="19*"/>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text= "{Binding Accounts.Count, StringFormat='TÀI KHOẢN ({0})'}" Foreground="#FF404040" FontSize="11" FontFamily="Sans Serif Collection" Grid.ColumnSpan="2"/>
-                        <Button Grid.Column="2"
+                        <TextBlock Grid.Column="0" Text= "{Binding Accounts.Count, StringFormat='TÀI KHOẢN ({0})'}" Foreground="#FF404040" FontSize="12" FontFamily="Sans Serif Collection"/>
+                        <Button Grid.Column="1"
                                 Command="{Binding CreateAccountCommand}" 
                                 Width="25" Height="25"
-                                Style="{StaticResource CreateDataMenuStyle}" Margin="0,2,0,2">
-                            <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center"/>
+                                Style="{StaticResource CreateDataMenuStyle}" Margin="10,0,0,0">
+                            <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center" Foreground="Green"/>
                         </Button>
                     </Grid>
                 </Border>

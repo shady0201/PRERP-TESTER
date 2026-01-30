@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using PRERP_TESTER.Models;
 using PRERP_TESTER.Services;
+using PRERP_TESTER.Views.Dialogs;
 
 namespace PRERP_TESTER.ViewModels
 {
@@ -16,15 +18,18 @@ namespace PRERP_TESTER.ViewModels
 
         public ObservableCollection<AccountViewModel> ModuleAccounts { get; set; } = [];
 
+        private ObservableCollection<Account> AllSystemAccounts;
+
         public AccountViewModel? SelectedAccountModule { get; set; }
 
-        public ICommand OpenAllCommand { get; }
+        public ICommand AddAccountToModuleCommand { get; }
 
         public string Name => ModuleEntity.Name;
 
         public ModuleViewModel( ModuleEntity module, ObservableCollection<Account> allSystemAccounts)
         {
             ModuleEntity = module;
+            AllSystemAccounts = allSystemAccounts;
 
             for (int i = 0; i < module.AccountModules.Length; i++)
             {
@@ -36,15 +41,29 @@ namespace PRERP_TESTER.ViewModels
                 }
             }
 
+            AddAccountToModuleCommand = new RelayCommand(ExecuteAddAccountToModule);
+
             SelectedAccountModule = ModuleAccounts.FirstOrDefault();
         }
 
-        public void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ExecuteAddAccountToModule()
         {
-            if (e.AddedItems.Count > 0 && e.AddedItems[0] is TabViewModel tab)
+            List<string> accountIds = ModuleEntity.AccountModules.Select(am => am.AccountID).ToList();
+            var dialog = new AccountPickerDialog(AllSystemAccounts, accountIds)
             {
-                tab.IsLoaded = true;
+                Owner = Application.Current.MainWindow
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                var selectedAccounts = dialog.SelectedAccounts;
+
+                foreach (var acc in selectedAccounts)
+                {
+                    
+                }
             }
         }
+
     }
 }

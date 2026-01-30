@@ -61,7 +61,7 @@
                         </ListBox.ItemsPanel>
                     </ListBox>
                     <Button Grid.Column="1"
-                            Command="{Binding AddTabCommand}" 
+                            Command="{Binding AddTabCommand}"
                             Width="25" Height="25" Margin="5,8,5,8"
                             Style="{StaticResource AddTabButtonStyle}">
                         <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center"/>

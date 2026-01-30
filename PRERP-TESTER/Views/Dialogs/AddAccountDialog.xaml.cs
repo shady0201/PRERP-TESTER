@@ -52,14 +52,6 @@ namespace PRERP_TESTER.Views.Dialogs
             TxtUsername.SelectAll();
         }
 
-        private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                DragMove();
-            }
-        }
-
         private void TxtUsername_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex(@"[^a-zA-Z0-9.@_-]+");
@@ -73,7 +65,6 @@ namespace PRERP_TESTER.Views.Dialogs
                 e.Handled = true;
             }
         }
-
         private void TxtUsername_Pasting(object sender, DataObjectPastingEventArgs e)
         {
             if (e.DataObject.GetDataPresent(typeof(string)))
@@ -89,6 +80,14 @@ namespace PRERP_TESTER.Views.Dialogs
             else
             {
                 e.CancelCommand();
+            }
+        }
+
+        private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
             }
         }
     }

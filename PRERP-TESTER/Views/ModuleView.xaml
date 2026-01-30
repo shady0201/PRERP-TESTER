@@ -2,8 +2,8 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
             xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            mc:Ignorable="av"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="av"
             x:Class="PRERP_TESTER.Views.ModuleView"
             av:DesignHeight="290.913" av:DesignWidth="642.208">
 
@@ -26,9 +26,9 @@
                     BorderBrush="#FFF3F3F3"
                     BorderThickness="0.5"
                     CornerRadius="5"
-                    Height="40"
+                    Height="auto"
                     Margin="0,0,0,5">
-                
+
                 <Border.Effect>
                     <DropShadowEffect Color="#FFCECECE" 
                                       Direction="0" 
@@ -36,25 +36,36 @@
                                       Opacity="0.3"
                                       BlurRadius="7"/>
                 </Border.Effect>
-                
-                <StackPanel Orientation="Horizontal">
-                    <ListBox ItemsSource="{Binding ModuleAccounts}"
-                         SelectedItem="{Binding SelectedAccountModule}"
-                         ItemContainerStyle="{StaticResource AccountTabItemStyle}"
-                         Background="Transparent"
-                         BorderThickness="0">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <ListBox ItemsSource="{Binding ModuleAccounts}"
+                                 SelectedItem="{Binding SelectedAccountModule}"
+                                 ItemContainerStyle="{StaticResource AccountTabItemStyle}"
+                                 Background="Transparent"
+                                 BorderThickness="0">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                    <Button Grid.Column="1"
+                            Command="{Binding AddAccountToModuleCommand}"
+                            Width="25" Height="25" Margin="5,8,5,8"
+                            Style="{StaticResource AddTabButtonStyle}">
+                        <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center"/>
+                    </Button>
+                </Grid>
             </Border>
 
             <ItemsControl ItemsSource="{Binding ModuleAccounts}" Grid.Row="2">

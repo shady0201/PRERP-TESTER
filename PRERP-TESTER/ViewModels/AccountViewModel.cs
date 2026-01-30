@@ -30,10 +30,15 @@ namespace PRERP_TESTER.ViewModels
         {
             Account = account;
             ModuleID = moduleID;
-            ObservableCollection<TabViewModel> tabs = [];
+
+            TabViewModels.Clear();
             foreach (var tab in tabWebs)
             {
-                TabViewModels.Add(CreateTab(tab));
+                var tabVM = CreateTab(tab);
+                tabVM.ModuleID = ModuleID;
+                tabVM.AccountID = account.Id;
+
+                TabViewModels.Add(tabVM);
             }
 
             SelectedTab = TabViewModels.FirstOrDefault();

@@ -24,8 +24,6 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _isMenuCollapsed, value);
         }
 
-       
-
         public ObservableCollection<ModuleViewModel> Modules { get; set; } = [];
 
         public ModuleViewModel? SelectedModule { get; set; }
@@ -38,8 +36,9 @@ namespace PRERP_TESTER.ViewModels
         public MainViewModel()
         {
 
-            LoadMockSystemAccounts();
-            CreateDemoModule();
+            //LoadMockSystemAccounts();
+            //CreateDemoModule();
+            LoadAllData();
 
             // Commands
             CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
@@ -73,6 +72,7 @@ namespace PRERP_TESTER.ViewModels
             {
                 var account = new Account
                 {
+                    Id= Guid.NewGuid().ToString("N"),
                     Username = dialog.Username,
                     Password = dialog.Password,
                     DisplayName = dialog.DisplayName,
@@ -82,12 +82,59 @@ namespace PRERP_TESTER.ViewModels
             }
         }
 
-        private void LoadMockSystemAccounts()
+        public void LoadAllData()
         {
-            // Dựa trên class AccountID trong file classes.txt
-            Accounts =
-            [
-                new Account
+            var data = DataService.LoadData<ApplicationData>();
+            Accounts = new ObservableCollection<Account>(data.Accounts);
+            Modules.Clear();
+            foreach (var entity in data.Modules)
+            {
+                Modules.Add(new ModuleViewModel(entity, Accounts));
+            }
+        }
+
+        public void SaveAllData()
+        {
+            // 1. Thu thập dữ liệu từ các ViewModel con để cập nhật vào Entity
+            foreach (var moduleVM in Modules)
+            {
+                var accountModuleList = new List<AccountModule>();
+
+                foreach (var accVM in moduleVM.ModuleAccounts)
+                {
+                    // Chuyển đổi TabViewModels (UI) ngược thành mảng TabWeb (Data)
+                    var tabEntities = accVM.TabViewModels.Select(t => new TabWeb
+                    {
+                        ModuleId = t.ModuleID,
+                        AccountId = t.AccountID,
+                        Title = t.Title,
+                        Url = t.Url,
+                    }).ToArray();
+
+                    accountModuleList.Add(new AccountModule
+                    {
+                        AccountID = accVM.Account.Id,
+                        TabWebItems = tabEntities
+                    });
+                }
+
+                // Cập nhật lại mảng AccountModules trong Entity của Module
+                moduleVM.ModuleEntity.AccountModules = accountModuleList.ToArray();
+            }
+
+            // 2. Đóng gói và lưu xuống file
+            var data = new ApplicationData
+            {
+                Accounts = this.Accounts.ToList(),
+                Modules = this.Modules.Select(m => m.ModuleEntity).ToList()
+            };
+
+            DataService.SaveData(data);
+        }
+
+        /**
+         * 
+         * new Account
                 {
                     Id = "acc_admin",
                     DisplayName = "Giảng Viên 1",
@@ -95,6 +142,14 @@ namespace PRERP_TESTER.ViewModels
                     Password = "12345678Aa@",
                     Stype = "STAFF",
                 },
+         * ***/
+
+        private void LoadMockSystemAccounts()
+        {
+            // Dựa trên class AccountID trong file classes.txt
+            Accounts =
+            [
+                
                 new Account
                 {
                     Id = "acc_teacher",
@@ -143,5 +198,6 @@ namespace PRERP_TESTER.ViewModels
             }
             SelectedModule = Modules.FirstOrDefault();
         }
+
     }
 }

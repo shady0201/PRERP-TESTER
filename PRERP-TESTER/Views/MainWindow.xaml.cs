@@ -1,4 +1,6 @@
-﻿using PRERP_TESTER.ViewModels;
+﻿using PRERP_TESTER.Models;
+using PRERP_TESTER.Services;
+using PRERP_TESTER.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +17,14 @@ namespace PRERP_TESTER.Views
             DataContext = new MainViewModel();
             InitializeComponent();
         }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (this.DataContext is MainViewModel vm)
+            {
+                vm.SaveAllData();
+            }
+        }
     }
+
+
 }

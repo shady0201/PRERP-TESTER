@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using PRERP_TESTER.Helper;
 using PRERP_TESTER.Models;
 using PRERP_TESTER.Services;
 using PRERP_TESTER.Views.Dialogs;
@@ -16,6 +19,21 @@ namespace PRERP_TESTER.ViewModels
             get => _accounts;
             set => SetProperty(ref _accounts, value);
         }
+
+        private string _searchAccountText;
+        public string SearchAccountText
+        {
+            get => _searchAccountText;
+            set
+            {
+                if (SetProperty(ref _searchAccountText, value))
+                {
+                    AccountMenuView.Refresh();
+                }
+            }
+        }
+
+        public ICollectionView AccountMenuView { get; }
 
         private bool _isMenuCollapsed;
         public bool IsMenuCollapsed
@@ -38,8 +56,6 @@ namespace PRERP_TESTER.ViewModels
         public MainViewModel()
         {
 
-            //LoadMockSystemAccounts();
-            //CreateDemoModule();
             LoadAllData();
 
             // Commands
@@ -47,6 +63,9 @@ namespace PRERP_TESTER.ViewModels
             CreateAccountCommand = new RelayCommand(ExecuteCreateAccount);
             EditAccountCommand = new RelayCommand<Account>(ExecuteEditAccount);
             ToggleMenuCommand = new RelayCommand(() => IsMenuCollapsed = !IsMenuCollapsed);
+
+            AccountMenuView = new ListCollectionView(Accounts);
+            AccountMenuView.Filter = FilterAccountMenu;
 
         }
 
@@ -102,6 +121,21 @@ namespace PRERP_TESTER.ViewModels
                 SaveAllData();
             }
 
+        }
+
+        private bool FilterAccountMenu(object obj)
+        {
+            if (string.IsNullOrWhiteSpace(SearchAccountText)) return true;
+
+            if (obj is Account acc)
+            {
+                string search = StringHelper.RemoveSign4VietnameseString(SearchAccountText.ToLower().Trim());
+                string name = StringHelper.RemoveSign4VietnameseString(acc.DisplayName?.ToLower() ?? "");
+                string user = StringHelper.RemoveSign4VietnameseString(acc.Username?.ToLower() ?? "");
+
+                return name.Contains(search) || user.Contains(search);
+            }
+            return false;
         }
 
         public void LoadAllData()

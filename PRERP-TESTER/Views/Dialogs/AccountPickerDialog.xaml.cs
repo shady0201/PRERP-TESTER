@@ -1,7 +1,9 @@
-﻿using PRERP_TESTER.Models;
+﻿using PRERP_TESTER.Helper;
+using PRERP_TESTER.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,20 +18,45 @@ using System.Windows.Shapes;
 
 namespace PRERP_TESTER.Views.Dialogs
 {
-    /// <summary>
-    /// Interaction logic for AccountPickerDialog.xaml
-    /// </summary>
     public partial class AccountPickerDialog : Window
     {
+        private ICollectionView _accountsView;
         public List<Account> SelectedAccounts { get; private set; } = [];
         public ObservableCollection<Account> Accounts { get; set; } = [];
         public List<string> ExistingAccountIds { get; set; }
         public AccountPickerDialog(ObservableCollection<Account> accounts, List<string> moduleAccounts)
         {
+            InitializeComponent();
             Accounts = accounts;
             ExistingAccountIds = moduleAccounts;
             DataContext = this;
-            InitializeComponent();
+
+            _accountsView = new ListCollectionView(accounts);
+            _accountsView.Filter = FilterAccounts;
+
+            AccountListBox.ItemsSource = _accountsView;
+
+        }
+
+        private bool FilterAccounts(object obj)
+        {
+            if (TxtSearch == null || string.IsNullOrEmpty(TxtSearch.Text))
+                return true;
+
+            if (obj is Account acc)
+            {
+                string searchText = StringHelper.RemoveSign4VietnameseString(TxtSearch.Text.Trim().ToLower());
+                string displayName = StringHelper.RemoveSign4VietnameseString(acc.DisplayName?.ToLower() ?? "");
+                string username = StringHelper.RemoveSign4VietnameseString(acc.Username?.ToLower() ?? "");
+
+                return displayName.Contains(searchText) || username.Contains(searchText);
+            }
+            return false;
+        }
+
+        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _accountsView.Refresh();
         }
 
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)

@@ -34,8 +34,7 @@ namespace PRERP_TESTER.Views.Dialogs
         {
             _editingAccount = account;
 
-            // 1. Đổi tiêu đề và nút bấm
-            Title.Text = "Chỉnh Sửa Tài Khoản";
+            Title_lable.Text = "Chỉnh Sửa Tài Khoản";
             BtnConfirm.Content = "Lưu thay đổi";
 
             TxtUsername.Text = account.Username;

@@ -19,12 +19,12 @@
             </Border.Effect>
 
             <StackPanel>
-                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FFEFEFEF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
-                    <TextBlock x:Name="Title_lable" Text="Thêm Tài Khoản" FontSize="20" Foreground="#FF2F2F2F" FontWeight="Medium"/>
+                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FF509BFF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
+                    <TextBlock x:Name="Title_lable" Text="Thêm Tài Khoản" FontSize="20" Foreground="White" FontWeight="Medium"/>
                 </Border>
                 <StackPanel Margin="25,18,25,25">
                     <TextBlock Text="Username" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
-                    <Border Background="#FFECECEC" CornerRadius="12" Height="50" Margin="0,0,0,15">
+                    <Border x:Name="BorderUserName" Background="#FFECECEC" CornerRadius="12" Height="50" Margin="0,0,0,15">
                         <TextBox x:Name="TxtUsername" Background="Transparent" BorderThickness="0"
                                  VerticalContentAlignment="Center" Padding="15,0"
                                  PreviewTextInput="TxtUsername_PreviewTextInput"

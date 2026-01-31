@@ -17,8 +17,8 @@
                 <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="0" Opacity="0.2"/>
             </Border.Effect>
             <StackPanel>
-                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FFEFEFEF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
-                    <TextBlock Text="Thêm mới Module" FontSize="20" Foreground="#FF2F2F2F" FontWeight="Medium"/>
+                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FF509BFF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
+                    <TextBlock Text="Thêm mới Module" FontSize="20" Foreground="White" FontWeight="Medium"/>
                 </Border>
                 <StackPanel Margin="25,18,25,25">
                     <TextBlock Text="Tên module" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>

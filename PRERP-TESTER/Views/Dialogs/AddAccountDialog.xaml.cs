@@ -38,9 +38,10 @@ namespace PRERP_TESTER.Views.Dialogs
             BtnConfirm.Content = "Lưu thay đổi";
 
             TxtUsername.Text = account.Username;
-            TxtUsername.IsEnabled = false;
             TxtPassword.Password = account.Password;
             TxtDisplayName.Text = account.DisplayName;
+            TxtUsername.IsEnabled = false;
+            BorderUserName.Background = Brushes.Transparent;
 
             if (account.Stype == "STUDENT")
                 RbStudent.IsChecked = true;

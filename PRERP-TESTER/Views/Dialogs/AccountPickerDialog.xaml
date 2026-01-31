@@ -25,8 +25,8 @@
                 <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="0" Opacity="0.2"/>
             </Border.Effect>
             <StackPanel>
-                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FFEFEFEF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
-                    <TextBlock Text="{Binding Accounts.Count, StringFormat='Chọn tài khoản ({0})'}" FontSize="20" Foreground="#FF2F2F2F" FontWeight="Medium"/>
+                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FF509BFF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
+                    <TextBlock Text="Chọn tài khoản" FontSize="20" Foreground="White" FontWeight="Medium"/>
                 </Border>
 
                 <Border Background="#FFF1F1F1" CornerRadius="10" Margin="25,10,25,10" Padding="10,5">
@@ -68,7 +68,7 @@
                 </Border>
 
                 <ListBox x:Name="AccountListBox"
-                         ItemsSource="{Binding Accounts}"
+                         ItemsSource="{Binding _accountsView}"
                          SelectionMode="Multiple"
                          BorderThickness="0" Background="Transparent">
                     <ListBox.ItemContainerStyle>

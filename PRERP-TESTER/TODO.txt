@@ -1,5 +1,5 @@
-﻿- Xoá account trong module.
-- Xoá account tổng.
+﻿
+- Cập nhật thông tin tài khoản => cập nhật luôn trong module.
 - Thêm chức năng xóa account => Xoá các account có trong các module, xoá account gốc.
 - Chức năng hỗ trợ debug: thêm code debug.
 - Cập nhật nhãn phân hệ hoặc favicon.

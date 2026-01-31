@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PRERP_TESTER.Views.Dialogs"
-        xmlns:conv="clr-namespace:PRERP_TESTER.Converters"
+        xmlns:conv="clr-namespace:PRERP_TESTER.Converters" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Thêm account"
         Height="auto" Width="450"
@@ -25,11 +25,50 @@
                 <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="0" Opacity="0.2"/>
             </Border.Effect>
             <StackPanel>
-                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FFEFEFEF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
-                    <TextBlock Text="{Binding Accounts.Count, StringFormat='Chọn tài khoản ({0})'}" FontSize="20" Foreground="#FF2F2F2F" FontWeight="Medium"/>
+                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,0,10" Background="#FF509BFF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
+                    <TextBlock Text="Chọn tài khoản" FontSize="20" Foreground="White" FontWeight="Medium"/>
                 </Border>
+
+                <Border Background="#FFF1F1F1" CornerRadius="10" Margin="25,10,25,10" Padding="10,5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBox x:Name="TxtSearch" 
+                                    Grid.Column="1"
+                                    Background="Transparent" 
+                                    BorderThickness="0" 
+                                    VerticalContentAlignment="Center"
+                                    Tag="Tìm kiếm theo tên hoặc username..."
+                                    TextChanged="TxtSearch_TextChanged"
+                                    FontSize="13"/>
+
+                        <TextBlock IsHitTestVisible="False" 
+                                   Grid.Column="1"
+                                   Text="Tìm theo tên hoặc username..." 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Left" 
+                                   Margin="5,0,0,0" 
+                                   Foreground="DarkGray" 
+                                   FontSize="13">   
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=TxtSearch}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+
                 <ListBox x:Name="AccountListBox"
-                         ItemsSource="{Binding Accounts}"
+                         ItemsSource="{Binding _accountsView}"
                          SelectionMode="Multiple"
                          BorderThickness="0" Background="Transparent">
                     <ListBox.ItemContainerStyle>
@@ -73,6 +112,7 @@
                         <Button Content="Hủy" Click="BtnCancel_Click" 
                                 IsDefault="False"
                                 Padding="25,10"
+                                Margin="0,0,10,0"
                                 Cursor="Hand"
                                 Style="{StaticResource CancelStyle}"/>
                         <Button Content="Xác nhận"

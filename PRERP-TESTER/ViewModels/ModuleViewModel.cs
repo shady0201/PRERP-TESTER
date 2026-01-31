@@ -24,6 +24,8 @@ namespace PRERP_TESTER.ViewModels
 
         public ICommand AddAccountToModuleCommand { get; }
 
+        public IRelayCommand<AccountViewModel> RemoveAccountFromModuleCommand { get; }
+
         public string Name => ModuleEntity.Name;
 
         public ModuleViewModel( ModuleEntity module, ObservableCollection<Account> allSystemAccounts)
@@ -42,6 +44,7 @@ namespace PRERP_TESTER.ViewModels
             }
 
             AddAccountToModuleCommand = new RelayCommand(ExecuteAddAccountToModule);
+            RemoveAccountFromModuleCommand = new RelayCommand<AccountViewModel>(ExecuteRemoveAccount);
 
             SelectedAccountModule = ModuleAccounts.FirstOrDefault();
         }
@@ -72,6 +75,32 @@ namespace PRERP_TESTER.ViewModels
                     ModuleAccounts.Add(accountVM);
                 }
                 SelectedAccountModule = ModuleAccounts.FirstOrDefault();
+            }
+        }
+
+        private void ExecuteRemoveAccount(AccountViewModel? accountVM)
+        {
+            if (accountVM == null) return;
+
+            var result = MessageBox.Show($"Bạn có chắc chắn muốn bỏ tài khoản '{accountVM.Account.DisplayName}' khỏi module này?",
+                                         "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                ModuleAccounts.Remove(accountVM);
+
+                var list = ModuleEntity.AccountModules.ToList();
+                var itemToRemove = list.FirstOrDefault(am => am.AccountID == accountVM.Account.Id);
+                if (itemToRemove != null)
+                {
+                    list.Remove(itemToRemove);
+                    ModuleEntity.AccountModules = list.ToArray();
+                }
+
+                if (SelectedAccountModule == accountVM)
+                {
+                    SelectedAccountModule = ModuleAccounts.FirstOrDefault();
+                }
             }
         }
 

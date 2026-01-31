@@ -117,7 +117,7 @@
                                     Width="25" Height="25"
                                     Margin="10,0,0,0"
                                     Style="{StaticResource CreateDataMenuStyle}">
-                            <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center" Foreground="Green"/>
+                            <iconPacks:PackIconMaterial Kind="PlusBox" Width="14" Height="14" VerticalAlignment="Center" Foreground="Green"/>
                         </Button>
                     </Grid>
                 </StackPanel>
@@ -176,10 +176,10 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text= "{Binding Accounts.Count, StringFormat='TÀI KHOẢN ({0})'}" Foreground="#FF404040" FontSize="12" FontFamily="Sans Serif Collection"/>
                                     <Button Grid.Column="1"
-                                            Command="{Binding CreateAccountCommand}" 
+                                            Command="{Binding CreateAccountCommand}"
                                             Width="25" Height="25"
                                             Style="{StaticResource CreateDataMenuStyle}" Margin="10,0,0,0">
-                                        <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" VerticalAlignment="Center" Foreground="Green"/>
+                                        <iconPacks:PackIconMaterial Kind="PlusBox" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF258A39"/>
                                     </Button>
                                 </Grid>
                             </Border>

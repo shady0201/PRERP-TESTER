@@ -28,18 +28,22 @@ namespace PRERP_TESTER.ViewModels
 
         public string Name => ModuleEntity.Name;
 
-        public ModuleViewModel( ModuleEntity module, ObservableCollection<Account> allSystemAccounts)
+        public ModuleViewModel(ModuleEntity module, ObservableCollection<Account> allSystemAccounts)
         {
             ModuleEntity = module;
             AllSystemAccounts = allSystemAccounts;
 
-            for (int i = 0; i < module.AccountModules.Length; i++)
+            if (allSystemAccounts.Count > 0)
             {
-                var account = allSystemAccounts.First(a => a.Id == module.AccountModules[i].AccountID);
-                if (account != null)
+                for (int i = 0; i < module.AccountModules.Length; i++)
                 {
-                    var accountVM = new AccountViewModel(account,module.Id, module.AccountModules[i].TabWebItems);
-                    ModuleAccounts.Add(accountVM);
+                    var account = allSystemAccounts.First(a => a.Id == module.AccountModules[i].AccountID);
+                    if (account != null)
+                    {
+                        var accountVM = new AccountViewModel(account, module.Id, module.AccountModules[i].TabWebItems);
+                        ModuleAccounts.Add(accountVM);
+                    }
+
                 }
             }
 

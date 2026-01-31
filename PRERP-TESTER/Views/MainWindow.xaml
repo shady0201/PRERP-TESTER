@@ -31,6 +31,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto" MaxHeight="350px"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -72,8 +73,8 @@
                         </Button>
                     </Grid>
                 </Border>
-
-                <!-- Danh sách Module -->
+                
+                <!--Label module-->
                 <StackPanel Grid.Row="1">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -119,7 +120,43 @@
                         </Button>
                     </Grid>
                 </StackPanel>
-                <ListBox Grid.Row="2"
+                <!--Tìm kiếm module-->
+                <StackPanel Grid.Row="2" Margin="10,5" >
+                    <Border Background="#FFF1F1F1" CornerRadius="8" Padding="5,2" Height="30">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Width="12" />
+                            <TextBox Grid.Column="1" 
+                                     Text="{Binding SearchAccountText, UpdateSourceTrigger=PropertyChanged}"
+                                     Background="Transparent" BorderThickness="0" 
+                                     FontSize="12" Margin="5,0"
+                                     VerticalContentAlignment="Center"/>
+
+                            <TextBlock IsHitTestVisible="False" Text="Tìm module..." 
+                                       VerticalAlignment="Center" Grid.Column="1" Margin="5,0"
+                                       Foreground="DarkGray" FontSize="12">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SearchAccountText}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SearchAccountText}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <!-- Danh sách Module -->
+                <ListBox Grid.Row="3"
                         ItemsSource="{Binding Modules}"
                         SelectedItem="{Binding SelectedModule}"
                         ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
@@ -138,7 +175,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="4">
                     <Border x:Name="MenuContentHolder">
                         <Border.Style>
                             <Style TargetType="Border">

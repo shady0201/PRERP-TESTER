@@ -131,6 +131,28 @@ namespace PRERP_TESTER.ViewModels
             if (result == MessageBoxResult.Yes)
             {
                 Accounts.Remove(account);
+
+                foreach (var module in Modules)
+                {
+                    var accountVMInModule = module.ModuleAccounts.FirstOrDefault(vm => vm.Account.Id == account.Id);
+
+                    if (accountVMInModule != null)
+                    {
+
+                        module.ModuleAccounts.Remove(accountVMInModule);
+
+                        var list = module.ModuleEntity.AccountModules.ToList();
+                        list.RemoveAll(am => am.AccountID == account.Id);
+                        module.ModuleEntity.AccountModules = list.ToArray();
+
+                        if (module.SelectedAccountModule == accountVMInModule)
+                        {
+                            module.SelectedAccountModule = module.ModuleAccounts.FirstOrDefault();
+                        }
+                    }
+                }
+
+                AccountMenuView.Refresh();
                 SaveAllData();
             }
         }
@@ -188,8 +210,8 @@ namespace PRERP_TESTER.ViewModels
 
             var data = new ApplicationData
             {
-                Accounts = this.Accounts.ToList(),
-                Modules = this.Modules.Select(m => m.ModuleEntity).ToList()
+                Accounts = Accounts.ToList(),
+                Modules = Modules.Select(m => m.ModuleEntity).ToList()
             };
 
             DataService.SaveData(data);

@@ -14,7 +14,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
+            
             <Border Grid.Row="0" Margin="0,0,0,4">
                 <StackPanel>
                     <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="#333"/>
@@ -67,7 +67,7 @@
                     </Button>
                 </Grid>
             </Border>
-
+             <!-- web browers-->
             <ItemsControl ItemsSource="{Binding ModuleAccounts}" Grid.Row="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

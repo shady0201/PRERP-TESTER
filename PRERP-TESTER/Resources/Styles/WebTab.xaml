@@ -3,7 +3,7 @@
                     xmlns:helpers="clr-namespace:PRERP_TESTER.Helpers"
                     xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf">
     
-    <!--  Nút thêm tab  -->
+    <!--  Style Nút thêm tab  -->
     <Style x:Key="AddTabButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Width" Value="30"/>
@@ -39,7 +39,7 @@
         </Setter>
     </Style>
 
-    <!--  Nút đóng tab  -->
+    <!-- Style Nút đóng tab  -->
     <Style x:Key="CloseTabButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="Gray"/>
@@ -68,7 +68,7 @@
         </Setter>
     </Style>
 
-    <!-- webtab header style -->
+    <!-- Style webtab header style -->
     <Style x:Key="TabWebHeaderStyle" TargetType="ListBoxItem">
         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
         <Setter Property="Background" Value="#f0f0f0"/>
@@ -163,8 +163,8 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <!-- webtab control style -->
+
+    <!-- Style webtab control style -->
     <Style x:Key="NavButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Width" Value="30"/>
@@ -199,7 +199,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <!---Brower address input-->
+    <!--- Style Brower address input-->
     <Style TargetType="TextBox" x:Key="AddressBarTextBoxStyle">
         <Setter Property="helpers:TextBoxAddressBehavior.SelectAllOnFocus" Value="True"/>
     </Style>

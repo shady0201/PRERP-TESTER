@@ -28,13 +28,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Resources\DarkMode.xaml">
+    <Page Update="Resources\Themes\DarkMode.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Resources\LightMode.xaml">
+    <Page Update="Resources\Themes\LightMode.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Resources\ModuleAccountsList.xaml">
+    <Page Update="Resources\Templates\AccountsModuleList.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

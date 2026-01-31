@@ -1,10 +1,10 @@
 ﻿
-- Kiểm tra username đã tồn tại trước khi tạo
-- Tìm kiếm module theo tên
+- Kiểm tra username đã tồn tại trước khi tạo.
+- Tìm kiếm module.
 - Xoá account => Xoá luôn session liên quan.
-- Chức năng hỗ trợ debug: thêm code debug.
-- Cập nhật nhãn phân hệ hoặc favicon.
+
 - Export/Import dữ liệu.
+- Cập nhật tabview nhãn/favicon.
 - Light/Dark mode.
 
 Chứa data:

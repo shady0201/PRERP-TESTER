@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace PRERP_TESTER.Views
 {
@@ -16,6 +18,24 @@ namespace PRERP_TESTER.Views
         {
             DataContext = new MainViewModel();
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                // Tìm Border cha của Button để lấy ContextMenu đã định nghĩa
+                DependencyObject parent = VisualTreeHelper.GetParent(btn);
+                while (!(parent is Border)) { parent = VisualTreeHelper.GetParent(parent); }
+
+                Border border = parent as Border;
+                if (border != null && border.ContextMenu != null)
+                {
+                    border.ContextMenu.PlacementTarget = border;
+                    border.ContextMenu.IsOpen = true;
+                }
+            }
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

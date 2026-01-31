@@ -1,8 +1,6 @@
 ﻿<Window x:Name="AppMain" x:Class="PRERP_TESTER.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:PRERP_TESTER.ViewModels"
-        xmlns:views="clr-namespace:PRERP_TESTER.Views"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="PRERP TESTER" 
         Height="768" Width="1366"

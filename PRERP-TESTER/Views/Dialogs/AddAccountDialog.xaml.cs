@@ -1,4 +1,5 @@
-﻿using PRERP_TESTER.Models;
+﻿using MahApps.Metro.IconPacks;
+using PRERP_TESTER.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,7 @@ namespace PRERP_TESTER.Views.Dialogs
 
             TxtUsername.Text = account.Username;
             TxtPassword.Password = account.Password;
+            TxtPasswordVisible.Text = account.Password;
             TxtDisplayName.Text = account.DisplayName;
             TxtUsername.IsEnabled = false;
             BorderUserName.Background = Brushes.Transparent;
@@ -50,20 +52,24 @@ namespace PRERP_TESTER.Views.Dialogs
         }
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
+            string password = GetPassword();
             if (_editingAccount != null)
             {
-                _editingAccount.Password = TxtPassword.Password;
-                _editingAccount.DisplayName = TxtDisplayName.Text;
-                _editingAccount.Stype = RbStudent.IsChecked == true ? "STUDENT" : "STAFF";
-                DialogResult = true;
-                Close();
+                if(!string.IsNullOrEmpty(password))
+                {
+                    _editingAccount.Password = GetPassword();
+                    _editingAccount.DisplayName = TxtDisplayName.Text;
+                    _editingAccount.Stype = RbStudent.IsChecked == true ? "STUDENT" : "STAFF";
+                    DialogResult = true;
+                    Close();
+                }
             }
             else
             {
-                if (!string.IsNullOrWhiteSpace(TxtUsername.Text) && !string.IsNullOrWhiteSpace(TxtPassword.Password))
+                if (!string.IsNullOrWhiteSpace(TxtUsername.Text) && !string.IsNullOrWhiteSpace(password))
                 {
                     Username = TxtUsername.Text;
-                    Password = TxtPassword.Password;
+                    Password = GetPassword();
                     DisplayName = TxtDisplayName.Text;
                     Stype = RbStaff.IsChecked == true ? "STAFF" : "STUDENT";
                     DialogResult = true;
@@ -81,6 +87,31 @@ namespace PRERP_TESTER.Views.Dialogs
         private void TxtUsername_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtUsername.SelectAll();
+        }
+
+        private void BtnShowPassword_Click(object sender, RoutedEventArgs e)
+        {
+            if (BtnShowPassword.IsChecked == true)
+            {
+                IconEye.Kind = PackIconMaterialKind.Eye;
+                TxtPasswordVisible.Text = TxtPassword.Password;
+                TxtPassword.Visibility = Visibility.Collapsed;
+                TxtPasswordVisible.Visibility = Visibility.Visible;
+                TxtPasswordVisible.Focus();
+            }
+            else
+            {
+                IconEye.Kind = PackIconMaterialKind.EyeOff;
+                TxtPassword.Password = TxtPasswordVisible.Text;
+                TxtPasswordVisible.Visibility = Visibility.Collapsed;
+                TxtPassword.Visibility = Visibility.Visible;
+                TxtPassword.Focus();
+            }
+        }
+
+        private string GetPassword()
+        {
+            return BtnShowPassword.IsChecked == true ? TxtPasswordVisible.Text : TxtPassword.Password;
         }
 
         private void TxtUsername_PreviewTextInput(object sender, TextCompositionEventArgs e)

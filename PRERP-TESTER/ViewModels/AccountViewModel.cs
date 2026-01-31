@@ -36,7 +36,6 @@ namespace PRERP_TESTER.ViewModels
             {
                 var tabVM = CreateTab(tab);
                 tabVM.ModuleID = ModuleID;
-                tabVM.UserName = account.Username;
 
                 TabViewModels.Add(tabVM);
             }
@@ -56,7 +55,7 @@ namespace PRERP_TESTER.ViewModels
         
         private TabViewModel CreateTab(TabWeb tab)
         {
-            return new TabViewModel(tab, Account.Username,Account.Password,Account.Stype, ModuleID, (tabToDelete) => {
+            return new TabViewModel(tab, Account, ModuleID, (tabToDelete) => {
                 TabViewModels.Remove(tabToDelete);
                 if (SelectedTab == null && TabViewModels.Count > 0)
                 {

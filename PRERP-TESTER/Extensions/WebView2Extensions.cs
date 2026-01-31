@@ -16,7 +16,6 @@ namespace PRERP_TESTER.Extensions
         public static readonly DependencyProperty AccountIDProperty =
             DependencyProperty.RegisterAttached("AccountID", typeof(string), typeof(WebView2Extensions),
                 new PropertyMetadata(null, OnAccountIDChanged));
-
         public static string GetAccountID(DependencyObject obj) => (string)obj.GetValue(AccountIDProperty);
         public static void SetAccountID(DependencyObject obj, string value) => obj.SetValue(AccountIDProperty, value);
 
@@ -132,7 +131,7 @@ namespace PRERP_TESTER.Extensions
             {
                 if (currentUrl.Contains("landingpage") && currentUrl.Contains("prerp.bmtu.edu.vn"))
                 {
-                    string targetLink = (vm.Stype == "STUDENT")
+                    string targetLink = (vm.UserAccount.Stype == "STUDENT")
                         ? "https://prerp.bmtu.edu.vn/sftraining/login?lang=vi"
                         : "https://prerp.bmtu.edu.vn/login?lang=vi";
 
@@ -158,8 +157,8 @@ namespace PRERP_TESTER.Extensions
                                                 var loginBtn = document.querySelector('input[type=""submit""]');
 
                                                 if (userField && passField && userField.value === '') {{
-                                                    userField.value = '{vm.UserName}';
-                                                    passField.value = '{vm.Password}';
+                                                    userField.value = '{vm.UserAccount.Username}';
+                                                    passField.value = '{vm.UserAccount.Password}';
                         
                                                     setTimeout(function() {{
                                                         if (loginBtn) loginBtn.click();

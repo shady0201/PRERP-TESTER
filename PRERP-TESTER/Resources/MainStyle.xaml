@@ -34,6 +34,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <Style x:Key="CreateDataMenuStyle" TargetType="Button">
         <Setter Property="Visibility" Value="Visible"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -114,5 +115,68 @@
                 <Setter Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="MenuAccountButtonStyle" TargetType="Button">
+        <Setter Property="Visibility" Value="Visible"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Foreground" Value="#FF1760C3"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse x:Name="bg" Fill="Transparent"/>
+                        <ContentPresenter   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bg" Property="Fill" Value="#E8EAED"/>
+                            <Setter Property="Foreground" Value="#FF1760C3"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bg" Property="Fill" Value="#E8EAED"/>
+                            <Setter Property="Foreground" Value="#FF1760C3"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#FF757575"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, 
+                      RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ActionMenuItemStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="10,8"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bg" Background="{TemplateBinding Background}" CornerRadius="6">
+                        <ContentPresenter Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bg" Property="Background" Value="#F3F4F6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

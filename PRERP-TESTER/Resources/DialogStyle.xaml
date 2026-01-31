@@ -1,5 +1,36 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="CloseDialogStyle" TargetType="Button">
+        <Setter Property="Visibility" Value="Visible"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Foreground" Value="#FF757575"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="Transparent">
+                        <Ellipse x:Name="bg" Fill="Transparent"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="red"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="red"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
     <Style x:Key="ConfirmStyle" TargetType="Button">
         <Setter Property="Background" Value="#3794FF"/>
@@ -39,6 +70,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="CancelStyle" TargetType="Button">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="DimGray"/>

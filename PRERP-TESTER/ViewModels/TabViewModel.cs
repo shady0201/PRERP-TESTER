@@ -9,10 +9,9 @@ namespace PRERP_TESTER.ViewModels
 {
     public class TabViewModel : LazyLoadViewModel
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
         public string ModuleID { get; set; }
-        public string Stype { get; set; }
+
+        public Account UserAccount { get; }
         public TabWeb TabData { get; }
 
         private string _url;
@@ -50,16 +49,15 @@ namespace PRERP_TESTER.ViewModels
 
         public event Action<string>? NavigationRequested;
 
-        public TabViewModel(TabWeb tabWeb, string username,string password, string stype, string moduleID, Action<TabViewModel> closeAction)
+        public TabViewModel(TabWeb tabWeb, Account account, string moduleID, Action<TabViewModel> closeAction)
         {
+
+            UserAccount = account;
             Url = tabWeb.Url;
             Title = tabWeb.Title;
-            Password = password;
-            Stype = stype;
             UpdateSecurityStatus(Url);
             TabData = tabWeb;
             IsLoaded = false;
-            UserName = username;
             ModuleID = moduleID;
 
             BackCommand = new RelayCommand(() => NavigationRequested?.Invoke("Back"));

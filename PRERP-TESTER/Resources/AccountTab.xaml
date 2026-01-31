@@ -19,11 +19,11 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="#FF56ACFB"/>
-                            <Setter TargetName="Border" Property="BorderThickness" Value="3,0.7,0.7,0.7"/>
+                            <Setter TargetName="Border" Property="BorderThickness" Value="3,0.8,0.8,0.8"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter TargetName="Border" Property="BorderBrush" Value="#FFA7A7A7"/>
-                            <Setter TargetName="Border" Property="BorderThickness" Value="0.7"/>
+                            <Setter TargetName="Border" Property="BorderThickness" Value="0.8"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

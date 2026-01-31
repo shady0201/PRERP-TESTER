@@ -91,7 +91,7 @@
                                                                     <RowDefinition Height="Auto"/>
                                                                     <RowDefinition Height="*"/>
                                                                 </Grid.RowDefinitions>
-                                                                <!--  wwebview control  -->
+                                                                <!--  webview control  -->
                                                                 <Border Grid.Row="0" Background="#F8F9FA" BorderBrush="#DCDCDC" BorderThickness="0,0,0,1" Padding="5">
                                                                     <Grid>
                                                                         <Grid.ColumnDefinitions>
@@ -160,8 +160,8 @@
                                                                         </Border>
                                                                     </Grid>
                                                                 </Border>
-                                                                <!--  wwebview content  -->
-                                                                <wv2:WebView2 Grid.Row="1" ext:WebView2Extensions.AccountID="{Binding UserName}" />
+                                                                <!-- webview content  -->
+                                                                <wv2:WebView2 Grid.Row="1" ext:WebView2Extensions.AccountID="{Binding UserAccount.Username}" />
                                                             </Grid>
                                                         </DataTemplate>
                                                     </Setter.Value>

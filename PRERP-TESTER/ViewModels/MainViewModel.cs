@@ -1,13 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using PRERP_TESTER.Helper;
 using PRERP_TESTER.Models;
 using PRERP_TESTER.Services;
 using PRERP_TESTER.Views.Dialogs;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace PRERP_TESTER.ViewModels
 {
@@ -51,7 +51,7 @@ namespace PRERP_TESTER.ViewModels
         public ICommand CreateAccountCommand { get; }
         public ICommand ToggleMenuCommand { get; }
         public ICommand EditAccountCommand { get; }
-        public ICommand RemoveAccountFromModuleCommand { get; }
+        public ICommand RemoveAccountCommand { get; }
 
         public MainViewModel()
         {
@@ -62,6 +62,7 @@ namespace PRERP_TESTER.ViewModels
             CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
             CreateAccountCommand = new RelayCommand(ExecuteCreateAccount);
             EditAccountCommand = new RelayCommand<Account>(ExecuteEditAccount);
+            RemoveAccountCommand = new RelayCommand<Account>(ExecuteRemoveAccount);
             ToggleMenuCommand = new RelayCommand(() => IsMenuCollapsed = !IsMenuCollapsed);
 
             AccountMenuView = new ListCollectionView(Accounts);
@@ -115,12 +116,23 @@ namespace PRERP_TESTER.ViewModels
                 int index = Accounts.IndexOf(account);
                 if (index >= 0)
                 {
-                    Accounts[index] = null;
                     Accounts[index] = account;
                 }
                 SaveAllData();
             }
 
+        }
+        private void ExecuteRemoveAccount(Account account) {
+            if (account == null) return;
+
+            var result = MessageBox.Show($"Xóa vĩnh viễn tài khoản {account.DisplayName} khỏi hệ thống?",
+                                        "Cảnh báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Accounts.Remove(account);
+                SaveAllData();
+            }
         }
 
         private bool FilterAccountMenu(object obj)
@@ -160,7 +172,7 @@ namespace PRERP_TESTER.ViewModels
                     var tabEntities = accVM.TabViewModels.Select(t => new TabWeb
                     {
                         ModuleId = t.ModuleID,
-                        AccountId = t.UserName,
+                        AccountId = t.UserAccount.Username,
                         Title = t.Title,
                         Url = t.Url,
                     }).ToArray();

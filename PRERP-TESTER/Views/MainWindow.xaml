@@ -21,7 +21,6 @@
                     </Style>
                 </ColumnDefinition.Style>
             </ColumnDefinition>
-            <ColumnDefinition Width="97*"/>
             <ColumnDefinition Width="1019*"/>
         </Grid.ColumnDefinitions>
 

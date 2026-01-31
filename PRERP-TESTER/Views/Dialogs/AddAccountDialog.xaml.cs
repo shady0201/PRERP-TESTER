@@ -29,7 +29,6 @@ namespace PRERP_TESTER.Views.Dialogs
         public AddAccountDialog()
         {
             InitializeComponent();
-
         }
         public AddAccountDialog(Account account) : this()
         {

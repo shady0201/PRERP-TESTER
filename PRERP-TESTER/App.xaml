@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="Resources/TooltipStyle.xaml"/>
                 <ResourceDictionary Source="Resources/MenuLeftItem.xaml"/>
                 <ResourceDictionary Source="Resources/ModuleAccountsList.xaml"/>
-                <ResourceDictionary Source="Resources/AccountTab.xaml"/>
+                <ResourceDictionary Source="Resources/AccountModuleList.xaml"/>
                 <ResourceDictionary Source="Resources/WebTab.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 

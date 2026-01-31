@@ -199,39 +199,9 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+    <!---Brower address input-->
     <Style TargetType="TextBox" x:Key="AddressBarTextBoxStyle">
         <Setter Property="helpers:TextBoxAddressBehavior.SelectAllOnFocus" Value="True"/>
     </Style>
-
-    <DataTemplate x:Key="WebTabContentTemplate">
-        <Grid>
-            <ContentControl Content="{Binding}">
-                <ContentControl.Style>
-                    <Style TargetType="ContentControl">
-                        <Setter Property="ContentTemplate" Value="{StaticResource EmptyTemplate}" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsLoaded}" Value="True">
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <wv2:WebView2 Source="{Binding Url}" />
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ContentControl.Style>
-            </ContentControl>
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate x:Key="EmptyTemplate">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Loadding..." VerticalAlignment="Center"/>
-        </StackPanel>
-    </DataTemplate>
-
 
 </ResourceDictionary>

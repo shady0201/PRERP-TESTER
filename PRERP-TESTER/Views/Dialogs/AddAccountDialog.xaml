@@ -102,6 +102,7 @@
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                         <RadioButton x:Name="RbStaff"
                                      Content="Nhân viên"
+                                     IsChecked="True"
                                      GroupName="stype"
                                      FontWeight="SemiBold"
                                      Style="{StaticResource AccountTypeButtonStyleLeft}"
@@ -122,6 +123,7 @@
                                      Content="CAPP" 
                                      Style="{StaticResource ServerToggleLeftStyle}"
                                      GroupName="ServerType"
+                                     IsChecked="True"
                                      Cursor="Hand"
                                      FontWeight="SemiBold"/>
 

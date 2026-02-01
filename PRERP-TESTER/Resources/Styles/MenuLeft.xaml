@@ -152,6 +152,9 @@
                             <Setter TargetName="ActionBorder" Property="Background" Value="#FF376FB9"/>
                             <Setter Property="Foreground" Value="White"/>
                         </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Foreground" Value="#FF5B5B5B"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -179,6 +182,9 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="ActionBorder" Property="Background" Value="#FF376FB9"/>
                             <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Foreground" Value="#FF5B5B5B"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

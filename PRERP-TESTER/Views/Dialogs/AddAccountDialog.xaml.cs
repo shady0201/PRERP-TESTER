@@ -3,6 +3,7 @@ using PRERP_TESTER.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -32,6 +33,11 @@ namespace PRERP_TESTER.Views.Dialogs
         {
             Accounts = accounts;
             InitializeComponent();
+
+            if (GobalSetting.ServerType == "CAPP")
+                RbCapp.IsChecked = true;
+            else
+                RbPrerp.IsChecked = true;
         }
         public AddAccountDialog(Account account) : this(accounts: Array.Empty<Account>())
         {

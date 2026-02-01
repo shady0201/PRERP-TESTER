@@ -14,7 +14,6 @@ namespace PRERP_TESTER.Converters
         {
             if (value is double actualWidth && double.TryParse(parameter?.ToString(), out double subtractValue))
             {
-                // Trả về chiều rộng sau khi đã trừ đi khoảng trống cho nút "+"
                 return Math.Max(0, actualWidth - subtractValue);
             }
             return value;

@@ -2,10 +2,16 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
             xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:conv="clr-namespace:PRERP_TESTER.Converters"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="av"
             x:Class="PRERP_TESTER.Views.ModuleView"
             av:DesignHeight="290.913" av:DesignWidth="642.208">
+
+    <UserControl.Resources>
+    <conv:SubtractValueConverter x:Key="SubtractValueConverter" />
+    </UserControl.Resources>
 
     <Border Padding="6" Background="#EEECF0">
         <Grid>
@@ -38,27 +44,28 @@
                 </Border.Effect>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <ListBox ItemsSource="{Binding ModuleAccounts}"
+                    <ListBox ItemsSource="{Binding ModuleAccounts}"
                                  SelectedItem="{Binding SelectedAccountModule}"
                                  ItemContainerStyle="{StaticResource AccountTabItemStyle}"
                                  Background="Transparent"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                 MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}, Converter={StaticResource SubtractValueConverter}, ConverterParameter=40}"
                                  BorderThickness="0">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </StackPanel>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <Button Grid.Column="1"
                             Command="{Binding AddAccountToModuleCommand}"
                             Width="25" Height="25" Margin="5,8,5,8"

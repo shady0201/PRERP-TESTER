@@ -101,41 +101,36 @@
                     <TextBlock Text="Loại tài khoản" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                         <RadioButton x:Name="RbStaff"
-                                     Content="Nhân viên" 
+                                     Content="Nhân viên"
                                      GroupName="stype"
-                                     IsChecked="True"
                                      FontWeight="SemiBold"
-                                     Tag="AccountTie"
-                                     Style="{StaticResource AccountToggleButtonStyle}"
+                                     Style="{StaticResource AccountTypeButtonStyleLeft}"
                                      Cursor="Hand"/>
 
                         <RadioButton x:Name="RbStudent"
                                      Content="Sinh viên"
-                                     Tag="School"
                                      FontWeight="SemiBold"
                                      GroupName="stype"
-                                     Style="{StaticResource AccountToggleButtonStyle}"
+                                     Style="{StaticResource AccountTypeButtonStyleRight}"
                                      Cursor="Hand"/>
                     </StackPanel>
-
+                    
                     <TextBlock Text="Server" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,25">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,25">
+
                         <RadioButton x:Name="RbCapp"
-                                     Content="CAPP"
-                                     Tag="None"
-                                     GroupName="serverstype"
-                                     FontWeight="SemiBold"
-                                     IsChecked="True"
-                                     Style="{StaticResource AccountToggleButtonStyle}"
-                                     Cursor="Hand"/>
+                                     Content="CAPP" 
+                                     Style="{StaticResource ServerToggleLeftStyle}"
+                                     GroupName="ServerType"
+                                     Cursor="Hand"
+                                     FontWeight="SemiBold"/>
 
                         <RadioButton x:Name="RbPrerp"
                                      Content="PRERP"
-                                     Tag="None"
-                                      FontWeight="SemiBold"
-                                     GroupName="serverstype"
-                                     Style="{StaticResource AccountToggleButtonStyle}"
-                                     Cursor="Hand"/>
+                                     Cursor="Hand"
+                                     Style="{StaticResource ServerToggleRightStyle}"
+                                     FontWeight="SemiBold"
+                                     GroupName="ServerType"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

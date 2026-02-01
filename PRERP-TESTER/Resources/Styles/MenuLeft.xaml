@@ -162,12 +162,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
                     <Border x:Name="ActionBorder" 
-                    Background="Transparent" 
-                    BorderBrush="#FFE0E0E0" 
-                    BorderThickness="0.5,1,1,1" 
-                    CornerRadius="0,4,4,0"
-                    Width="90"
-                    Padding="0,5">
+                            Background="Transparent" 
+                            BorderBrush="#FFE0E0E0" 
+                            BorderThickness="0.5,1,1,1" 
+                            CornerRadius="0,4,4,0"
+                            Width="90"
+                            Padding="0,5">
                         <ContentPresenter x:Name="Content" 
                                   HorizontalAlignment="Center" 
                                   VerticalAlignment="Center"/>

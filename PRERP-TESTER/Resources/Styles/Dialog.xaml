@@ -110,22 +110,21 @@
         </Setter>
     </Style>
 
-    <Style x:Key="AccountToggleButtonStyle" TargetType="RadioButton">
+    <Style x:Key="AccountTypeButtonStyleRight" TargetType="RadioButton">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
                     <Border x:Name="ActionBorder" 
-                        Background="#FFECECEC" 
-                        CornerRadius="8" 
-                        Padding="12,8" 
-                        Margin="0,0,10,0"
-                        BorderThickness="1"
-                        BorderBrush="Transparent">
+                            Background="Transparent" 
+                            BorderBrush="#FFE0E0E0" 
+                            BorderThickness="0.5,1,1,1" 
+                            CornerRadius="0,4,4,0"
+                            Padding="8,5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <iconPacks:PackIconMaterial x:Name="Part_Icon" Kind="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" 
-                                                    Width="14" Height="14" 
-                                                    Margin="0,0,8,0"
-                                                    VerticalAlignment="Center"/>
+                            <iconPacks:PackIconMaterial Kind="AccountTie" 
+                                                        Width="14" Height="14" 
+                                                        Margin="0,0,8,0"
+                                                        VerticalAlignment="Center"/>
                             <ContentPresenter x:Name="Content" 
                                           VerticalAlignment="Center"/>
                         </StackPanel>
@@ -134,12 +133,40 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ActionBorder" Property="Background" Value="#FFE0E0E0"/>
                         </Trigger>
-                        <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="None">
-                            <Setter TargetName="Part_Icon" Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="ActionBorder" Property="Background" Value="#FF509BFF"/>
-                            <Setter TargetName="ActionBorder" Property="BorderBrush" Value="#FF509BFF"/>
+                            <Setter TargetName="ActionBorder" Property="Background" Value="#FF376FB9"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="AccountTypeButtonStyleLeft" TargetType="RadioButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border x:Name="ActionBorder" 
+                            Background="Transparent"
+                            BorderBrush="#FFE0E0E0"
+                            BorderThickness="0.5,1,1,1"
+                            CornerRadius="4,0,0,4"
+                            Padding="8,5">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <iconPacks:PackIconMaterial Kind="School" 
+                                                        Width="14" Height="14" 
+                                                        Margin="0,0,8,0"
+                                                        VerticalAlignment="Center"/>
+                            <ContentPresenter x:Name="Content" 
+                                      VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ActionBorder" Property="Background" Value="#FFE0E0E0"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="ActionBorder" Property="Background" Value="#FF376FB9"/>
                             <Setter Property="Foreground" Value="White"/>
                         </Trigger>
                     </ControlTemplate.Triggers>

@@ -86,7 +86,10 @@
             public ICommand RemoveAccountCommand { get; }
             public ICommand RemoveModuleCommand { get; }
 
-            public MainViewModel()
+            public ICommand ExportDataCommand { get; }
+            public ICommand ImportDataCommand { get; }
+
+        public MainViewModel()
             {
 
                 LoadAllData();
@@ -100,7 +103,10 @@
 
                 ToggleMenuCommand = new RelayCommand(() => IsMenuCollapsed = !IsMenuCollapsed);
 
-                AccountMenuView = new ListCollectionView(Accounts);
+                ExportDataCommand = new RelayCommand(ExecuteExportData);
+                ImportDataCommand = new RelayCommand(ExecuteImportData);
+
+            AccountMenuView = new ListCollectionView(Accounts);
                 AccountMenuView.Filter = FilterAccountMenu;
 
                 ModuleMenuView = CollectionViewSource.GetDefaultView(Modules);
@@ -369,5 +375,85 @@
                 AccountMenuView?.Refresh();
                 ModuleMenuView?.Refresh();
             }
+
+            private void ExecuteImportData()
+            {
+                var openFileDialog = new Microsoft.Win32.OpenFileDialog
+                {
+                    Filter = "JSON Files (*.json)|*.json",
+                    Title = "Chọn file dữ liệu để nhập"
+                };
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    try
+                    {
+                        string json = File.ReadAllText(openFileDialog.FileName);
+                        var importedData = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationData>(json);
+
+                        if (importedData == null) throw new Exception("File không đúng định dạng dữ liệu Prerp.");
+
+                        foreach (var acc in importedData.Accounts)
+                        {
+                            var checkDuplicate = Accounts.Any(a => a.Username.Equals(acc.Username.Trim(), StringComparison.OrdinalIgnoreCase)
+                                                        && a.ServerType == acc.ServerType);
+                            if (!checkDuplicate)
+                            {
+                                Accounts.Add(acc);
+                            }
+                        }
+
+                        foreach (var entity in importedData.Modules)
+                        {
+                            var checkDuplicateModule = Modules.Any(m => m.Name == entity.Name);
+                            if (!checkDuplicateModule)
+                            {
+                                Modules.Add(new ModuleViewModel(entity, Accounts));
+                            }
+                        }
+                        ServerType = importedData.ServerType;
+                        UpdateCurrentServer();
+                        SaveAllData();
+
+                    // Thông báo thành công
+                }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi nhập file: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+
+            private void ExecuteExportData()
+            {
+                var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+                {
+                    Filter = "JSON Files (*.json)|*.json",
+                    FileName = $"Data_TestApp_{DateTime.Now:yyyyMMdd_HHmm}",
+                    Title = "Xuất dữ liệu"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    try
+                    {
+
+                        var dataToExport = new ApplicationData
+                        {
+                            Accounts = Accounts.ToList(),
+                            Modules = Modules.Select(m => m.ModuleEntity).ToList(),
+                            ServerType = GobalSetting.ServerType
+                        };
+                        string json = Newtonsoft.Json.JsonConvert.SerializeObject(dataToExport, Newtonsoft.Json.Formatting.Indented);
+                        File.WriteAllText(saveFileDialog.FileName, json);
+
+                        MessageBox.Show("Xuất dữ liệu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi xuất file: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+
         }
     }

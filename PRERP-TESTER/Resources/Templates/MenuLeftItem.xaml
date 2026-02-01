@@ -27,30 +27,43 @@
                     </Style>
                 </Grid.Style>
                 <!-- Module Icon -->
-                <iconPacks:PackIconMaterial Kind="Folder" 
-                        Width="14" Height="14"
-                        Grid.Column="0"
-                        Margin="4,0,0,0"
-                        HorizontalAlignment="Center"
+                <Grid HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                    <iconPacks:PackIconMaterial.Style>
-                        <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
-                            <Setter Property="Foreground" Value="#FF9A9A9A"/>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
-                                    <Setter Property="Foreground" Value="#FF226DE8"/>
+                                <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                    <Setter Property="Margin" Value="8,0,0,0"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </iconPacks:PackIconMaterial.Style>
-                </iconPacks:PackIconMaterial>
+                    </Grid.Style>
+                    <iconPacks:PackIconMaterial Kind="Folder" 
+                                                Width="14" Height="14"
+                                                Grid.Column="0"
+                                                Margin="4,0,0,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                        <iconPacks:PackIconMaterial.Style>
+                            <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
+                                <Setter Property="Foreground" Value="#FF9A9A9A"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                        <Setter Property="Foreground" Value="#FF226DE8"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </iconPacks:PackIconMaterial.Style>
+                    </iconPacks:PackIconMaterial>
+                </Grid>
 
                 <!-- Module Name -->
                 <TextBlock  Grid.Column="1"
-					    VerticalAlignment="Center"
-					    Text="{Binding Name}"
-                        Margin="5,0,0,0"
-					    TextTrimming="CharacterEllipsis">
+					        VerticalAlignment="Center"
+					        Text="{Binding Name}"
+                            Margin="5,0,0,0"
+					        TextTrimming="CharacterEllipsis">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" Value="#FF1F2937"/>
@@ -63,19 +76,26 @@
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
-
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
 
                 <!-- Module menu -->
-                <Grid Grid.Column="2" Margin="0,0,0,0">
-                    <ToggleButton x:Name="BtnToggleModuleMenu"
+                <ToggleButton Grid.Column="2" x:Name="BtnToggleModuleMenu"
                                   Width="25" Height="25"
                                   Margin="0,0,15,0"
                                   Foreground="DimGray"
                                   BorderThickness="1"
                                   Cursor="Hand">
+                        <ToggleButton.Style>
+                            <Style TargetType="ToggleButton">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
                         <ToggleButton.Template>
                             <ControlTemplate TargetType="ToggleButton">
                                 <Border x:Name="MainBorder"
@@ -102,7 +122,7 @@
                         </ToggleButton.Template>
                     </ToggleButton>
 
-                    <Popup IsOpen="{Binding IsChecked, ElementName=BtnToggleModuleMenu, Mode=TwoWay}" 
+                <Popup IsOpen="{Binding IsChecked, ElementName=BtnToggleModuleMenu, Mode=TwoWay}" 
                             PlacementTarget="{Binding ElementName=BtnToggleModuleMenu}"
                             Panel.ZIndex="2"
                             StaysOpen="False"
@@ -111,23 +131,22 @@
                             Placement="Bottom"
                             HorizontalOffset="0"
                             VerticalOffset="0">
-                        <Border Background="White" CornerRadius="8" BorderThickness="1" BorderBrush="#FFE0E0E0">
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
-                            </Border.Effect>
-                            <StackPanel Width="140" Margin="5">
-                                <Button Style="{StaticResource ActionMenuItemStyle}"
+                    <Border Background="White" CornerRadius="8" BorderThickness="1" BorderBrush="#FFE0E0E0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                        </Border.Effect>
+                        <StackPanel Width="140" Margin="5">
+                            <Button Style="{StaticResource ActionMenuItemStyle}"
                                         Command="{Binding DataContext.RemoveModuleCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                         CommandParameter="{Binding}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#EF4444"/>
-                                        <TextBlock Text="Xóa module" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#EF4444"/>
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
-                        </Border>
-                    </Popup>
-                </Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#EF4444"/>
+                                    <TextBlock Text="Xóa module" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#EF4444"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Popup>
 
             </Grid>
         </Border>

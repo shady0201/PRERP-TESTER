@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using PRERP_TESTER.ViewModels;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PRERP_TESTER.Views.Dialogs
@@ -7,8 +9,11 @@ namespace PRERP_TESTER.Views.Dialogs
     {
         public string ResultName { get; private set; }
 
-        public AddModuleDialog()
+        private List<ModuleViewModel> ExistingModules;
+
+        public AddModuleDialog(ObservableCollection<ModuleViewModel> Modules)
         {
+            ExistingModules = [.. Modules];
             InitializeComponent();
             TxtModuleName.Focus();
         }
@@ -17,16 +22,21 @@ namespace PRERP_TESTER.Views.Dialogs
         {
             if (!string.IsNullOrWhiteSpace(TxtModuleName.Text))
             {
-                ResultName = TxtModuleName.Text;
-                this.DialogResult = true;
-                this.Close();
+               if (ExistingModules.Any(m => m.Name == TxtModuleName.Text.Trim()))
+                {
+                    MessageBox.Show("Tên module đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                ResultName = TxtModuleName.Text.Trim();
+                DialogResult = true;
+                Close();
             }
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            this.Close();
+            DialogResult = false;
+            Close();
         }
 
         private void TxtModuleName_GotFocus(object sender, RoutedEventArgs e)

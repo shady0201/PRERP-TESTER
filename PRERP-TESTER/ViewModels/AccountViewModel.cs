@@ -47,7 +47,7 @@ namespace PRERP_TESTER.ViewModels
 
         public void ExecuteAddTab()
         {
-            var tabWeb = new TabWeb { Title = "Thẻ mới", Url = "https://prerp.bmtu.edu.vn" };
+            var tabWeb = new TabWeb { Title = "Thẻ mới", Url = GobalSetting.CurrentBaseUrl };
             var tabViewModel = CreateTab(tabWeb);
             TabViewModels.Add(tabViewModel);
             SelectedTab = tabViewModel;

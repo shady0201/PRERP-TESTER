@@ -27,24 +27,26 @@ namespace PRERP_TESTER.Views.Dialogs
         public AccountPickerDialog(ObservableCollection<Account> accounts, List<string> moduleAccounts)
         {
             InitializeComponent();
-            Accounts = accounts;
+            Accounts = [.. accounts.Where(acc => acc.ServerType == GobalSetting.ServerType)];
             ExistingAccountIds = moduleAccounts;
             DataContext = this;
 
-            _accountsView = new ListCollectionView(accounts);
+            _accountsView = new ListCollectionView(Accounts);
             _accountsView.Filter = FilterAccounts;
 
             AccountListBox.ItemsSource = _accountsView;
-
         }
 
         private bool FilterAccounts(object obj)
         {
-            if (TxtSearch == null || string.IsNullOrEmpty(TxtSearch.Text))
-                return true;
-
+            
             if (obj is Account acc)
             {
+                if (TxtSearch == null || string.IsNullOrEmpty(TxtSearch.Text))
+                    return true;
+
+                if (acc.ServerType != GobalSetting.ServerType) return false;
+
                 string searchText = StringHelper.RemoveSign4VietnameseString(TxtSearch.Text.Trim().ToLower());
                 string displayName = StringHelper.RemoveSign4VietnameseString(acc.DisplayName?.ToLower() ?? "");
                 string username = StringHelper.RemoveSign4VietnameseString(acc.Username?.ToLower() ?? "");

@@ -22,7 +22,12 @@ namespace PRERP_TESTER.Models
         private string _stype;  // STUDENT || STAFF
         public string Stype { get => _stype; set => SetProperty(ref _stype , value); }
 
+        private string _serverType;  // CAPP || PRERP
+        public string ServerType { get => _serverType; set => SetProperty(ref _serverType, value); }
+
         public string session { get; set; } = "";
+
+        public string SessionFolder => Id + "_" + Username;
 
         public Permission[] Permissions { get; set; } = Array.Empty<Permission>();
 

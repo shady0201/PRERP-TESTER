@@ -24,8 +24,6 @@ namespace PRERP_TESTER.Helper
                     sb.Append(c);
                 }
             }
-
-            // Xử lý riêng ký tự 'đ' và đưa về dạng FormC để hiển thị chuẩn
             return sb.ToString().Normalize(NormalizationForm.FormC)
                      .Replace('đ', 'd').Replace('Đ', 'D');
         }

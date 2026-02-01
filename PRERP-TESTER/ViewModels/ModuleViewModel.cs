@@ -13,7 +13,6 @@ namespace PRERP_TESTER.ViewModels
 {
     public class ModuleViewModel : LazyLoadViewModel
     {
-
         public ModuleEntity ModuleEntity { get; }
 
         public ObservableCollection<AccountViewModel> ModuleAccounts { get; set; } = [];
@@ -91,21 +90,38 @@ namespace PRERP_TESTER.ViewModels
 
             if (result == MessageBoxResult.Yes)
             {
-                ModuleAccounts.Remove(accountVM);
-
-                var list = ModuleEntity.AccountModules.ToList();
-                var itemToRemove = list.FirstOrDefault(am => am.AccountID == accountVM.Account.Id);
-                if (itemToRemove != null)
-                {
-                    list.Remove(itemToRemove);
-                    ModuleEntity.AccountModules = list.ToArray();
-                }
-
-                if (SelectedAccountModule == accountVM)
-                {
-                    SelectedAccountModule = ModuleAccounts.FirstOrDefault();
-                }
+                RemoveAccount(accountVM);
             }
+        }
+
+        public void RemoveAccount(AccountViewModel? accountVM)
+        {
+            if (accountVM == null) return;
+
+            // dọn dẹp tabs account
+            for (int i = 0; i < accountVM.TabViewModels.Count; i++)
+            {
+                accountVM.TabViewModels[i].CloseTabCommand.Execute(null);
+            }
+            accountVM.TabViewModels.Clear();
+
+            // xoá khỏi danh sách accountviewmodel
+            ModuleAccounts.Remove(accountVM);
+
+            // xoá khỏi danh sách entity
+            var list = ModuleEntity.AccountModules.ToList();
+            var itemToRemove = list.FirstOrDefault(am => am.AccountID == accountVM.Account.Id);
+            if (itemToRemove != null)
+            {
+                list.Remove(itemToRemove);
+                ModuleEntity.AccountModules = list.ToArray();
+            }
+
+            if (SelectedAccountModule == accountVM)
+            {
+                SelectedAccountModule = ModuleAccounts.FirstOrDefault();
+            }
+            
         }
 
     }

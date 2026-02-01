@@ -10,5 +10,7 @@ namespace PRERP_TESTER.Models
     {
         public List<Account> Accounts { get; set; } = new();
         public List<ModuleEntity> Modules { get; set; } = new();
+
+        public string ServerType { get; set; } = "CAPP";
     }
 }

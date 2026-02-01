@@ -1,5 +1,6 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
+using PRERP_TESTER.Models;
 using PRERP_TESTER.ViewModels;
 using System;
 using System.Collections.Concurrent;
@@ -96,8 +97,6 @@ namespace PRERP_TESTER.Extensions
             return CoreWebView2Environment.CreateAsync(userDataFolder: userDataFolder);
         }
 
-
-        // tránh memory leak khi đóng tab
         private static void OnWebViewUnloaded(object sender, RoutedEventArgs e)
         {
             if (sender is WebView2 webView)
@@ -129,11 +128,11 @@ namespace PRERP_TESTER.Extensions
 
             try
             {
-                if (currentUrl.Contains("landingpage") && currentUrl.Contains("prerp.bmtu.edu.vn"))
+                if (currentUrl.Contains("landingpage") && currentUrl.Contains(GobalSetting.CurrentBaseUrl))
                 {
                     string targetLink = (vm.UserAccount.Stype == "STUDENT")
-                        ? "https://prerp.bmtu.edu.vn/sftraining/login?lang=vi"
-                        : "https://prerp.bmtu.edu.vn/login?lang=vi";
+                        ? GobalSetting.CurrentBaseUrl + "/sftraining/login?lang=vi"
+                        : GobalSetting.CurrentBaseUrl + "/login?lang=vi";
 
                     string selectTypeScript = $@"
                                                 (function() {{
@@ -148,7 +147,7 @@ namespace PRERP_TESTER.Extensions
                     await webView.CoreWebView2.ExecuteScriptAsync(selectTypeScript);
                 }
 
-                else if (currentUrl.Contains("/login"))
+                else if (currentUrl.Contains("/login") && currentUrl.Contains(GobalSetting.CurrentBaseUrl))
                 {
                     string loginScript = $@"
                                             (function() {{
@@ -173,6 +172,14 @@ namespace PRERP_TESTER.Extensions
                 System.Diagnostics.Debug.WriteLine($"Auto-Login Script Error: {ex.Message}");
             }
 
+        }
+
+        public static void RemoveFromCache(string accountId)
+        {
+            if (_envCache.TryRemove(accountId, out var task))
+            {
+                System.Diagnostics.Debug.WriteLine($"Removed environment cache for: {accountId}");
+            }
         }
 
     }

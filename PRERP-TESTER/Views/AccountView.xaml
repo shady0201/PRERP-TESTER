@@ -161,7 +161,7 @@
                                                                     </Grid>
                                                                 </Border>
                                                                 <!-- webview content  -->
-                                                                <wv2:WebView2 Grid.Row="1" ext:WebView2Extensions.AccountID="{Binding UserAccount.Username}" />
+                                                                <wv2:WebView2 Grid.Row="1" ext:WebView2Extensions.AccountID="{Binding UserAccount.SessionFolder}" />
                                                             </Grid>
                                                         </DataTemplate>
                                                     </Setter.Value>

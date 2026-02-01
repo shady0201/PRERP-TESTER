@@ -1,11 +1,14 @@
 ﻿
-- Kiểm tra username đã tồn tại trước khi tạo.
-- Tìm kiếm module.
-- Xoá account => Xoá luôn session liên quan.
-
-- Export/Import dữ liệu.
+- Thêm valid các trường input trong form.
+- Style danh sách module + account
+- custom thông báo lỗi.
+- Custom hiển thị thông báo thành công.
+- Custom scrollbar.
 - Cập nhật tabview nhãn/favicon.
-- Light/Dark mode.
+- Danh sách chọn account module: ẩn checkbox các account đã tồn tại.
+
+* Light/Dark mode.
+* Export/Import dữ liệu.
 
 Chứa data:
 %localappdata%\PrerpTester

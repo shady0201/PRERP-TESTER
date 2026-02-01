@@ -91,5 +91,22 @@ namespace PRERP_TESTER.ViewModels
             NavigationRequested?.Invoke("GoTo");
         }
 
+        public void Cleanup()
+        {
+            try
+            {
+                NavigationRequested = null;
+
+                (BackCommand as RelayCommand)?.NotifyCanExecuteChanged();
+                (ForwardCommand as RelayCommand)?.NotifyCanExecuteChanged();
+
+                System.Diagnostics.Debug.WriteLine($"Cleanup Tab: {Title} - {Url}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error during TabViewModel cleanup: {ex.Message}");
+            }
+        }
+
     }
 }

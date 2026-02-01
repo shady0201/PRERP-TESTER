@@ -8,9 +8,9 @@
         <Border>
             <Grid Height="40" ToolTipService.InitialShowDelay="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="28"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.Style>
                     <Style TargetType="Grid">
@@ -68,26 +68,67 @@
                     </TextBlock.Style>
                 </TextBlock>
 
-                <!-- phải -->
-                <TextBlock Grid.Column="2"
-					   VerticalAlignment="Center"
-					   HorizontalAlignment="Center"
-					   FontSize="20"
-                       FontWeight="SemiBold"
-                       Foreground="#FF9CA3AF">
-                <iconPacks:PackIconMaterial Grid.Column="2" 
-                                            Kind="ChevronRight" 
-                                            Width="10" Height="10" />
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <!-- Module menu -->
+                <Grid Grid.Column="2" Margin="0,0,0,0">
+                    <ToggleButton x:Name="BtnToggleModuleMenu"
+                                  Width="25" Height="25"
+                                  Margin="0,0,15,0"
+                                  Foreground="DimGray"
+                                  BorderThickness="1"
+                                  Cursor="Hand">
+                        <ToggleButton.Template>
+                            <ControlTemplate TargetType="ToggleButton">
+                                <Border x:Name="MainBorder"
+                                        Background="Transparent"
+                                        CornerRadius="14">
+                                    <iconPacks:PackIconMaterial Kind="DotsVertical" 
+                                                                Width="16" Height="16"
+                                                                Foreground="{TemplateBinding Foreground}"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
+                                        <Setter Property="Foreground" Value="#FF509BFF"/>
+                                    </Trigger>
+
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
+                                        <Setter Property="Foreground" Value="#FF509BFF"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ToggleButton.Template>
+                    </ToggleButton>
+
+                    <Popup IsOpen="{Binding IsChecked, ElementName=BtnToggleModuleMenu, Mode=TwoWay}" 
+                            PlacementTarget="{Binding ElementName=BtnToggleModuleMenu}"
+                            Panel.ZIndex="2"
+                            StaysOpen="False"
+                            AllowsTransparency="True" 
+                            PopupAnimation="Slide"
+                            Placement="Bottom"
+                            HorizontalOffset="0"
+                            VerticalOffset="0">
+                        <Border Background="White" CornerRadius="8" BorderThickness="1" BorderBrush="#FFE0E0E0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
+                            </Border.Effect>
+                            <StackPanel Width="140" Margin="5">
+                                <Button Style="{StaticResource ActionMenuItemStyle}"
+                                        Command="{Binding DataContext.RemoveModuleCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#EF4444"/>
+                                        <TextBlock Text="Xóa module" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#EF4444"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                </Grid>
+
             </Grid>
         </Border>
     </DataTemplate>
@@ -100,8 +141,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-
-                <iconPacks:PackIconMaterial Margin="10,0,0,0" VerticalAlignment="Center" Width="14" Height="14">
+                <iconPacks:PackIconMaterial Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center" Width="14" Height="14">
                     <iconPacks:PackIconMaterial.Style>
                         <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
                             <Setter Property="Kind" Value="AccountTie"/>
@@ -114,10 +154,23 @@
                         </Style>
                     </iconPacks:PackIconMaterial.Style>
                 </iconPacks:PackIconMaterial>
-
-                <TextBlock Grid.Column="1" Text="{Binding DisplayName}" VerticalAlignment="Center" 
-                       Margin="10,0,0,0" Foreground="#FF1F2937" FontSize="13" TextTrimming="CharacterEllipsis"/>
-
+                
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Text="{Binding DisplayName}"
+                               VerticalAlignment="Center" 
+                               Margin="10,0,0,0"
+                               Foreground="#FF1F2937" FontSize="13" FontWeight="SemiBold"
+                               TextTrimming="CharacterEllipsis"/>
+                    <TextBlock Grid.Row="1" Text="{Binding Username}" VerticalAlignment="Center" 
+                           Margin="10,0,0,0" Foreground="#FF1F2937" FontSize="10" TextTrimming="CharacterEllipsis"/>
+                </Grid>
+                
+                <!-- Account menu -->
                 <Grid Grid.Column="2" Margin="0,0">
                     <ToggleButton x:Name="BtnToggleMenu"
                                   Width="25" Height="25"
@@ -166,8 +219,8 @@
                             </Border.Effect>
                             <StackPanel Width="140" Margin="5">
                                 <Button Style="{StaticResource ActionMenuItemStyle}"
-                                    Command="{Binding DataContext.EditAccountCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                    CommandParameter="{Binding}">
+                                        Command="{Binding DataContext.EditAccountCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}">
                                     <StackPanel Orientation="Horizontal">
                                         <iconPacks:PackIconMaterial Kind="PencilOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF4B5563"/>
                                         <TextBlock Text="Chỉnh sửa" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF374151"/>
@@ -186,6 +239,7 @@
                         </Border>
                     </Popup>
                 </Grid>
+                
             </Grid>
         </Border>
     </DataTemplate>

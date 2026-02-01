@@ -20,17 +20,20 @@ namespace PRERP_TESTER.Views.Dialogs
     public partial class AddAccountDialog : Window
     {
         private Account _editingAccount;
+        private Account[] Accounts;
 
         public string Username { get; private set; }
         public string Password { get; private set; }
         public string DisplayName { get; private set; }
         public string Stype { get; private set; }
+        public string ServerType { get; private set; }
 
-        public AddAccountDialog()
+        public AddAccountDialog(Account[] accounts)
         {
+            Accounts = accounts;
             InitializeComponent();
         }
-        public AddAccountDialog(Account account) : this()
+        public AddAccountDialog(Account account) : this(accounts: Array.Empty<Account>())
         {
             _editingAccount = account;
 
@@ -48,6 +51,10 @@ namespace PRERP_TESTER.Views.Dialogs
                 RbStudent.IsChecked = true;
             else
                 RbStaff.IsChecked = true;
+            if (account.Stype == "CAPP")
+                RbCapp.IsChecked = true;
+            else
+                RbPrerp.IsChecked = true;
         }
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
@@ -59,6 +66,7 @@ namespace PRERP_TESTER.Views.Dialogs
                     _editingAccount.Password = GetPassword();
                     _editingAccount.DisplayName = TxtDisplayName.Text;
                     _editingAccount.Stype = RbStudent.IsChecked == true ? "STUDENT" : "STAFF";
+                    _editingAccount.ServerType = RbCapp.IsChecked == true ? "CAPP" : "PRERP";
                     DialogResult = true;
                     Close();
                 }
@@ -67,10 +75,19 @@ namespace PRERP_TESTER.Views.Dialogs
             {
                 if (!string.IsNullOrWhiteSpace(TxtUsername.Text) && !string.IsNullOrWhiteSpace(password))
                 {
+                    ServerType = RbCapp.IsChecked == true ? "CAPP" : "PRERP";
+                    bool checkDuplicate = Accounts.Any(acc => acc.Username.Equals(TxtUsername.Text.Trim(), StringComparison.OrdinalIgnoreCase)
+                                                && acc.ServerType == ServerType);
+                    if (checkDuplicate)
+                    {
+                        MessageBox.Show("Tên đăng nhập đã tồn tại trên "+ "" + ". Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                     Username = TxtUsername.Text;
                     Password = GetPassword();
                     DisplayName = TxtDisplayName.Text;
                     Stype = RbStaff.IsChecked == true ? "STAFF" : "STUDENT";
+                    ServerType = RbCapp.IsChecked == true ? "CAPP" : "PRERP";
                     DialogResult = true;
                     Close();
                 }

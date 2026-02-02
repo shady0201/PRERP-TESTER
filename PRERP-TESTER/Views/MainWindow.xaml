@@ -109,7 +109,7 @@
                               HorizontalScrollBarVisibility="Disabled">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <!-- Menu content-->
                         <StackPanel Grid.Row="0">
@@ -148,17 +148,17 @@
                                         </Button>
                                     </Grid>
                                     <Button Grid.Column="1"
-                                            Command="{Binding }"
+                                            Command="{Binding ToggleModuleExpandCommand}"
                                             Width="25" Height="25"
                                             Margin="10,0,0,0"
                                             Style="{StaticResource CreateDataMenuStyle}">
-                                        <iconPacks:PackIconMaterial Grid.Column="1" Kind="ChevronDown" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF5B5B5B" >
+                                        <iconPacks:PackIconMaterial Grid.Column="1" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF5B5B5B" >
                                             <iconPacks:PackIconMaterial.Style>
                                                 <Style TargetType="iconPacks:PackIconMaterial">
                                                     <Setter Property="Kind" Value="ChevronDown"/>
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsModuleExpanded}" Value="False">
-                                                            <Setter Property="Kind" Value="ChevronRight"/>
+                                                            <Setter Property="Kind" Value="ChevronLeft"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -167,8 +167,17 @@
                                     </Button>
                                 </Grid>
                             </StackPanel>
+                            <!-- Danh sách Module -->
                             <StackPanel>
-                                <!-- Thanh tìm kiếm module -->
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsModuleExpanded}" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
                                 <StackPanel Margin="10,5" >
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
@@ -188,14 +197,14 @@
                                             </Grid.ColumnDefinitions>
                                             <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Width="12" />
                                             <TextBox Grid.Column="1" 
-                                                 Text="{Binding SearchModuleText, UpdateSourceTrigger=PropertyChanged}"
-                                                 Background="Transparent" BorderThickness="0" 
-                                                 FontSize="12" Margin="5,0"
-                                                 VerticalContentAlignment="Center"/>
+                                                     Text="{Binding SearchModuleText, UpdateSourceTrigger=PropertyChanged}"
+                                                     Background="Transparent" BorderThickness="0" 
+                                                     FontSize="12" Margin="5,0"
+                                                     VerticalContentAlignment="Center"/>
 
                                             <TextBlock IsHitTestVisible="False" Text="Tìm module..." 
-                                                   VerticalAlignment="Center" Grid.Column="1" Margin="5,0"
-                                                   Foreground="DarkGray" FontSize="12">
+                                                       VerticalAlignment="Center" Grid.Column="1" Margin="5,0"
+                                                       Foreground="DarkGray" FontSize="12">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -213,20 +222,19 @@
                                         </Grid>
                                     </Border>
                                 </StackPanel>
-                                <!-- Danh sách Module -->
                                 <ListBox ItemsSource="{Binding ModuleMenuView}"
-                                        SelectedItem="{Binding SelectedModule}"
-                                        ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Padding="0,0,0,0"
-                                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                        VerticalAlignment="Stretch">
+                                            SelectedItem="{Binding SelectedModule}"
+                                            ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Padding="0,0,0,0"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                            VerticalAlignment="Stretch">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <ContentControl Content="{Binding}"
-                                                        ContentTemplate="{StaticResource MenuItemModule}" />
+                                                            ContentTemplate="{StaticResource MenuItemModule}" />
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
@@ -275,15 +283,35 @@
                                                     </Button>
                                                 </Grid>
                                                 <Button Grid.Column="1"
-                                                        Command="{Binding }"
+                                                        Command="{Binding ToggleAccountExpandCommand}"
                                                         Width="25" Height="25"
                                                         Margin="10,0,0,0"
                                                         Style="{StaticResource CreateDataMenuStyle}">
-                                                    <iconPacks:PackIconMaterial Grid.Column="1" Kind="ChevronDown" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF5B5B5B" />
+                                                    <iconPacks:PackIconMaterial Grid.Column="1" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF5B5B5B" >
+                                                        <iconPacks:PackIconMaterial.Style>
+                                                            <Style TargetType="iconPacks:PackIconMaterial">
+                                                                <Setter Property="Kind" Value="ChevronDown"/>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding IsAccountExpanded}" Value="False">
+                                                                        <Setter Property="Kind" Value="ChevronLeft"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </iconPacks:PackIconMaterial.Style>
+                                                    </iconPacks:PackIconMaterial>
                                                 </Button>
                                             </Grid>
                                         </Border>
                                         <StackPanel Grid.Row="1">
+                                            <StackPanel.Style>
+                                                <Style TargetType="StackPanel">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsAccountExpanded}" Value="False">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
                                             <!-- Tìm kiếm Account -->
                                             <StackPanel Margin="10,5" >
                                                 <Border Background="#FFF1F1F1" CornerRadius="8" Padding="5,2" Height="30">

@@ -108,36 +108,36 @@ namespace PRERP_TESTER.ViewModels
         public static MainViewModel Instance { get; private set; }
 
         public ObservableCollection<HistoryItem> History { get; set; } = new();
-    public MainViewModel()
-        {
-            Instance = this;
-            LoadAllData();
-            // Commands
-            CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
-            RemoveModuleCommand = new RelayCommand<ModuleViewModel>(ExecuteRemoveModule);
-            PinModuleCommand = new RelayCommand<ModuleViewModel>(ExecutePinModule);
-            CreateAccountCommand = new RelayCommand(ExecuteCreateAccount);
-            EditAccountCommand = new RelayCommand<Account>(ExecuteEditAccount);
-            RemoveAccountCommand = new RelayCommand<Account>(ExecuteRemoveAccount);
+        public MainViewModel()
+            {
+                Instance = this;
+                LoadAllData();
+                // Commands
+                CreateModuleCommand = new RelayCommand(ExecuteCreateModule);
+                RemoveModuleCommand = new RelayCommand<ModuleViewModel>(ExecuteRemoveModule);
+                PinModuleCommand = new RelayCommand<ModuleViewModel>(ExecutePinModule);
+                CreateAccountCommand = new RelayCommand(ExecuteCreateAccount);
+                EditAccountCommand = new RelayCommand<Account>(ExecuteEditAccount);
+                RemoveAccountCommand = new RelayCommand<Account>(ExecuteRemoveAccount);
 
-            ToggleMenuCommand = new RelayCommand(() => IsMenuCollapsed = !IsMenuCollapsed);
+                ToggleMenuCommand = new RelayCommand(() => IsMenuCollapsed = !IsMenuCollapsed);
 
-            ExportDataCommand = new RelayCommand(ExecuteExportData);
-            ImportDataCommand = new RelayCommand(ExecuteImportData);
+                ExportDataCommand = new RelayCommand(ExecuteExportData);
+                ImportDataCommand = new RelayCommand(ExecuteImportData);
 
-            ToggleModuleExpandCommand = new RelayCommand(() => IsModuleExpanded = !IsModuleExpanded);
-            ToggleAccountExpandCommand = new RelayCommand(() => IsAccountExpanded = !IsAccountExpanded);
+                ToggleModuleExpandCommand = new RelayCommand(() => IsModuleExpanded = !IsModuleExpanded);
+                ToggleAccountExpandCommand = new RelayCommand(() => IsAccountExpanded = !IsAccountExpanded);
 
-            // Data
-            AccountMenuView = new ListCollectionView(Accounts);
-            AccountMenuView.Filter = FilterAccountMenu;
+                // Data
+                AccountMenuView = new ListCollectionView(Accounts);
+                AccountMenuView.Filter = FilterAccountMenu;
 
-            ModuleMenuView = CollectionViewSource.GetDefaultView(Modules);
-            ModuleMenuView.Filter = FilterModuleMenu;
+                ModuleMenuView = CollectionViewSource.GetDefaultView(Modules);
+                ModuleMenuView.Filter = FilterModuleMenu;
 
-            // Sort data
-            ApplySort();
-        }
+                // Sort data
+                ApplySort();
+            }
 
         private void ExecuteCreateModule()
         {
@@ -349,7 +349,12 @@ namespace PRERP_TESTER.ViewModels
             {
                 Modules.Add(new ModuleViewModel(entity, Accounts));
             }
+
             History = [.. data.History];
+            if (History.Count == 0)
+            {
+                DefaultHistory();
+            }
 
             // Cập nhật URL base
             ServerType = data.ServerType;
@@ -527,6 +532,12 @@ namespace PRERP_TESTER.ViewModels
             }
             // Giới hạn khoảng 1000-2000 mục để tránh file JSON quá nặng
             if (History.Count > 2000) History.RemoveAt(0);
+        }
+
+        private void DefaultHistory()
+        {
+            History.Add(new HistoryItem { Title = "PRERP BMU", Url = "https://prerp.bmtu.edu.vn", LastVisited = DateTime.Now });
+            History.Add(new HistoryItem { Title = "CAPP BMU", Url = "https://capp.bmtu.edu.vn/mywork", LastVisited = DateTime.Now });
         }
 
     }

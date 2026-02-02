@@ -70,7 +70,6 @@ namespace PRERP_TESTER.ViewModels
         }
 
         public ICommand CloseTabCommand { get; }
-
         public ICommand BackCommand { get; }
         public ICommand ForwardCommand { get; }
         public ICommand ReloadCommand { get; }

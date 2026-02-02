@@ -223,14 +223,14 @@
                                     </Border>
                                 </StackPanel>
                                 <ListBox ItemsSource="{Binding ModuleMenuView}"
-                                            SelectedItem="{Binding SelectedModule}"
-                                            ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Padding="0,0,0,0"
-                                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                            VerticalAlignment="Stretch">
+                                        SelectedItem="{Binding SelectedModule}"
+                                        ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Padding="0,0,0,0"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                        VerticalAlignment="Stretch">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <ContentControl Content="{Binding}"
@@ -354,6 +354,8 @@
                                                     Background="Transparent"
                                                     BorderThickness="0"
                                                     Padding="0,0,0,0"
+                                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                     VerticalAlignment="Stretch">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>

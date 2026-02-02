@@ -1,11 +1,15 @@
-﻿- Style danh sách account pick
+﻿- Menu cho tabview header
+- Kéo thả tabview header
+- Cập nhật tabview nhãn/favicon, trạng thái load web cho header.
+- Lưu session folder account theo server type
+- Style danh sách account pick
 - Style scrollbar.
 - Thêm valid các trường input trong form.
 - Style danh sách module + account
 - custom thông báo lỗi.
 - Custom hiển thị thông báo thành công.
 - Custom scrollbar.
-- Cập nhật tabview nhãn/favicon.
+
 - Danh sách chọn account module: ẩn checkbox các account đã tồn tại.
 
 * Light/Dark mode.

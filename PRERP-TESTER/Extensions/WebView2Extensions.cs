@@ -130,7 +130,7 @@ namespace PRERP_TESTER.Extensions
             {
                 if (currentUrl.Contains("landingpage") && currentUrl.Contains(GobalSetting.CurrentBaseUrl))
                 {
-                    string targetLink = (vm.UserAccount.Stype == "STUDENT")
+                    string targetLink = (vm.UserAccount.Role == AccountRole.STUDENT)
                         ? GobalSetting.CurrentBaseUrl + "/sftraining/login?lang=vi"
                         : GobalSetting.CurrentBaseUrl + "/login?lang=vi";
 

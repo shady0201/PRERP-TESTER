@@ -1,4 +1,5 @@
-﻿
+﻿- Style danh sách account pick
+- Style scrollbar.
 - Thêm valid các trường input trong form.
 - Style danh sách module + account
 - custom thông báo lỗi.

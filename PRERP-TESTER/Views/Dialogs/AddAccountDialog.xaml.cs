@@ -26,15 +26,15 @@ namespace PRERP_TESTER.Views.Dialogs
         public string Username { get; private set; }
         public string Password { get; private set; }
         public string DisplayName { get; private set; }
-        public string Stype { get; private set; }
-        public string ServerType { get; private set; }
+        public AccountRole Role { get; private set; }
+        public ServerType ServerType { get; private set; }
 
         public AddAccountDialog(Account[] accounts)
         {
             Accounts = accounts;
             InitializeComponent();
 
-            if (GobalSetting.ServerType == "CAPP")
+            if (GobalSetting.ServerType == ServerType.CAPP)
                 RbCapp.IsChecked = true;
             else
                 RbPrerp.IsChecked = true;
@@ -53,11 +53,12 @@ namespace PRERP_TESTER.Views.Dialogs
             TxtUsername.IsEnabled = false;
             BorderUserName.Background = Brushes.Transparent;
 
-            if (account.Stype == "STUDENT")
+            if (account.Role == AccountRole.STUDENT)
                 RbStudent.IsChecked = true;
             else
                 RbStaff.IsChecked = true;
-            if (account.Stype == "CAPP")
+
+            if (account.ServerType == ServerType.CAPP)
                 RbCapp.IsChecked = true;
             else
                 RbPrerp.IsChecked = true;
@@ -71,8 +72,8 @@ namespace PRERP_TESTER.Views.Dialogs
                 {
                     _editingAccount.Password = GetPassword();
                     _editingAccount.DisplayName = TxtDisplayName.Text;
-                    _editingAccount.Stype = RbStudent.IsChecked == true ? "STUDENT" : "STAFF";
-                    _editingAccount.ServerType = RbCapp.IsChecked == true ? "CAPP" : "PRERP";
+                    _editingAccount.Role = RbStudent.IsChecked == true ? AccountRole.STUDENT : AccountRole.STAFF;
+                    _editingAccount.ServerType = RbCapp.IsChecked == true ? ServerType.CAPP : ServerType.PRERP;
                     DialogResult = true;
                     Close();
                 }
@@ -81,7 +82,7 @@ namespace PRERP_TESTER.Views.Dialogs
             {
                 if (!string.IsNullOrWhiteSpace(TxtUsername.Text) && !string.IsNullOrWhiteSpace(password))
                 {
-                    ServerType = RbCapp.IsChecked == true ? "CAPP" : "PRERP";
+                    ServerType = RbCapp.IsChecked == true ? ServerType.CAPP : ServerType.PRERP;
                     bool checkDuplicate = Accounts.Any(acc => acc.Username.Equals(TxtUsername.Text.Trim(), StringComparison.OrdinalIgnoreCase)
                                                 && acc.ServerType == ServerType);
                     if (checkDuplicate)
@@ -92,8 +93,8 @@ namespace PRERP_TESTER.Views.Dialogs
                     Username = TxtUsername.Text;
                     Password = GetPassword();
                     DisplayName = TxtDisplayName.Text;
-                    Stype = RbStaff.IsChecked == true ? "STAFF" : "STUDENT";
-                    ServerType = RbCapp.IsChecked == true ? "CAPP" : "PRERP";
+                    Role = RbStaff.IsChecked == true ? AccountRole.STUDENT : AccountRole.STAFF;
+                    ServerType = RbCapp.IsChecked == true ? ServerType.CAPP : ServerType.PRERP;
                     DialogResult = true;
                     Close();
                 }

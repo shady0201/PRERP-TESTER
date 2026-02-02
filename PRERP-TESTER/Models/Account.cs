@@ -19,11 +19,11 @@ namespace PRERP_TESTER.Models
         private string _displayName;
         public string DisplayName { get => _displayName; set => SetProperty(ref _displayName, value);}
 
-        private string _stype;  // STUDENT || STAFF
-        public string Stype { get => _stype; set => SetProperty(ref _stype , value); }
+        private AccountRole _role;
+        public AccountRole Role { get => _role; set => SetProperty(ref _role , value); }
 
-        private string _serverType;  // CAPP || PRERP
-        public string ServerType { get => _serverType; set => SetProperty(ref _serverType, value); }
+        private ServerType _serverType;
+        public ServerType ServerType { get => _serverType; set => SetProperty(ref _serverType, value); }
 
         public string session { get; set; } = "";
 

@@ -55,13 +55,15 @@
         </Grid.ColumnDefinitions>
 
         <!-- Menu Left -->
-        <Border Grid.Column="0" BorderBrush="#FFCCCCCC" BorderThickness="0,0,1,0" Padding="5,0,5,0">
+        <Border Grid.Column="0"
+                BorderBrush="#FFCCCCCC"
+                BorderThickness="0,0,1,0"
+                Padding="5,0,5,0"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*" MaxHeight="500px"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
@@ -74,10 +76,10 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0"  Source="/Assets/logo.png" 
-                                   Width="28" Height="28" 
-                                   Stretch="Fill"
-                                   Margin="5,0,5,0"
-                                   Cursor="Hand">
+                               Width="28" Height="28" 
+                               Stretch="Fill"
+                               Margin="5,0,5,0"
+                               Cursor="Hand">
                             <Image.InputBindings>
                                 <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleMenuCommand}"/>
                             </Image.InputBindings>
@@ -102,221 +104,245 @@
                         </Button>
                     </Grid>
                 </Border>
-                <!--Label module-->
-                <StackPanel Grid.Row="1">
+                <ScrollViewer Grid.Row="1"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition>
-                                <ColumnDefinition.Style>
-                                    <Style TargetType="ColumnDefinition">
-                                        <Setter Property="Width" Value="Auto"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
-                                                <Setter Property="Width" Value="*"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ColumnDefinition.Style>
-                            </ColumnDefinition>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Foreground="#FF404040" FontSize="12" FontFamily="Sans Serif Collection">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Text" Value="{Binding FilteredModuleCount, StringFormat='MODULE ({0})'}"/>
-                                    <Setter Property="FontSize" Value="11"/>
-                                    <Setter Property="FontWeight" Value="Normal"/>
-                                    <Setter Property="HorizontalAlignment" Value="Left"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
-                                            <Setter Property="Text" Value="M"/>
-                                            <Setter Property="FontSize" Value="22"/>
-                                            <Setter Property="FontWeight" Value="Bold"/>
-                                            <Setter Property="Margin" Value="0,0,0,0"/>
-                                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                        <Button Grid.Column="1"
-                                    Command="{Binding CreateModuleCommand}"
-                                    Width="25" Height="25"
-                                    Margin="10,0,0,0"
-                                    Style="{StaticResource CreateDataMenuStyle}">
-                            <iconPacks:PackIconMaterial Kind="PlusBox" Width="14" Height="14" VerticalAlignment="Center" Foreground="Green"/>
-                        </Button>
-                    </Grid>
-                </StackPanel>
-                <!-- Thanh tìm kiếm module-->
-                <StackPanel Grid.Row="2" Margin="10,5" >
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Setter Property="Visibility" Value="Visible"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-                    <Border Background="#FFF1F1F1" CornerRadius="8" Padding="5,2" Height="30">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Width="12" />
-                            <TextBox Grid.Column="1" 
-                                     Text="{Binding SearchModuleText, UpdateSourceTrigger=PropertyChanged}"
-                                     Background="Transparent" BorderThickness="0" 
-                                     FontSize="12" Margin="5,0"
-                                     VerticalContentAlignment="Center"/>
-
-                            <TextBlock IsHitTestVisible="False" Text="Tìm module..." 
-                                       VerticalAlignment="Center" Grid.Column="1" Margin="5,0"
-                                       Foreground="DarkGray" FontSize="12">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding SearchModuleText}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding SearchModuleText}" Value="{x:Null}">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </Grid>
-                    </Border>
-                </StackPanel>
-                <!-- Danh sách Module -->
-                <ListBox Grid.Row="3"
-                        ItemsSource="{Binding ModuleMenuView}"
-                        SelectedItem="{Binding SelectedModule}"
-                        ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Padding="0,0,0,0"
-                        VerticalAlignment="Stretch">
-
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <ContentControl Content="{Binding}"
-                                            ContentTemplate="{StaticResource MenuItemModule}" />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <!-- Account Menu -->
-                <Grid Grid.Row="4">
-                    <Border x:Name="MenuContentHolder">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*" MaxHeight="500"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Danh sách Account -->
-                            <Border Grid.Row="0" Padding="0,0,0,0" Margin="0,10,0,0">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!-- Menu content-->
+                        <StackPanel Grid.Row="0">
+                            <!--Label module-->
+                            <StackPanel>
+                                <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text= "{Binding FilteredAccountCount, StringFormat='TÀI KHOẢN ({0})'}" Foreground="#FF404040" FontSize="12" FontFamily="Sans Serif Collection"/>
-                                    <Button Grid.Column="1"
-                                            Command="{Binding CreateAccountCommand}"
-                                            Width="25" Height="25"
-                                            Style="{StaticResource CreateDataMenuStyle}" Margin="10,0,0,0">
-                                        <iconPacks:PackIconMaterial Kind="PlusBox" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF258A39"/>
-                                    </Button>
-                                </Grid>
-                            </Border>
-                            <!-- Tìm kiếm Account -->
-                            <StackPanel Grid.Row="1" Margin="10,5" >
-                                <Border Background="#FFF1F1F1" CornerRadius="8" Padding="5,2" Height="30">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="15*"/>
-                                            <ColumnDefinition Width="182*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Width="12" />
-                                        <TextBox Grid.Column="1" 
-                                                 Text="{Binding SearchAccountText, UpdateSourceTrigger=PropertyChanged}"
-                                                 Background="Transparent" BorderThickness="0"
-                                                 FontSize="12" Margin="5,0,5,0"
-                                                 VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
-
-                                        <TextBlock IsHitTestVisible="False" Text="Tìm tài khoản..." 
-                                                   VerticalAlignment="Center" Grid.Column="1" Margin="5,0,5,0"
-                                                   Foreground="DarkGray" FontSize="12" Grid.ColumnSpan="2">
+                                    <Grid Grid.Column="0">
+                                        <TextBlock Foreground="#FF404040" FontSize="12" FontFamily="Sans Serif Collection">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Setter Property="Text" Value="{Binding FilteredModuleCount, StringFormat='MODULE ({0})'}"/>
+                                                    <Setter Property="FontSize" Value="11"/>
+                                                    <Setter Property="FontWeight" Value="Normal"/>
+                                                    <Setter Property="HorizontalAlignment" Value="Left"/>
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding SearchAccountText}" Value="">
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding SearchAccountText}" Value="{x:Null}">
-                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                                            <Setter Property="Text" Value="M"/>
+                                                            <Setter Property="FontSize" Value="22"/>
+                                                            <Setter Property="FontWeight" Value="Bold"/>
+                                                            <Setter Property="Margin" Value="0,0,0,0"/>
+                                                            <Setter Property="HorizontalAlignment" Value="Center"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
                                             </TextBlock.Style>
                                         </TextBlock>
+                                        <Button Command="{Binding CreateModuleCommand}"
+                                            Width="25" Height="25"
+                                            Margin="10,0,0,0"
+                                            Style="{StaticResource CreateDataMenuStyle}">
+                                            <iconPacks:PackIconMaterial Kind="PlusBox" Width="14" Height="14" VerticalAlignment="Center" Foreground="Green"/>
+                                        </Button>
+                                    </Grid>
+                                    <Button Grid.Column="1"
+                                            Command="{Binding }"
+                                            Width="25" Height="25"
+                                            Margin="10,0,0,0"
+                                            Style="{StaticResource CreateDataMenuStyle}">
+                                        <iconPacks:PackIconMaterial Grid.Column="1" Kind="ChevronDown" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF5B5B5B" >
+                                            <iconPacks:PackIconMaterial.Style>
+                                                <Style TargetType="iconPacks:PackIconMaterial">
+                                                    <Setter Property="Kind" Value="ChevronDown"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsModuleExpanded}" Value="False">
+                                                            <Setter Property="Kind" Value="ChevronRight"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </iconPacks:PackIconMaterial.Style>
+                                        </iconPacks:PackIconMaterial>
+                                    </Button>
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <!-- Thanh tìm kiếm module -->
+                                <StackPanel Margin="10,5" >
+                                    <StackPanel.Style>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                    <Border Background="#FFF1F1F1" CornerRadius="8" Padding="5,2" Height="30">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Width="12" />
+                                            <TextBox Grid.Column="1" 
+                                                 Text="{Binding SearchModuleText, UpdateSourceTrigger=PropertyChanged}"
+                                                 Background="Transparent" BorderThickness="0" 
+                                                 FontSize="12" Margin="5,0"
+                                                 VerticalContentAlignment="Center"/>
+
+                                            <TextBlock IsHitTestVisible="False" Text="Tìm module..." 
+                                                   VerticalAlignment="Center" Grid.Column="1" Margin="5,0"
+                                                   Foreground="DarkGray" FontSize="12">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding SearchModuleText}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding SearchModuleText}" Value="{x:Null}">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                                <!-- Danh sách Module -->
+                                <ListBox ItemsSource="{Binding ModuleMenuView}"
+                                        SelectedItem="{Binding SelectedModule}"
+                                        ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Padding="0,0,0,0"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                        VerticalAlignment="Stretch">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <ContentControl Content="{Binding}"
+                                                        ContentTemplate="{StaticResource MenuItemModule}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                            <!-- Account Menu -->
+                            <Grid Grid.Row="4">
+                                <Border x:Name="MenuContentHolder">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Label Account -->
+                                        <Border Grid.Row="0" Padding="0,0,0,0" Margin="0,10,0,0">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0">
+                                                    <TextBlock Grid.Column="0" Text= "{Binding FilteredAccountCount, StringFormat='TÀI KHOẢN ({0})'}" Foreground="#FF404040" FontSize="12" FontFamily="Sans Serif Collection"/>
+                                                    <Button Grid.Column="1"
+                                                        Command="{Binding CreateAccountCommand}"
+                                                        Width="25" Height="25"
+                                                        Style="{StaticResource CreateDataMenuStyle}" Margin="10,0,0,0">
+                                                        <iconPacks:PackIconMaterial Kind="PlusBox" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF258A39"/>
+                                                    </Button>
+                                                </Grid>
+                                                <Button Grid.Column="1"
+                                                        Command="{Binding }"
+                                                        Width="25" Height="25"
+                                                        Margin="10,0,0,0"
+                                                        Style="{StaticResource CreateDataMenuStyle}">
+                                                    <iconPacks:PackIconMaterial Grid.Column="1" Kind="ChevronDown" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF5B5B5B" />
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                        <StackPanel Grid.Row="1">
+                                            <!-- Tìm kiếm Account -->
+                                            <StackPanel Margin="10,5" >
+                                                <Border Background="#FFF1F1F1" CornerRadius="8" Padding="5,2" Height="30">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="15*"/>
+                                                            <ColumnDefinition Width="182*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Width="12" />
+                                                        <TextBox Grid.Column="1" 
+                                                             Text="{Binding SearchAccountText, UpdateSourceTrigger=PropertyChanged}"
+                                                             Background="Transparent" BorderThickness="0"
+                                                             FontSize="12" Margin="5,0,5,0"
+                                                             VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+
+                                                        <TextBlock IsHitTestVisible="False" Text="Tìm tài khoản..." 
+                                                               VerticalAlignment="Center" Grid.Column="1" Margin="5,0,5,0"
+                                                               Foreground="DarkGray" FontSize="12" Grid.ColumnSpan="2">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding SearchAccountText}" Value="">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding SearchAccountText}" Value="{x:Null}">
+                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
+                                                    </Grid>
+                                                </Border>
+                                            </StackPanel>
+                                            <!-- Danh sách Account-->
+                                            <ListBox ItemsSource="{Binding AccountMenuView}"
+                                                    ItemContainerStyle="{StaticResource MenuItemAccountStyle}"
+                                                    Background="Transparent"
+                                                    BorderThickness="0"
+                                                    Padding="0,0,0,0"
+                                                    VerticalAlignment="Stretch">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ContentControl Content="{Binding}"
+                                                                    ContentTemplate="{StaticResource MenuItemAccount}" />
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </StackPanel>
                                     </Grid>
                                 </Border>
-                            </StackPanel>
-                            <!-- Danh sách Account-->
-                            <ListBox Grid.Row="2"
-                                    ItemsSource="{Binding AccountMenuView}"
-                                    ItemContainerStyle="{StaticResource MenuItemAccountStyle}"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                    Padding="0,0,0,0"
-                                    VerticalAlignment="Stretch">
-
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <ContentControl Content="{Binding}"
-                                                        ContentTemplate="{StaticResource MenuItemAccount}" />
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </Grid>
-                    </Border>
-                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
                 <!-- Settings -->
-
-                <StackPanel Grid.Row="5">
+                <StackPanel Grid.Row="2">
                     <Border Margin="0,10,0,0" BorderBrush="#FF9E9E9E" BorderThickness="0,0.7,0,0" Height="50">
                         <Grid VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
@@ -374,10 +400,10 @@
                                                 Background="Transparent"
                                                 CornerRadius="14">
                                             <iconPacks:PackIconMaterial Kind="CogOutline" 
-                                                                        Width="16" Height="16"
-                                                                        Foreground="{TemplateBinding Foreground}"
-                                                                        HorizontalAlignment="Center"
-                                                                        VerticalAlignment="Center"/>
+                                                    Width="16" Height="16"
+                                                    Foreground="{TemplateBinding Foreground}"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
@@ -396,18 +422,18 @@
                             <Popup IsOpen="{Binding IsChecked, ElementName=BtnToggleSetting, Mode=TwoWay}" 
                                    PlacementTarget="{Binding ElementName=BtnToggleSetting}"
                                    StaysOpen="False" AllowsTransparency="True" PopupAnimation="Slide" Placement="Top" Grid.ColumnSpan="2">
-                                <Border Background="White" CornerRadius="10" BorderThickness="2" BorderBrush="#FFE0E0E0" Padding="10">
+                                                    <Border Background="White" CornerRadius="10" BorderThickness="2" BorderBrush="#FFE0E0E0" Padding="10">
                                     <StackPanel Width="auto">
-                                        <TextBlock Text="Server" 
-                                               FontSize="11" FontWeight="Bold"
-                                               Foreground="Gray" Margin="5,0,0,5"/>
+                                        <TextBlock Text="Server"
+                                                   FontSize="11" FontWeight="Bold"
+                                                   Foreground="Gray" Margin="5,0,0,5"/>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                             <RadioButton Content="CAPP" 
-                                                             Style="{StaticResource ServerToggleLeftStyle}"
-                                                             GroupName="ServerType"
-                                                             Cursor="Hand"
-                                                             FontWeight="SemiBold"
-                                                             IsChecked="{Binding ServerType, Converter={StaticResource ComparisonConverter}, ConverterParameter=CAPP, Mode=TwoWay}"/>
+                                                         Style="{StaticResource ServerToggleLeftStyle}"
+                                                         GroupName="ServerType"
+                                                         Cursor="Hand"
+                                                         FontWeight="SemiBold"
+                                                         IsChecked="{Binding ServerType, Converter={StaticResource ComparisonConverter}, ConverterParameter=CAPP, Mode=TwoWay}"/>
                                             <RadioButton Content="PRERP"
                                                          Cursor="Hand"
                                                          Style="{StaticResource ServerToggleRightStyle}"

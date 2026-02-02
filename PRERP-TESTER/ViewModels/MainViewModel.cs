@@ -54,15 +54,29 @@
             public ICollectionView ModuleMenuView { get; }
             public int FilteredModuleCount => ModuleMenuView?.Cast<object>().Count() ?? 0;
 
-        private bool _isMenuCollapsed;
+            private bool _isMenuCollapsed;
             public bool IsMenuCollapsed
             {
                 get => _isMenuCollapsed;
                 set => SetProperty(ref _isMenuCollapsed, value);
             }
+            
+            private bool _isModuleExpanded = true;
+            public bool IsModuleExpanded
+            {
+                get => _isModuleExpanded;
+                set => SetProperty(ref _isModuleExpanded, value);
+            }
 
-            private string _serverType;
-            public string ServerType
+            private bool _isAccountExpanded = true;
+            public bool IsAccountExpanded
+            {
+                get => _isAccountExpanded;
+                set => SetProperty(ref _isAccountExpanded, value);
+            }
+
+            private ServerType _serverType;
+            public ServerType ServerType
             {
                 get => _serverType;
                 set 
@@ -73,7 +87,6 @@
                     }
                 }
             }
-
             public ObservableCollection<ModuleViewModel> Modules { get; set; } = [];
 
             public ModuleViewModel? SelectedModule { get; set; }
@@ -88,6 +101,9 @@
 
             public ICommand ExportDataCommand { get; }
             public ICommand ImportDataCommand { get; }
+
+            public ICommand ToggleModuleExpandCommand { get; }
+            public ICommand ToggleAccountExpandCommand { get; }
 
         public MainViewModel()
             {
@@ -106,7 +122,10 @@
                 ExportDataCommand = new RelayCommand(ExecuteExportData);
                 ImportDataCommand = new RelayCommand(ExecuteImportData);
 
-            AccountMenuView = new ListCollectionView(Accounts);
+                ToggleModuleExpandCommand = new RelayCommand(() => IsModuleExpanded = !IsModuleExpanded);
+                ToggleAccountExpandCommand = new RelayCommand(() => IsAccountExpanded = !IsAccountExpanded);
+
+                AccountMenuView = new ListCollectionView(Accounts);
                 AccountMenuView.Filter = FilterAccountMenu;
 
                 ModuleMenuView = CollectionViewSource.GetDefaultView(Modules);
@@ -122,7 +141,7 @@
                     var moduleEntityCapp = new ModuleEntity
                     {
                         Name = dialog.ResultName,
-                        ServerType = "CAPP",
+                        ServerType = ServerType.CAPP,
                         AccountModules = []
                     };
                     var moduleVMCapp = new ModuleViewModel(moduleEntityCapp, Accounts);
@@ -131,7 +150,7 @@
                     var moduleEntityPrerp = new ModuleEntity
                     {
                         Name = dialog.ResultName,
-                        ServerType = "PRERP",
+                        ServerType = ServerType.PRERP,
                         AccountModules = []
                     };
                     var moduleVMPrerp = new ModuleViewModel(moduleEntityPrerp, Accounts);
@@ -153,7 +172,7 @@
                         Password = dialog.Password,
                         DisplayName = dialog.DisplayName,
                         ServerType = dialog.ServerType,
-                        Stype = dialog.Stype,
+                        Role = dialog.Role,
                     };
                     Accounts.Add(account);
                 }
@@ -220,7 +239,6 @@
                 if (result == MessageBoxResult.Yes)
                 {
                     string targetName = moduleViewModel.Name;
-                    string targetServer = moduleViewModel.ModuleEntity.ServerType;
                     var modulesToDelete = Modules.Where(m => m.Name == targetName).ToList();
 
                     foreach (var module in modulesToDelete)
@@ -322,6 +340,7 @@
 
                 // Cập nhật URL base
                 ServerType = data.ServerType;
+
                 UpdateCurrentServer();
             }
 
@@ -363,11 +382,11 @@
             private void UpdateCurrentServer()
             {
                 GobalSetting.ServerType = ServerType;
-                if (ServerType == "CAPP")
+                if (ServerType == ServerType.CAPP)
                 {
                     GobalSetting.CurrentBaseUrl = "https://capp.bmtu.edu.vn/mywork";
                 }
-                else if (ServerType == "PRERP")
+                else if (ServerType == ServerType.PRERP)
                 {
                     GobalSetting.CurrentBaseUrl = "https://prerp.bmtu.edu.vn";
                 }

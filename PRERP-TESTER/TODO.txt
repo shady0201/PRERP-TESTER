@@ -1,5 +1,4 @@
-﻿
-- Nút xoá history url trong webview.
+﻿- Nút xoá history url trong webview.
 - Ctrl + click => tabweb mới
 - Chỉnh style danh sách account trong module cho dễ nhận biết.
 - Kéo thả để thay đổi thứ tự tabview header.

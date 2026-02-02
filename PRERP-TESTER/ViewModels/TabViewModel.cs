@@ -108,9 +108,8 @@ namespace PRERP_TESTER.ViewModels
 
         public TabViewModel(TabWeb tabWeb, Account account, string moduleID, Action<TabViewModel> closeAction)
         {
-
             UserAccount = account;
-            Url = tabWeb.Url;
+            Url = StandardizationUrl(tabWeb.Url);
             Title = tabWeb.Title;
             FaviconUrl = tabWeb.FaviconUrl;
             UpdateSecurityStatus(Url);
@@ -141,19 +140,8 @@ namespace PRERP_TESTER.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Url)) return;
 
-            string targetUrl = Url.Trim().ToLower();
+            Url = StandardizationUrl(Url);
 
-            if (!targetUrl.StartsWith("http://") && !targetUrl.StartsWith("https://"))
-            {
-                if (targetUrl.Contains("."))
-                {
-                    Url = "https://" + targetUrl;
-                }
-                else
-                {
-                    Url = "https://www.google.com/search?q=" + Uri.EscapeDataString(targetUrl);
-                }
-            }
             UpdateSecurityStatus(Url);
             NavigationRequested?.Invoke("GoTo");
         }
@@ -208,6 +196,24 @@ namespace PRERP_TESTER.ViewModels
             }
         }
 
+        private string StandardizationUrl(string input_url)
+        {
+            string targetUrl = input_url.Trim().ToLower();
+            string result = input_url;
+
+            if (!targetUrl.StartsWith("http://") && !targetUrl.StartsWith("https://"))
+            {
+                if (targetUrl.Contains("."))
+                {
+                    result = "https://" + targetUrl;
+                }
+                else
+                {
+                    result = "https://www.google.com/search?q=" + Uri.EscapeDataString(targetUrl);
+                }
+            }
+            return result;
+        }
 
 
     }

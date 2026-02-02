@@ -6,6 +6,7 @@ using PRERP_TESTER.ViewModels;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -83,7 +84,6 @@ namespace PRERP_TESTER.Extensions
                     // TabWeb contrl handle
                     if (webView.DataContext is TabViewModel vm && vm.Url != null)
                     {
-
                         webView.Source = new Uri(vm.Url.ToString());
 
                         vm.NavigationRequested += (action) =>

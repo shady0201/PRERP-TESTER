@@ -93,7 +93,7 @@ namespace PRERP_TESTER.Views.Dialogs
                     Username = TxtUsername.Text;
                     Password = GetPassword();
                     DisplayName = TxtDisplayName.Text;
-                    Role = RbStaff.IsChecked == true ? AccountRole.STUDENT : AccountRole.STAFF;
+                    Role = RbStaff.IsChecked == true ? AccountRole.STAFF : AccountRole.STUDENT;
                     ServerType = RbCapp.IsChecked == true ? ServerType.CAPP : ServerType.PRERP;
                     DialogResult = true;
                     Close();

@@ -1,4 +1,7 @@
-﻿- Menu cho tabview header
+﻿- Ctrl + click => tabweb mới
+- Fix nút lùi tabweb khi có xoá tab.
+- Chỉnh style danh sách account trong module cho dễ nhận biết.
+- Menu cho tabview header
 - Kéo thả tabview header
 - Cập nhật tabview nhãn/favicon, trạng thái load web cho header.
 - Lưu session folder account theo server type

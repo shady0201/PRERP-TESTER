@@ -3,7 +3,9 @@ using PRERP_TESTER.Models;
 using System.Web;
 using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Input; // Namespace chứa các entity của bạn
+using System.Windows.Input;
+using PRERP_TESTER.Services;
+using System.Collections.ObjectModel; // Namespace chứa các entity của bạn
 
 namespace PRERP_TESTER.ViewModels
 {
@@ -18,7 +20,13 @@ namespace PRERP_TESTER.ViewModels
         public string Url
         {
             get => _url;
-            set => SetProperty(ref _url, value);
+            set
+            {
+                if (SetProperty(ref _url, value))
+                {
+                    FilterSuggestions(value);
+                }
+            }
         }
         private string _title;
         public string Title
@@ -34,6 +42,27 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _isSecure, value);
         }
 
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set => SetProperty(ref _isLoading, value);
+        }
+
+        private string? _faviconUrl = null;
+        public string? FaviconUrl
+        {
+            get => _faviconUrl;
+            set {
+                if (SetProperty(ref _faviconUrl, value))
+                {
+                    OnPropertyChanged(nameof(HasFavicon));
+                    if (TabData != null) TabData.FaviconUrl = value;
+                }
+            }
+        }
+        public bool HasFavicon => !string.IsNullOrEmpty(FaviconUrl);
+
         private void UpdateSecurityStatus(string url)
         {
             if (string.IsNullOrEmpty(url)) return;
@@ -47,7 +76,35 @@ namespace PRERP_TESTER.ViewModels
         public ICommand ReloadCommand { get; }
         public ICommand GoToUrlCommand { get; }
 
+        // Tab menucontext
+        public ICommand CloseOtherTabsCommand { get; }
+        public ICommand DuplicateTabCommand { get; }
+
+        public event Action<TabViewModel>? RequestCloseOthers;
+        public event Action<TabViewModel>? RequestDuplicate;
+
         public event Action<string>? NavigationRequested;
+
+        private bool _isSuggestionOpen;
+        public bool IsSuggestionOpen
+        {
+            get => _isSuggestionOpen;
+            set => SetProperty(ref _isSuggestionOpen, value);
+        }
+
+        private ObservableCollection<HistoryItem> _suggestions = new();
+        public ObservableCollection<HistoryItem> Suggestions
+        {
+            get => _suggestions;
+            set => SetProperty(ref _suggestions, value);
+        }
+
+        private HistoryItem _selectedSuggestion;
+        public HistoryItem SelectedSuggestion
+        {
+            get => _selectedSuggestion;
+            set => SetProperty(ref _selectedSuggestion, value);
+        }
 
         public TabViewModel(TabWeb tabWeb, Account account, string moduleID, Action<TabViewModel> closeAction)
         {
@@ -55,6 +112,7 @@ namespace PRERP_TESTER.ViewModels
             UserAccount = account;
             Url = tabWeb.Url;
             Title = tabWeb.Title;
+            FaviconUrl = tabWeb.FaviconUrl;
             UpdateSecurityStatus(Url);
             TabData = tabWeb;
             IsLoaded = false;
@@ -64,6 +122,15 @@ namespace PRERP_TESTER.ViewModels
             ForwardCommand = new RelayCommand(() => NavigationRequested?.Invoke("Forward"));
             ReloadCommand = new RelayCommand(() => NavigationRequested?.Invoke("Reload"));
             GoToUrlCommand = new RelayCommand(ExecuteGoToUrl);
+
+            // Tab menucontext
+            CloseOtherTabsCommand = new RelayCommand(() => {
+                RequestCloseOthers?.Invoke(this);
+            });
+
+            DuplicateTabCommand = new RelayCommand(() => {
+                RequestDuplicate?.Invoke(this);
+            });
 
             CloseTabCommand = new RelayCommand(() => closeAction(this));
         }
@@ -104,9 +171,44 @@ namespace PRERP_TESTER.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error during TabViewModel cleanup: {ex.Message}");
+                LogService.LogError(ex, "TabViewModel.Cleanup");
             }
         }
+
+        public void ConfirmSuggestion(HistoryItem item)
+        {
+            if (item == null) return;
+
+            Url = item.Url;
+            IsSuggestionOpen = false;
+            ExecuteGoToUrl();
+        }
+
+        private void FilterSuggestions(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input) || input.Contains("://"))
+            {
+                IsSuggestionOpen = false;
+                return;
+            }
+
+            var filtered = MainViewModel.Instance.History
+                .Where(h => h.Url.ToLower().Contains(input.ToLower()))
+                .Take(10)
+                .ToList();
+
+            if (filtered.Any())
+            {
+                Suggestions = new ObservableCollection<HistoryItem>(filtered);
+                IsSuggestionOpen = true;
+            }
+            else
+            {
+                IsSuggestionOpen = false;
+            }
+        }
+
+
 
     }
 }

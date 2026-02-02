@@ -15,6 +15,8 @@ namespace PRERP_TESTER.Models
         public string Title { get; set; } = "";
         public string Url { get; set; } = "about:blank";
 
+        public string? FaviconUrl { get; set; }
+
         public DateTime LastActiveUtc { get; set; } = DateTime.UtcNow;
     }
 }

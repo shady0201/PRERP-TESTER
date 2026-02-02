@@ -55,13 +55,37 @@ namespace PRERP_TESTER.ViewModels
         
         private TabViewModel CreateTab(TabWeb tab)
         {
-            return new TabViewModel(tab, Account, ModuleID, (tabToDelete) => {
+            var vm = new TabViewModel(tab, Account, ModuleID, (tabToDelete) => {
                 TabViewModels.Remove(tabToDelete);
                 if (SelectedTab == null && TabViewModels.Count > 0)
                 {
                     SelectedTab = TabViewModels.Last();
                 }
             });
+
+            vm.RequestCloseOthers += (currentTab) => {
+                var otherTabs = TabViewModels.Where(t => t != currentTab).ToList();
+                foreach (var t in otherTabs)
+                {
+                    t.CloseTabCommand.Execute(null);
+                }
+            };
+
+            vm.RequestDuplicate += (currentTab) => {
+                var duplicateData = new TabWeb
+                {
+                    ModuleId = currentTab.ModuleID,
+                    AccountId = currentTab.UserAccount.Id,
+                    Url = currentTab.Url,
+                    Title = currentTab.Title + " (Bản sao)",
+                    FaviconUrl = currentTab.FaviconUrl
+                };
+
+                var duplicateVM = CreateTab(duplicateData);
+                TabViewModels.Add(duplicateVM);
+                SelectedTab = duplicateVM;
+            };
+            return vm;
         }
 
         // Binding Properties

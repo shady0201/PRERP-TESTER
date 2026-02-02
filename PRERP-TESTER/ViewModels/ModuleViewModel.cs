@@ -24,6 +24,18 @@ namespace PRERP_TESTER.ViewModels
         public ICommand AddAccountToModuleCommand { get; }
 
         public IRelayCommand<AccountViewModel> RemoveAccountFromModuleCommand { get; }
+        public bool IsPinned
+        {
+            get => ModuleEntity.IsPinned;
+            set
+            {
+                if (ModuleEntity.IsPinned != value)
+                {
+                    ModuleEntity.IsPinned = value;
+                    OnPropertyChanged(nameof(IsPinned));
+                }
+            }
+        }
 
         public string Name => ModuleEntity.Name;
 

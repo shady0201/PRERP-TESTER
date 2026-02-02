@@ -1,6 +1,7 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using PRERP_TESTER.Models;
+using PRERP_TESTER.Services;
 using PRERP_TESTER.ViewModels;
 using System;
 using System.Collections.Concurrent;
@@ -24,19 +25,47 @@ namespace PRERP_TESTER.Extensions
         {
             if (d is WebView2 webView && e.NewValue is string accountId && !string.IsNullOrEmpty(accountId))
             {
-                webView.Unloaded -= OnWebViewUnloaded;
-                webView.Unloaded += OnWebViewUnloaded;
-
-                webView.NavigationCompleted -= OnNavigationCompleted;
 
                 try
                 {
+                    webView.Unloaded -= OnWebViewUnloaded;
+                    webView.Unloaded += OnWebViewUnloaded;
+
                     var envTask = _envCache.GetOrAdd(accountId, id => CreateEnvironmentForAccount(id));
 
                     var env = await envTask;
                     await webView.EnsureCoreWebView2Async(env);
                     var context = webView.DataContext;
-                    webView.NavigationCompleted += OnNavigationCompleted;
+
+                    // Loading
+                    webView.NavigationCompleted -= OnNavigationCompleted;
+                    webView.NavigationCompleted += (s, args) =>
+                    {
+                        if (webView.DataContext is TabViewModel vm)
+                        {
+                            Application.Current.Dispatcher.Invoke(() => vm.IsLoading = false);
+                        }
+                        OnNavigationCompleted(s, args);
+                    };
+                    webView.CoreWebView2.NavigationStarting += (s, args) =>
+                    {
+                        if (webView.DataContext is TabViewModel vm)
+                        {
+                            Application.Current.Dispatcher.Invoke(() => vm.IsLoading = true);
+                        }
+                    };
+
+                    // Favicon
+                    webView.CoreWebView2.FaviconChanged += async (s, args) =>
+                    {
+                        if (webView.DataContext is TabViewModel vm)
+                        {
+                            string iconUri = webView.CoreWebView2.FaviconUri;
+                            await Application.Current.Dispatcher.InvokeAsync(() => {
+                                vm.FaviconUrl = iconUri;
+                            });
+                        }
+                    };
 
                     // title change
                     webView.CoreWebView2.DocumentTitleChanged += (s, args) =>
@@ -83,7 +112,8 @@ namespace PRERP_TESTER.Extensions
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"WebView2 Init Error: {ex.Message}");
+                    LogService.LogError(ex, "WebView2Extensions.OnAccountIDChanged");
+                    // TODO: Hiển thị lỗi cho người dùng
                 }
             }
         }
@@ -114,7 +144,7 @@ namespace PRERP_TESTER.Extensions
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Error disposing WebView2: {ex.Message}");
+                    LogService.LogError(ex, "WebView2Extensions.OnWebViewUnloaded");
                 }
             }
         }
@@ -125,7 +155,7 @@ namespace PRERP_TESTER.Extensions
             if (webView.DataContext is not TabViewModel vm) return;
 
             string currentUrl = webView.Source.ToString();
-
+            MainViewModel.Instance.AddHistory(webView.CoreWebView2.DocumentTitle, webView.Source.ToString());
             try
             {
                 if (currentUrl.Contains("landingpage") && currentUrl.Contains(GobalSetting.CurrentBaseUrl))
@@ -169,7 +199,7 @@ namespace PRERP_TESTER.Extensions
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Auto-Login Script Error: {ex.Message}");
+                LogService.LogError(ex, "WebView2Extensions.OnNavigationCompleted");
             }
 
         }

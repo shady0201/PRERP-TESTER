@@ -6,9 +6,7 @@
              xmlns:views="clr-namespace:PRERP_TESTER.Views"
              xmlns:helper="clr-namespace:PRERP_TESTER.Helper">
     <Application.Resources>
-        
-        
-        
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Main.xaml"/>
@@ -17,10 +15,13 @@
                 <ResourceDictionary Source="Resources/Styles/WebTab.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/MenuLeft.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Module.xaml"/>
-                
+
                 <ResourceDictionary Source="Resources/Templates/MenuLeftItem.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/AccountsModuleList.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
+            <helper:ComparisonToBoolConverter x:Key="ComparisonConverter"/>
 
             <DataTemplate DataType="{x:Type vm:ModuleViewModel}">
                 <views:ModuleView />
@@ -29,9 +30,6 @@
             <DataTemplate DataType="{x:Type vm:AccountViewModel}">
                 <views:AccountView />
             </DataTemplate>
-
-            <BooleanToVisibilityConverter x:Key="BoolToVis" />
-            <helper:ComparisonToBoolConverter x:Key="ComparisonConverter"/>
 
             <Style x:Key="InvisibleRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -120,6 +118,8 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            
 
         </ResourceDictionary>
     </Application.Resources>

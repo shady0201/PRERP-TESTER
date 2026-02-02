@@ -25,7 +25,8 @@ namespace PRERP_TESTER.Services
             }
             catch (Exception ex)
             {
-                
+                LogService.LogError(ex, "DataService.SaveData");
+                // TODO: Hiển thị lỗi cho người dùng
             }
 
         }
@@ -39,7 +40,11 @@ namespace PRERP_TESTER.Services
                 string json = File.ReadAllText(FilePath);
                 return JsonConvert.DeserializeObject<T>(json) ?? new T();
             }
-            catch { return new T(); }
+            catch (Exception ex){ 
+                LogService.LogError(ex, "DataService.LoadData");
+                // TODO: Hiển thị lỗi cho người dùng
+                return new T(); 
+            }
         }
     }
 }

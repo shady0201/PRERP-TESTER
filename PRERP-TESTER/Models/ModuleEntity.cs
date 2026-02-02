@@ -15,6 +15,7 @@ namespace PRERP_TESTER.Models
         public ServerType ServerType { get; set; }
         public AccountModule[] AccountModules { get; set; } = [];
         public TestCase[] TestCases { get; set; } = [];
+        public bool IsPinned { get; set; } = false;
 
     }
 }

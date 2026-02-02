@@ -8,9 +8,11 @@ namespace PRERP_TESTER.Models
 {
     class ApplicationData
     {
-        public List<Account> Accounts { get; set; } = new();
-        public List<ModuleEntity> Modules { get; set; } = new();
+        public List<Account> Accounts { get; set; } = [];
+        public List<ModuleEntity> Modules { get; set; } = [];
 
+        public List<HistoryItem> History { get; set; } = new();
         public ServerType ServerType { get; set; }
+
     }
 }

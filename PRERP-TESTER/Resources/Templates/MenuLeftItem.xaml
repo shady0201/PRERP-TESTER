@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:models="clr-namespace:PRERP_TESTER.Models"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
-
+    
     <!-- Module item -->
     <DataTemplate x:Key="MenuItemModule">
         <Border>
@@ -80,14 +80,35 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-
-                <!-- Module menu -->
-                <ToggleButton Grid.Column="2" x:Name="BtnToggleModuleMenu"
-                                  Width="25" Height="25"
-                                  Margin="0,0,15,0"
-                                  Foreground="DimGray"
-                                  BorderThickness="1"
-                                  Cursor="Hand">
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Pin icon-->
+                    <iconPacks:PackIconMaterial Kind="Pin" Width="15" Height="15"
+                            Foreground="#FFC75555" Margin="5,0,10,0"
+                                                VerticalAlignment="Center">
+                        <iconPacks:PackIconMaterial.Style>
+                            <Style TargetType="iconPacks:PackIconMaterial">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="45"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsPinned}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </iconPacks:PackIconMaterial.Style>
+                    </iconPacks:PackIconMaterial>
+                    <!-- Module menu -->
+                    <ToggleButton Grid.Column="2" x:Name="BtnToggleModuleMenu"
+                                      Width="25" Height="25"
+                                      Margin="0,0,15,0"
+                                      Foreground="DimGray"
+                                      BorderThickness="1"
+                                      Cursor="Hand">
                         <ToggleButton.Style>
                             <Style TargetType="ToggleButton">
                                 <Style.Triggers>
@@ -100,13 +121,13 @@
                         <ToggleButton.Template>
                             <ControlTemplate TargetType="ToggleButton">
                                 <Border x:Name="MainBorder"
-                                        Background="Transparent"
-                                        CornerRadius="14">
+                                            Background="Transparent"
+                                            CornerRadius="14">
                                     <iconPacks:PackIconMaterial Kind="DotsVertical" 
-                                                                Width="16" Height="16"
-                                                                Foreground="{TemplateBinding Foreground}"
-                                                                HorizontalAlignment="Center"
-                                                                VerticalAlignment="Center"/>
+                                                                    Width="16" Height="16"
+                                                                    Foreground="{TemplateBinding Foreground}"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
@@ -122,6 +143,7 @@
                             </ControlTemplate>
                         </ToggleButton.Template>
                     </ToggleButton>
+                </StackPanel>
 
                 <Popup IsOpen="{Binding IsChecked, ElementName=BtnToggleModuleMenu, Mode=TwoWay}" 
                             PlacementTarget="{Binding ElementName=BtnToggleModuleMenu}"
@@ -138,19 +160,33 @@
                         </Border.Effect>
                         <StackPanel Width="140" Margin="5">
                             <Button Style="{StaticResource ActionMenuItemStyle}"
+                                        Command="{Binding DataContext.PinModuleCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}">
+                                <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterial x:Name="PinIcon" Kind="Pin" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF4B5563"/>
+                                    <TextBlock x:Name="PinText" Text="Ghim" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="DimGray"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource ActionMenuItemStyle}"
                                         Command="{Binding DataContext.RemoveModuleCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                         CommandParameter="{Binding}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#EF4444"/>
-                                    <TextBlock Text="Xóa module" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#EF4444"/>
+                                    <TextBlock Text="Xóa module" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF374151"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>
                     </Border>
                 </Popup>
-
             </Grid>
         </Border>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsPinned}" Value="True">
+                <Setter TargetName="PinIcon" Property="Kind" Value="PinOff"/>
+                <Setter TargetName="PinIcon" Property="Foreground" Value="DimGray"/>
+                <Setter TargetName="PinText" Property="Text" Value="Bỏ ghim"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
     <!-- Account Item-->
     <DataTemplate x:Key="MenuItemAccount">

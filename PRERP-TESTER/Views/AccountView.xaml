@@ -35,6 +35,8 @@
             <Border Grid.Row="0"
                         BorderBrush="#DCDCDC"
                         BorderThickness="0,0,0,1"
+                        CornerRadius="7,7,0,0"
+                        Background="#FFECECEC"
                         VerticalAlignment="Bottom">
 
                 <Grid Grid.Row="0" x:Name="ParentGrid">
@@ -145,17 +147,53 @@
                                                                                         </Style>
                                                                                     </iconPacks:PackIconMaterial.Style>
                                                                                 </iconPacks:PackIconMaterial>
-
-                                                                                <TextBox Grid.Column="1" 
-                                                                                         Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" 
-                                                                                         Style="{StaticResource AddressBarTextBoxStyle}"
-                                                                                         BorderThickness="0" 
-                                                                                         VerticalAlignment="Center"
-                                                                                         Background="Transparent">
-                                                                                    <TextBox.InputBindings>
-                                                                                        <KeyBinding Key="Enter" Command="{Binding GoToUrlCommand}"/>
-                                                                                    </TextBox.InputBindings>
-                                                                                </TextBox>
+                                                                                <Grid Grid.Column="1">
+                                                                                    <TextBox x:Name="UrlTextBox"
+                                                                                             Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" 
+                                                                                             Style="{StaticResource AddressBarTextBoxStyle}"
+                                                                                             BorderThickness="0" 
+                                                                                             FontSize="14"
+                                                                                             VerticalAlignment="Center"
+                                                                                             Background="Transparent">
+                                                                                        <TextBox.InputBindings>
+                                                                                            <KeyBinding Key="Enter" Command="{Binding GoToUrlCommand}"/>
+                                                                                        </TextBox.InputBindings>
+                                                                                    </TextBox>
+                                                                                    <Popup x:Name="AddressPopup"
+                                                                                           IsOpen="{Binding IsSuggestionOpen}" 
+                                                                                           PlacementTarget="{Binding ElementName=UrlTextBox}"
+                                                                                           AllowsTransparency="True"
+                                                                                           VerticalOffset="4"
+                                                                                           PopupAnimation="Fade"
+                                                                                           StaysOpen="False">
+                                                                                        <Border Background="White" CornerRadius="0,0,8,8" BorderThickness="1,0,1,1" BorderBrush="#DCDCDC" Width="{Binding ActualWidth, ElementName=UrlTextBox}">
+                                                                                            <Border.Effect>
+                                                                                                <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="3"/>
+                                                                                            </Border.Effect>
+                                                                                            <ListBox x:Name="SuggestionListBox"
+                                                                                                     ItemsSource="{Binding Suggestions}" 
+                                                                                                     SelectedItem="{Binding SelectedSuggestion, UpdateSourceTrigger=PropertyChanged}"
+                                                                                                     ItemContainerStyle="{StaticResource AddressSuggestionItemStyle}"
+                                                                                                     BorderThickness="0" Background="Transparent">
+                                                                                                <ListBox.ItemTemplate>
+                                                                                                    <DataTemplate>
+                                                                                                        <Grid Margin="5">
+                                                                                                            <Grid.ColumnDefinitions>
+                                                                                                                <ColumnDefinition Width="Auto"/>
+                                                                                                                <ColumnDefinition Width="*"/>
+                                                                                                            </Grid.ColumnDefinitions>
+                                                                                                            <iconPacks:PackIconMaterial Kind="History" Width="12" Foreground="Gray" VerticalAlignment="Center"/>
+                                                                                                            <StackPanel Grid.Column="1" Margin="10,0">
+                                                                                                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="12" TextTrimming="CharacterEllipsis"/>
+                                                                                                                <TextBlock Text="{Binding Url}" Foreground="Gray" FontSize="10" TextTrimming="CharacterEllipsis"/>
+                                                                                                            </StackPanel>
+                                                                                                        </Grid>
+                                                                                                    </DataTemplate>
+                                                                                                </ListBox.ItemTemplate>
+                                                                                            </ListBox>
+                                                                                        </Border>
+                                                                                    </Popup>
+                                                                                </Grid>
                                                                             </Grid>
                                                                         </Border>
                                                                     </Grid>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PRERP_TESTER.Models;
+using PRERP_TESTER.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,25 @@ namespace PRERP_TESTER.Views
     /// </summary>
     public partial class AccountView : UserControl
     {
+
         public AccountView()
         {
             InitializeComponent();
         }
+
+        private void OnTabMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Đánh dấu là đã xử lý (Handled) để ListBox không nhận được sự kiện này nữa
+            // Từ đó nó sẽ không thực hiện logic Selection mặc định
+            e.Handled = true;
+
+            // Tuy nhiên, chúng ta vẫn cần mở ContextMenu thủ công vì đã chặn sự kiện
+            if (sender is ListBoxItem item && item.ContextMenu != null)
+            {
+                item.ContextMenu.PlacementTarget = item;
+                item.ContextMenu.IsOpen = true;
+            }
+        }
+
     }
 }

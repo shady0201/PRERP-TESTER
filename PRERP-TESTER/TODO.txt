@@ -1,22 +1,15 @@
-﻿- Ctrl + click => tabweb mới
-- Fix nút lùi tabweb khi có xoá tab.
+﻿
+- Nút xoá history url trong webview.
+- Ctrl + click => tabweb mới
 - Chỉnh style danh sách account trong module cho dễ nhận biết.
-- Menu cho tabview header
-- Kéo thả tabview header
-- Cập nhật tabview nhãn/favicon, trạng thái load web cho header.
-- Lưu session folder account theo server type
-- Style danh sách account pick
-- Style scrollbar.
+- Kéo thả để thay đổi thứ tự tabview header.
+- Style danh sách account pick.
 - Thêm valid các trường input trong form.
-- Style danh sách module + account
 - custom thông báo lỗi.
 - Custom hiển thị thông báo thành công.
-- Custom scrollbar.
-
 - Danh sách chọn account module: ẩn checkbox các account đã tồn tại.
 
 * Light/Dark mode.
-* Export/Import dữ liệu.
 
 Chứa data:
 %localappdata%\PrerpTester

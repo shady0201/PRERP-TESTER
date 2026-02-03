@@ -120,7 +120,7 @@ namespace PRERP_TESTER.Extensions
                                     try
                                     {
                                         string target = string.IsNullOrWhiteSpace(vm.Url) ? "about:blank" : vm.Url;
-                    webView.Source = new Uri(target);
+                                        webView.Source = new Uri(target);
                                     }
                                     catch (UriFormatException)
                                     {
@@ -131,6 +131,22 @@ namespace PRERP_TESTER.Extensions
                         };
                         webView.SourceChanged += (s, args) => {
                             vm.Url = webView.Source.ToString();
+                        };
+
+                        // New window requested
+                        webView.CoreWebView2.NewWindowRequested += (s, args) =>
+                        {
+                            args.Handled = true;
+
+                            string newUrl = args.Uri;
+
+                            if (AccountViewModel.Instance != null)
+                            {
+                                Application.Current.Dispatcher.Invoke(() =>
+                                {
+                                    AccountViewModel.Instance.AddTabFromUrl(newUrl);
+                                });
+                            }
                         };
                     }
                 }

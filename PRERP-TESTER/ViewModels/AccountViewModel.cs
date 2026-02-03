@@ -22,10 +22,9 @@ namespace PRERP_TESTER.ViewModels
                 OnPropertyChanged(nameof(SelectedTab));
             }
         }
-
         public ICommand AddTabCommand { get; }
 
-
+        public static AccountViewModel? Instance { get; private set; }
         public AccountViewModel(Account account,string moduleID, TabWeb[] tabWebs)
         {
             Account = account;
@@ -43,6 +42,8 @@ namespace PRERP_TESTER.ViewModels
             SelectedTab = TabViewModels.FirstOrDefault();
 
             AddTabCommand = new RelayCommand(ExecuteAddTab);
+
+            Instance = this;
         }
 
         public void ExecuteAddTab()
@@ -52,7 +53,15 @@ namespace PRERP_TESTER.ViewModels
             TabViewModels.Add(tabViewModel);
             SelectedTab = tabViewModel;
         }
-        
+
+        public void AddTabFromUrl(string url)
+        {
+            var tabWeb = new TabWeb { Title = "Đang tải...", Url = url };
+            var tabViewModel = CreateTab(tabWeb);
+            TabViewModels.Add(tabViewModel);
+            SelectedTab = tabViewModel;
+        }
+
         private TabViewModel CreateTab(TabWeb tab)
         {
             var vm = new TabViewModel(tab, Account, ModuleID, (tabToDelete) => {

@@ -1,12 +1,15 @@
-﻿- Mở tab mới với url trống
-- Ctrl + click => tabweb mới
-- Chỉnh style danh sách account trong module cho dễ nhận biết.
-- Kéo thả để thay đổi thứ tự tabview header.
-- Style danh sách account pick.
+﻿- Chỉnh style danh sách account trong module cho dễ nhận biết.
+
 - Thêm valid các trường input trong form.
+
+- Style danh sách account pick.
+- Danh sách chọn account module: ẩn checkbox các account đã tồn tại.
+
+- Kéo thả để thay đổi thứ tự tabview header.
+- Ctrl + click => tabweb mới.
+
 - custom thông báo lỗi.
 - Custom hiển thị thông báo thành công.
-- Danh sách chọn account module: ẩn checkbox các account đã tồn tại.
 
 * Light/Dark mode.
 

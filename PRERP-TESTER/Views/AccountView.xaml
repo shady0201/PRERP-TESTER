@@ -106,16 +106,16 @@
 
                                                                         <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,5,0">
                                                                             <Button Command="{Binding BackCommand}"
-                                                                                    Style="{StaticResource NavButtonStyle}">
+                                                                                    Style="{StaticResource NavWebButtonStyle}">
                                                                                 <iconPacks:PackIconMaterial Kind="ArrowLeft" Width="14" Height="14" VerticalAlignment="Center"/>
                                                                             </Button>
                                                                             <Button Command="{Binding ForwardCommand}"
-                                                                                    Style="{StaticResource NavButtonStyle}"
+                                                                                    Style="{StaticResource NavWebButtonStyle}"
                                                                                     Margin="5,0">
                                                                                 <iconPacks:PackIconMaterial Kind="ArrowRight" Width="14" Height="14" VerticalAlignment="Center"/>
                                                                             </Button>
                                                                             <Button Command="{Binding ReloadCommand}"
-                                                                                    Style="{StaticResource NavButtonStyle}">
+                                                                                    Style="{StaticResource NavWebButtonStyle}">
                                                                                 <iconPacks:PackIconMaterial Kind="Refresh" Width="14" Height="14" VerticalAlignment="Center"/>
                                                                             </Button>
                                                                         </StackPanel>
@@ -129,7 +129,7 @@
                                                                                 </Grid.ColumnDefinitions>
 
                                                                                 <iconPacks:PackIconMaterial x:Name="SecurityIcon" 
-                                                                                                            Grid.Column="0" 
+                                                                                                            Grid.Column="0"
                                                                                                             VerticalAlignment="Center" 
                                                                                                             Width="12" Height="12" 
                                                                                                             Margin="0,0,8,0">
@@ -140,11 +140,18 @@
                                                                                             <Style.Triggers>
                                                                                                 <DataTrigger Binding="{Binding IsSecure}" Value="True">
                                                                                                     <Setter Property="Kind" Value="Lock"/>
+                                                                                                    <Setter Property="Visibility" Value="Visible"/>
                                                                                                     <Setter Property="Foreground" Value="#28a745"/>
                                                                                                 </DataTrigger>
                                                                                                 <DataTrigger Binding="{Binding IsSecure}" Value="False">
                                                                                                     <Setter Property="Kind" Value="AlertCircleOutline"/>
+                                                                                                    <Setter Property="Visibility" Value="Visible"/>
                                                                                                     <Setter Property="Foreground" Value="#dc3545"/>
+                                                                                                </DataTrigger>
+                                                                                                <DataTrigger Binding="{Binding IsSecure}" Value="{x:Null}">
+                                                                                                    <Setter Property="Kind" Value="Google"/>
+                                                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                                                    <Setter Property="Foreground" Value="#FF3A3A3A"/>
                                                                                                 </DataTrigger>
                                                                                             </Style.Triggers>
                                                                                         </Style>
@@ -163,7 +170,7 @@
                                                                                         </TextBox.InputBindings>
                                                                                     </TextBox>
                                                                                     <Popup x:Name="AddressPopup"
-                                                                                           IsOpen="{Binding IsSuggestionOpen}" 
+                                                                                           IsOpen="{Binding IsSuggestionOpen}"
                                                                                            PlacementTarget="{Binding ElementName=UrlTextBox}"
                                                                                            AllowsTransparency="True"
                                                                                            VerticalOffset="4"
@@ -174,52 +181,49 @@
                                                                                                 <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="3"/>
                                                                                             </Border.Effect>
                                                                                             <ListBox x:Name="SuggestionListBox"
-                                                                                                     ItemsSource="{Binding Suggestions}" 
+                                                                                                     ItemsSource="{Binding Suggestions}"
                                                                                                      SelectedItem="{Binding SelectedSuggestion, UpdateSourceTrigger=PropertyChanged}"
                                                                                                      ItemContainerStyle="{StaticResource AddressSuggestionItemStyle}"
                                                                                                      BorderThickness="0" Background="Transparent">
                                                                                                 <ListBox.ItemTemplate>
                                                                                                     <DataTemplate>
-                                                                                                        <Grid Margin="5" Background="Transparent" x:Name="ItemRoot">
+                                                                                                        <Grid Background="Transparent" Margin="5,0">
                                                                                                             <Grid.ColumnDefinitions>
                                                                                                                 <ColumnDefinition Width="Auto"/>
                                                                                                                 <ColumnDefinition Width="*"/>
                                                                                                                 <ColumnDefinition Width="Auto"/>
                                                                                                             </Grid.ColumnDefinitions>
-
                                                                                                             <Grid Grid.Column="0">
-                                                                                                                <iconPacks:PackIconMaterial x:Name="DefaultIcon" Kind="History" Width="12" Foreground="Gray" VerticalAlignment="Center"/>
-                                                                                                                <Image x:Name="FaviconImage" Width="14" Height="14" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                                                                                        Source="{Binding FaviconBase, Converter={StaticResource Base64ToImageConverter}}"
-                                                                                                                        Visibility="Collapsed"/>
+                                                                                                                <iconPacks:PackIconMaterial x:Name="DefaultIcon" Kind="History" Width="16" Height="16" Foreground="Gray" VerticalAlignment="Center"/>
+                                                                                                                <Image x:Name="FaviconImage" Width="16" Height="16" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                                                                            Source="{Binding FaviconBase, Converter={StaticResource Base64ToImageConverter}}"
+                                                                                                                            Visibility="Collapsed"/>
                                                                                                             </Grid>
-
-                                                                                                            <StackPanel Grid.Column="1" Margin="10,0" Orientation="Horizontal" VerticalAlignment="Center">
-                                                                                                                <TextBlock Text="{Binding Title}" FontSize="12" TextTrimming="CharacterEllipsis"/>
+                                                                                                            <StackPanel Grid.Column="1" Margin="10,10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                                                                                                <TextBlock Text="{Binding Title}" FontSize="14" TextTrimming="CharacterEllipsis"/>
                                                                                                                 <TextBlock Text="-" Margin="5,0" Foreground="Gray"/>
-                                                                                                                <TextBlock Text="{Binding Url}" Foreground="#8F4D1E" FontSize="11" TextTrimming="CharacterEllipsis" Opacity="0.7"/>
+                                                                                                                <TextBlock Text="{Binding Url}" Foreground="#FF6B3E1E" FontSize="14" TextTrimming="CharacterEllipsis" Opacity="0.7"/>
                                                                                                             </StackPanel>
-
                                                                                                             <Button x:Name="BtnDelete"
-                                                                                                                    Grid.Column="2"
-                                                                                                                    Width="22" Height="22"
-                                                                                                                    Style="{StaticResource NavButtonStyle}"
-                                                                                                                    Visibility="Hidden"
-                                                                                                                    Command="{Binding DataContext.RemoveSuggestionCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                                                                                                    CommandParameter="{Binding}">
-                                                                                                                <iconPacks:PackIconMaterial Kind="Close" Width="10" Height="10" Foreground="Gray"/>
+                                                                                                                        Grid.Column="2"
+                                                                                                                        Width="22" Height="22"
+                                                                                                                        Style="{StaticResource ButtonRemoveSuggestionStyle}"
+                                                                                                                        Visibility="Hidden"
+                                                                                                                        Command="{Binding DataContext.RemoveSuggestionCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                                                                                        CommandParameter="{Binding}">
+                                                                                                                <iconPacks:PackIconMaterial Kind="Close" Width="14" Height="14" Foreground="Gray"/>
                                                                                                             </Button>
                                                                                                         </Grid>
-
                                                                                                         <DataTemplate.Triggers>
                                                                                                             <DataTrigger Binding="{Binding FaviconBase, Converter={StaticResource StringNotNullConverter}}" Value="True">
                                                                                                                 <Setter TargetName="DefaultIcon" Property="Visibility" Value="Collapsed"/>
                                                                                                                 <Setter TargetName="FaviconImage" Property="Visibility" Value="Visible"/>
                                                                                                             </DataTrigger>
 
-                                                                                                            <Trigger SourceName="ItemRoot" Property="IsMouseOver" Value="True">
+                                                                                                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
                                                                                                                 <Setter TargetName="BtnDelete" Property="Visibility" Value="Visible"/>
-                                                                                                            </Trigger>
+                                                                                                            </DataTrigger>
+
                                                                                                         </DataTemplate.Triggers>
                                                                                                     </DataTemplate>
                                                                                                 </ListBox.ItemTemplate>

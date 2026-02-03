@@ -97,9 +97,17 @@ namespace PRERP_TESTER.Extensions
                     };
 
                     // TabWeb contrl handle
-                    if (webView.DataContext is TabViewModel vm && vm.Url != null)
+                    if (webView.DataContext is TabViewModel vm)
                     {
-                        webView.Source = new Uri(vm.Url.ToString());
+                        string initialUrl = string.IsNullOrWhiteSpace(vm.Url) ? "about:blank" : vm.Url;
+                        try
+                        {
+                            webView.Source = new Uri(initialUrl);
+                        }
+                        catch
+                        {
+                            webView.Source = new Uri("about:blank");
+                        }
 
                         vm.NavigationRequested += (action) =>
                         {
@@ -111,7 +119,8 @@ namespace PRERP_TESTER.Extensions
                                 case "GoTo":
                                     try
                                     {
-                                        webView.Source = new Uri(vm.Url);
+                                        string target = string.IsNullOrWhiteSpace(vm.Url) ? "about:blank" : vm.Url;
+                    webView.Source = new Uri(target);
                                     }
                                     catch (UriFormatException)
                                     {
@@ -168,7 +177,6 @@ namespace PRERP_TESTER.Extensions
         {
             if (!e.IsSuccess || sender is not WebView2 webView) return;
             if (webView.DataContext is not TabViewModel vm) return;
-
 
             try
             {

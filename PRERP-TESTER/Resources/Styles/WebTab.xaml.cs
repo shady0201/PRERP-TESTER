@@ -29,6 +29,15 @@ namespace PRERP_TESTER.Resources.Templates
 
         private void OnSuggestionItemClick(object sender, MouseButtonEventArgs e)
         {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+            while (dep != null && dep != sender as ListBoxItem)
+            {
+                if (dep is Button btn && btn.Name == "BtnDelete")
+                {
+                    return;
+                }
+                dep = VisualTreeHelper.GetParent(dep);
+            }
             if (sender is ListBoxItem item && item.DataContext is HistoryItem history &&
                 item.TryFindParent<ListBox>()?.DataContext is TabViewModel vm)
             {

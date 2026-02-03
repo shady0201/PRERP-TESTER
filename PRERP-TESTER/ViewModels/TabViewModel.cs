@@ -35,8 +35,8 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _title, value);
         }
 
-        private bool _isSecure;
-        public bool IsSecure
+        private bool? _isSecure;
+        public bool? IsSecure
         {
             get => _isSecure;
             set => SetProperty(ref _isSecure, value);
@@ -65,8 +65,14 @@ namespace PRERP_TESTER.ViewModels
 
         private void UpdateSecurityStatus(string url)
         {
-            if (string.IsNullOrEmpty(url)) return;
-            IsSecure = url.ToLower().StartsWith("https://");
+            if (string.IsNullOrEmpty(url))
+            {
+                IsSecure = null;
+            }
+            else
+            {
+                IsSecure = url.ToLower().StartsWith("https://");
+            }
         }
 
         public ICommand CloseTabCommand { get; }
@@ -112,9 +118,9 @@ namespace PRERP_TESTER.ViewModels
         {
             UserAccount = account;
             Url = StandardizationUrl(tabWeb.Url);
+            UpdateSecurityStatus(Url);
             Title = tabWeb.Title;
             FaviconUrl = tabWeb.FaviconUrl;
-            UpdateSecurityStatus(Url);
             TabData = tabWeb;
             IsLoaded = false;
             ModuleID = moduleID;
@@ -154,7 +160,16 @@ namespace PRERP_TESTER.ViewModels
         private void ExecuteRemoveSuggestion(HistoryItem item)
         {
             if (item == null) return;
+
             Suggestions.Remove(item);
+
+            var historyItem = MainViewModel.Instance.History
+                .FirstOrDefault(h => h.Url == item.Url && h.Title == item.Title);
+
+            if (historyItem != null)
+            {
+                MainViewModel.Instance.History.Remove(historyItem);
+            }
         }
 
         public void Cleanup()
@@ -207,8 +222,12 @@ namespace PRERP_TESTER.ViewModels
             }
         }
 
-        private string StandardizationUrl(string input_url)
+        private string StandardizationUrl(string? input_url)
         {
+            if (input_url == null)
+            {
+                return input_url;
+            }
             string targetUrl = input_url.Trim().ToLower();
             string result = input_url;
 
@@ -220,7 +239,10 @@ namespace PRERP_TESTER.ViewModels
                 }
                 else
                 {
-                    result = "https://www.google.com/search?q=" + Uri.EscapeDataString(targetUrl);
+                    if(!String.IsNullOrWhiteSpace(targetUrl))
+                    {
+                        result = "https://www.google.com/search?q=" + Uri.EscapeDataString(targetUrl);
+                    }
                 }
             }
             return result;

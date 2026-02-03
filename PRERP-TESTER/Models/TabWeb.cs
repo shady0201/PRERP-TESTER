@@ -13,7 +13,7 @@ namespace PRERP_TESTER.Models
         public string AccountId { get; set; } = "";
 
         public string Title { get; set; } = "";
-        public string Url { get; set; } = "about:blank";
+        public string? Url { get; set; }
 
         public string? FaviconUrl { get; set; }
 

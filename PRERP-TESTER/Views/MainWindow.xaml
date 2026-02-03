@@ -121,25 +121,40 @@
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0">
-                                        <TextBlock Foreground="#FF404040" FontSize="12" FontFamily="Sans Serif Collection">
-                                            <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Text" Value="{Binding FilteredModuleCount, StringFormat='MODULE ({0})'}"/>
-                                                    <Setter Property="FontSize" Value="11"/>
-                                                    <Setter Property="FontWeight" Value="Normal"/>
-                                                    <Setter Property="HorizontalAlignment" Value="Left"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
-                                                            <Setter Property="Text" Value="M"/>
-                                                            <Setter Property="FontSize" Value="22"/>
-                                                            <Setter Property="FontWeight" Value="Bold"/>
-                                                            <Setter Property="Margin" Value="0,0,0,0"/>
-                                                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                            <TextBlock Foreground="#FF404040" FontSize="13" FontFamily="Sans Serif Collection">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text" Value="Module"/>
+                                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                                                <Setter Property="Text" Value="M"/>
+                                                                <Setter Property="FontSize" Value="22"/>
+                                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                                <Setter Property="Margin" Value="14,0,0,0"/>
+                                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding FilteredModuleCount, StringFormat='({0})'}" Foreground="#FF3A3A3A" FontSize="13" FontWeight="SemiBold" FontFamily="Sans Serif Collection">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                <Setter Property="Padding" Value="0,0,0,0"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
                                         <Button Command="{Binding CreateModuleCommand}"
                                             Width="25" Height="25"
                                             Margin="10,0,0,0"
@@ -274,11 +289,14 @@
                                                     <ColumnDefinition Width="auto"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid Grid.Column="0">
-                                                    <TextBlock Grid.Column="0" Text= "{Binding FilteredAccountCount, StringFormat='TÀI KHOẢN ({0})'}" Foreground="#FF404040" FontSize="12" FontFamily="Sans Serif Collection"/>
+                                                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                                        <TextBlock Text= "Tài khoản" Foreground="#FF404040" FontSize="13" FontFamily="Sans Serif Collection"/>
+                                                        <TextBlock Text= "{Binding FilteredAccountCount,StringFormat='({0})'}" Padding="5,0,0,0" Foreground="#FF3A3A3A" FontSize="13" FontWeight="SemiBold" FontFamily="Sans Serif Collection"/>
+                                                    </StackPanel>
                                                     <Button Grid.Column="1"
-                                                        Command="{Binding CreateAccountCommand}"
-                                                        Width="25" Height="25"
-                                                        Style="{StaticResource CreateDataMenuStyle}" Margin="10,0,0,0">
+                                                            Command="{Binding CreateAccountCommand}"
+                                                            Width="25" Height="25"
+                                                            Style="{StaticResource CreateDataMenuStyle}" Margin="10,0,0,0">
                                                         <iconPacks:PackIconMaterial Kind="PlusBox" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF258A39"/>
                                                     </Button>
                                                 </Grid>

@@ -138,8 +138,7 @@
                         BorderBrush="#FFE0E0E0" 
                         BorderThickness="1,1,0.5,1" 
                         CornerRadius="4,0,0,4"
-                        Width="90"
-                        Padding="0,5">
+                        Width="60" Padding="0,5">
                         <ContentPresenter x:Name="Content" 
                                       HorizontalAlignment="Center" 
                                       VerticalAlignment="Center"/>
@@ -169,8 +168,7 @@
                             BorderBrush="#FFE0E0E0" 
                             BorderThickness="0.5,1,1,1" 
                             CornerRadius="0,4,4,0"
-                            Width="90"
-                            Padding="0,5">
+                            Width="60" Padding="0,5">
                         <ContentPresenter x:Name="Content" 
                                   HorizontalAlignment="Center" 
                                   VerticalAlignment="Center"/>
@@ -195,7 +193,7 @@
     <Style x:Key="ExportImportButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="#FF2D3E50"/>
-        <Setter Property="BorderBrush" Value="#FFDCDCDC"/>
+        <Setter Property="BorderBrush" Value="#FFABABAB"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="10,4"/>
         <Setter Property="FontSize" Value="14"/>

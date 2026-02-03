@@ -80,6 +80,13 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _isModuleExpanded, value);
         }
 
+        private bool _isDarkMode = true;
+        public bool IsDarkMode
+        {
+            get => _isDarkMode;
+            set => SetProperty(ref _isDarkMode, value);
+        }
+
         private bool _isAccountExpanded = true;
         public bool IsAccountExpanded
         {

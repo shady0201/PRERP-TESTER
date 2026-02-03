@@ -7,11 +7,14 @@
              xmlns:ext="clr-namespace:PRERP_TESTER.Extensions"
              xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:helper="clr-namespace:PRERP_TESTER.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Control.Resources>
         <conv:SubtractValueConverter x:Key="SubtractValueConverter" />
+        <helper:Base64ToImageSourceConverter x:Key="Base64ToImageConverter"/>
+        <helper:StringNotNullConverter x:Key="StringNotNullConverter"/>
     </Control.Resources>
 
     <Border Background="WhiteSmoke"
@@ -182,12 +185,24 @@
                                                                                                                 <ColumnDefinition Width="Auto"/>
                                                                                                                 <ColumnDefinition Width="*"/>
                                                                                                             </Grid.ColumnDefinitions>
-                                                                                                            <iconPacks:PackIconMaterial Kind="History" Width="12" Foreground="Gray" VerticalAlignment="Center"/>
-                                                                                                            <StackPanel Grid.Column="1" Margin="10,0">
-                                                                                                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="12" TextTrimming="CharacterEllipsis"/>
-                                                                                                                <TextBlock Text="{Binding Url}" Foreground="Gray" FontSize="10" TextTrimming="CharacterEllipsis"/>
+                                                                                                            <iconPacks:PackIconMaterial x:Name="DefaultIcon" Kind="History" Width="12" Foreground="Gray" VerticalAlignment="Center"/>
+                                                                                                            <Image x:Name="FaviconImage" 
+                                                                                                                   Width="14" Height="14"
+                                                                                                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                                                                   Source="{Binding FaviconBase, Converter={StaticResource Base64ToImageConverter}}"
+                                                                                                                   Visibility="Collapsed"/>
+                                                                                                            <StackPanel Grid.Column="1" Margin="10,0" Orientation="Horizontal">
+                                                                                                                <TextBlock Text="{Binding Title}" FontSize="12" TextTrimming="CharacterEllipsis"/>
+                                                                                                                <TextBlock Text="-" Margin="2,0"/>
+                                                                                                                <TextBlock Text="{Binding Url}" Foreground="#8F4D1E" FontSize="12" TextTrimming="CharacterEllipsis"/>
                                                                                                             </StackPanel>
                                                                                                         </Grid>
+                                                                                                        <DataTemplate.Triggers>
+                                                                                                            <DataTrigger Binding="{Binding FaviconBase, Converter={StaticResource StringNotNullConverter}}" Value="True">
+                                                                                                                <Setter TargetName="DefaultIcon" Property="Visibility" Value="Collapsed"/>
+                                                                                                                <Setter TargetName="FaviconImage" Property="Visibility" Value="Visible"/>
+                                                                                                            </DataTrigger>
+                                                                                                        </DataTemplate.Triggers>
                                                                                                     </DataTemplate>
                                                                                                 </ListBox.ItemTemplate>
                                                                                             </ListBox>

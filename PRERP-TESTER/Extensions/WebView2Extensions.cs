@@ -65,6 +65,21 @@ namespace PRERP_TESTER.Extensions
                             await Application.Current.Dispatcher.InvokeAsync(() => {
                                 vm.FaviconUrl = iconUri;
                             });
+
+                            // favicon base64
+                            using (var faviconStream = await webView.CoreWebView2.GetFaviconAsync(CoreWebView2FaviconImageFormat.Png))
+                            {
+                                if (faviconStream != null && faviconStream.Length > 0)
+                                {
+                                    // Chuyển stream sang Base64 để lưu trữ dễ dàng trong JSON lịch sử
+                                    byte[] bytes = new byte[faviconStream.Length];
+                                    faviconStream.Read(bytes, 0, (int)faviconStream.Length);
+                                    string base64Favicon = "data:image/png;base64," + Convert.ToBase64String(bytes);
+
+                                    // Cập nhật vào history
+                                    //MainViewModel.Instance.UpdateHistoryFavicon(webView.Source, base64Favicon);
+                                }
+                            }
                         }
                     };
 
@@ -154,10 +169,21 @@ namespace PRERP_TESTER.Extensions
             if (!e.IsSuccess || sender is not WebView2 webView) return;
             if (webView.DataContext is not TabViewModel vm) return;
 
-            string currentUrl = webView.Source.ToString();
-            MainViewModel.Instance.AddHistory(webView.CoreWebView2.DocumentTitle, webView.Source.ToString());
+
             try
             {
+                // Lịch sử truy cập
+                using var stream = await webView.CoreWebView2.GetFaviconAsync(CoreWebView2FaviconImageFormat.Png);
+                if (stream != null)
+                {
+                    byte[] bytes = new byte[stream.Length];
+                    await stream.ReadAsync(bytes, 0, (int)stream.Length);
+                    string base64 = "data:image/png;base64," + Convert.ToBase64String(bytes);
+                    MainViewModel.Instance.AddHistory(webView.CoreWebView2.DocumentTitle, webView.Source.ToString(), base64);
+                }
+
+                string currentUrl = webView.Source.ToString();
+                // Tự động đăng nhập
                 if (currentUrl.Contains("landingpage") && currentUrl.Contains(GobalSetting.CurrentBaseUrl))
                 {
                     string targetLink = (vm.UserAccount.Role == AccountRole.STUDENT)

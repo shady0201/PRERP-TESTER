@@ -10,6 +10,7 @@ namespace PRERP_TESTER.Models
     {
         public string Title { get; set; } = "";
         public string Url { get; set; } = "";
+        public string? FaviconBase { get; set; }
         public DateTime LastVisited { get; set; }
     }
 }

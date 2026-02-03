@@ -515,7 +515,7 @@ namespace PRERP_TESTER.ViewModels
         }
 
         // Web history
-        public void AddHistory(string title, string url)
+        public void AddHistory(string title, string url ,string? faviconUrl)
         {
             if (string.IsNullOrWhiteSpace(url) || url.StartsWith("about:blank")) return;
 
@@ -527,7 +527,7 @@ namespace PRERP_TESTER.ViewModels
             }
             else
             {
-                History.Add(new HistoryItem { Title = title, Url = url, LastVisited = DateTime.Now });
+                History.Add(new HistoryItem { Title = title, Url = url, FaviconBase = faviconUrl, LastVisited = DateTime.Now });
             }
             // Giới hạn khoảng 1000-2000 mục để tránh file JSON quá nặng
             if (History.Count > 2000) History.RemoveAt(0);

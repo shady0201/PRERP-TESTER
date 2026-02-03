@@ -79,6 +79,9 @@ namespace PRERP_TESTER.ViewModels
         public ICommand CloseOtherTabsCommand { get; }
         public ICommand DuplicateTabCommand { get; }
 
+        // history
+        public ICommand RemoveSuggestionCommand { get; }
+
         public event Action<TabViewModel>? RequestCloseOthers;
         public event Action<TabViewModel>? RequestDuplicate;
 
@@ -121,6 +124,9 @@ namespace PRERP_TESTER.ViewModels
             ReloadCommand = new RelayCommand(() => NavigationRequested?.Invoke("Reload"));
             GoToUrlCommand = new RelayCommand(ExecuteGoToUrl);
 
+            //history
+            RemoveSuggestionCommand = new RelayCommand<HistoryItem>(ExecuteRemoveSuggestion);
+
             // Tab menucontext
             CloseOtherTabsCommand = new RelayCommand(() => {
                 RequestCloseOthers?.Invoke(this);
@@ -143,6 +149,12 @@ namespace PRERP_TESTER.ViewModels
 
             UpdateSecurityStatus(Url);
             NavigationRequested?.Invoke("GoTo");
+        }
+
+        private void ExecuteRemoveSuggestion(HistoryItem item)
+        {
+            if (item == null) return;
+            Suggestions.Remove(item);
         }
 
         public void Cleanup()

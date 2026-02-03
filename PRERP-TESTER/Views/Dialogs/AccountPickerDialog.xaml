@@ -15,11 +15,7 @@
         SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
-    
-    <Window.Resources>
-        <conv:IDToEnabledConverter x:Key="IDToEnabledConverter"/>
-    </Window.Resources>
-    
+
     <Grid>
         <Border Background="White" CornerRadius="20" Margin="15" BorderThickness="0.5" BorderBrush="#FF8E8E8E">
             <Border.Effect>
@@ -91,23 +87,33 @@
                          Padding="10,0">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
-                            <Setter Property="IsEnabled">
+                            <Setter Property="Template">
                                 <Setter.Value>
-                                    <MultiBinding Converter="{StaticResource IDToEnabledConverter}">
-                                        <Binding Path="Id"/>
-                                        <Binding Path="DataContext.ExistingAccountIds" 
-                                 RelativeSource="{RelativeSource AncestorType=Window}"/>
-                                    </MultiBinding>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border x:Name="OuterBorder"
+                                                Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="6"
+                                                SnapsToDevicePixels="True">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                              Margin="{TemplateBinding Padding}"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="OuterBorder" Property="Background" Value="WhiteSmoke"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="OuterBorder" Property="Background" Value="#FFEDEDED"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
-
-                            <Style.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Opacity" Value="0.5"/>
-                                </Trigger>
-                            </Style.Triggers>
                         </Style>
                     </ListBox.ItemContainerStyle>
+                    
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Padding="10,5">
@@ -124,6 +130,7 @@
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+                    
                 </ListBox>
                 <Border Margin="0,10,0,0" Padding="10,0,10,10">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

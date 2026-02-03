@@ -1,20 +1,11 @@
 ﻿using PRERP_TESTER.Helper;
 using PRERP_TESTER.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PRERP_TESTER.Views.Dialogs
 {
@@ -23,18 +14,17 @@ namespace PRERP_TESTER.Views.Dialogs
         private ICollectionView _accountsView;
         public List<Account> SelectedAccounts { get; private set; } = [];
         public ObservableCollection<Account> Accounts { get; set; } = [];
-        public List<string> ExistingAccountIds { get; set; }
         public AccountPickerDialog(ObservableCollection<Account> accounts, List<string> moduleAccounts)
         {
             InitializeComponent();
-            Accounts = [.. accounts.Where(acc => acc.ServerType == GobalSetting.ServerType)];
-            ExistingAccountIds = moduleAccounts;
+            Accounts = [.. accounts.Where(acc => acc.ServerType == GobalSetting.ServerType && !moduleAccounts.Contains(acc.Id))];
             DataContext = this;
 
             _accountsView = new ListCollectionView(Accounts);
             _accountsView.Filter = FilterAccounts;
 
             AccountListBox.ItemsSource = _accountsView;
+
         }
 
         private bool FilterAccounts(object obj)

@@ -1,15 +1,12 @@
-﻿- Chỉnh style danh sách account trong module cho dễ nhận biết.
-
+﻿
 - Thêm valid các trường input trong form.
 
-- Style danh sách account pick.
-- Danh sách chọn account module: ẩn checkbox các account đã tồn tại.
-
 - Kéo thả để thay đổi thứ tự tabview header.
-- Ctrl + click => tabweb mới.
 
-- custom thông báo lỗi.
-- Custom hiển thị thông báo thành công.
+- Chỉnh style danh sách account trong module cho dễ nhận biết.
+
+* custom thông báo lỗi.
+* Custom hiển thị thông báo thành công.
 
 * Light/Dark mode.
 

@@ -7,7 +7,7 @@
                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 mc:Ignorable="av"
                 x:Class="PRERP_TESTER.Views.ModuleView"
-                av:DesignHeight="290.913" av:DesignWidth="642.208">
+                av:DesignHeight="346.928" av:DesignWidth="754.237">
 
     <UserControl.Resources>
         <conv:SubtractValueConverter x:Key="SubtractValueConverter" />
@@ -20,13 +20,13 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <Border Grid.Row="0" Margin="0,0,0,4">
                 <StackPanel>
                     <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="#333"/>
                 </StackPanel>
             </Border>
-             <!-- Account List-->
+            <!-- Account List-->
             <Border Grid.Row="1"
                     Background="#FFF8F8F9"
                     BorderBrush="#FFF3F3F3"
@@ -74,7 +74,7 @@
                     </Button>
                 </Grid>
             </Border>
-             <!-- web browers-->
+            <!-- web browers-->
             <ItemsControl ItemsSource="{Binding ModuleAccounts}" Grid.Row="2">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

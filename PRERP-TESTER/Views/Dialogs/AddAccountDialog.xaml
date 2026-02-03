@@ -121,8 +121,8 @@
 
                         <RadioButton x:Name="RbCapp"
                                      Content="CAPP" 
-                                     Style="{StaticResource ServerToggleLeftStyle}"
-                                     GroupName="ServerType"
+                                     Style="{StaticResource ServerSelectLeftStyle}"
+                                     GroupName="SelectServerType"
                                      IsChecked="True"
                                      Cursor="Hand"
                                      FontWeight="SemiBold"/>
@@ -130,9 +130,9 @@
                         <RadioButton x:Name="RbPrerp"
                                      Content="PRERP"
                                      Cursor="Hand"
-                                     Style="{StaticResource ServerToggleRightStyle}"
+                                     Style="{StaticResource ServerSelectRightStyle}"
                                      FontWeight="SemiBold"
-                                     GroupName="ServerType"/>
+                                     GroupName="SelectServerType"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

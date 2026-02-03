@@ -1,9 +1,8 @@
-﻿
-- Thêm valid các trường input trong form.
-
+﻿- Thêm valid các trường input trong form.
 - Kéo thả để thay đổi thứ tự tabview header.
-
 - Chỉnh style danh sách account trong module cho dễ nhận biết.
++ Mở dialog tạo tài khoản sau khi đóng làm select server trong setting app bị mất ô đã select.
+
 
 * custom thông báo lỗi.
 * Custom hiển thị thông báo thành công.

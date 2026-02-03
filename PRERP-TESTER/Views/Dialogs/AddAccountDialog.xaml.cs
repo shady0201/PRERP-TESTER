@@ -27,7 +27,7 @@ namespace PRERP_TESTER.Views.Dialogs
         public string Password { get; private set; }
         public string DisplayName { get; private set; }
         public AccountRole Role { get; private set; }
-        public ServerType ServerType { get; private set; }
+        public ServerType DialogServerType { get; private set; }
 
         public AddAccountDialog(Account[] accounts)
         {
@@ -82,9 +82,9 @@ namespace PRERP_TESTER.Views.Dialogs
             {
                 if (!string.IsNullOrWhiteSpace(TxtUsername.Text) && !string.IsNullOrWhiteSpace(password))
                 {
-                    ServerType = RbCapp.IsChecked == true ? ServerType.CAPP : ServerType.PRERP;
+                    DialogServerType = RbCapp.IsChecked == true ? ServerType.CAPP : ServerType.PRERP;
                     bool checkDuplicate = Accounts.Any(acc => acc.Username.Equals(TxtUsername.Text.Trim(), StringComparison.OrdinalIgnoreCase)
-                                                && acc.ServerType == ServerType);
+                                                && acc.ServerType == DialogServerType);
                     if (checkDuplicate)
                     {
                         MessageBox.Show("Tên đăng nhập đã tồn tại trên "+ "" + ". Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -94,7 +94,7 @@ namespace PRERP_TESTER.Views.Dialogs
                     Password = GetPassword();
                     DisplayName = TxtDisplayName.Text;
                     Role = RbStaff.IsChecked == true ? AccountRole.STAFF : AccountRole.STUDENT;
-                    ServerType = RbCapp.IsChecked == true ? ServerType.CAPP : ServerType.PRERP;
+                    DialogServerType = RbCapp.IsChecked == true ? ServerType.CAPP : ServerType.PRERP;
                     DialogResult = true;
                     Close();
                 }

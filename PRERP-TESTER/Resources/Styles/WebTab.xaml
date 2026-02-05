@@ -206,7 +206,7 @@
                         </Grid.ColumnDefinitions>
                         <Grid.ContextMenu>
                             <ContextMenu Style="{StaticResource TabContextMenuStyle}">
-                                <MenuItem Header="Đóng tab" 
+                                <MenuItem Header="Đóng" 
                                           Style="{StaticResource TabContextMenuItemStyle}"
                                           Command="{Binding CloseTabCommand}">
                                     <MenuItem.Icon>
@@ -222,7 +222,7 @@
                                     </MenuItem.Icon>
                                 </MenuItem>
                                 <Separator Background="#F3F4F6" Margin="4,2"/>
-                                <MenuItem Header="Nhân bản tab" 
+                                <MenuItem Header="Nhân bản tab"
                                                   Style="{StaticResource TabContextMenuItemStyle}"
                                                   Command="{Binding DuplicateTabCommand}">
                                     <MenuItem.Icon>

@@ -1,4 +1,6 @@
-﻿- Thêm valid các trường input trong form.
+﻿+ Ghim module làm các tab load lại.
+
+- Thêm valid các trường input trong form.
 - Kéo thả để thay đổi thứ tự tabview header.
 
 - Chỉnh style module view cho đẹp hơn.

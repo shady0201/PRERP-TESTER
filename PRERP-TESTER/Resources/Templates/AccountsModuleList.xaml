@@ -46,7 +46,7 @@
             <DataTrigger Binding="{Binding IsSelected}" Value="True">
                 <Setter TargetName="AccIcon" Property="Foreground" Value="White"/>
                 <Setter TargetName="AccText" Property="Foreground" Value="White"/>
-                <Setter TargetName="AccText" Property="FontWeight" Value="SemiBold"/>
+                <Setter TargetName="AccText" Property="FontWeight" Value="Bold"/>
                 <Setter TargetName="iconRemove" Property="Foreground" Value="White"/>
             </DataTrigger>
         </DataTemplate.Triggers>

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:helper="clr-namespace:PRERP_TESTER.Helper"
+        Icon="/Assets/icon.ico"
         Title="PRERP TESTER" 
         Height="768" Width="1366"
         Closing="Window_Closing"

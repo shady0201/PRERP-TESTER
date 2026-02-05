@@ -1,4 +1,9 @@
-﻿+ Ghim module làm các tab load lại.
+﻿- Style module:
+ + Nút thêm tài khoản.
+
+- Style blank tab
+
+- Ghim module làm các tab load lại.
 
 - Thêm valid các trường input trong form.
 - Kéo thả để thay đổi thứ tự tabview header.

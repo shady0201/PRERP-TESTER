@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using PRERP_TESTER.Models;
+using PRERP_TESTER.Resources.Templates;
 using PRERP_TESTER.Services;
 using PRERP_TESTER.Views.Dialogs;
 
@@ -81,7 +82,7 @@ namespace PRERP_TESTER.ViewModels
                     var newAccountModule = new AccountModule
                     {
                         AccountID = acc.Id,
-                        TabWebItems = []
+                        TabWebItems = [new TabWeb() { AccountId = acc.Username, ModuleId = ModuleEntity.Id,Title="Thẻ mới" }]
                     };
                     var list = ModuleEntity.AccountModules.ToList();
                     list.Add(newAccountModule);

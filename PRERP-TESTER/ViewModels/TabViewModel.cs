@@ -16,6 +16,9 @@ namespace PRERP_TESTER.ViewModels
         public Account UserAccount { get; }
         public TabWeb TabData { get; }
 
+
+        public bool IsDefaultPageVisible => string.IsNullOrWhiteSpace(Url) || Url.Equals("about:blank", StringComparison.OrdinalIgnoreCase);
+
         private string _url;
         public string Url
         {
@@ -25,6 +28,7 @@ namespace PRERP_TESTER.ViewModels
                 if (SetProperty(ref _url, value))
                 {
                     FilterSuggestions(value);
+                    OnPropertyChanged(nameof(IsDefaultPageVisible));
                 }
             }
         }
@@ -247,6 +251,9 @@ namespace PRERP_TESTER.ViewModels
             }
             return result;
         }
+
+        // Blank tab
+
 
 
     }

@@ -83,7 +83,7 @@ namespace PRERP_TESTER.Extensions
                         }
                     };
 
-                    // title change
+                    // Title change
                     webView.CoreWebView2.DocumentTitleChanged += (s, args) =>
                     {
                         if (webView.DataContext is TabViewModel vm)
@@ -96,7 +96,7 @@ namespace PRERP_TESTER.Extensions
                         }
                     };
 
-                    // TabWeb contrl handle
+                    // TabWeb control handle
                     if (webView.DataContext is TabViewModel vm)
                     {
                         string initialUrl = string.IsNullOrWhiteSpace(vm.Url) ? "about:blank" : vm.Url;

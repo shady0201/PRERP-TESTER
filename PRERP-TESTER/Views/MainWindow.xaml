@@ -579,7 +579,7 @@
                     <Style.Resources>
                         <Storyboard x:Key="SlideIn">
                             <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                         From="400" To="0" Duration="0:0:0.4">
+                                             From="400" To="0" Duration="0:0:0.4">
                                 <DoubleAnimation.EasingFunction>
                                     <CubicEase EasingMode="EaseOut"/>
                                 </DoubleAnimation.EasingFunction>

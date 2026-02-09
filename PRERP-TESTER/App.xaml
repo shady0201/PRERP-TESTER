@@ -9,7 +9,6 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Toast.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Main.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Dialog.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Tooltip.xaml"/>
@@ -17,6 +16,7 @@
                 <ResourceDictionary Source="Resources/Styles/MenuLeft.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Module.xaml"/>
 
+                <ResourceDictionary Source="Resources/Templates/Toast.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/MenuLeftItem.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/AccountsModuleList.xaml"/>
             </ResourceDictionary.MergedDictionaries>

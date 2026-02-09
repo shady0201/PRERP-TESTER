@@ -1,9 +1,13 @@
-﻿- Style module:
+﻿- Danh sách account của module:
+ + Tooltip show full tên nhân viên.
+ + Kéo thả thay đổi vị trí.
+ + Kéo thả để thay đổi thứ tự tabview header.
+
+- Style module:
 
 - Ghim module làm các tab load lại.
 
 - Thêm valid các trường input trong form.
-- Kéo thả để thay đổi thứ tự tabview header.
 
 - Chỉnh style module view cho đẹp hơn.
 - Chỉnh style danh sách account trong module cho dễ nhận biết.
@@ -14,5 +18,5 @@
 
 Chứa data:
 %localappdata%\PrerpTester
-Chứa webview folder:
+Chứa webview folder
 Thư mục chạy của app => Thư mục Session

@@ -562,7 +562,6 @@ namespace PRERP_TESTER.ViewModels
             {
                 History.Add(new HistoryItem { Title = title, Url = url, FaviconBase = faviconUrl, LastVisited = DateTime.Now });
             }
-            // Giới hạn khoảng 1000-2000 mục để tránh file JSON quá nặng
             if (History.Count > 2000) History.RemoveAt(0);
         }
 

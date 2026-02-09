@@ -82,7 +82,19 @@
                 <Setter TargetName="ToastBorder" Property="BorderBrush" Value="#F44336"/>
                 <Setter TargetName="TypeIcon" Property="Kind" Value="AlertCircleOutline"/>
                 <Setter TargetName="TypeIcon" Property="Foreground" Value="#F44336"/>
-                <Setter TargetName="ToastBorder" Property="Background" Value="#FFEBEE"/>
+                <Setter TargetName="ToastBorder" Property="Background" Value="White"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="Warning">
+                <Setter TargetName="ToastBorder" Property="BorderBrush" Value="#FFF4B936"/>
+                <Setter TargetName="TypeIcon" Property="Kind" Value="AlertRhombus"/>
+                <Setter TargetName="TypeIcon" Property="Foreground" Value="#FFF4B936"/>
+                <Setter TargetName="ToastBorder" Property="Background" Value="White"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="Information">
+                <Setter TargetName="ToastBorder" Property="BorderBrush" Value="#FF3699F4"/>
+                <Setter TargetName="TypeIcon" Property="Kind" Value="InformationVariantCircle"/>
+                <Setter TargetName="TypeIcon" Property="Foreground" Value="#FF3699F4"/>
+                <Setter TargetName="ToastBorder" Property="Background" Value="White"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>

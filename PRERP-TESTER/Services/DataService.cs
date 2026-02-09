@@ -26,7 +26,7 @@ namespace PRERP_TESTER.Services
             catch (Exception ex)
             {
                 LogService.LogError(ex, "DataService.SaveData");
-                // TODO: Hiển thị lỗi cho người dùng
+                ToastService.Show("Lỗi lưu dữ liệu", "Không thể lưu dữ liệu ứng dụng. Vui lòng kiểm tra quyền ghi file.", Models.ToastType.Error);
             }
 
         }
@@ -42,7 +42,7 @@ namespace PRERP_TESTER.Services
             }
             catch (Exception ex){ 
                 LogService.LogError(ex, "DataService.LoadData");
-                // TODO: Hiển thị lỗi cho người dùng
+                ToastService.Show("Lỗi đọc dữ liệu", "Không thể đọc dữ liệu ứng dụng. Vui lòng kiểm tra quyền đọc file.", Models.ToastType.Error);
                 return new T(); 
             }
         }

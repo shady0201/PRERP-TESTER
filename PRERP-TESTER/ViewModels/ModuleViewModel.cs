@@ -104,6 +104,7 @@ namespace PRERP_TESTER.ViewModels
             if (result == MessageBoxResult.Yes)
             {
                 RemoveAccount(accountVM);
+                ToastService.Show("Đã bỏ tài khoản khỏi module", $"Tài khoản '{accountVM.Account.DisplayName}' đã được bỏ khỏi module '{ModuleEntity.Name}'.", ToastType.Information);
             }
         }
 
@@ -135,6 +136,18 @@ namespace PRERP_TESTER.ViewModels
                 SelectedAccountModule = ModuleAccounts.FirstOrDefault();
             }
             
+        }
+
+        public void MoveAccount(int oldIndex, int newIndex)
+        {
+            ModuleAccounts.Move(oldIndex, newIndex);
+
+            // Cập nhật Entity
+            var list = ModuleEntity.AccountModules.ToList();
+            var item = list[oldIndex];
+            list.RemoveAt(oldIndex);
+            list.Insert(newIndex, item);
+            ModuleEntity.AccountModules = list.ToArray();
         }
 
     }

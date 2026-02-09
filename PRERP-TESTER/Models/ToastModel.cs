@@ -15,5 +15,6 @@ namespace PRERP_TESTER.Models
         public string Message { get; set; }
         public ToastType Type { get; set; }
         public ICommand DismissCommand { get; set; }
+
     }
 }

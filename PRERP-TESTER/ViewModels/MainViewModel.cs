@@ -124,6 +124,7 @@ namespace PRERP_TESTER.ViewModels
 
         public ICommand ToggleModuleExpandCommand { get; }
         public ICommand ToggleAccountExpandCommand { get; }
+        public ICommand TestCommand { get; }
         public static MainViewModel Instance { get; private set; }
 
         public ObservableCollection<HistoryItem> History { get; set; } = new();
@@ -147,6 +148,8 @@ namespace PRERP_TESTER.ViewModels
             ToggleModuleExpandCommand = new RelayCommand(() => IsModuleExpanded = !IsModuleExpanded);
             ToggleAccountExpandCommand = new RelayCommand(() => IsAccountExpanded = !IsAccountExpanded);
 
+            TestCommand = new RelayCommand(ExecuteTest);
+
             // Data
             AccountMenuView = new ListCollectionView(Accounts);
             AccountMenuView.Filter = FilterAccountMenu;
@@ -156,6 +159,11 @@ namespace PRERP_TESTER.ViewModels
 
             // Sort data
             ApplySort();
+        }
+
+        private void ExecuteTest()
+        {
+            ToastService.Show("Test Command", "This is a test command execution.", ToastType.Information);
         }
 
         private void ExecuteCreateModule()
@@ -226,6 +234,8 @@ namespace PRERP_TESTER.ViewModels
         private void ExecuteRemoveAccount(Account account) {
             if (account == null) return;
 
+            string displayName = string.IsNullOrWhiteSpace(account.DisplayName) ? account.Username : account.DisplayName;
+
             var result = MessageBox.Show($"Xóa vĩnh viễn tài khoản {account.DisplayName} khỏi hệ thống?",
                                         "Cảnh báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
@@ -251,7 +261,7 @@ namespace PRERP_TESTER.ViewModels
                 AccountMenuView.Refresh();
 
                 SaveAllData();
-                ToastService.Show("Tài khoản đã được xoá khỏi danh sách","", ToastType.Success);
+                ToastService.Show("Xoá tài khoản",String.Format("Tài khoản {0} đã xoá khỏi hệ thống", displayName), ToastType.Success);
             }
         }
         private void ExecuteRemoveModule(ModuleViewModel moduleViewModel)
@@ -327,7 +337,7 @@ namespace PRERP_TESTER.ViewModels
                 catch (Exception ex)
                 {
                     LogService.LogError(ex, "DeleteAccountSessionFolderAsync");
-                    // TODO: Hiển thị lỗi cho người dùng
+                    ToastService.Show("Lỗi xóa dữ liệu phiên", $"Không thể xóa dữ liệu phiên cho tài khoản {accountId}. Vui lòng kiểm tra quyền truy cập file.", ToastType.Error);
                 }
             });
         }
@@ -505,14 +515,12 @@ namespace PRERP_TESTER.ViewModels
                     UpdateCurrentServer();
                     SaveAllData();
 
-                // TODO: Hiển thị thông báo thành công cho người dùng
-                MessageBox.Show("Nhập dữ liệu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+                    ToastService.Show("Nhập dữ liệu thành công!", "Dữ liệu đã được nhập và lưu thành công.", ToastType.Success);
+                }
                 catch (Exception ex)
                 {
                     LogService.LogError(ex, "MainViewModel - ExecuteImportData");
-                    // TODO: Hiển thị lỗi cho người dùng
-                    MessageBox.Show($"Lỗi khi nhập file: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    ToastService.Show("Lỗi khi nhập dữ liệu", $"Không thể nhập dữ liệu từ file: {ex.Message}", ToastType.Error);
                 }
             }
         }
@@ -536,13 +544,12 @@ namespace PRERP_TESTER.ViewModels
                     string json = Newtonsoft.Json.JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
                     File.WriteAllText(saveFileDialog.FileName, json);
 
-                    MessageBox.Show("Xuất dữ liệu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    ToastService.Show("Xuất dữ liệu thành công!", "Dữ liệu đã được xuất ra file thành công.", ToastType.Success);
                 }
                 catch (Exception ex)
                 {
                     LogService.LogError(ex, "MainViewModel - ExecuteExportData");
-                    // TODO: Hiển thị lỗi cho người dùng
-                    MessageBox.Show($"Lỗi khi xuất file: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    ToastService.Show("Lỗi khi xuất dữ liệu", $"Không thể xuất dữ liệu ra file: {ex.Message}", ToastType.Error);
                 }
             }
         }

@@ -5,6 +5,8 @@
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 xmlns:conv="clr-namespace:PRERP_TESTER.Converters"
                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
                 mc:Ignorable="av"
                 x:Class="PRERP_TESTER.Views.ModuleView"
                 av:DesignHeight="346.928" av:DesignWidth="754.237">
@@ -58,33 +60,40 @@
                     CornerRadius="5"
                     Height="auto"
                     Margin="0,0,0,5">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                    
+                        <ListBox ItemsSource="{Binding ModuleAccounts}"
+                                 SelectedItem="{Binding SelectedAccountModule}"
+                                 ItemContainerStyle="{StaticResource AccountItemContainerStyle}"
+                                 Background="Transparent"
+                                 MinHeight="40px"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                 MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}, Converter={StaticResource SubtractValueConverter}, ConverterParameter=0}"
+                                 AllowDrop="True"
+                                 PreviewMouseMove="ListBox_PreviewMouseMove"
+                                 Drop="ListBox_Drop"
+                                 DragOver="ListBox_DragOver"
+                                 BorderThickness="0">
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <ListBox ItemsSource="{Binding ModuleAccounts}"
-                            SelectedItem="{Binding SelectedAccountModule}"
-                            ItemContainerStyle="{StaticResource AccountItemContainerStyle}"
-                            Background="Transparent"
-                            MinHeight="40px"
-                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                            MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}, Converter={StaticResource SubtractValueConverter}, ConverterParameter=0}"
-                            BorderThickness="0">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Height="40"/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Grid>
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Height="40"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </AdornerDecorator>
             </Border>
             <!-- web browers-->
             <ItemsControl ItemsSource="{Binding ModuleAccounts}" Grid.Row="2" Grid.ColumnSpan="2">

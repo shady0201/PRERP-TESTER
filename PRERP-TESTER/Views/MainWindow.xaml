@@ -4,12 +4,17 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:helper="clr-namespace:PRERP_TESTER.Helper"
         xmlns:local="clr-namespace:PRERP_TESTER.Services"
+        xmlns:conv="clr-namespace:PRERP_TESTER.Converters"
         Icon="/Assets/icon.ico"
         Title="PRERP TESTER" 
         Height="768" Width="1366"
         Closing="Window_Closing"
         WindowStartupLocation="CenterScreen">
-    
+
+    <Window.Resources>
+        <conv:SubtractValueConverter x:Key="SubtractValueConverter" />
+    </Window.Resources>
+
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="MenuColumn">
@@ -78,12 +83,12 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0"  Source="/Assets/logo.png" 
-                               Width="28" Height="28" 
+                               Width="28" Height="28"
                                Stretch="Fill"
                                Margin="5,0,5,0"
                                Cursor="Hand">
                             <Image.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleMenuCommand}"/>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding TestCommand}"/>
                             </Image.InputBindings>
                         </Image>
                         <TextBlock Grid.Column="1" Width="auto" Height="auto" Text="{Binding ServerType}" Foreground="#FF404040" FontSize="14" FontWeight="SemiBold" FontFamily="Sans Serif Collection">
@@ -564,40 +569,52 @@
         </ItemsControl>
 
         <!-- Toast -->
-        <ItemsControl Grid.Column="0" Grid.ColumnSpan="2"
-                      ItemsSource="{x:Static local:ToastService.Toasts}"
-                      ItemTemplate="{StaticResource ToastTemplate}"
-                      VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                      Margin="0,0,10,20">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ContentPresenter">
-                    <Style.Resources>
-                        <Storyboard x:Key="SlideIn">
-                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                             From="400" To="0" Duration="0:0:0.4">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase EasingMode="EaseOut"/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </Style.Resources>
-                    <Setter Property="RenderTransform">
-                        <Setter.Value>
-                            <TranslateTransform/>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
-                        <EventTrigger RoutedEvent="Loaded">
-                            <BeginStoryboard Storyboard="{StaticResource SlideIn}"/>
-                        </EventTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-        </ItemsControl>
+        <Popup x:Name="ToastPopup"
+               IsOpen="True" 
+               AllowsTransparency="True" 
+               Placement="Bottom"
+               PlacementTarget="{Binding ElementName=AppMain}"
+               HorizontalOffset="{Binding ActualWidth, ElementName=AppMain, Converter={StaticResource SubtractValueConverter}, ConverterParameter=370}"
+               VerticalOffset="-70"
+               Height="auto">
+            <Grid VerticalAlignment="Bottom" Margin="0,0,0,20" Background="red">
+                <ItemsControl Grid.Column="0" Grid.ColumnSpan="2"
+                          ItemsSource="{x:Static local:ToastService.Toasts}"
+                          ItemTemplate="{StaticResource ToastTemplate}"
+                          VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                          Margin="0,0,10,20">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                            From="400" To="0" Duration="0:0:0.4">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                         From="0" To="1" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                </ItemsControl>
+            </Grid>
+        </Popup>
     </Grid>
 </Window>

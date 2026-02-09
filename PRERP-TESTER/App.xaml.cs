@@ -18,7 +18,7 @@ public partial class App : Application
         this.DispatcherUnhandledException += (s, args) =>
         {
             LogService.LogError(args.Exception, "Global.DispatcherUnhandledException");
-            MessageBox.Show("Ứng dụng gặp lỗi không xác định. Chi tiết lỗi đã được lưu vào Log.", "Lỗi hệ thống");
+            ToastService.Show("Lỗi không xác định","Ứng dụng gặp lỗi không xác định. Chi tiết lỗi đã được lưu vào Log.",Models.ToastType.Error);
             args.Handled = true;
         };
         AppDomain.CurrentDomain.UnhandledException += (s, args) =>

@@ -153,7 +153,7 @@ namespace PRERP_TESTER.Extensions
                 catch (Exception ex)
                 {
                     LogService.LogError(ex, "WebView2Extensions.OnAccountIDChanged");
-                    // TODO: Hiển thị lỗi cho người dùng
+                    ToastService.Show("Lỗi WebView2", "Không thể khởi tạo WebView2 cho tài khoản này.", ToastType.Error);
                 }
             }
         }
@@ -172,6 +172,13 @@ namespace PRERP_TESTER.Extensions
             if (sender is WebView2 webView)
             {
                 webView.Unloaded -= OnWebViewUnloaded;
+
+                // 1. Hủy đăng ký sự kiện từ ViewModel để tránh Leak và Crash
+                if (webView.DataContext is TabViewModel vm && webView.Tag is Action<string> handler)
+                {
+                    vm.NavigationRequested -= handler;
+                }
+
                 try
                 {
                     if (webView.CoreWebView2 != null)
@@ -179,8 +186,7 @@ namespace PRERP_TESTER.Extensions
                         webView.CoreWebView2.Stop();
                     }
                     webView.Dispose();
-
-                    System.Diagnostics.Debug.WriteLine("WebView2 has been disposed successfully");
+                    System.Diagnostics.Debug.WriteLine("WebView2 disposed safely.");
                 }
                 catch (Exception ex)
                 {

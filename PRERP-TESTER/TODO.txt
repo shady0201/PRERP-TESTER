@@ -1,8 +1,10 @@
 ﻿- Danh sách account của module:
  + Tooltip show full tên nhân viên.
- + Kéo thả thay đổi vị trí.
  + Kéo thả để thay đổi thứ tự tabview header.
 
+
+- Style thông báo đẩy từ dưới lên.
+- Tạo effect kéo thả.
 - Style module:
 
 - Ghim module làm các tab load lại.

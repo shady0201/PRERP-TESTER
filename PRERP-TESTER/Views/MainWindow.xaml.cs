@@ -18,6 +18,16 @@ namespace PRERP_TESTER.Views
         {
             DataContext = new MainViewModel();
             InitializeComponent();
+
+            this.SizeChanged += (s, e) => ResetPopupPosition();
+            this.LocationChanged += (s, e) => ResetPopupPosition();
+        }
+
+        private void ResetPopupPosition()
+        {
+            var offset = ToastPopup.VerticalOffset;
+            ToastPopup.VerticalOffset = offset + 0.01;
+            ToastPopup.VerticalOffset = offset;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -25,7 +35,6 @@ namespace PRERP_TESTER.Views
             Button btn = sender as Button;
             if (btn != null)
             {
-                // Tìm Border cha của Button để lấy ContextMenu đã định nghĩa
                 DependencyObject parent = VisualTreeHelper.GetParent(btn);
                 while (!(parent is Border)) { parent = VisualTreeHelper.GetParent(parent); }
 

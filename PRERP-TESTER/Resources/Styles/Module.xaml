@@ -36,7 +36,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="AccountTabItemStyle" TargetType="ListBoxItem">
+    <Style x:Key="AccountItemContainerStyle" TargetType="ListBoxItem">
         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -54,7 +54,9 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="#FF2D54B3"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#FF3579D4"/>
+                            <Setter TargetName="Border" Property="Background" Value="White"/>
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1.4"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter TargetName="Border" Property="BorderBrush" Value="#FFA7A7A7"/>

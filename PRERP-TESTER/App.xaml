@@ -9,6 +9,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Toast.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Main.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Dialog.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Tooltip.xaml"/>

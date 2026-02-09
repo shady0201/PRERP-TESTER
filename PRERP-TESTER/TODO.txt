@@ -1,7 +1,4 @@
 ﻿- Style module:
- + Nút thêm tài khoản.
-
-- Style blank tab
 
 - Ghim module làm các tab load lại.
 
@@ -11,8 +8,7 @@
 - Chỉnh style module view cho đẹp hơn.
 - Chỉnh style danh sách account trong module cho dễ nhận biết.
 
-* custom thông báo lỗi.
-* Custom hiển thị thông báo thành công.
+* Custom popup thông báo: Confirm, Message
 
 * Light/Dark mode.
 

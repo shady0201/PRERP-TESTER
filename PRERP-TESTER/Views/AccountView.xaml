@@ -249,27 +249,19 @@
                                                                             </Style>
                                                                         </wv2:WebView2.Style>
                                                                     </wv2:WebView2>
-                                                                    <Border Background="White" 
-                                                                            Visibility="{Binding IsDefaultPageVisible, Converter={StaticResource BoolToVis}}">
+                                                                    
+                                                                    <!---Blank tab-->
+                                                                    <Border Visibility="{Binding IsDefaultPageVisible, Converter={StaticResource BoolToVis}}">
+                                                                        <Border.Background>
+                                                                            <ImageBrush ImageSource="/Assets/Backgrounds/bg_4.jpg"
+                                                                                        Stretch="UniformToFill"/>
+                                                                        </Border.Background>
                                                                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                                            <iconPacks:PackIconMaterial Kind="Web" Width="80" Height="80" 
-                                                                                                        Foreground="#FFE0E0E0" HorizontalAlignment="Center"/>
-
-                                                                            <TextBlock Text="Sẵn sàng để lướt web" 
-                                                                                       FontSize="20" FontWeight="Light" Foreground="Gray" 
-                                                                                       Margin="0,20,0,10" HorizontalAlignment="Center"/>
-
-                                                                            <TextBlock Text="Nhập địa chỉ hoặc tìm kiếm để bắt đầu" 
-                                                                                        FontSize="13" Foreground="#FFAAAAAA" HorizontalAlignment="Center"/>
-
-                                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
-                                                                                <Button Content="Google" Margin="5" Command="{Binding GoToUrlCommand}" CommandParameter="google.com"/>
-                                                                                <Button Content="Hệ thống" Margin="5" Command="{Binding GoToUrlCommand}" CommandParameter="https://prerp.bmtu.edu.vn"/>
-                                                                            </StackPanel>
+                                                                            
                                                                         </StackPanel>
                                                                     </Border>
                                                                 </Grid>
-                                                                </Grid>
+                                                            </Grid>
                                                         </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>

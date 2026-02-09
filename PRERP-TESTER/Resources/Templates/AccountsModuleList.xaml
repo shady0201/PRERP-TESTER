@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
 
     <DataTemplate x:Key="AccountItem">
         <Grid>
@@ -22,6 +23,7 @@
                            Foreground="#FF777777"
                            Text="{Binding Account.DisplayName}"
                            MaxWidth="120"
+                           FontWeight="SemiBold"
                            TextTrimming="CharacterEllipsis"
                            Margin="5,0,0,0"/>
 
@@ -44,10 +46,7 @@
                 <Setter TargetName="DeleteBtn" Property="Opacity" Value="1"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                <Setter TargetName="AccIcon" Property="Foreground" Value="White"/>
-                <Setter TargetName="AccText" Property="Foreground" Value="White"/>
-                <Setter TargetName="AccText" Property="FontWeight" Value="Bold"/>
-                <Setter TargetName="iconRemove" Property="Foreground" Value="White"/>
+                
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>

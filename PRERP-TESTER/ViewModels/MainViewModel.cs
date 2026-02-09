@@ -183,6 +183,7 @@ namespace PRERP_TESTER.ViewModels
                 var moduleVMPrerp = new ModuleViewModel(moduleEntityPrerp, Accounts);
 
                 Modules.Add(moduleVMPrerp);
+                ToastService.Show("Tạo Module Thành Công", string.Format("Đã thêm \"{0}\" vào danh sách!", moduleEntityCapp.Name), ToastType.Success);
             }
         }
         private void ExecuteCreateAccount()
@@ -202,6 +203,7 @@ namespace PRERP_TESTER.ViewModels
                 };
                 Accounts.Add(account);
                 FilteredAccountCount = Accounts.Count(a => a.ServerType == ServerType);
+                ToastService.Show("Tạo Account Thành Công", "", ToastType.Success);
             }
         }
         private void ExecuteEditAccount(Account account) {
@@ -249,6 +251,7 @@ namespace PRERP_TESTER.ViewModels
                 AccountMenuView.Refresh();
 
                 SaveAllData();
+                ToastService.Show("Tài khoản đã được xoá khỏi danh sách","", ToastType.Success);
             }
         }
         private void ExecuteRemoveModule(ModuleViewModel moduleViewModel)

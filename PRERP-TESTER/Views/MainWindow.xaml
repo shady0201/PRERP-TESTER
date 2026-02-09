@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:helper="clr-namespace:PRERP_TESTER.Helper"
+        xmlns:local="clr-namespace:PRERP_TESTER.Services"
         Icon="/Assets/icon.ico"
         Title="PRERP TESTER" 
         Height="768" Width="1366"
         Closing="Window_Closing"
         WindowStartupLocation="CenterScreen">
-
+    
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="MenuColumn">
@@ -562,5 +563,41 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
+        <!-- Toast -->
+        <ItemsControl Grid.Column="0" Grid.ColumnSpan="2"
+                      ItemsSource="{x:Static local:ToastService.Toasts}"
+                      ItemTemplate="{StaticResource ToastTemplate}"
+                      VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                      Margin="0,0,10,20">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Style.Resources>
+                        <Storyboard x:Key="SlideIn">
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                         From="400" To="0" Duration="0:0:0.4">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </Style.Resources>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <TranslateTransform/>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard Storyboard="{StaticResource SlideIn}"/>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
     </Grid>
 </Window>

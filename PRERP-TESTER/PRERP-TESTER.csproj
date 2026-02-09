@@ -11,6 +11,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Backgrounds\bg_1.jpg" />
+    <None Remove="Assets\Backgrounds\bg_10.jpg" />
+    <None Remove="Assets\Backgrounds\bg_11.jpg" />
+    <None Remove="Assets\Backgrounds\bg_2.jpg" />
+    <None Remove="Assets\Backgrounds\bg_3.jpg" />
+    <None Remove="Assets\Backgrounds\bg_4.jpg" />
+    <None Remove="Assets\Backgrounds\bg_5.jpg" />
+    <None Remove="Assets\Backgrounds\bg_6.jpg" />
+    <None Remove="Assets\Backgrounds\bg_7.jpg" />
+    <None Remove="Assets\Backgrounds\bg_8.jpg" />
+    <None Remove="Assets\Backgrounds\bg_9.jpg" />
     <None Remove="Assets\icon.ico" />
     <None Remove="Assets\logo.png" />
   </ItemGroup>
@@ -28,6 +39,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Backgrounds\bg_1.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_10.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_11.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_2.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_3.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_4.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_5.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_6.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_7.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_8.jpg" />
+    <Resource Include="Assets\Backgrounds\bg_9.jpg" />
     <Resource Include="Assets\icon.ico" />
     <Resource Include="Assets\logo.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -59,10 +81,6 @@
     <Page Update="Resources\Templates\AccountsModuleList.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -14,6 +14,7 @@ namespace PRERP_TESTER.ViewModels
 {
     public class ModuleViewModel : LazyLoadViewModel
     {
+
         public ModuleEntity ModuleEntity { get; }
 
         public ObservableCollection<AccountViewModel> ModuleAccounts { get; set; } = [];
@@ -98,10 +99,9 @@ namespace PRERP_TESTER.ViewModels
         {
             if (accountVM == null) return;
 
-            var result = MessageBox.Show($"Bạn có chắc chắn muốn bỏ tài khoản '{accountVM.Account.DisplayName}' khỏi module này?",
-                                         "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            bool bConfirm = DialogService.ShowConfirm("Bạn có muốn xoá tài khoản này?", $"Bạn có chắc chắn muốn bỏ tài khoản '{accountVM.Account.DisplayName}' khỏi module này hay không trả lời đi?");
 
-            if (result == MessageBoxResult.Yes)
+            if (bConfirm)
             {
                 RemoveAccount(accountVM);
                 ToastService.Show("Đã bỏ tài khoản khỏi module", $"Tài khoản '{accountVM.Account.DisplayName}' đã được bỏ khỏi module '{ModuleEntity.Name}'.", ToastType.Information);

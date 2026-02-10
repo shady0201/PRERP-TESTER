@@ -1,0 +1,75 @@
+﻿<Window x:Class="PRERP_TESTER.Views.Dialogs.ConfirmDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PRERP_TESTER.Views.Dialogs"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="ConfirmDialog"
+        Height="auto"
+        Width="450"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+
+    <Grid>
+        <Border Background="White" CornerRadius="20" Margin="15" BorderThickness="0.5" BorderBrush="#FF8E8E8E">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="0" Opacity="0.3"/>
+            </Border.Effect>
+            <StackPanel>
+                <Border CornerRadius="20,20,0,0" Padding="20,15,20,0" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" x:Name="Title_lable" Text="Bạn có muốn xác nhận thao tác?"
+                                   FontSize="18"
+                                   TextWrapping="Wrap"
+                                   Foreground="#FF484848"
+                                   Margin="0,0,10,0"
+                                   FontWeight="Medium"/>
+                        <Button x:Name="BtnClose"
+                                Click="BtnCancel_Click"
+                                Grid.Column="1"
+                                Width="25" Height="25"
+                                Margin="0,0,0,0"
+                                Foreground="WhiteSmoke"
+                                VerticalAlignment="Top"
+                                Style="{StaticResource CloseDialogStyle}">
+                            <iconPacks:PackIconMaterial Foreground="#FFC5C3C3" Kind="Close" Width="18" Height="18"/>
+                        </Button>
+                    </Grid>
+                </Border>
+                <StackPanel Margin="20,10,25,15">
+                    <Border Padding="0,5,0,10" VerticalAlignment="Center">
+                        <TextBlock x:Name="Messsage_label" Text="Hành động sẽ thực hiện ngay sau khi nhấn xác nhận" TextWrapping="Wrap" FontSize="15" Foreground="#FF464646"/>
+                    </Border>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                        <Button Content="Hủy" Click="BtnCancel_Click" 
+                            Padding="20,8"
+                            IsCancel="True"
+                            Cursor="Hand"
+                            Margin="0,0,10,0"
+                            Style="{StaticResource CancelStyle}"/>
+
+                        <Button  Content="Xác nhận"
+                             Click="BtnConfirm_Click"
+                             IsDefault="True"
+                             Padding="25,10"
+                             Cursor="Hand"
+                             Style="{StaticResource ConfirmStyle}"/>
+
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

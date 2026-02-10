@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.IconPacks;
 using PRERP_TESTER.Models;
+using PRERP_TESTER.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,7 +88,8 @@ namespace PRERP_TESTER.Views.Dialogs
                                                 && acc.ServerType == DialogServerType);
                     if (checkDuplicate)
                     {
-                        MessageBox.Show("Tên đăng nhập đã tồn tại trên "+ "" + ". Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        // TODO: Tạo valid cho form
+                        //ToastService.Show($"Tên đăng nhập '{TxtUsername.Text.Trim()}' đã tồn tại","",ToastType.Warning);
                         return;
                     }
                     Username = TxtUsername.Text;

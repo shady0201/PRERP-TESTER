@@ -2,11 +2,12 @@
  + Tooltip show full tên nhân viên.
  + Kéo thả để thay đổi thứ tự tabview header.
 
+- Thêm valid các trường input trong form.
+
 - Tạo effect kéo thả.
 
 - Ghim module làm các tab load lại.
 
-- Thêm valid các trường input trong form.
 
 - Chỉnh style module view cho đẹp hơn.
 - Chỉnh style danh sách account trong module cho dễ nhận biết.

@@ -236,10 +236,9 @@ namespace PRERP_TESTER.ViewModels
 
             string displayName = string.IsNullOrWhiteSpace(account.DisplayName) ? account.Username : account.DisplayName;
 
-            var result = MessageBox.Show($"Xóa vĩnh viễn tài khoản {account.DisplayName} khỏi hệ thống?",
-                                        "Cảnh báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            bool bConfirm = DialogService.ShowConfirm("Bạn có muốn xoá tài khoản?", $"Thao tác nay sẽ xoá toàn bộ tài khoản '{displayName}' khỏi các module đang sử dụng");
 
-            if (result == MessageBoxResult.Yes)
+            if (bConfirm)
             {
                 string SessionAccountFolder = account.SessionFolder;
                 string account_id = account.Id;
@@ -268,13 +267,9 @@ namespace PRERP_TESTER.ViewModels
         {
             if (moduleViewModel == null) return;
 
-            var result = MessageBox.Show(
-                        $"Xóa vĩnh viễn Module '{moduleViewModel.Name}' và toàn bộ các Tab đang mở bên trong?",
-                        "Cảnh báo xóa Module",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Warning);
+            bool bConfirm = DialogService.ShowConfirm("Bạn có muốn xoá Module này?", $"Thao tác này sẽ xoá module '{moduleViewModel.Name}' và các thông tin có trong module");
 
-            if (result == MessageBoxResult.Yes)
+            if (bConfirm)
             {
                 string targetName = moduleViewModel.Name;
                 var modulesToDelete = Modules.Where(m => m.Name == targetName).ToList();
@@ -550,6 +545,7 @@ namespace PRERP_TESTER.ViewModels
                 {
                     LogService.LogError(ex, "MainViewModel - ExecuteExportData");
                     ToastService.Show("Lỗi khi xuất dữ liệu", $"Không thể xuất dữ liệu ra file: {ex.Message}", ToastType.Error);
+                    
                 }
             }
         }

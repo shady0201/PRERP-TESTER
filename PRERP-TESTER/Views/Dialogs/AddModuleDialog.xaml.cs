@@ -24,7 +24,7 @@ namespace PRERP_TESTER.Views.Dialogs
             {
                if (ExistingModules.Any(m => m.Name == TxtModuleName.Text.Trim()))
                 {
-                    MessageBox.Show("Tên module đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // TODO: Tạo valid cho form
                     return;
                 }
                 ResultName = TxtModuleName.Text.Trim();

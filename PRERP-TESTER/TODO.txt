@@ -1,18 +1,14 @@
-﻿- Danh sách account của module:
- + Tooltip show full tên nhân viên.
- + Kéo thả để thay đổi thứ tự tabview header.
+﻿+ Tooltip show full tên nhân viên.
 
 - Thêm valid các trường input trong form.
 
-- Tạo effect kéo thả.
-
 - Ghim module làm các tab load lại.
-
+- Tạo effect kéo thả.
 
 - Chỉnh style module view cho đẹp hơn.
 - Chỉnh style danh sách account trong module cho dễ nhận biết.
 
-* Custom popup thông báo: Confirm, Message
+* Custom popup thông báo: thông báo cho các trường hợp chỉ đưa thông tin, không phải trường hợp của toast.
 
 * Light/Dark mode.
 

@@ -18,5 +18,6 @@
 
 Chứa data:
 %localappdata%\PrerpTester
-Chứa webview folder
+
+Chứa webview folder:
 Thư mục chạy của app => Thư mục Session

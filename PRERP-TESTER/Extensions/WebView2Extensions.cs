@@ -27,16 +27,17 @@ namespace PRERP_TESTER.Extensions
             if (d is WebView2 webView && e.NewValue is string accountId && !string.IsNullOrEmpty(accountId))
             {
 
+                if (webView.CoreWebView2 != null) return;
+
                 try
                 {
                     webView.Unloaded -= OnWebViewUnloaded;
                     webView.Unloaded += OnWebViewUnloaded;
 
                     var envTask = _envCache.GetOrAdd(accountId, id => CreateEnvironmentForAccount(id));
-
                     var env = await envTask;
+
                     await webView.EnsureCoreWebView2Async(env);
-                    var context = webView.DataContext;
 
                     // Loading
                     webView.NavigationCompleted -= OnNavigationCompleted;
@@ -48,6 +49,7 @@ namespace PRERP_TESTER.Extensions
                         }
                         OnNavigationCompleted(s, args);
                     };
+
                     webView.CoreWebView2.NavigationStarting += (s, args) =>
                     {
                         if (webView.DataContext is TabViewModel vm)
@@ -55,6 +57,7 @@ namespace PRERP_TESTER.Extensions
                             Application.Current.Dispatcher.Invoke(() => vm.IsLoading = true);
                         }
                     };
+
 
                     // Favicon
                     webView.CoreWebView2.FaviconChanged += async (s, args) =>
@@ -99,6 +102,7 @@ namespace PRERP_TESTER.Extensions
                     // TabWeb control handle
                     if (webView.DataContext is TabViewModel vm)
                     {
+                        // Url handle
                         string initialUrl = string.IsNullOrWhiteSpace(vm.Url) ? "about:blank" : vm.Url;
                         try
                         {
@@ -109,26 +113,61 @@ namespace PRERP_TESTER.Extensions
                             webView.Source = new Uri("about:blank");
                         }
 
-                        vm.NavigationRequested += (action) =>
+                        // controls handle
+                        Action<string> navigationHandler = (action) =>
                         {
-                            switch (action)
+                            if (webView == null || webView.CoreWebView2 == null) return;
+
+                            try
                             {
-                                case "Back": if (webView.CoreWebView2.CanGoBack) webView.CoreWebView2.GoBack(); break;
-                                case "Forward": if (webView.CoreWebView2.CanGoForward) webView.CoreWebView2.GoForward(); break;
-                                case "Reload": webView.CoreWebView2.Reload(); break;
-                                case "GoTo":
-                                    try
-                                    {
-                                        string target = string.IsNullOrWhiteSpace(vm.Url) ? "about:blank" : vm.Url;
-                                        webView.Source = new Uri(target);
-                                    }
-                                    catch (UriFormatException)
-                                    {
-                                        webView.Source = new Uri("https://www.google.com/search?q=" + Uri.EscapeDataString(vm.Url));
-                                    }
-                                    break;
+                                switch (action)
+                                {
+                                    case "Back": if (webView.CoreWebView2.CanGoBack) webView.CoreWebView2.GoBack(); break;
+                                    case "Forward": if (webView.CoreWebView2.CanGoForward) webView.CoreWebView2.GoForward(); break;
+                                    case "Reload": webView.CoreWebView2.Reload(); break;
+                                    case "GoTo":
+                                        try
+                                        {
+                                            string target = string.IsNullOrWhiteSpace(vm.Url) ? "about:blank" : vm.Url;
+                                            webView.Source = new Uri(target);
+                                        }
+                                        catch (UriFormatException)
+                                        {
+                                            webView.Source = new Uri("https://www.google.com/search?q=" + Uri.EscapeDataString(vm.Url));
+                                        }
+                                        break;
+                                }
+                            }
+                            catch (ObjectDisposedException ex) {
+                                LogService.LogError(ex, "WebView2Extensions: navigationHandler");
                             }
                         };
+                        vm.NavigationRequested += navigationHandler;
+                        webView.Tag = navigationHandler;
+
+                        // ĐĂNG KÝ SỰ KIỆN ĐÓNG TAB ĐỂ DISPOSE
+                        Action<TabViewModel>? closeHandler = null;
+                        closeHandler = (tab) =>
+                        {
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                vm.OnTabClosed -= closeHandler;
+                                vm.Cleanup();
+
+                                try
+                                {
+                                    webView.CoreWebView2?.Stop();
+                                    webView.Dispose();
+                                }
+                                catch (Exception ex){
+                                    LogService.LogError(ex, "WebView2Extensions.TabCloseDispose");
+                                }
+                            });
+                        };
+                        vm.OnTabClosed += closeHandler;
+
+
+                        // Binding url to ViewModel
                         webView.SourceChanged += (s, args) => {
                             vm.Url = webView.Source.ToString();
                         };
@@ -149,6 +188,7 @@ namespace PRERP_TESTER.Extensions
                             }
                         };
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -171,26 +211,10 @@ namespace PRERP_TESTER.Extensions
         {
             if (sender is WebView2 webView)
             {
-                webView.Unloaded -= OnWebViewUnloaded;
 
-                // 1. Hủy đăng ký sự kiện từ ViewModel để tránh Leak và Crash
                 if (webView.DataContext is TabViewModel vm && webView.Tag is Action<string> handler)
                 {
                     vm.NavigationRequested -= handler;
-                }
-
-                try
-                {
-                    if (webView.CoreWebView2 != null)
-                    {
-                        webView.CoreWebView2.Stop();
-                    }
-                    webView.Dispose();
-                    System.Diagnostics.Debug.WriteLine("WebView2 disposed safely.");
-                }
-                catch (Exception ex)
-                {
-                    LogService.LogError(ex, "WebView2Extensions.OnWebViewUnloaded");
                 }
             }
         }

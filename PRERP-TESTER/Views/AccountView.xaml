@@ -50,6 +50,12 @@
 
                     <ListBox Grid.Column="0"
                              AlternationCount="1000"
+                             x:Name="TabHeaderListBox"
+                             AllowDrop="True"
+                             PreviewMouseMove="ListBox_PreviewMouseMove"
+                             DragOver="ListBox_DragOver"
+                             Drop="ListBox_Drop"
+                             VirtualizingStackPanel.IsVirtualizing="False"
                              ItemsSource="{Binding TabViewModels}"
                              SelectedItem="{Binding SelectedTab}"
                              ItemContainerStyle="{StaticResource TabWebHeaderStyle}"

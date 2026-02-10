@@ -104,7 +104,7 @@ namespace PRERP_TESTER.ViewModels
             if (bConfirm)
             {
                 RemoveAccount(accountVM);
-                ToastService.Show("Đã bỏ tài khoản khỏi module", $"Tài khoản '{accountVM.Account.DisplayName}' đã được bỏ khỏi module '{ModuleEntity.Name}'.", ToastType.Information);
+                ToastService.Show("Đã gỡ tài khoản khỏi module", $"Tài khoản '{accountVM.Account.DisplayName}' đã được bỏ khỏi module '{ModuleEntity.Name}'.", ToastType.Information);
             }
         }
 
@@ -119,7 +119,6 @@ namespace PRERP_TESTER.ViewModels
             }
             accountVM.TabViewModels.Clear();
 
-            // xoá khỏi danh sách accountviewmodel
             ModuleAccounts.Remove(accountVM);
 
             // xoá khỏi danh sách entity

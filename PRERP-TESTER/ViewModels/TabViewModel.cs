@@ -5,7 +5,8 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Input;
 using PRERP_TESTER.Services;
-using System.Collections.ObjectModel; // Namespace chứa các entity của bạn
+using System.Collections.ObjectModel;
+using Microsoft.Web.WebView2.Wpf; // Namespace chứa các entity của bạn
 
 namespace PRERP_TESTER.ViewModels
 {
@@ -118,6 +119,8 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _selectedSuggestion, value);
         }
 
+        public event Action<TabViewModel>? OnTabClosed;
+
         public TabViewModel(TabWeb tabWeb, Account account, string moduleID, Action<TabViewModel> closeAction)
         {
             UserAccount = account;
@@ -146,7 +149,10 @@ namespace PRERP_TESTER.ViewModels
                 RequestDuplicate?.Invoke(this);
             });
 
-            CloseTabCommand = new RelayCommand(() => closeAction(this));
+            CloseTabCommand = new RelayCommand(() => {
+                closeAction(this);
+                OnTabClosed?.Invoke(this);
+            });
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)=> (sender as TextBox)?.SelectAll();
@@ -181,11 +187,7 @@ namespace PRERP_TESTER.ViewModels
             try
             {
                 NavigationRequested = null;
-
-                (BackCommand as RelayCommand)?.NotifyCanExecuteChanged();
-                (ForwardCommand as RelayCommand)?.NotifyCanExecuteChanged();
-
-                System.Diagnostics.Debug.WriteLine($"Cleanup Tab: {Title} - {Url}");
+                OnTabClosed = null;
             }
             catch (Exception ex)
             {

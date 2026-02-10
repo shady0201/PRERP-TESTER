@@ -38,15 +38,11 @@ namespace PRERP_TESTER.Views
                 ListBox? listBox = sender as ListBox;
                 var draggedData = e.Data.GetData("TabVM") as TabViewModel;
 
-                // Tìm Tab đang nằm dưới con trỏ chuột
                 ListBoxItem targetItem = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
 
                 if (targetItem != null)
                 {
                     var targetData = targetItem.DataContext as TabViewModel;
-
-                    // Giả định DataContext của AccountView là AccountViewModel
-                    // Nơi chứa ObservableCollection<TabViewModel> TabViewModels
                     var viewModel = listBox.DataContext as AccountViewModel;
 
                     if (viewModel != null && draggedData != null)

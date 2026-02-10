@@ -214,7 +214,7 @@ namespace PRERP_TESTER.Extensions
 
                 if (webView.DataContext is TabViewModel vm && webView.Tag is Action<string> handler)
                 {
-                    vm.NavigationRequested -= handler;
+                    //vm.NavigationRequested -= handler;
                 }
             }
         }

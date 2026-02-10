@@ -228,7 +228,7 @@ namespace PRERP_TESTER.ViewModels
             }
         }
 
-        private string StandardizationUrl(string? input_url)
+        public static string StandardizationUrl(string? input_url)
         {
             if (input_url == null)
             {

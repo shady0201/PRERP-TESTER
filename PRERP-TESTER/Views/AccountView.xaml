@@ -55,7 +55,6 @@
                              PreviewMouseMove="ListBox_PreviewMouseMove"
                              DragOver="ListBox_DragOver"
                              Drop="ListBox_Drop"
-                             VirtualizingStackPanel.IsVirtualizing="False"
                              ItemsSource="{Binding TabViewModels}"
                              SelectedItem="{Binding SelectedTab}"
                              ItemContainerStyle="{StaticResource TabWebHeaderStyle}"

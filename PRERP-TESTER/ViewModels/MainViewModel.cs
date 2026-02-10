@@ -163,7 +163,7 @@ namespace PRERP_TESTER.ViewModels
 
         private void ExecuteTest()
         {
-            ToastService.Show("Test Command", "This is a test command execution.", ToastType.Information);
+            
         }
 
         private void ExecuteCreateModule()

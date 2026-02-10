@@ -41,7 +41,7 @@
 
 
     <DataTemplate x:Key="ToastTemplate">
-        <Border x:Name="ToastBorder" Margin="0,5,10,5" CornerRadius="12" 
+        <Border x:Name="ToastBorder" Margin="0,2,0,2" CornerRadius="12" 
             Width="350" Padding="15,10" Background="White" BorderThickness="4,0.8,0.8,0.8">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
@@ -57,7 +57,21 @@
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="14" Foreground="#333"/>
-                    <TextBlock Text="{Binding Message}" FontSize="12" Foreground="#666" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Message}" FontSize="12" Foreground="#666" TextWrapping="Wrap">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </StackPanel>
 
                 <Button Grid.Column="2" 

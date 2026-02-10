@@ -18,16 +18,6 @@ namespace PRERP_TESTER.Views
         {
             DataContext = new MainViewModel();
             InitializeComponent();
-
-            this.SizeChanged += (s, e) => ResetPopupPosition();
-            this.LocationChanged += (s, e) => ResetPopupPosition();
-        }
-
-        private void ResetPopupPosition()
-        {
-            var offset = ToastPopup.VerticalOffset;
-            ToastPopup.VerticalOffset = offset + 0.01;
-            ToastPopup.VerticalOffset = offset;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

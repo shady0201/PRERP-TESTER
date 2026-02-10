@@ -1,4 +1,5 @@
-﻿+ Tooltip show full tên nhân viên.
+﻿+ Fix bug: WebView2Extensions
++ Tooltip show full tên nhân viên.
 
 - Thêm valid các trường input trong form.
 

@@ -27,28 +27,27 @@ namespace PRERP_TESTER.Extensions
             if (d is WebView2 webView && e.NewValue is string accountId && !string.IsNullOrEmpty(accountId))
             {
 
-                if (webView.CoreWebView2 != null) return;
+                if (webView.CoreWebView2 != null)
+                {
+                    ToastService.Show("Web view: OnAccountIDChanged", "", ToastType.Information);
+                }
 
                 try
                 {
-                    webView.Unloaded -= OnWebViewUnloaded;
-                    webView.Unloaded += OnWebViewUnloaded;
 
                     var envTask = _envCache.GetOrAdd(accountId, id => CreateEnvironmentForAccount(id));
                     var env = await envTask;
 
                     await webView.EnsureCoreWebView2Async(env);
 
+                    // Unload webview: show, hide in view, tab change, etc.
+                    webView.Unloaded -= OnWebViewUnloaded;
+                    webView.Unloaded += OnWebViewUnloaded;
                     // Loading
                     webView.NavigationCompleted -= OnNavigationCompleted;
-                    webView.NavigationCompleted += (s, args) =>
-                    {
-                        if (webView.DataContext is TabViewModel vm)
-                        {
-                            Application.Current.Dispatcher.Invoke(() => vm.IsLoading = false);
-                        }
-                        OnNavigationCompleted(s, args);
-                    };
+                    webView.NavigationCompleted += OnNavigationCompleted;
+
+
 
                     webView.CoreWebView2.NavigationStarting += (s, args) =>
                     {
@@ -215,6 +214,7 @@ namespace PRERP_TESTER.Extensions
                 if (webView.DataContext is TabViewModel vm && webView.Tag is Action<string> handler)
                 {
                     //vm.NavigationRequested -= handler;
+                    //ToastService.Show("Web view: OnWebViewUnloaded", vm.Url, ToastType.Information);
                 }
             }
         }
@@ -226,7 +226,10 @@ namespace PRERP_TESTER.Extensions
 
             try
             {
-                // Lịch sử truy cập
+                // Loading
+                 Application.Current.Dispatcher.Invoke(() => vm.IsLoading = false);
+
+                // Lưu lịch sử
                 using var stream = await webView.CoreWebView2.GetFaviconAsync(CoreWebView2FaviconImageFormat.Png);
                 if (stream != null)
                 {
@@ -289,6 +292,7 @@ namespace PRERP_TESTER.Extensions
             if (_envCache.TryRemove(accountId, out var task))
             {
                 System.Diagnostics.Debug.WriteLine($"Removed environment cache for: {accountId}");
+                ToastService.Show("Web view: RemoveFromCache", $"Removed environment cache for: {accountId}", ToastType.Error);
             }
         }
 

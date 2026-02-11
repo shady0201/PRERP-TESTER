@@ -1,4 +1,6 @@
-﻿using PRERP_TESTER.ViewModels;
+﻿using PRERP_TESTER.Models;
+using PRERP_TESTER.Services;
+using PRERP_TESTER.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -37,23 +39,42 @@ namespace PRERP_TESTER.Views
             {
                 ListBox? listBox = sender as ListBox;
                 var draggedData = e.Data.GetData("TabVM") as TabViewModel;
-
                 ListBoxItem targetItem = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
 
-                if (targetItem != null)
+                if (targetItem != null && listBox != null)
                 {
                     var targetData = targetItem.DataContext as TabViewModel;
                     var viewModel = listBox.DataContext as AccountViewModel;
 
-                    if (viewModel != null && draggedData != null)
+                    if (viewModel != null && draggedData != null && targetData != draggedData)
                     {
                         int oldIndex = viewModel.TabViewModels.IndexOf(draggedData);
                         int newIndex = viewModel.TabViewModels.IndexOf(targetData);
 
                         if (oldIndex != -1 && newIndex != -1 && oldIndex != newIndex)
                         {
-                            // Thực hiện hoán đổi vị trí trong ViewModel
-                            viewModel.TabViewModels.Move(oldIndex, newIndex);
+                            Point relativeMousePos = e.GetPosition(targetItem);
+                            bool shouldMove = false;
+
+                            if (oldIndex < newIndex) 
+                            {
+                                if (relativeMousePos.X > targetItem.ActualWidth / 2)
+                                {
+                                    shouldMove = true;
+                                }
+                            }
+                            else if (oldIndex > newIndex)
+                            {
+                                if (relativeMousePos.X < targetItem.ActualWidth / 2)
+                                {
+                                    shouldMove = true;
+                                }
+                            }
+
+                            if (shouldMove)
+                            {
+                                viewModel.TabViewModels.Move(oldIndex, newIndex);
+                            }
                         }
                     }
                 }

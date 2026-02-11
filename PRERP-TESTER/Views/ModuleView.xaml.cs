@@ -33,30 +33,50 @@ namespace PRERP_TESTER.Views
             }
         }
 
+        // AccountVM
+
         private void ListBox_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent("AccountVM"))
             {
-                ListBox listBox = sender as ListBox;
+                ListBox? listBox = sender as ListBox;
                 AccountViewModel draggedData = e.Data.GetData("AccountVM") as AccountViewModel;
-
-                // Tìm item đang nằm dưới con trỏ chuột
                 ListBoxItem targetItem = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
 
-                if (targetItem != null)
+                if (targetItem != null && listBox != null)
                 {
-                    AccountViewModel targetData = targetItem.DataContext as AccountViewModel;
+                    var targetData = targetItem.DataContext as AccountViewModel;
                     var viewModel = listBox.DataContext as ModuleViewModel;
 
-                    if (viewModel != null && draggedData != null)
+                    if (viewModel != null && draggedData != null && targetData != draggedData)
                     {
                         int oldIndex = viewModel.ModuleAccounts.IndexOf(draggedData);
                         int newIndex = viewModel.ModuleAccounts.IndexOf(targetData);
 
-                        // Thực hiện hoán đổi vị trí trong danh sách (Real-time reordering)
                         if (oldIndex != -1 && newIndex != -1 && oldIndex != newIndex)
                         {
-                            viewModel.MoveAccount(oldIndex, newIndex);
+                            Point relativeMousePos = e.GetPosition(targetItem);
+                            bool shouldMove = false;
+
+                            if (oldIndex < newIndex)
+                            {
+                                if (relativeMousePos.X > targetItem.ActualWidth / 2)
+                                {
+                                    shouldMove = true;
+                                }
+                            }
+                            else if (oldIndex > newIndex)
+                            {
+                                if (relativeMousePos.X < targetItem.ActualWidth / 2)
+                                {
+                                    shouldMove = true;
+                                }
+                            }
+
+                            if (shouldMove)
+                            {
+                                viewModel.MoveAccount(oldIndex, newIndex);
+                            }
                         }
                     }
                 }

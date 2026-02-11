@@ -1,4 +1,5 @@
-﻿
+﻿+ Khi url của webtab trống thì trang trống lại hiển thị mặc dù đã load dữ liệu trang:
+
 + Tooltip show full tên nhân viên.
 
 - Thêm valid các trường input trong form.

@@ -8,6 +8,8 @@
              xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:helper="clr-namespace:PRERP_TESTER.Helper"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:ei="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -65,7 +67,18 @@
                              MaxWidth="{Binding ActualWidth, ElementName=ParentGrid, Converter={StaticResource SubtractValueConverter}, ConverterParameter=40}">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Rows="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                <UniformGrid Rows="1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <i:Interaction.Behaviors>
+                                        <ei:FluidMoveBehavior AppliesTo="Children" Duration="0:0:0.3">
+                                            <ei:FluidMoveBehavior.EaseY>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </ei:FluidMoveBehavior.EaseY>
+                                            <ei:FluidMoveBehavior.EaseX>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </ei:FluidMoveBehavior.EaseX>
+                                        </ei:FluidMoveBehavior>
+                                    </i:Interaction.Behaviors>
+                                </UniformGrid>
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                     </ListBox>

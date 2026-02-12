@@ -19,7 +19,6 @@ namespace PRERP_TESTER.Services
             try
             {
                 if (!Directory.Exists(FolderPath)) Directory.CreateDirectory(FolderPath);
-
                 string json = JsonConvert.SerializeObject(data, Formatting.Indented);
                 File.WriteAllText(FilePath, json);
             }

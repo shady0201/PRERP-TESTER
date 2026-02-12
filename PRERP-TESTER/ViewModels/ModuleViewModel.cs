@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using PRERP_TESTER.Messages;
 using PRERP_TESTER.Models;
 using PRERP_TESTER.Resources.Templates;
 using PRERP_TESTER.Services;
@@ -26,6 +29,7 @@ namespace PRERP_TESTER.ViewModels
         public ICommand AddAccountToModuleCommand { get; }
 
         public IRelayCommand<AccountViewModel> RemoveAccountFromModuleCommand { get; }
+        public IRelayCommand<AccountViewModel> ShowAccountDetailCommand { get; }
         public bool IsPinned
         {
             get => ModuleEntity.IsPinned;
@@ -62,6 +66,7 @@ namespace PRERP_TESTER.ViewModels
 
             AddAccountToModuleCommand = new RelayCommand(ExecuteAddAccountToModule);
             RemoveAccountFromModuleCommand = new RelayCommand<AccountViewModel>(ExecuteRemoveAccount);
+            ShowAccountDetailCommand = new RelayCommand<AccountViewModel>(ExecuteShowAccountDetail);
 
             SelectedAccountModule = ModuleAccounts.FirstOrDefault();
         }
@@ -106,6 +111,12 @@ namespace PRERP_TESTER.ViewModels
                 RemoveAccount(accountVM);
                 ToastService.Show("Đã gỡ tài khoản khỏi module", $"Tài khoản '{accountVM.Account.DisplayName}' đã được bỏ khỏi module '{ModuleEntity.Name}'.", ToastType.Information);
             }
+        }
+
+        private void ExecuteShowAccountDetail(AccountViewModel? accountVM)
+        {
+            if (accountVM.Account == null) return;
+            WeakReferenceMessenger.Default.Send(new ShowAccountDetailMessage(accountVM.Account));
         }
 
         public void RemoveAccount(AccountViewModel? accountVM)

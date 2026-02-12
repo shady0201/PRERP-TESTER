@@ -338,6 +338,16 @@
                                 <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
                             </Border.Effect>
                             <StackPanel Width="140" Margin="5">
+                                
+                                <Button Style="{StaticResource ActionMenuItemStyle}"
+                                        Command="{Binding DataContext.ShowAccountDetailCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterial Kind="CardAccountDetailsStarOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF4B5563"/>
+                                        <TextBlock Text="Thông tin" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF374151"/>
+                                    </StackPanel>
+                                </Button>
+                                
                                 <Button Style="{StaticResource ActionMenuItemStyle}"
                                         Command="{Binding DataContext.EditAccountCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                         CommandParameter="{Binding}">
@@ -348,13 +358,14 @@
                                 </Button>
 
                                 <Button Style="{StaticResource ActionMenuItemStyle}"
-                                    Command="{Binding DataContext.RemoveAccountCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                    CommandParameter="{Binding}">
+                                        Command="{Binding DataContext.RemoveAccountCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}">
                                     <StackPanel Orientation="Horizontal">
                                         <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#EF4444"/>
                                         <TextBlock Text="Xóa tài khoản" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#EF4444"/>
                                     </StackPanel>
                                 </Button>
+                                
                             </StackPanel>
                         </Border>
                     </Popup>

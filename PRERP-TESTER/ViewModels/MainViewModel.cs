@@ -1,7 +1,10 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using ControlzEx.Standard;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Newtonsoft.Json;
 using PRERP_TESTER.Extensions;
 using PRERP_TESTER.Helper;
+using PRERP_TESTER.Messages;
 using PRERP_TESTER.Models;
 using PRERP_TESTER.Services;
 using PRERP_TESTER.Views.Dialogs;
@@ -21,6 +24,26 @@ namespace PRERP_TESTER.ViewModels
         {
             get => _accounts;
             set => SetProperty(ref _accounts, value);
+        }
+
+
+        private Account? _selectedPopupAccount;
+        public Account? SelectedPopupAccount
+        {
+            get => _selectedPopupAccount;
+            set => SetProperty(ref _selectedPopupAccount, value);
+        }
+        private bool _isAccountPopupOpen;
+        public bool IsAccountPopupOpen
+        {
+            get => _isAccountPopupOpen;
+            set
+            {
+                if (SetProperty(ref _isAccountPopupOpen, value) == false && value == false)
+                {
+                    CloseAccountDetailPopup();
+                }
+            }
         }
 
         private string _searchAccountText;
@@ -125,6 +148,7 @@ namespace PRERP_TESTER.ViewModels
         public ICommand ToggleModuleExpandCommand { get; }
         public ICommand ToggleAccountExpandCommand { get; }
         public ICommand TestCommand { get; }
+        public ICommand ShowAccountDetailCommand { get; }
         public static MainViewModel Instance { get; private set; }
 
         public ObservableCollection<HistoryItem> History { get; set; } = new();
@@ -148,6 +172,8 @@ namespace PRERP_TESTER.ViewModels
             ToggleModuleExpandCommand = new RelayCommand(() => IsModuleExpanded = !IsModuleExpanded);
             ToggleAccountExpandCommand = new RelayCommand(() => IsAccountExpanded = !IsAccountExpanded);
 
+            ShowAccountDetailCommand = new RelayCommand<Account>(ShowAccountDetail);
+
             TestCommand = new RelayCommand(ExecuteTest);
 
             // Data
@@ -159,7 +185,22 @@ namespace PRERP_TESTER.ViewModels
 
             // Sort data
             ApplySort();
+
+            // message popup
+            WeakReferenceMessenger.Default.Register<ShowAccountDetailMessage>(this, (r, m) =>
+            {
+                SelectedPopupAccount = m.Value;
+                IsAccountPopupOpen = true;
+            });
         }
+
+        public void ShowAccountDetail(Account account)
+        {
+            if (account == null) return;
+            WeakReferenceMessenger.Default.Send(new ShowAccountDetailMessage(account));
+        }
+
+        private void CloseAccountDetailPopup() => _isAccountPopupOpen = false;
 
         private void ExecuteTest()
         {
@@ -542,9 +583,8 @@ namespace PRERP_TESTER.ViewModels
                 try
                 {
                     var data = GetAppData();
-                    // Không xuất lịch sử duyệt web
                     data.History = [];
-                    string json = Newtonsoft.Json.JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+                    string json = JsonConvert.SerializeObject(data, Formatting.Indented);
                     File.WriteAllText(saveFileDialog.FileName, json);
 
                     ToastService.Show("Xuất dữ liệu thành công!", "Dữ liệu đã được xuất ra file thành công.", ToastType.Success);

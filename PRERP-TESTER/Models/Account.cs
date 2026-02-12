@@ -1,12 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace PRERP_TESTER.Models
 {
@@ -25,7 +19,6 @@ namespace PRERP_TESTER.Models
         private string _fullName;
         public string FullName { get => _fullName; set => SetProperty(ref _fullName, value); }
 
-        [JsonIgnore]
         private bool _isLoggedIn = false;
         [JsonIgnore]
         public bool IsLoggedIn
@@ -61,13 +54,19 @@ namespace PRERP_TESTER.Models
         private ServerType _serverType;
         public ServerType ServerType { get => _serverType; set => SetProperty(ref _serverType, value); }
 
-      
-        public string SessionFolder => Id + "_" + Username; // folder lưu session của webview, đã xử lý xong
+        
+        public string SessionFolder => Id + "_" + Username;
 
+        [JsonIgnore]
         public Permission[] PermissionsSFT { get; set; } = Array.Empty<Permission>();
+
+        [JsonIgnore]
         public Permission[] PermissionsMASSET { get; set; } = Array.Empty<Permission>();
+
+        [JsonIgnore]
         public Permission[] PermissionsHASSET { get; set; } = Array.Empty<Permission>();
 
+        [JsonIgnore]
         public Department[] Departments { get; set; } = Array.Empty<Department>();
 
 
@@ -75,7 +74,7 @@ namespace PRERP_TESTER.Models
         {
             UserInfoJsonString = JsonStringData;
 
-            var data = JsonNode.Parse(JsonStringData);
+            var data = JObject.Parse(JsonStringData);
             var query = data["query"];
 
             // info
@@ -88,7 +87,6 @@ namespace PRERP_TESTER.Models
             PermissionsHASSET = ParsePermissions(query["permissions_hasset"]);
 
             // departments
-
 
             IsLoggedIn = true;
             SessionExpiry = query["expired"]?.ToString();
@@ -117,12 +115,14 @@ namespace PRERP_TESTER.Models
         }
 
         // PRIVATE
-        private Permission[] ParsePermissions(JsonNode? node)
+        private Permission[] ParsePermissions(JToken? node)
         {
-            if (node == null || node is not JsonArray jsonArray)
+            if (node == null || node.Type != JTokenType.Array)
                 return Array.Empty<Permission>();
 
             var resultList = new List<Permission>();
+
+            var jsonArray = (JArray)node;
 
             foreach (var item in jsonArray)
             {

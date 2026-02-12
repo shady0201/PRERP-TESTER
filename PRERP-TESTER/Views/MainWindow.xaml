@@ -4,7 +4,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:helper="clr-namespace:PRERP_TESTER.Helper"
         xmlns:local="clr-namespace:PRERP_TESTER.Services"
-        xmlns:conv="clr-namespace:PRERP_TESTER.Converters"
+        xmlns:conv="clr-namespace:PRERP_TESTER.Converters" xmlns:views="clr-namespace:PRERP_TESTER.Views.UserControls"
         Icon="/Assets/icon.ico"
         Title="PRERP TESTER" 
         Height="768" Width="1366"
@@ -609,5 +609,17 @@
             </ItemsControl>
             </Grid>
         </Popup>
+
+        <!--Account info -->
+        <Popup IsOpen="{Binding IsAccountPopupOpen}"
+               Placement="Center"
+               AllowsTransparency="True"
+               StaysOpen="False"
+               PopupAnimation="Fade">
+            <Grid>
+                <views:AccountDetailView DataContext="{Binding SelectedPopupAccount}" />
+            </Grid>
+        </Popup>
+        
     </Grid>
 </Window>

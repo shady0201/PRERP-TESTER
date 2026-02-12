@@ -318,7 +318,7 @@ namespace PRERP_TESTER.ViewModels
                             try
                             {
                                 Directory.Delete(userDataFolder, true);
-                                System.Diagnostics.Debug.WriteLine($"Successfully deleted session folder for: {accountId}");
+                                System.Diagnostics.Debug.WriteLine($"Successfully deleted StringJsonSession folder for: {accountId}");
                                 break;
                             }
                             catch (IOException)

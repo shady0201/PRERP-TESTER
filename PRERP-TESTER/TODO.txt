@@ -1,4 +1,6 @@
-﻿+ Khi url của webtab trống thì trang trống lại hiển thị mặc dù đã load dữ liệu trang:
+﻿+ Hiển thị thông tin user: avatar, login status.
++ Lưu trạng thái hết hạn token.
++ Xoá thông tin login nếu đăng xuất: Trường hợp khả thi là kiểm tra session thay đổi => gọi api => không thành công thì xoá thông tin login.
 
 + Tooltip show full tên nhân viên.
 

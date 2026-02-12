@@ -6,7 +6,9 @@ using PRERP_TESTER.ViewModels;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Net.Http;
 using System.Security.Policy;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -29,7 +31,7 @@ namespace PRERP_TESTER.Extensions
 
                 if (webView.CoreWebView2 != null)
                 {
-                    ToastService.Show("Web view: OnAccountIDChanged", "", ToastType.Information);
+                    ToastService.Show("Test Web view: OnAccountIDChanged", "", ToastType.Information);
                 }
 
                 try
@@ -41,12 +43,12 @@ namespace PRERP_TESTER.Extensions
                     await webView.EnsureCoreWebView2Async(env);
 
                     // Unload webview: show, hide in view, tab change, etc.
-                    webView.Unloaded -= OnWebViewUnloaded;
-                    webView.Unloaded += OnWebViewUnloaded;
+                    // TODO: có thể dùng cho tương lai sau này?
+                    //webView.Unloaded -= OnWebViewUnloaded;
+                    //webView.Unloaded += OnWebViewUnloaded;
                     // Loading
                     webView.NavigationCompleted -= OnNavigationCompleted;
                     webView.NavigationCompleted += OnNavigationCompleted;
-
 
 
                     webView.CoreWebView2.NavigationStarting += (s, args) =>
@@ -64,9 +66,12 @@ namespace PRERP_TESTER.Extensions
                         if (webView.DataContext is TabViewModel vm)
                         {
                             string iconUri = webView.CoreWebView2.FaviconUri;
-                            await Application.Current.Dispatcher.InvokeAsync(() => {
-                                vm.FaviconUrl = iconUri;
-                            });
+                            if (!string.IsNullOrEmpty(iconUri))
+                            {
+                                await Application.Current.Dispatcher.InvokeAsync(() => {
+                                    vm.FaviconUrl = iconUri;
+                                });
+                            }
 
                             // favicon base64
                             using (var faviconStream = await webView.CoreWebView2.GetFaviconAsync(CoreWebView2FaviconImageFormat.Png))
@@ -146,6 +151,7 @@ namespace PRERP_TESTER.Extensions
 
                         // ĐĂNG KÝ SỰ KIỆN ĐÓNG TAB ĐỂ DISPOSE
                         Action<TabViewModel>? closeHandler = null;
+
                         closeHandler = (tab) =>
                         {
                             Application.Current.Dispatcher.Invoke(() =>
@@ -157,6 +163,7 @@ namespace PRERP_TESTER.Extensions
                                 {
                                     webView.CoreWebView2?.Stop();
                                     webView.Dispose();
+
                                 }
                                 catch (Exception ex){
                                     LogService.LogError(ex, "WebView2Extensions.TabCloseDispose");
@@ -196,6 +203,7 @@ namespace PRERP_TESTER.Extensions
                 }
             }
         }
+
         private static Task<CoreWebView2Environment> CreateEnvironmentForAccount(string accountId)
         {
             string userDataFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sessions", $"Account_{accountId}");
@@ -208,15 +216,14 @@ namespace PRERP_TESTER.Extensions
 
         private static void OnWebViewUnloaded(object sender, RoutedEventArgs e)
         {
-            if (sender is WebView2 webView)
-            {
+            //if (sender is WebView2 webView)
+            //{
 
-                if (webView.DataContext is TabViewModel vm && webView.Tag is Action<string> handler)
-                {
-                    //vm.NavigationRequested -= handler;
-                    //ToastService.Show("Web view: OnWebViewUnloaded", vm.Url, ToastType.Information);
-                }
-            }
+            //    if (webView.DataContext is TabViewModel vm && webView.Tag is Action<string> handler)
+            //    {
+            //        vm.NavigationRequested -= handler;
+            //    }
+            //}
         }
 
         private static async void OnNavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
@@ -241,6 +248,7 @@ namespace PRERP_TESTER.Extensions
                 }
 
                 string currentUrl = webView.Source.ToString();
+
                 // Tự động đăng nhập
                 if (currentUrl.Contains("landingpage") && currentUrl.Contains(GobalSetting.CurrentBaseUrl))
                 {
@@ -280,13 +288,95 @@ namespace PRERP_TESTER.Extensions
                                             }})();";
                     await webView.CoreWebView2.ExecuteScriptAsync(loginScript);
                 }
+
+                // kiểm tra/lấy thông tin đăng nhập
+                try
+                {
+                    var account = vm.UserAccount;
+                    var cookies = await webView.CoreWebView2.CookieManager.GetCookiesAsync(null);
+                    var sessionCookie = cookies.FirstOrDefault(c => c.Name == "_msbmtu_ses");
+
+                    if (sessionCookie != null && !string.IsNullOrEmpty(sessionCookie.Value))
+                    {
+                        if (account.LastSessionValue != sessionCookie.Value)
+                        {
+                            account.CleanData();
+                            await VerifyAndSyncUserInfo(account, sessionCookie.Value);
+                        }
+                    }
+                    else
+                    {
+                        account.IsLoggedIn = false;
+                        account.LastSessionValue = "";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogService.LogError(ex, "CheckLoginStatus");
+                }
             }
             catch (Exception ex)
             {
                 LogService.LogError(ex, "WebView2Extensions.OnNavigationCompleted");
             }
-
         }
+
+        // Lấy thông tin account trên server: gọi khi thay đổi session token
+        private static async Task VerifyAndSyncUserInfo(Account account, string sessionValue)
+        {
+            string url = "https://prerp.bmtu.edu.vn/sftraining/query_handle?utf8=%E2%9C%93&lang=vi&function=session";
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+                    // TODO: Có thể sửa lại debug để trả về JSON thuần
+                    request.Headers.Add("Accept", "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01");
+
+                    request.Headers.Add("Cookie", $"_msbmtu_ses={sessionValue}");
+                    request.Headers.Add("X-Requested-With", "XMLHttpRequest");
+                    request.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36");
+
+                    var response = await client.SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string rawContent = await response.Content.ReadAsStringAsync();
+
+                        int start = rawContent.IndexOf('(');
+                        int end = rawContent.LastIndexOf(')');
+
+                        if (start != -1 && end != -1)
+                        {
+                            string jsonString = rawContent.Substring(start + 1, end - start - 1);
+
+                            var data = JsonNode.Parse(jsonString);
+                            bool status = data?["status"]?.GetValue<bool>() ?? false;
+
+                            if (status)
+                            {
+                                account.GetData(jsonString);
+                            }
+                            else
+                            {
+                                account.IsLoggedIn = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        account.IsLoggedIn = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError(ex, "VerifyAndSyncUserInfo");
+                account.IsLoggedIn = false;
+            }
+        }
+
+
 
         public static void RemoveFromCache(string accountId)
         {

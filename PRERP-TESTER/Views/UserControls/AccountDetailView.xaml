@@ -67,6 +67,82 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+
+                    <TextBlock Text="Permission MASSET" FontWeight="SemiBold" Foreground="#FF5D5D5D" Margin="0,5"/>
+                    <ItemsControl ItemsSource="{Binding PermissionsMASSET}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" Width="Auto"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Background="#E3F2FD" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
+                                        <TextBlock Text="{Binding Name}" FontSize="11" Foreground="#FF123F71"/>
+                                    </Border>
+                                    <Border Grid.Column="1">
+                                        <ItemsControl ItemsSource="{Binding Role}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" Width="Auto"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Grid.Column="0" Background="#FFFDF5E3" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
+                                                        <TextBlock Text="{Binding}" FontSize="11" Foreground="#FF9C7C24"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="Permission HASSET" FontWeight="SemiBold" Foreground="#FF5D5D5D" Margin="0,5"/>
+                    <ItemsControl ItemsSource="{Binding PermissionsHASSET}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" Width="Auto"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Background="#E3F2FD" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
+                                        <TextBlock Text="{Binding Name}" FontSize="11" Foreground="#FF123F71"/>
+                                    </Border>
+                                    <Border Grid.Column="1">
+                                        <ItemsControl ItemsSource="{Binding Role}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" Width="Auto"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Grid.Column="0" Background="#FFFDF5E3" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
+                                                        <TextBlock Text="{Binding}" FontSize="11" Foreground="#FF9C7C24"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
             </ScrollViewer>
         </StackPanel>

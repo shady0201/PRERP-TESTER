@@ -103,7 +103,6 @@
                 </Button>
             </Grid>
             
-
             <Button x:Name="DeleteBtn"
                         Grid.Column="2"
                         Opacity="0"

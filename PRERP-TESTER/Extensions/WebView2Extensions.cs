@@ -227,7 +227,8 @@ namespace PRERP_TESTER.Extensions
             try
             {
                 // Loading
-                 Application.Current.Dispatcher.Invoke(() => vm.IsLoading = false);
+                Application.Current.Dispatcher.Invoke(() => vm.IsLoading = false);
+                Application.Current.Dispatcher.Invoke(() => vm.IsDefaultPageVisible = false);
 
                 // Lưu lịch sử
                 using var stream = await webView.CoreWebView2.GetFaviconAsync(CoreWebView2FaviconImageFormat.Png);

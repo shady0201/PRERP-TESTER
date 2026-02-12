@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PRERP_TESTER.Models
@@ -24,21 +25,33 @@ namespace PRERP_TESTER.Models
         private string _fullName;
         public string FullName { get => _fullName; set => SetProperty(ref _fullName, value); }
 
+        [JsonIgnore]
         private bool _isLoggedIn = false;
+        [JsonIgnore]
         public bool IsLoggedIn
         {
             get => _isLoggedIn;
             set => SetProperty(ref _isLoggedIn, value);
         }
 
-        private string _avatarUrl = "";
-        public string AvatarUrl
+
+        private string? _sessionExpiry;
+        public string? SessionExpiry
+        {
+            get => _sessionExpiry;
+            set => SetProperty(ref _sessionExpiry, value);
+        }
+
+        private string? _avatarUrl = null;
+        public string? AvatarUrl
         {
             get => _avatarUrl;
             set => SetProperty(ref _avatarUrl, value);
         }
 
+        [JsonIgnore]
         public string LastSessionValue { get; set; } = "";
+        [JsonIgnore]
         public string UserInfoJsonString { get; set; } = "";
 
 
@@ -60,7 +73,6 @@ namespace PRERP_TESTER.Models
 
         public void GetData(string JsonStringData)
         {
-            IsLoggedIn = true;
             UserInfoJsonString = JsonStringData;
 
             var data = JsonNode.Parse(JsonStringData);
@@ -68,6 +80,7 @@ namespace PRERP_TESTER.Models
 
             // info
             FullName = query["user_fullname"]?.ToString() ?? Username;
+            AvatarUrl = "https://prerp.bmtu.edu.vn/mdata/hrm/" + (query["user_avatar"]?.ToString());
 
             // permissions
             PermissionsSFT = ParsePermissions(query["permissions_sft"]);
@@ -75,6 +88,20 @@ namespace PRERP_TESTER.Models
             PermissionsHASSET = ParsePermissions(query["permissions_hasset"]);
 
             // departments
+
+
+            IsLoggedIn = true;
+            SessionExpiry = query["expired"]?.ToString();
+        }
+
+        public bool IsSessionExpired()
+        {
+            if (string.IsNullOrEmpty(SessionExpiry)) return true;
+            if (DateTime.TryParse(SessionExpiry, out DateTime expiredDateTime))
+            {
+                return DateTime.Now >= expiredDateTime;
+            }
+            return true;
         }
 
         public void CleanData()
@@ -82,6 +109,7 @@ namespace PRERP_TESTER.Models
             IsLoggedIn = false;
             LastSessionValue = "";
             UserInfoJsonString = "";
+            AvatarUrl = null;
             PermissionsSFT = Array.Empty<Permission>();
             PermissionsMASSET = Array.Empty<Permission>();
             PermissionsHASSET = Array.Empty<Permission>();

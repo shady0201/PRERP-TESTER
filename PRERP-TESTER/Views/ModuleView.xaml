@@ -55,10 +55,10 @@
             <!-- Account List-->
             <Border Grid.Row="1"
                     Background="White"
-                    BorderBrush="#FFC8C8C8"
-                    BorderThickness="0.8"
-                    CornerRadius="5"
+                    BorderBrush="#FFA5A5A5"
+                    BorderThickness="0,0,0,1.5"
                     Height="auto"
+                    Padding="0,0,0,2"
                     Margin="0,0,0,5">
                 <AdornerDecorator>
                     <Grid>
@@ -83,7 +83,7 @@
 
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" Height="40">
+                                    <StackPanel Orientation="Horizontal" Height="Auto">
                                         <i:Interaction.Behaviors>
                                             <ei:FluidMoveBehavior AppliesTo="Children" Duration="0:0:0.3">
                                                 <ei:FluidMoveBehavior.EaseY>

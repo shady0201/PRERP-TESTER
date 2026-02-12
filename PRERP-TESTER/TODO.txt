@@ -1,4 +1,5 @@
-﻿+ Hiển thị thông tin user: avatar, login status.
+﻿+ Không lưu thông tin islogin vào data khi lưu dữ liệu.
+
 + Lưu trạng thái hết hạn token.
 + Xoá thông tin login nếu đăng xuất: Trường hợp khả thi là kiểm tra session thay đổi => gọi api => không thành công thì xoá thông tin login.
 

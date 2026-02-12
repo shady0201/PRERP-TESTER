@@ -373,7 +373,15 @@ namespace PRERP_TESTER.ViewModels
             Modules.Clear();
 
             var data = DataService.LoadData<ApplicationData>();
+
             Accounts = new ObservableCollection<Account>(data.Accounts);
+            foreach (var acc in Accounts)
+            {
+                if (acc.IsSessionExpired())
+                {
+                    acc.CleanData();
+                }
+            }
             foreach (var entity in data.Modules)
             {
                 Modules.Add(new ModuleViewModel(entity, Accounts));

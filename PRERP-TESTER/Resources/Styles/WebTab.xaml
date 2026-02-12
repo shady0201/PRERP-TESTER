@@ -281,14 +281,14 @@
                                                                 SpinDuration="2"/>
                                 </Grid>
 
-                                <TextBlock Grid.Column="1" 
+                                <TextBlock Grid.Column="1"
                                        Text="{Binding Title}" 
-                                       VerticalAlignment="Center" 
-                                       HorizontalAlignment="Left" 
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
                                        TextTrimming="CharacterEllipsis"/>
 
-                                <Button Grid.Column="2" 
-                                    Command="{Binding CloseTabCommand}" 
+                                <Button Grid.Column="2"
+                                    Command="{Binding CloseTabCommand}"
                                     FontSize="14"
                                     Cursor="Hand"
                                     Width="18" Height="18"

@@ -380,11 +380,16 @@ namespace PRERP_TESTER.Extensions
 
         public static void RemoveFromCache(string accountId)
         {
-            if (_envCache.TryRemove(accountId, out var task))
+            try
             {
-                System.Diagnostics.Debug.WriteLine($"Removed environment cache for: {accountId}");
-                ToastService.Show("Web view: RemoveFromCache", $"Removed environment cache for: {accountId}", ToastType.Error);
+                _envCache.TryRemove(accountId, out var task);
             }
+            catch (Exception ex)
+            {
+                LogService.LogError(ex, "WebView2Extensions.RemoveFromCache");
+                ToastService.Show("Web view: RemoveFromCache", $"Lỗi xoá cache: {accountId}", ToastType.Error);
+            }
+            
         }
 
     }

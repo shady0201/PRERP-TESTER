@@ -28,7 +28,6 @@ namespace PRERP_TESTER.Services
                 LogService.LogError(ex, "DataService.SaveData");
                 ToastService.Show("Lỗi lưu dữ liệu", "Không thể lưu dữ liệu ứng dụng. Vui lòng kiểm tra quyền ghi file.", Models.ToastType.Error);
             }
-
         }
 
         public static T LoadData<T>() where T : new()

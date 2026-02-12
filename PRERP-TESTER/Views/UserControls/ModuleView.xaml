@@ -8,7 +8,7 @@
                 xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                 xmlns:ei="http://schemas.microsoft.com/xaml/behaviors"
                 mc:Ignorable="av"
-                x:Class="PRERP_TESTER.Views.ModuleView"
+                x:Class="PRERP_TESTER.Views.UserControls.ModuleView"
                 av:DesignHeight="346.928" av:DesignWidth="754.237">
 
     <UserControl.Resources>

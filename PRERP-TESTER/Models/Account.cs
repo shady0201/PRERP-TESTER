@@ -70,6 +70,23 @@ namespace PRERP_TESTER.Models
         public Department[] Departments { get; set; } = Array.Empty<Department>();
 
 
+        // details view
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        private bool _isSftExpanded = false;
+        [Newtonsoft.Json.JsonIgnore]
+        public bool IsSftExpanded { get => _isSftExpanded; set => SetProperty(ref _isSftExpanded, value); }
+
+        [Newtonsoft.Json.JsonIgnore]
+        private bool _isMassetExpanded = false;
+        [Newtonsoft.Json.JsonIgnore]
+        public bool IsMassetExpanded { get => _isMassetExpanded; set => SetProperty(ref _isMassetExpanded, value); }
+
+        [Newtonsoft.Json.JsonIgnore]
+        private bool _isHassetExpanded = false;
+        [Newtonsoft.Json.JsonIgnore]
+        public bool IsHassetExpanded { get => _isHassetExpanded; set => SetProperty(ref _isHassetExpanded, value); }
+
         public void GetData(string JsonStringData)
         {
             UserInfoJsonString = JsonStringData;
@@ -87,6 +104,7 @@ namespace PRERP_TESTER.Models
             PermissionsHASSET = ParsePermissions(query["permissions_hasset"]);
 
             // departments
+            Departments = ParseDepartments(query["departments"]);
 
             IsLoggedIn = true;
             SessionExpiry = query["expired"]?.ToString();
@@ -115,6 +133,28 @@ namespace PRERP_TESTER.Models
         }
 
         // PRIVATE
+
+        private Department[] ParseDepartments(JToken? node)
+        {
+            if (node == null || node.Type != JTokenType.Array)
+                return Array.Empty<Department>();
+
+            var resultList = new List<Department>();
+            var jsonArray = (JArray)node;
+            foreach (var item in jsonArray)
+            {
+                var deptObj = item as JObject;
+                if (deptObj == null) continue;
+                var department = new Department
+                {
+                    Id = deptObj["id"]?.ToObject<int>() ?? 0,
+                    Name = deptObj["name"]?.ToString() ?? ""
+                };
+                resultList.Add(department);
+            }
+            return resultList.ToArray();
+        }
+
         private Permission[] ParsePermissions(JToken? node)
         {
             if (node == null || node.Type != JTokenType.Array)

@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PRERP_TESTER"
              xmlns:vm="clr-namespace:PRERP_TESTER.ViewModels"
-             xmlns:views="clr-namespace:PRERP_TESTER.Views"
-             xmlns:helper="clr-namespace:PRERP_TESTER.Helper">
+             xmlns:views="clr-namespace:PRERP_TESTER.Views.UserControls"
+             xmlns:helper="clr-namespace:PRERP_TESTER.Helper"
+             xmlns:views1="clr-namespace:PRERP_TESTER.Views.UserControls">
     <Application.Resources>
 
         <ResourceDictionary>
@@ -15,7 +16,6 @@
                 <ResourceDictionary Source="Resources/Styles/WebTab.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/MenuLeft.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Module.xaml"/>
-
                 <ResourceDictionary Source="Resources/Templates/Toast.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/MenuLeftItem.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/AccountsModuleList.xaml"/>

@@ -1,5 +1,6 @@
-﻿+ Hiển thị thêm thông tin account trong danh sách: Tên nhân viên, Email, Số điện thoại, Vai trò, phòng ban.
-+ Cập nhật mới thông tin account khi click xem chi tiết.
+﻿+ Chi tiết account click lần 2 không lấy dữ liệu mới.
++ Bug click permission sft tự đóng popup.
++ Hiển thị thêm thông tin account trong danh sách: Tên nhân viên, Email, Số điện thoại, Vai trò, phòng ban.
 
 + Lưu trạng thái hết hạn token.
 + Xoá thông tin login nếu đăng xuất: Trường hợp khả thi là kiểm tra session thay đổi => gọi api => không thành công thì xoá thông tin login.

@@ -188,6 +188,7 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
+    
     <!-- Account Item-->
     <DataTemplate x:Key="MenuItemAccount">
         <Border Background="Transparent">
@@ -209,10 +210,10 @@
                                 <Setter Property="Visibility" Value="Collapsed"/>
                                 <Setter Property="Kind" Value="AccountTie"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    <DataTrigger Binding="{Binding AvatarUrl}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                                    <DataTrigger Binding="{Binding AvatarUrl}" Value="">
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Role}" Value="{x:Static models:AccountRole.STUDENT}">
@@ -223,6 +224,7 @@
                             </Style>
                         </iconPacks:PackIconMaterial.Style>
                     </iconPacks:PackIconMaterial>
+                    
                     <Image Source="{Binding AvatarUrl, TargetNullValue={x:Null}, FallbackValue={x:Null}}"
                            Stretch="UniformToFill"
                            Width="30" Height="30">
@@ -231,16 +233,11 @@
                         </Image.Clip>
                         <Image.Style>
                             <Style TargetType="Image">
-                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Setter Property="Visibility" Value="Visible"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-
                                     <DataTrigger Binding="{Binding AvatarUrl}" Value="{x:Null}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>
-
                                     <DataTrigger Binding="{Binding AvatarUrl}" Value="">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>

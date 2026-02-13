@@ -145,14 +145,14 @@
                 </StackPanel>
 
                 <Popup IsOpen="{Binding IsChecked, ElementName=BtnToggleModuleMenu, Mode=TwoWay}" 
-                            PlacementTarget="{Binding ElementName=BtnToggleModuleMenu}"
-                            Panel.ZIndex="2"
-                            StaysOpen="False"
-                            AllowsTransparency="True" 
-                            PopupAnimation="Slide"
-                            Placement="Bottom"
-                            HorizontalOffset="0"
-                            VerticalOffset="0">
+                        PlacementTarget="{Binding ElementName=BtnToggleModuleMenu}"
+                        Panel.ZIndex="2"
+                        StaysOpen="False"
+                        AllowsTransparency="True" 
+                        PopupAnimation="Slide"
+                        Placement="Bottom"
+                        HorizontalOffset="0"
+                        VerticalOffset="0">
                     <Border Background="White" CornerRadius="8" BorderThickness="1" BorderBrush="#FFE0E0E0">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>

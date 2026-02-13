@@ -6,7 +6,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <DataTemplate x:Key="AccountItem">
-        <Grid>
+        <Grid Margin="0,5,5,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -92,12 +92,13 @@
                         Command="{Binding DataContext.ShowAccountDetailCommand,
                                   RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                         CommandParameter="{Binding}"
-                        Foreground="Gray"
+                        
                         FontWeight="SemiBold"
                         Cursor="Hand"
                         Margin="5,0,0,0">
                     <Button.Style>
                         <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="#FF777777"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Foreground" Value="#FF4683C7"/>
@@ -117,17 +118,16 @@
                 </Button>
             </Grid>
             <Button x:Name="DeleteBtn"
-                        Grid.Column="2"
-                        Opacity="0"
-                        Command="{Binding DataContext.RemoveAccountFromModuleCommand,
-                                  RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                  CommandParameter="{Binding}"
-                        Style="{StaticResource DeleteButtonStyle}"
-                        Cursor="Hand"
-                        Margin="10,0,5,0">
-                <iconPacks:PackIconMaterial x:Name="iconRemove" Kind="Close" 
-                                                Width="10" Height="10"
-                                                Foreground="#FF777777"/>
+                    Grid.Column="2"
+                    Opacity="0"
+                    Width="20" Height="20"
+                    VerticalAlignment="Top"
+                    Command="{Binding DataContext.RemoveAccountFromModuleCommand,
+                                RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                    Style="{StaticResource CloseTabButtonStyle}"
+                    Cursor="Hand"
+                    Margin="10,0,0,0">
             </Button>
         </Grid>
         <DataTemplate.Triggers>

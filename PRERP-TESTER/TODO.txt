@@ -1,5 +1,5 @@
-﻿+ Chi tiết account click lần 2 không lấy dữ liệu mới.
-+ Bug click permission sft tự đóng popup.
+﻿
++ Style nút xoá account trong module.
 + Hiển thị thêm thông tin account trong danh sách: Tên nhân viên, Email, Số điện thoại, Vai trò, phòng ban.
 
 + Lưu trạng thái hết hạn token.

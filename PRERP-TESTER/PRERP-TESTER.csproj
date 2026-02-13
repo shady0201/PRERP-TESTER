@@ -79,7 +79,7 @@
     <Page Update="Resources\Themes\LightMode.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Resources\Templates\AccountsModuleList.xaml">
+    <Page Update="Resources\Templates\AccountsModuleItem.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

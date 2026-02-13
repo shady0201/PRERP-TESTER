@@ -134,7 +134,6 @@
                                         <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
                                         <Setter Property="Foreground" Value="#FF509BFF"/>
                                     </Trigger>
-
                                     <Trigger Property="IsChecked" Value="True">
                                         <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
                                         <Setter Property="Foreground" Value="#FF509BFF"/>

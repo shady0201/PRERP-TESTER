@@ -37,13 +37,7 @@ namespace PRERP_TESTER.ViewModels
         public bool IsAccountPopupOpen
         {
             get => _isAccountPopupOpen;
-            set
-            {
-                if (SetProperty(ref _isAccountPopupOpen, value) == false && value == false)
-                {
-                    CloseAccountDetailPopup();
-                }
-            }
+            set => SetProperty(ref _isAccountPopupOpen, value);
         }
 
         private string _searchAccountText;
@@ -199,8 +193,6 @@ namespace PRERP_TESTER.ViewModels
             if (account == null) return;
             WeakReferenceMessenger.Default.Send(new ShowAccountDetailMessage(account));
         }
-
-        private void CloseAccountDetailPopup() => _isAccountPopupOpen = false;
 
         private void ExecuteTest()
         {

@@ -572,52 +572,59 @@
                VerticalOffset="0"
                PlacementTarget="{Binding ElementName=AppMain}">
             <Grid VerticalAlignment="Top" Width="Auto" Margin="0,10,10,0" Panel.ZIndex="3">
-            <ItemsControl ItemsSource="{x:Static local:ToastService.Toasts}"
-                          ItemTemplate="{StaticResource ToastTemplate}"
-                          VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                          Margin="0,0,0,0">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="RenderTransform">
-                            <Setter.Value>
-                                <TranslateTransform/>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <EventTrigger RoutedEvent="Loaded">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                                            From="400" To="0" Duration="0:0:0.4">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                         From="0" To="1" Duration="0:0:0.3"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-            </ItemsControl>
+                <ItemsControl ItemsSource="{x:Static local:ToastService.Toasts}"
+                              ItemTemplate="{StaticResource ToastTemplate}"
+                              VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                              Margin="0,0,0,0">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                                From="400" To="0" Duration="0:0:0.4">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="0" To="1" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                </ItemsControl>
             </Grid>
         </Popup>
 
         <!--Account info -->
         <Popup IsOpen="{Binding IsAccountPopupOpen}"
-               Placement="Center"
+               Placement="MousePoint"
+               HorizontalOffset="15"
+               VerticalOffset="-15"
                AllowsTransparency="True"
                StaysOpen="False"
                PopupAnimation="Fade">
             <Grid>
-                <views:AccountDetailView DataContext="{Binding SelectedPopupAccount}" />
+                <Border Background="White" CornerRadius="20" Margin="15" BorderThickness="0.5" BorderBrush="#FF8E8E8E">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="0" Opacity="0.2"/>
+                    </Border.Effect>
+                    <views:AccountDetailView DataContext="{Binding SelectedPopupAccount}" />
+                </Border>
             </Grid>
         </Popup>
         

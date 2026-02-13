@@ -10,14 +10,36 @@ namespace PRERP_TESTER.Models
 
         public string Username { get; set; } = "";
 
-        private string _password;
-        public string Password { get => _password; set => SetProperty(ref _password , value); }
+        private string? _password;
+        public string? Password { get => _password; set => SetProperty(ref _password , value); }
 
-        private string _displayName;
-        public string DisplayName { get => _displayName; set => SetProperty(ref _displayName, value);}
+        private string? _displayName;
+        public string? DisplayName { get => _displayName; set => SetProperty(ref _displayName, value);}
 
-        private string _fullName;
-        public string FullName { get => _fullName; set => SetProperty(ref _fullName, value); }
+        private string? _fullName;
+        public string? FullName { get => _fullName; set => SetProperty(ref _fullName, value); }
+
+        private string? _sId;
+        public string? sId { get => _sId; set => SetProperty(ref _sId, value); }
+
+        private string? _email;
+        public string? Email { get => _email; set => SetProperty(ref _email, value); }
+
+        private string? _staffType;
+        public string? StaffType { get => _staffType; set => SetProperty(ref _staffType, value); }
+
+        private string? _education;
+        public string? Education { get => _education; set => SetProperty(ref _education, value); }
+
+        private string? _academicRank;
+        public string? AcademicRank { get => _academicRank; set => SetProperty(ref _academicRank, value); }
+
+        private string? _status;
+        public string? Status { get => _status; set => SetProperty(ref _status, value); }
+
+        private string? _mobile;
+        public string? Mobile { get => _mobile; set => SetProperty(ref _mobile, value); }
+
 
         private bool _isLoggedIn = false;
         [JsonIgnore]
@@ -95,7 +117,17 @@ namespace PRERP_TESTER.Models
             var query = data["query"];
 
             // info
-            FullName = query["user_fullname"]?.ToString() ?? Username;
+            FullName = query["user_fullname"]?.ToString() ?? "No Name";
+
+            var use_info = query["user_info"];
+            sId = use_info["sid"]?.ToString() ?? "";
+            Email = use_info["email"]?.ToString() ?? "";
+            StaffType = use_info["staff_type"]?.ToString() ?? "";
+            Education = use_info["education"]?.ToString() ?? "";
+            AcademicRank = use_info["academic_rank"]?.ToString() ?? "";
+            Status = use_info["status"]?.ToString() ?? "";
+            Mobile = use_info["mobile"]?.ToString() ?? "";
+
             AvatarUrl = "https://prerp.bmtu.edu.vn/mdata/hrm/" + (query["user_avatar"]?.ToString());
 
             // permissions

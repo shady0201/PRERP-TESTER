@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="Resources/Templates/Toast.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/MenuLeftItem.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/AccountsModuleItem.xaml"/>
+                <ResourceDictionary Source="Resources/Templates/AccountDetail.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BoolToVis" />

@@ -9,7 +9,8 @@
 
     <Border Background="White" CornerRadius="12" Padding="20" BorderBrush="#FF868686" BorderThickness="1">
         <StackPanel>
-            <Grid Margin="0,0,0,20">
+            
+            <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -23,11 +24,44 @@
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="15,0,0,0">
                     <TextBlock Text="{Binding FullName}" FontWeight="Bold" FontSize="18" Foreground="#333333"/>
-                    <TextBlock Text="{Binding Username}" FontSize="13" Foreground="#888888" Margin="0,2,0,0"/>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="CardAccountDetails" Width="13" Height="13" Foreground="#333333" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding sId}" FontSize="13" Foreground="#333333" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="EmailOutline" Width="13" Height="13" Foreground="#333333" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Email}" FontSize="13" Foreground="#333333" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="Cellphone" Width="13" Height="13" Foreground="#333333" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Mobile}" FontSize="13" Foreground="#333333" Margin="5,0,0,0"/>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
+            
 
-            <Separator Background="#F0F0F0" Margin="0,0,0,15"/>
+            <UniformGrid Columns="2" Margin="0,10,0,0">
+                <StackPanel Margin="0,0,0,5">s
+                    <TextBlock Text="Loại nhân sự" FontSize="14"/>
+                    <TextBlock Text="{Binding StaffType}" FontSize="14" FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,5">
+                    <TextBlock Text="Học vấn" FontSize="14"/>
+                    <TextBlock Text="{Binding Education}" FontSize="14" FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Trạng thái tài khoản" FontSize="14"/>
+                    <TextBlock Text="{Binding Status}" FontSize="14" FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Học hàm - Học Vị" FontSize="14"/>
+                    <TextBlock Text="{Binding AcademicRank}" FontSize="14" FontWeight="SemiBold"/>
+                </StackPanel>
+
+            </UniformGrid>
+
+            <TextBlock Text="PERMISSION" Margin="0,10,0,0" FontSize="16" FontWeight="SemiBold" Foreground="#FF5D5D5D"/>
+            <Separator Background="#FFE8E8E8" Margin="0,2,0,10"/>
 
             <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto">
                 <StackPanel HorizontalAlignment="Left">
@@ -50,56 +84,12 @@
                                     </Style>
                                 </iconPacks:PackIconMaterial.Style>
                             </iconPacks:PackIconMaterial>
-                            <TextBlock Text="{Binding PermissionsSFT.Length, StringFormat='Permission SFT ({0})'}" FontSize="16" FontWeight="SemiBold" Foreground="#FF5D5D5D"/>
+                            <TextBlock Text="{Binding PermissionsSFT.Length, StringFormat='Đào tạo ({0})'}" FontSize="16" Foreground="#FF5D5D5D"/>
                         </StackPanel>
-                        
                     </Border>
-                    <ItemsControl ItemsSource="{Binding PermissionsSFT}">
-                        <ItemsControl.Style>
-                            <Style TargetType="ItemsControl">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsSftExpanded}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ItemsControl.Style>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical" Width="Auto"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" Background="#E3F2FD" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
-                                        <TextBlock Text="{Binding Name}" FontSize="11" Foreground="#FF123F71"/>
-                                    </Border>
-                                    <Border Grid.Column="1">
-                                        <ItemsControl ItemsSource="{Binding Role}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Horizontal" Width="Auto"/>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Grid.Column="0" Background="#FFFDF5E3" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
-                                                        <TextBlock Text="{Binding}" FontSize="11" Foreground="#FF9C7C24"/>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding PermissionsSFT}" 
+                                  Tag="{Binding IsSftExpanded}"
+                                  Style="{StaticResource PermissionItemsListStyle}"/>
 
                     <Border Cursor="Hand" Background="Transparent" Margin="0,0,0,5" Width="Auto">
                         <Border.InputBindings>
@@ -118,55 +108,12 @@
                                     </Style>
                                 </iconPacks:PackIconMaterial.Style>
                             </iconPacks:PackIconMaterial>
-                            <TextBlock Text="{Binding PermissionsMASSET.Length, StringFormat='Permission MASSET ({0})'}" FontSize="16" FontWeight="SemiBold" Foreground="#FF5D5D5D"/>
+                            <TextBlock Text="{Binding PermissionsMASSET.Length, StringFormat='Cơ sở vật chất ({0})'}" FontSize="16" Foreground="#FF5D5D5D"/>
                         </StackPanel>
                     </Border>
-                    <ItemsControl ItemsSource="{Binding PermissionsMASSET}">
-                        <ItemsControl.Style>
-                            <Style TargetType="ItemsControl">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMassetExpanded}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ItemsControl.Style>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical" Width="Auto"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" Background="#E3F2FD" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
-                                        <TextBlock Text="{Binding Name}" FontSize="11" Foreground="#FF123F71"/>
-                                    </Border>
-                                    <Border Grid.Column="1">
-                                        <ItemsControl ItemsSource="{Binding Role}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Horizontal" Width="Auto"/>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Grid.Column="0" Background="#FFFDF5E3" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
-                                                        <TextBlock Text="{Binding}" FontSize="11" Foreground="#FF9C7C24"/>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding PermissionsMASSET}" 
+                                  Tag="{Binding IsMassetExpanded}"
+                                  Style="{StaticResource PermissionItemsListStyle}"/>
 
                     <Border Cursor="Hand" Background="Transparent" Margin="0,0,0,5" Width="Auto">
                         <Border.InputBindings>
@@ -185,56 +132,12 @@
                                     </Style>
                                 </iconPacks:PackIconMaterial.Style>
                             </iconPacks:PackIconMaterial>
-                            <TextBlock Text="{Binding PermissionsHASSET.Length, StringFormat='Permission HASSET ({0})'}" FontSize="16" FontWeight="SemiBold" Foreground="#FF5D5D5D"/>
+                            <TextBlock Text="{Binding PermissionsHASSET.Length, StringFormat='HASSET ({0})'}" FontSize="16" Foreground="#FF5D5D5D"/>
                         </StackPanel>
                     </Border>
-                    <ItemsControl ItemsSource="{Binding PermissionsHASSET}">
-                        <ItemsControl.Style>
-                            <Style TargetType="ItemsControl">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsHassetExpanded}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ItemsControl.Style>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical" Width="Auto"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" Background="#E3F2FD" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
-                                        <TextBlock Text="{Binding Name}" FontSize="11" Foreground="#FF123F71"/>
-                                    </Border>
-                                    <Border Grid.Column="1">
-                                        <ItemsControl ItemsSource="{Binding Role}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Horizontal" Width="Auto"/>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Grid.Column="0" Background="#FFFDF5E3" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
-                                                        <TextBlock Text="{Binding}" FontSize="11" Foreground="#FF9C7C24"/>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
+                    <ItemsControl ItemsSource="{Binding PermissionsHASSET}" 
+                                  Tag="{Binding IsHassetExpanded}"
+                                  Style="{StaticResource PermissionItemsListStyle}"/>
                 </StackPanel>
             </ScrollViewer>
         </StackPanel>

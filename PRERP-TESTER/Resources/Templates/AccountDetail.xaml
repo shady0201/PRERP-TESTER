@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ItemsPanelTemplate x:Key="HorizontalWrapPanel">
+        <StackPanel Orientation="Horizontal" Width="Auto"/>
+    </ItemsPanelTemplate>
+
+    <Style x:Key="PermissionItemsListStyle" TargetType="ItemsControl">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" Width="Auto"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid Margin="20,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="#E3F2FD" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
+                            <TextBlock Text="{Binding Name}" FontSize="11" FontWeight="SemiBold" Foreground="#FF123F71"/>
+                        </Border>
+
+                        <Border Grid.Column="1">
+                            <ItemsControl ItemsSource="{Binding Role}" ItemsPanel="{StaticResource HorizontalWrapPanel}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#FFECD6A7" CornerRadius="4" Padding="6,3" Margin="0,2,5,2">
+                                            <TextBlock Text="{Binding}" FontSize="11" FontWeight="SemiBold" Foreground="#FF675010"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Visibility" Value="Collapsed"/>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

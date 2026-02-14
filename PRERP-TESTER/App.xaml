@@ -22,9 +22,29 @@
                 <ResourceDictionary Source="Resources/Templates/AccountDetail.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <!-- Convert -->
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
             <helper:ComparisonToBoolConverter x:Key="ComparisonConverter"/>
+            
+            <!-- Google 
+            <FontFamily x:Key="GoogleSans">
+                pack://application:,,,/PRERP_TESTER;component/Resources/Fonts/#Google Sans
+            </FontFamily>
+    
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily" Value="{StaticResource GoogleSans}"/>
+                <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+                <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
+            </Style>
 
+            <Style TargetType="{x:Type Control}">
+                <Setter Property="FontFamily" Value="{StaticResource GoogleSans}"/>
+                <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+                <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
+            </Style>
+            font-->
+
+            <!--Data template-->
             <DataTemplate DataType="{x:Type vm:ModuleViewModel}">
                 <views:ModuleView />
             </DataTemplate>
@@ -32,7 +52,8 @@
             <DataTemplate DataType="{x:Type vm:AccountViewModel}">
                 <views:AccountView />
             </DataTemplate>
-
+            
+            
             <Style x:Key="InvisibleRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Setter Property="OverridesDefaultStyle" Value="true"/>
                 <Setter Property="Background" Value="Transparent"/>
@@ -67,7 +88,8 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
+            
+            <!-- Scroll bar-->
             <Style TargetType="{x:Type ScrollBar}">
                 <Setter Property="MinHeight" Value="0"/>
                 <Setter Property="MinWidth" Value="0"/>

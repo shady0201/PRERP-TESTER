@@ -1,4 +1,4 @@
-﻿
+﻿+ Dùng font chữ: Google Sans (Skip)
 + Style nút xoá account trong module.
 + Hiển thị thêm thông tin account trong danh sách: Tên nhân viên, Email, Số điện thoại, Vai trò, phòng ban.
 

@@ -31,7 +31,7 @@
                     </Grid.ColumnDefinitions>
                             
                     <Grid Grid.Column="0" VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
                             <iconPacks:PackIconMaterial Kind="Folder" 
                                                         Width="20" Height="20"
                                                         Grid.Column="0"
@@ -39,9 +39,10 @@
                                                         Foreground="#FFE2A862"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="SemiBold" Foreground="#FF525252"/>
+                            <TextBlock Text="{Binding Name}" FontSize="25" FontWeight="SemiBold" Foreground="#FF525252"/>
                         </StackPanel>
                     </Grid>
+                    
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Command="{Binding AddAccountToModuleCommand}"
                                 Content="Thêm Tài Khoản"

@@ -24,6 +24,14 @@
     <None Remove="Assets\Backgrounds\bg_9.jpg" />
     <None Remove="Assets\icon.ico" />
     <None Remove="Assets\logo.png" />
+    <None Remove="Resources\Fonts\GoogleSans-Bold.ttf" />
+    <None Remove="Resources\Fonts\GoogleSans-BoldItalic.ttf" />
+    <None Remove="Resources\Fonts\GoogleSans-Italic.ttf" />
+    <None Remove="Resources\Fonts\GoogleSans-Medium.ttf" />
+    <None Remove="Resources\Fonts\GoogleSans-MediumItalic.ttf" />
+    <None Remove="Resources\Fonts\GoogleSans-Regular.ttf" />
+    <None Remove="Resources\Fonts\GoogleSans-SemiBold.ttf" />
+    <None Remove="Resources\Fonts\GoogleSans-SemiBoldItalic.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +63,14 @@
     <Resource Include="Assets\logo.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Fonts\GoogleSans-Bold.ttf" />
+    <Resource Include="Resources\Fonts\GoogleSans-BoldItalic.ttf" />
+    <Resource Include="Resources\Fonts\GoogleSans-Italic.ttf" />
+    <Resource Include="Resources\Fonts\GoogleSans-Medium.ttf" />
+    <Resource Include="Resources\Fonts\GoogleSans-MediumItalic.ttf" />
+    <Resource Include="Resources\Fonts\GoogleSans-Regular.ttf" />
+    <Resource Include="Resources\Fonts\GoogleSans-SemiBold.ttf" />
+    <Resource Include="Resources\Fonts\GoogleSans-SemiBoldItalic.ttf" />
   </ItemGroup>
 
   <ItemGroup>

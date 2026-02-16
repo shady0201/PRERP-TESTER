@@ -89,7 +89,13 @@ namespace PRERP_TESTER.Models
         public Permission[] PermissionsHASSET { get; set; } = Array.Empty<Permission>();
 
         [JsonIgnore]
-        public Department[] Departments { get; set; } = Array.Empty<Department>();
+        public Department[] _departments = Array.Empty<Department>();
+
+        public Department[] Departments
+        {
+            get => _departments;
+            set => SetProperty(ref _departments, value);
+        }
 
 
         // details view
@@ -136,7 +142,21 @@ namespace PRERP_TESTER.Models
             PermissionsHASSET = ParsePermissions(query["permissions_hasset"]);
 
             // departments
-            Departments = ParseDepartments(query["departments"]);
+            //Departments = ParseDepartments(query["departments"]);
+            // mock data
+            Departments =
+            [
+                    new() { Id = 2, Name = "Phòng Đào Tạo" , PositionJobs = [
+                                                                                new PositionJob {Id=3,Name="Phó phòng" },
+                                                                                new PositionJob {Id=3,Name="Nhân viên" },
+                                                                             ]
+                    },
+                    new() { Id = 2, Name = "Bộ môn nội" , PositionJobs = [
+                                                                            new PositionJob {Id=3,Name="Giảng viên" },
+                                                                            new PositionJob {Id=4,Name="Phó bộ môn" },
+                                                                        ]
+                    }
+            ];
 
             IsLoggedIn = true;
             SessionExpiry = query["expired"]?.ToString();

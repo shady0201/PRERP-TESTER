@@ -172,7 +172,6 @@ namespace PRERP_TESTER.Extensions
                         };
                         vm.OnTabClosed += closeHandler;
 
-
                         // Binding url to ViewModel
                         webView.SourceChanged += (s, args) => {
                             vm.Url = webView.Source.ToString();
@@ -356,6 +355,7 @@ namespace PRERP_TESTER.Extensions
                             if (status)
                             {
                                 account.GetData(jsonString);
+
                             }
                             else
                             {

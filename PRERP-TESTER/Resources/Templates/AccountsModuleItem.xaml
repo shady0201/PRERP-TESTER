@@ -69,48 +69,33 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" VerticalAlignment="Center" Background="Transparent" x:Name="HitboxGrid">
-                    <TextBlock x:Name="AccText"
-                                   VerticalAlignment="Center"
-                                   Text="{Binding Account.DisplayName}"
-                                   FontSize="14"
-                                   FontWeight="SemiBold"
-                                   TextTrimming="CharacterEllipsis">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="#FF636363"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                        <Setter Property="Foreground" Value="#FF3A3A3A"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <Popup IsOpen="{Binding IsMouseOver, ElementName=HitboxGrid, Mode=OneWay}"
-                           PlacementTarget="{Binding ElementName=AccText}"
-                           Placement="Relative"
-                           HorizontalOffset="-2"
-                           VerticalOffset="0"
-                           AllowsTransparency="True"
-                           IsHitTestVisible="False"
-                           PopupAnimation="None">
-                        <Border Background="#FFE0E0E0" 
-                                BorderBrush="#FFE0E0E0" 
-                                BorderThickness="0" 
-                                Padding="2,1" 
-                                CornerRadius="4">
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="5" ShadowDepth="1" Opacity="0.4"/>
-                            </Border.Effect>
-                            <TextBlock Text="{Binding Account.DisplayName}"
-                                       FontSize="14"
-                                       FontWeight="SemiBold"
-                                       Foreground="#FF3A3A3A"/>
-                        </Border>
-                    </Popup>
-                </Grid>
-                
+                <TextBlock  Grid.Row="0"
+                                x:Name="AccText"
+                                VerticalAlignment="Center"
+                                Text="{Binding Account.DisplayName}"
+                                FontSize="14"
+                                FontWeight="SemiBold"
+                                TextTrimming="CharacterEllipsis">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="#FF636363"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="Foreground" Value="#FF3A3A3A"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                    <ToolTipService.InitialShowDelay>0</ToolTipService.InitialShowDelay>
+                    <ToolTipService.BetweenShowDelay>0</ToolTipService.BetweenShowDelay>
+                    <TextBlock.ToolTip>
+                        <ToolTip Padding="4,1" HasDropShadow="True"
+                                 SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
+                            <TextBlock Text="{Binding Account.DisplayName}"/>
+                        </ToolTip>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+
                 <Button Grid.Row="1"
                         Command="{Binding DataContext.ShowAccountDetailCommand,RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                         CommandParameter="{Binding}"

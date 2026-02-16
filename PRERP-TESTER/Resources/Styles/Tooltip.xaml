@@ -15,8 +15,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
                     <Border Background="{TemplateBinding Background}" 
-                        CornerRadius="6" 
-                        SnapsToDevicePixels="True">
+                            CornerRadius="6" 
+                            SnapsToDevicePixels="True">
                         <ContentPresenter Margin="{TemplateBinding Padding}" 
                                       VerticalAlignment="Center"/>
                     </Border>
@@ -24,4 +24,29 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="TooltipAccountName" TargetType="ToolTip">
+        <Setter Property="Background" Value="#000000"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="BorderThickness" Value="0"/>
+
+        <Setter Property="Placement" Value="Mouse"/>
+        <Setter Property="HorizontalOffset" Value="0"/>
+        <Setter Property="VerticalOffset" Value="0"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border Background="{TemplateBinding Background}" 
+                            CornerRadius="6" 
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter Margin="{TemplateBinding Padding}" 
+                                      VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>

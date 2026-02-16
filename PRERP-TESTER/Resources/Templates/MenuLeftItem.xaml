@@ -264,7 +264,14 @@
                                    VerticalAlignment="Center" 
                                    Margin="10,0,0,0"
                                    Foreground="#FF1F2937" FontSize="13" FontWeight="SemiBold"
-                                   TextTrimming="CharacterEllipsis"/>
+                                   TextTrimming="CharacterEllipsis">
+                            <TextBlock.ToolTip>
+                                <ToolTip Padding="4,1" HasDropShadow="True"
+                                         SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
+                                         <TextBlock Text="{Binding DisplayName}"/>
+                                </ToolTip>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
                         <TextBlock Grid.Row="1" Text="{Binding Username}" VerticalAlignment="Center" 
                                Margin="10,0,0,0" Foreground="#FF1F2937" FontSize="10" TextTrimming="CharacterEllipsis"/>
                     </Grid>

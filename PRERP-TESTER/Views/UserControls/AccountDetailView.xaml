@@ -59,7 +59,10 @@
                 </StackPanel>
             </UniformGrid>
 
-            <TextBlock Text="PERMISSION" Margin="0,10,0,0" FontSize="16" FontWeight="SemiBold" Foreground="#FF5D5D5D"/>
+            <TextBlock Text="Đơn vị" Margin="0,10,0,0" FontSize="16" FontWeight="SemiBold" Foreground="#FF5D5D5D"/>
+            <Separator Background="#FFE8E8E8" Margin="0,2,0,10"/>
+
+            <TextBlock Text="Phân quyền" Margin="0,10,0,0" FontSize="16" FontWeight="SemiBold" Foreground="#FF5D5D5D"/>
             <Separator Background="#FFE8E8E8" Margin="0,2,0,10"/>
 
             <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto">

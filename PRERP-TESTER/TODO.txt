@@ -1,18 +1,17 @@
-﻿+ Thêm phương thức đăng nhập cho tài khoản sinh viên: https://prerp.bmtu.edu.vn/exam/login?lang=vi
+﻿+ Style count number.
++ Style module, accont menu.
+
 + Lưu trạng thái hết hạn token.
 + Xoá thông tin login nếu đăng xuất: Trường hợp khả thi là kiểm tra session thay đổi => gọi api => không thành công thì xoá thông tin login.
 
 
 
 - Thêm valid các trường input trong form.
-
 - Ghim module làm các tab load lại.
-
 - Chỉnh style module view cho đẹp hơn.
 - Chỉnh style danh sách account trong module cho dễ nhận biết.
 
-* Custom popup thông báo: thông báo cho các trường hợp chỉ đưa thông tin, không phải trường hợp của toast.
-
+* Chức năng hỗ trợ test tài khoản thi sinh viên.
 * Light/Dark mode.
 
 Chứa data:

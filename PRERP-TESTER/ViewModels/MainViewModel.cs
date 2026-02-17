@@ -70,20 +70,7 @@ namespace PRERP_TESTER.ViewModels
 
         public ICollectionView AccountMenuView { get; }
 
-        private int _filteredAccountCount;
-        public int FilteredAccountCount
-        {
-            get => _filteredAccountCount;
-            set => SetProperty(ref _filteredAccountCount, value);
-        }
         public ICollectionView ModuleMenuView { get; }
-
-        private int _filteredModuleCount;
-        public int FilteredModuleCount
-        {
-            get => _filteredModuleCount;
-            set => SetProperty(ref _filteredModuleCount, value);
-        }
 
         private bool _isMenuCollapsed;
         public bool IsMenuCollapsed
@@ -216,7 +203,6 @@ namespace PRERP_TESTER.ViewModels
                 var moduleVMCapp = new ModuleViewModel(moduleEntityCapp, Accounts);
 
                 Modules.Add(moduleVMCapp);
-                FilteredModuleCount = Modules.Count(m => m.ModuleEntity.ServerType == ServerType);
                 var moduleEntityPrerp = new ModuleEntity
                 {
                     Name = dialog.ResultName,
@@ -245,7 +231,6 @@ namespace PRERP_TESTER.ViewModels
                     Role = dialog.Role,
                 };
                 Accounts.Add(account);
-                FilteredAccountCount = Accounts.Count(a => a.ServerType == ServerType);
                 ToastService.Show("Tạo Account Thành Công", "", ToastType.Success);
             }
         }
@@ -278,7 +263,6 @@ namespace PRERP_TESTER.ViewModels
                 string SessionAccountFolder = account.SessionFolder;
                 string account_id = account.Id;
                 Accounts.Remove(account);
-                FilteredAccountCount = Accounts.Count(a => a.ServerType == ServerType);
                 foreach (var module in Modules)
                 {
                     var accountVMM = module.ModuleAccounts.FirstOrDefault(vm => vm.Account.Id == account_id);
@@ -312,7 +296,6 @@ namespace PRERP_TESTER.ViewModels
                 foreach (var module in modulesToDelete)
                 {
                     Modules.Remove(module);
-                    FilteredModuleCount = Modules.Count(m => m.ModuleEntity.ServerType == ServerType);
                     if (SelectedModule == module)
                     {
                         SelectedModule = null;
@@ -322,8 +305,6 @@ namespace PRERP_TESTER.ViewModels
                 }
 
                 ModuleMenuView?.Refresh();
-
-                OnPropertyChanged(nameof(FilteredModuleCount));
 
                 SaveAllData();
             }
@@ -504,15 +485,7 @@ namespace PRERP_TESTER.ViewModels
 
             AccountMenuView?.Refresh();
             ModuleMenuView?.Refresh();
-            UpdateFilteredCounts();
 
-
-        }
-
-        private void UpdateFilteredCounts()
-        {
-            FilteredAccountCount = Accounts.Count(a => a.ServerType == ServerType);
-            FilteredModuleCount = Modules.Count(m => m.ModuleEntity.ServerType == ServerType);
         }
 
         private void ExecuteImportData()

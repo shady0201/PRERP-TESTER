@@ -28,7 +28,7 @@
                                                         VerticalAlignment="Center">
                                 <iconPacks:PackIconMaterial.Style>
                                     <Style TargetType="iconPacks:PackIconMaterial">
-                                        <Setter Property="Kind" Value="Pin"/>
+                                        <Setter Property="Kind" Value="PinOutline"/>
                                         <Setter Property="Foreground" Value="#FFC75555"/>
                                         <Setter Property="RenderTransform">
                                             <Setter.Value>
@@ -39,7 +39,7 @@
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsPinned}" Value="True">
                                                 <Setter Property="Foreground" Value="DimGray"/>
-                                                <Setter Property="Kind" Value="PinOff"/>
+                                                <Setter Property="Kind" Value="PinOffOutline"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -127,14 +127,14 @@
                                     <Setter Property="FontWeight" Value="SemiBold"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
-                                    <Setter Property="Visibility" Value="Hidden"/>
+                                    <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
 
-                <iconPacks:PackIconMaterial Kind="Pin" Width="15" Height="15"
+                <iconPacks:PackIconMaterial Kind="PinOutline" Width="15" Height="15"
                                             Grid.Column="2"
                                             Foreground="#FFC75555" Margin="5,0,10,0"
                                             VerticalAlignment="Center">
@@ -150,6 +150,9 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsPinned}" Value="True">
                                     <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

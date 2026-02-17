@@ -22,68 +22,100 @@
                 <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="0" Opacity="0.2"/>
             </Border.Effect>
             <StackPanel>
-                <Border CornerRadius="20,20,0,0" BorderBrush="#FFC8C8C8" Padding="25,10,20,10" Background="#FF509BFF" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown" BorderThickness="0,0,0,0.5">
+                <Border CornerRadius="20,20,0,0" Padding="25,10,20,10" Background="White" VerticalAlignment="Center" MouseLeftButtonDown="Header_MouseLeftButtonDown">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="235*"/>
+                            <ColumnDefinition Width="14*"/>
+                            <ColumnDefinition Width="100*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Chọn tài khoản" FontSize="20" Foreground="White" FontWeight="Medium"/>
+                        <TextBlock Grid.Column="0" Text="Chọn tài khoản" FontSize="20" Foreground="#FF484848" FontWeight="Medium" Grid.ColumnSpan="3"/>
                         <Button x:Name="BtnClose"
                                 Click="BtnCancel_Click"
-                                Grid.Column="1"
+                                Grid.Column="3"
                                 Width="25" Height="25"
-                                Margin="0,0,0,0"
+                                Margin="0,1,0,1"
                                 Foreground="WhiteSmoke"
                                 Style="{StaticResource CloseDialogStyle}">
-                            <iconPacks:PackIconMaterial Kind="Close" Width="20" Height="20" VerticalAlignment="Center"/>
+                            <iconPacks:PackIconMaterial Kind="Close" Width="20" Height="20" Foreground="#FF9C9999" VerticalAlignment="Center"/>
                         </Button>
                     </Grid>
                 </Border>
 
-                <Border Background="#FFF1F1F1" CornerRadius="10" Margin="25,10,25,10" Padding="10,5">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <TextBox x:Name="TxtSearch" 
-                                    Grid.Column="1"
-                                    Background="Transparent" 
-                                    BorderThickness="0" 
-                                    VerticalContentAlignment="Center"
-                                    Tag="Tìm kiếm theo tên hoặc username..."
-                                    TextChanged="TxtSearch_TextChanged"
-                                    FontSize="13"/>
-
-                        <TextBlock IsHitTestVisible="False" 
-                                   Grid.Column="1"
-                                   Text="Tìm theo tên hoặc username..." 
-                                   VerticalAlignment="Center" 
-                                   HorizontalAlignment="Left" 
-                                   Margin="5,0,0,0" 
-                                   Foreground="DarkGray" 
-                                   FontSize="13">   
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=TxtSearch}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </Grid>
-                </Border>
+                <Grid>
+                    <Border CornerRadius="5" Height="30" Margin="10,10,10,10" Padding="10,5" Background="#FFFBFBFB">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=BorderSearchPickAcc}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#2196F3" Opacity="0.4"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Border x:Name="BorderSearchPickAcc" Height="30" Background="#FFFBFBFB" CornerRadius="5" Margin="10,10,10,10" Padding="10,5">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="#FFD8D8D8"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=TxtSearch}" Value="True">
+                                        <Setter Property="BorderBrush" Value="#FF5FB9FF"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBox x:Name="TxtSearch" 
+                                        Grid.Column="1"
+                                        Background="Transparent" 
+                                        BorderThickness="0" 
+                                        VerticalContentAlignment="Center"
+                                        TextChanged="TxtSearch_TextChanged"
+                                        FontSize="13"/>
+                            <TextBlock IsHitTestVisible="False" 
+                                       Grid.Column="1"
+                                       Text="Tìm tên, tài khoản" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Left" 
+                                       Margin="0,0,0,0" 
+                                       Foreground="#FF737272" 
+                                       FontSize="13">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=TxtSearch}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </Grid>
 
                 <ListBox x:Name="AccountListBox"
                          ItemsSource="{Binding _accountsView}"
                          SelectionMode="Multiple"
-                         BorderThickness="0" Background="Transparent"
+                         BorderThickness="0"
+                         Background="Transparent"
                          MaxHeight="500"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                          Padding="10,0">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -113,24 +145,29 @@
                             </Setter>
                         </Style>
                     </ListBox.ItemContainerStyle>
-                    
+
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Padding="10,5">
-                                <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" 
-                                              VerticalAlignment="Center"
-                                              IsHitTestVisible="False"
-                                              Margin="0,0,10,0"/>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding DisplayName}" FontSize="18" FontWeight="SemiBold" Foreground="#2F2F2F"/>
-                                        <TextBlock Text="{Binding Username}" FontSize="12" Foreground="Gray"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox   Grid.Column="0" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" 
+                                                VerticalAlignment="Center"
+                                                IsHitTestVisible="False"
+                                                Margin="0,0,10,0"/>
+                                    <StackPanel Grid.Column="1" Orientation="Vertical">
+
+                                        <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" FontSize="18" FontWeight="SemiBold" Foreground="#2F2F2F"/>
+                                        <TextBlock Text="{Binding Username}" FontSize="12" Foreground="#2F2F2F"/>
                                     </StackPanel>
-                                </StackPanel>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                    
+
                 </ListBox>
                 <Border Margin="0,10,0,0" Padding="10,0,10,10">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

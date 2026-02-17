@@ -30,13 +30,13 @@
                                 Margin="0,0,0,0"
                                 Foreground="WhiteSmoke"
                                 Style="{StaticResource CloseDialogStyle}">
-                            <iconPacks:PackIconMaterial Kind="Close" Width="20" Height="20" Foreground="#FFB9B9B9" VerticalAlignment="Center"/>
+                            <iconPacks:PackIconMaterial Kind="Close" Width="20" Height="20" Foreground="#FF9C9999" VerticalAlignment="Center"/>
                         </Button>
                     </Grid>
                 </Border>
                 <StackPanel Margin="25,18,25,25">
                     <TextBlock Text="Tài khoản" FontSize="14" FontWeight="SemiBold" Foreground="#FF464646" Margin="5,0,0,8"/>
-                    <Grid  Height="50" Margin="0,0,0,15">
+                    <Grid Height="50" Margin="0,0,0,15">
                         <Border x:Name="ShadowLayer" 
                                 CornerRadius="12" 
                                 Background="White">

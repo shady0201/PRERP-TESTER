@@ -323,6 +323,7 @@ namespace PRERP_TESTER.Extensions
         // Lấy thông tin account trên server: gọi khi thay đổi session token
         private static async Task VerifyAndSyncUserInfo(Account account, string sessionValue)
         {
+            account.LastSessionValue = sessionValue;
             string url = "https://prerp.bmtu.edu.vn/sftraining/query_handle?utf8=%E2%9C%93&lang=vi&function=session";
             try
             {

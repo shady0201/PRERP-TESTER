@@ -136,8 +136,9 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="TabContextMenuStyle" TargetType="ContextMenu">
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="#FFFDFDFD"/>
         <Setter Property="BorderBrush" Value="#FFE0E0E0"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HasDropShadow" Value="False"/>

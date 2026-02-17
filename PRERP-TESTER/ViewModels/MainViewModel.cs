@@ -12,8 +12,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace PRERP_TESTER.ViewModels
 {
@@ -612,6 +614,57 @@ namespace PRERP_TESTER.ViewModels
         {
             History.Add(new HistoryItem { Title = "PRERP BMU", Url = "https://prerp.bmtu.edu.vn", LastVisited = DateTime.Now });
             History.Add(new HistoryItem { Title = "CAPP BMU", Url = "https://capp.bmtu.edu.vn/mywork", LastVisited = DateTime.Now });
+        }
+
+        // Item mouse event
+        private void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Đánh dấu sự kiện đã được xử lý (Handled = true)
+            // Điều này sẽ chặn ListBox không nhận được tín hiệu nhấn chuột phải, 
+            // do đó nó sẽ không thay đổi SelectedItem.
+            e.Handled = true;
+
+            // LƯU Ý: Vì chúng ta chặn sự kiện, ContextMenu có thể không tự mở.
+            // Chúng ta sẽ ép ContextMenu mở thủ công khi nhấn chuột phải.
+            var listBoxItem = sender as ListBoxItem;
+            if (listBoxItem != null)
+            {
+                // Tìm Border hoặc Content bên trong có chứa ContextMenu
+                // Ở đây chúng ta tìm đến Border đầu tiên bên trong ListBoxItem
+                var frameworkElement = listBoxItem.ContentTemplate.LoadContent() as FrameworkElement;
+
+                // Hoặc đơn giản hơn, nếu ContextMenu nằm trên Border mà bạn đã gán Tag:
+                if (listBoxItem.ContextMenu != null)
+                {
+                    listBoxItem.ContextMenu.PlacementTarget = listBoxItem;
+                    listBoxItem.ContextMenu.IsOpen = true;
+                }
+                else
+                {
+                    // Nếu bạn đặt ContextMenu bên trong DataTemplate (trên Border như đoạn code trước)
+                    // Chúng ta cần tìm element đó và mở menu của nó.
+                    // Nhưng cách nhanh nhất là dùng ContextMenuService:
+                    var border = FindVisualChild<Border>(listBoxItem); // Hàm bổ trợ tìm Border
+                    if (border != null && border.ContextMenu != null)
+                    {
+                        border.ContextMenu.PlacementTarget = border;
+                        border.ContextMenu.IsOpen = true;
+                    }
+                }
+            }
+        }
+
+        // Hàm bổ trợ để tìm Border bên trong ListBoxItem (nếu cần)
+        private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(obj, i);
+                if (child != null && child is T t) return t;
+                var childOfChild = FindVisualChild<T>(child);
+                if (childOfChild != null) return childOfChild;
+            }
+            return null;
         }
 
     }

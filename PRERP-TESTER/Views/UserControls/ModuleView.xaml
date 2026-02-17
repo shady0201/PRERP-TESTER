@@ -43,14 +43,15 @@
                         </StackPanel>
                     </Grid>
                     
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Grid Grid.Column="1" HorizontalAlignment="Right">
                         <Button Command="{Binding AddAccountToModuleCommand}"
                                 Content="Thêm Tài Khoản"
                                 FontSize="12"
+                                Height="30"
                                 Tag="Plus"
                                 Style="{StaticResource AddAccountStyle}">
                         </Button>
-                    </StackPanel>
+                    </Grid>
                 </Grid>
             </Border>
             <!-- Account List-->

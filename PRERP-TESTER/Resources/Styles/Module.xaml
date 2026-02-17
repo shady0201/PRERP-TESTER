@@ -4,37 +4,53 @@
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <Style x:Key="AddAccountStyle" TargetType="Button">
-        <Setter Property="Foreground" Value="#FF2D3E50"/>
+        <Setter Property="Background" Value="#3794FF"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="10,4"/>
+        <Setter Property="Height" Value="10"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="5"
-                            Padding="{TemplateBinding Padding}">
+                    <Border x:Name="border" CornerRadius="5"
+                            Padding="10,0"
+                            Background="{TemplateBinding Background}" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <iconPacks:PackIconMaterial Kind="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" 
-                                                    Width="11" Height="11"
-                                                    Foreground="#FF5F5F5F"
+                                                    Width="14" Height="14"
+                                                    Foreground="White"
                                                     Margin="0,0,6,0"
                                                     VerticalAlignment="Center"/>
                             <ContentPresenter VerticalAlignment="Center"/>
                         </StackPanel>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#5DA9FF"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#1A73E8"/>
+                            <Setter TargetName="border" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="border" Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#CCCCCC"/>
+                            <Setter Property="Foreground" Value="#888888"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderThickness" Value="0.6"/>
-                <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
-                <Setter Property="Background" Value="#FFC16B6B"/>
-            </Trigger>
-        </Style.Triggers>
+
     </Style>
 
     <Style x:Key="AccountItemContainerStyle" TargetType="ListBoxItem">

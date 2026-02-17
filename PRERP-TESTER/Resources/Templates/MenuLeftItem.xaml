@@ -288,7 +288,7 @@
                         </TextBlock.ToolTip>
                         </TextBlock>
                     <TextBlock Grid.Row="1" Text="{Binding Username}" VerticalAlignment="Center" 
-                               Margin="10,0,0,0" Foreground="#FF1F2937" FontSize="10" TextTrimming="CharacterEllipsis"/>
+                               Margin="10,0,0,0" Foreground="#FF1F2937" FontSize="13" TextTrimming="CharacterEllipsis"/>
                 </Grid>
             </Grid>
         </Border>

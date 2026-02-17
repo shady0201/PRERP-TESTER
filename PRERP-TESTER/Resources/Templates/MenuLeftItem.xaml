@@ -6,7 +6,51 @@
     
     <!-- Module item -->
     <DataTemplate x:Key="MenuItemModule">
-        <Border>
+        <Border Background="Transparent"
+                Tag="{Binding RelativeSource={RelativeSource AncestorType=ListBox}}">
+            <Border.ContextMenu>
+                <ContextMenu Style="{StaticResource TabContextMenuStyle}">
+                    <MenuItem Header="Ghim"
+                              Style="{StaticResource TabContextMenuItemStyle}"
+                              Command="{Binding PlacementTarget.Tag.DataContext.PinModuleCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                              CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Width="15" Height="15"
+                                                        Margin="5,0,10,0"
+                                                        VerticalAlignment="Center">
+                                <iconPacks:PackIconMaterial.Style>
+                                    <Style TargetType="iconPacks:PackIconMaterial">
+                                        <Setter Property="Kind" Value="Pin"/>
+                                        <Setter Property="Foreground" Value="#FFC75555"/>
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <RotateTransform Angle="45"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsPinned}" Value="True">
+                                                <Setter Property="Foreground" Value="DimGray"/>
+                                                <Setter Property="Kind" Value="PinOff"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </iconPacks:PackIconMaterial.Style>
+                            </iconPacks:PackIconMaterial>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Xóa module"
+                              Style="{StaticResource TabContextMenuItemStyle}"
+                              Foreground="#EF4444"
+                              Command="{Binding PlacementTarget.Tag.DataContext.RemoveModuleCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                              CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#EF4444"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </Border.ContextMenu>
             <Grid Height="40" ToolTipService.InitialShowDelay="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -63,7 +107,8 @@
                 <TextBlock  Grid.Column="1"
 					        VerticalAlignment="Center"
 					        Text="{Binding Name}"
-                            Margin="5,0,0,0"
+                            FontSize="15"
+                            Margin="10,0,0,0"
 					        TextTrimming="CharacterEllipsis">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -80,122 +125,71 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                    <!-- Pin icon-->
-                    <iconPacks:PackIconMaterial Kind="Pin" Width="15" Height="15"
-                            Foreground="#FFC75555" Margin="5,0,10,0"
-                                                VerticalAlignment="Center">
-                        <iconPacks:PackIconMaterial.Style>
-                            <Style TargetType="iconPacks:PackIconMaterial">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Setter Property="RenderTransform">
-                                    <Setter.Value>
-                                        <RotateTransform Angle="45"/>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsPinned}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </iconPacks:PackIconMaterial.Style>
-                    </iconPacks:PackIconMaterial>
-                    <!-- Module menu -->
-                    <ToggleButton Grid.Column="2" x:Name="BtnToggleModuleMenu"
-                                      Width="25" Height="25"
-                                      Margin="0,0,15,0"
-                                      Foreground="DimGray"
-                                      BorderThickness="1"
-                                      Cursor="Hand">
-                        <ToggleButton.Style>
-                            <Style TargetType="ToggleButton">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ToggleButton.Style>
-                        <ToggleButton.Template>
-                            <ControlTemplate TargetType="ToggleButton">
-                                <Border x:Name="MainBorder"
-                                            Background="Transparent"
-                                            CornerRadius="14">
-                                    <iconPacks:PackIconMaterial Kind="DotsVertical" 
-                                                                    Width="16" Height="16"
-                                                                    Foreground="{TemplateBinding Foreground}"
-                                                                    HorizontalAlignment="Center"
-                                                                    VerticalAlignment="Center"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
-                                        <Setter Property="Foreground" Value="#FF509BFF"/>
-                                    </Trigger>
-                                    <Trigger Property="IsChecked" Value="True">
-                                        <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
-                                        <Setter Property="Foreground" Value="#FF509BFF"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </ToggleButton.Template>
-                    </ToggleButton>
-                </StackPanel>
 
-                <Popup IsOpen="{Binding IsChecked, ElementName=BtnToggleModuleMenu, Mode=TwoWay}" 
-                        PlacementTarget="{Binding ElementName=BtnToggleModuleMenu}"
-                        Panel.ZIndex="2"
-                        StaysOpen="False"
-                        AllowsTransparency="True" 
-                        PopupAnimation="Slide"
-                        Placement="Bottom"
-                        HorizontalOffset="0"
-                        VerticalOffset="0">
-                    <Border Background="White" CornerRadius="8" BorderThickness="1" BorderBrush="#FFE0E0E0">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
-                        </Border.Effect>
-                        <StackPanel Width="140" Margin="5">
-                            <Button Style="{StaticResource ActionMenuItemStyle}"
-                                        Command="{Binding DataContext.PinModuleCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                        CommandParameter="{Binding}">
-                                <StackPanel Orientation="Horizontal">
-                                    <iconPacks:PackIconMaterial x:Name="PinIcon" Kind="Pin" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF4B5563"/>
-                                    <TextBlock x:Name="PinText" Text="Ghim" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="DimGray"/>
-                                </StackPanel>
-                            </Button>
-                            <Button Style="{StaticResource ActionMenuItemStyle}"
-                                        Command="{Binding DataContext.RemoveModuleCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                        CommandParameter="{Binding}">
-                                <StackPanel Orientation="Horizontal">
-                                    <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#EF4444"/>
-                                    <TextBlock Text="Xóa module" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF374151"/>
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
-                    </Border>
-                </Popup>
+                <iconPacks:PackIconMaterial Kind="Pin" Width="15" Height="15"
+                                            Grid.Column="2"
+                                            Foreground="#FFC75555" Margin="5,0,10,0"
+                                            VerticalAlignment="Center">
+                    <iconPacks:PackIconMaterial.Style>
+                        <Style TargetType="iconPacks:PackIconMaterial">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <RotateTransform Angle="45"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPinned}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </iconPacks:PackIconMaterial.Style>
+                </iconPacks:PackIconMaterial>
             </Grid>
         </Border>
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding IsPinned}" Value="True">
-                <Setter TargetName="PinIcon" Property="Kind" Value="PinOff"/>
-                <Setter TargetName="PinIcon" Property="Foreground" Value="DimGray"/>
-                <Setter TargetName="PinText" Property="Text" Value="Bỏ ghim"/>
-            </DataTrigger>
-        </DataTemplate.Triggers>
     </DataTemplate>
     
     <!-- Account Item-->
     <DataTemplate x:Key="MenuItemAccount">
-        <Border Background="Transparent">
+        <Border Background="Transparent"
+                Tag="{Binding RelativeSource={RelativeSource AncestorType=ListBox}}">
+            <Border.ContextMenu>
+                <ContextMenu Style="{StaticResource TabContextMenuStyle}">
+                    <MenuItem Header="Thông tin" 
+                          Style="{StaticResource TabContextMenuItemStyle}"
+                          Command="{Binding PlacementTarget.Tag.DataContext.ShowAccountDetailCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                          CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Kind="CardAccountDetailsStarOutline" Width="14" Height="14"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Chỉnh sửa" 
+                          Style="{StaticResource TabContextMenuItemStyle}"
+                          Command="{Binding PlacementTarget.Tag.DataContext.EditAccountCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                          CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Kind="PencilOutline" Width="14" Height="14"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Xóa tài khoản" 
+                          Style="{StaticResource TabContextMenuItemStyle}"
+                          Foreground="#EF4444"
+                          Command="{Binding PlacementTarget.Tag.DataContext.RemoveAccountCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                          CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" Foreground="#EF4444"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </Border.ContextMenu>
             <Grid Height="40">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0" Width="30" Height="30" Margin="0,0,0,0" VerticalAlignment="Center">
@@ -247,133 +241,44 @@
                     <Ellipse Width="30" Height="30" 
                              Stroke="#FFE0E0E0" StrokeThickness="1"
                              IsHitTestVisible="False"/>
-                </Grid>
 
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
+                </Grid>
+                <iconPacks:PackIconMaterial Grid.Column="0" Kind="CircleSmall" Foreground="#FF2CDA2C" Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="12" Height="12">
+                    <iconPacks:PackIconMaterial.Style>
+                        <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </iconPacks:PackIconMaterial.Style>
+                </iconPacks:PackIconMaterial>
+
+                <Grid Grid.Column="1" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
                                    Text="{Binding DisplayName}"
                                    VerticalAlignment="Center" 
                                    Margin="10,0,0,0"
                                    Foreground="#FF1F2937" FontSize="13" FontWeight="SemiBold"
                                    TextTrimming="CharacterEllipsis">
-                            <TextBlock.ToolTip>
-                                <ToolTip Padding="4,1" HasDropShadow="True"
+                        <TextBlock.ToolTip>
+                            <ToolTip Padding="4,1" HasDropShadow="True"
                                          SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
-                                         <TextBlock Text="{Binding DisplayName}"/>
-                                </ToolTip>
-                            </TextBlock.ToolTip>
+                                <TextBlock Text="{Binding DisplayName}"/>
+                            </ToolTip>
+                        </TextBlock.ToolTip>
                         </TextBlock>
-                        <TextBlock Grid.Row="1" Text="{Binding Username}" VerticalAlignment="Center" 
+                    <TextBlock Grid.Row="1" Text="{Binding Username}" VerticalAlignment="Center" 
                                Margin="10,0,0,0" Foreground="#FF1F2937" FontSize="10" TextTrimming="CharacterEllipsis"/>
-                    </Grid>
-
-                    <iconPacks:PackIconMaterial Grid.Column="1" Kind="CircleSmall" Foreground="#FF2CDA2C" Margin="5,0,5,0" VerticalAlignment="Center" Width="12" Height="12">
-                        <iconPacks:PackIconMaterial.Style>
-                            <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </iconPacks:PackIconMaterial.Style>
-                    </iconPacks:PackIconMaterial>
-
                 </Grid>
-                
-                <!-- Account menu -->
-                <Grid Grid.Column="2" Margin="0,0">
-                    <ToggleButton x:Name="BtnToggleMenu"
-                                  Width="25" Height="25"
-                                  Margin="0,0,10,0"
-                                  Foreground="DimGray"
-                                  BorderThickness="1"
-                                  Cursor="Hand">
-                        <ToggleButton.Template>
-                            <ControlTemplate TargetType="ToggleButton">
-                                <Border x:Name="MainBorder"
-                                        Background="Transparent"
-                                        CornerRadius="14">
-                                    <iconPacks:PackIconMaterial Kind="DotsVertical" 
-                                            Width="16" Height="16"
-                                            Foreground="{TemplateBinding Foreground}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
-                                        <Setter Property="Foreground" Value="#FF509BFF"/>
-                                    </Trigger>
-
-                                    <Trigger Property="IsChecked" Value="True">
-                                        <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
-                                        <Setter Property="Foreground" Value="#FF509BFF"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </ToggleButton.Template>
-                    </ToggleButton>
-
-                    <Popup IsOpen="{Binding IsChecked, ElementName=BtnToggleMenu, Mode=TwoWay}" 
-                           PlacementTarget="{Binding ElementName=BtnToggleMenu}"
-                           Panel.ZIndex="2"
-                           StaysOpen="False" 
-                           AllowsTransparency="True" 
-                           PopupAnimation="Slide"
-                           Placement="Bottom"
-                           HorizontalOffset="0"
-                           VerticalOffset="0">
-                        <Border Background="White" CornerRadius="8" BorderThickness="1" BorderBrush="#FFE0E0E0">
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="10" Opacity="0.1" ShadowDepth="2"/>
-                            </Border.Effect>
-                            <StackPanel Width="140" Margin="5">
-                                
-                                <Button Style="{StaticResource ActionMenuItemStyle}"
-                                        Command="{Binding DataContext.ShowAccountDetailCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                        CommandParameter="{Binding}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconMaterial Kind="CardAccountDetailsStarOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF4B5563"/>
-                                        <TextBlock Text="Thông tin" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF374151"/>
-                                    </StackPanel>
-                                </Button>
-                                
-                                <Button Style="{StaticResource ActionMenuItemStyle}"
-                                        Command="{Binding DataContext.EditAccountCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                        CommandParameter="{Binding}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconMaterial Kind="PencilOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#FF4B5563"/>
-                                        <TextBlock Text="Chỉnh sửa" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#FF374151"/>
-                                    </StackPanel>
-                                </Button>
-
-                                <Button Style="{StaticResource ActionMenuItemStyle}"
-                                        Command="{Binding DataContext.RemoveAccountCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
-                                        CommandParameter="{Binding}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" VerticalAlignment="Center" Foreground="#EF4444"/>
-                                        <TextBlock Text="Xóa tài khoản" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#EF4444"/>
-                                    </StackPanel>
-                                </Button>
-                                
-                            </StackPanel>
-                        </Border>
-                    </Popup>
-                </Grid>
-                
             </Grid>
         </Border>
     </DataTemplate>

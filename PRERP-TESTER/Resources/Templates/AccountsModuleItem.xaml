@@ -89,9 +89,9 @@
                     <ToolTipService.InitialShowDelay>0</ToolTipService.InitialShowDelay>
                     <ToolTipService.BetweenShowDelay>0</ToolTipService.BetweenShowDelay>
                     <TextBlock.ToolTip>
-                        <ToolTip Padding="4,1" HasDropShadow="True"
+                        <ToolTip Padding="8,2" HasDropShadow="True"
                                  SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
-                            <TextBlock Text="{Binding Account.DisplayName}"/>
+                            <TextBlock Text="{Binding Account.DisplayName}" FontWeight="SemiBold"/>
                         </ToolTip>
                     </TextBlock.ToolTip>
                 </TextBlock>

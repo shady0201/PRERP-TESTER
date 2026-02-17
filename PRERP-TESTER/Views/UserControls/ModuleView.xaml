@@ -26,12 +26,15 @@
             <Border Grid.Row="0" Margin="0,0,0,4">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                             
                     <Grid Grid.Column="0" VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                             <iconPacks:PackIconMaterial Kind="Folder" 
                                                         Width="20" Height="20"
                                                         Grid.Column="0"
@@ -39,16 +42,16 @@
                                                         Foreground="#FFE2A862"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding Name}" FontSize="25" FontWeight="SemiBold" Foreground="#FF525252"/>
-                        </StackPanel>
+                            <TextBlock Text="{Binding Name}" Grid.Column="1" TextTrimming="CharacterEllipsis" FontSize="24" FontWeight="SemiBold" Foreground="#FF525252"/>
+                        
                     </Grid>
                     
                     <Grid Grid.Column="1" HorizontalAlignment="Right">
                         <Button Command="{Binding AddAccountToModuleCommand}"
-                                Content="Thêm Tài Khoản"
+                                Content="Thêm TK"
                                 FontSize="12"
                                 Height="30"
-                                Tag="Plus"
+                                Tag="AccountMultiplePlus"
                                 Style="{StaticResource AddAccountStyle}">
                         </Button>
                     </Grid>
@@ -63,13 +66,7 @@
                     Padding="0,0,0,2"
                     Margin="0,0,0,5">
                 <AdornerDecorator>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                    
-                        <ListBox ItemsSource="{Binding ModuleAccounts}"
+                    <ListBox ItemsSource="{Binding ModuleAccounts}"
                                  SelectedItem="{Binding SelectedAccountModule}"
                                  ItemContainerStyle="{StaticResource AccountItemContainerStyle}"
                                  Background="Transparent"
@@ -82,30 +79,28 @@
                                  Drop="ListBox_Drop"
                                  DragOver="ListBox_DragOver"
                                  BorderThickness="0">
-
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" Height="Auto">
-                                        <i:Interaction.Behaviors>
-                                            <ei:FluidMoveBehavior AppliesTo="Children" Duration="0:0:0.3">
-                                                <ei:FluidMoveBehavior.EaseY>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </ei:FluidMoveBehavior.EaseY>
-                                                <ei:FluidMoveBehavior.EaseX>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </ei:FluidMoveBehavior.EaseX>
-                                            </ei:FluidMoveBehavior>
-                                        </i:Interaction.Behaviors>
-                                    </StackPanel>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Height="Auto">
+                                    <i:Interaction.Behaviors>
+                                        <ei:FluidMoveBehavior AppliesTo="Children" Duration="0:0:0.3">
+                                            <ei:FluidMoveBehavior.EaseY>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </ei:FluidMoveBehavior.EaseY>
+                                            <ei:FluidMoveBehavior.EaseX>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </ei:FluidMoveBehavior.EaseX>
+                                        </ei:FluidMoveBehavior>
+                                    </i:Interaction.Behaviors>
+                                </StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </AdornerDecorator>
             </Border>
             <!-- web browers-->

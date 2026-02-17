@@ -20,7 +20,7 @@
                             Background="{TemplateBinding Background}" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <iconPacks:PackIconMaterial Kind="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" 
-                                                    Width="14" Height="14"
+                                                    Width="18" Height="18"
                                                     Foreground="White"
                                                     Margin="0,0,6,0"
                                                     VerticalAlignment="Center"/>

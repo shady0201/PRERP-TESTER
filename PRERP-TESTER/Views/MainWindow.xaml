@@ -17,7 +17,7 @@
             <ColumnDefinition x:Name="MenuColumn">
                 <ColumnDefinition.Style>
                     <Style TargetType="ColumnDefinition">
-                        <Setter Property="Width" Value="250"/>
+                        <Setter Property="Width" Value="300"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
                                 <DataTrigger.EnterActions>
@@ -25,7 +25,7 @@
                                         <Storyboard>
                                             <helper:GridLengthAnimation 
                                                         Storyboard.TargetProperty="Width"
-                                                        From="250"
+                                                        From="300"
                                                         To="50" 
                                                         Duration="0:0:0.3">
                                                 <helper:GridLengthAnimation.EasingFunction>
@@ -88,7 +88,7 @@
                                 <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleMenuCommand}"/>
                             </Image.InputBindings>
                         </Image>
-                        <TextBlock Grid.Column="1" Width="auto" Height="auto" Text="{Binding ServerType}" Foreground="#FF404040" FontSize="14" FontWeight="SemiBold">
+                        <TextBlock Grid.Column="1" Width="auto" Height="auto" Text="{Binding ServerType}" Foreground="#FF404040" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="Visibility" Value="Visible"/>
@@ -104,7 +104,7 @@
                                 Command="{Binding ToggleMenuCommand}"
                                 Style="{StaticResource StyleButtonCollapse}"
                                 Margin="0,0,5,0">
-                            <iconPacks:PackIconMaterial Kind="ArrowCollapseLeft" VerticalAlignment="Center"/>
+                            <iconPacks:PackIconMaterial Kind="Menu" VerticalAlignment="Center"/>
                         </Button>
                     </Grid>
                 </Border>
@@ -140,7 +140,7 @@
                                         </Border.InputBindings>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                                             <TextBlock Foreground="#FF404040" Text="Module" Margin="0,0,5,0" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <iconPacks:PackIconMaterial Grid.Column="1" Width="10" Height="10" VerticalAlignment="Center" Foreground="#FF616060" >
+                                            <iconPacks:PackIconMaterial Grid.Column="1" Width="10" Height="10" Margin="0,5,0,0" VerticalAlignment="Center" Foreground="#FF616060" >
                                                 <iconPacks:PackIconMaterial.Style>
                                                     <Style TargetType="iconPacks:PackIconMaterial">
                                                         <Setter Property="Kind" Value="ChevronDown"/>
@@ -161,7 +161,17 @@
                                             Command="{Binding CreateModuleCommand}"
                                             Width="25" Height="25"
                                             Style="{StaticResource CreateDataMenuStyle}">
-                                        <iconPacks:PackIconMaterial Kind="PlusCircle" Width="20" Height="20" VerticalAlignment="Center" Foreground="#3366ee"/>
+                                        <iconPacks:PackIconMaterial Kind="PlusCircle"  Width="20" Height="20" VerticalAlignment="Center" Foreground="#3794FF">
+                                            <iconPacks:PackIconMaterial.Style>
+                                                <Style TargetType="iconPacks:PackIconMaterial">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Foreground" Value="#4775ef"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </iconPacks:PackIconMaterial.Style>
+                                        </iconPacks:PackIconMaterial>
                                     </Button>
                                 </Grid>
                             </Border>
@@ -216,9 +226,9 @@
                                                      FontSize="14" Margin="5,0"
                                                      VerticalContentAlignment="Center"/>
 
-                                            <TextBlock IsHitTestVisible="False" Text="Tìm module..." 
+                                            <TextBlock IsHitTestVisible="False" Text="Tên module..." 
                                                        VerticalAlignment="Center" Grid.Column="1" Margin="5,0"
-                                                       Foreground="DarkGray" FontSize="12">
+                                                       Foreground="#FF5D5D5D" FontSize="14">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -294,7 +304,7 @@
                                                     </Border.InputBindings>
                                                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch">
                                                         <TextBlock Text= "Tài khoản" Foreground="#FF404040" FontSize="16" Margin="0,0,5,0" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                                        <iconPacks:PackIconMaterial Grid.Column="1" Width="10" Height="10" VerticalAlignment="Center" Foreground="#FF5B5B5B" >
+                                                        <iconPacks:PackIconMaterial Grid.Column="1" Margin="0,5,0,0" Width="10" Height="10" VerticalAlignment="Center" Foreground="#FF5B5B5B" >
                                                             <iconPacks:PackIconMaterial.Style>
                                                                 <Style TargetType="iconPacks:PackIconMaterial">
                                                                     <Setter Property="Kind" Value="ChevronDown"/>
@@ -310,9 +320,19 @@
                                                 </Border>
                                                 <Button Grid.Column="1"
                                                             Command="{Binding CreateAccountCommand}"
-                                                            Width="20" Height="20"
+                                                            Width="25" Height="25"
                                                             Style="{StaticResource CreateDataMenuStyle}">
-                                                    <iconPacks:PackIconMaterial Kind="PlusCircle"  Width="20" Height="20" VerticalAlignment="Center" Foreground="#3366ee"/>
+                                                    <iconPacks:PackIconMaterial Kind="PlusCircle"  Width="20" Height="20" VerticalAlignment="Center" Foreground="#3794FF">
+                                                        <iconPacks:PackIconMaterial.Style>
+                                                            <Style TargetType="iconPacks:PackIconMaterial">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Foreground" Value="#4775ef"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </iconPacks:PackIconMaterial.Style>
+                                                    </iconPacks:PackIconMaterial>
                                                 </Button>
                                             </Grid>
                                         </Border>
@@ -358,9 +378,9 @@
                                                              FontSize="14" Margin="5,0,5,0"
                                                              VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
 
-                                                        <TextBlock IsHitTestVisible="False" Text="Tìm tài khoản..." 
+                                                        <TextBlock IsHitTestVisible="False" Text="Tên nhân viên, tài khoản" 
                                                                VerticalAlignment="Center" Grid.Column="1" Margin="5,0,5,0"
-                                                               Foreground="DarkGray" FontSize="14" Grid.ColumnSpan="2">
+                                                               Foreground="#FF5D5D5D" FontSize="14" Grid.ColumnSpan="2">
                                                             <TextBlock.Style>
                                                                 <Style TargetType="TextBlock">
                                                                     <Setter Property="Visibility" Value="Collapsed"/>

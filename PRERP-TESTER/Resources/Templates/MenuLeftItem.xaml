@@ -92,17 +92,21 @@
                         </Style>
                     </Grid.Style>
                     <iconPacks:PackIconMaterial Kind="Folder" 
-                                                Width="14" Height="14"
+                                                Width="16" Height="16"
                                                 Grid.Column="0"
-                                                Margin="4,0,0,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center">
                         <iconPacks:PackIconMaterial.Style>
                             <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
                                 <Setter Property="Foreground" Value="#FF9A9A9A"/>
+                                <Setter Property="Margin" Value="10,0,0,0"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
                                         <Setter Property="Foreground" Value="#FFE2A862"/>
+                                        <Setter Property="Margin" Value="10,0,0,0"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                        <Setter Property="Margin" Value="2,0,0,0"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -124,7 +128,8 @@
                             <Setter Property="FontSize" Value="13"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
-                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Foreground" Value="#3883fb"/>
+                                    <Setter Property="FontWeight" Value="Normal"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding DataContext.IsMenuCollapsed, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
                                     <Setter Property="Visibility" Value="Collapsed"/>

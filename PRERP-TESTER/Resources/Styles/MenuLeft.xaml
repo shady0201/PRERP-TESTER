@@ -44,7 +44,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="MainBorder" 
-                        CornerRadius="4" 
+                        CornerRadius="10" 
                         Background="Transparent"
                         BorderThickness="0"
                         Margin="0,1"
@@ -56,7 +56,9 @@
                             <Setter TargetName="MainBorder" Property="Background" Value="#15000000"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="MainBorder" Property="Background" Value="#15000000"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="#e6f0fc"/>
+                            <Setter TargetName="MainBorder" Property="BorderThickness" Value="1"/>
+                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="#3883fb"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -105,17 +107,11 @@
                         <Ellipse x:Name="bg" Fill="{TemplateBinding Background}"/>
 
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="bg" Property="Fill" Value="#E8EAED"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="bg" Property="Fill" Value="#DADCE0"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" Value="0.3"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -116,7 +116,7 @@
 					        VerticalAlignment="Center"
 					        Text="{Binding Name}"
                             FontSize="15"
-                            Margin="10,0,0,0"
+                            Margin="10,0,10,0"
 					        TextTrimming="CharacterEllipsis">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -274,7 +274,7 @@
                     <TextBlock Grid.Row="0"
                                    Text="{Binding DisplayName}"
                                    VerticalAlignment="Center" 
-                                   Margin="10,0,0,0"
+                                   Margin="10,0,10,0"
                                    Foreground="#FF1F2937" FontSize="13" FontWeight="SemiBold"
                                    TextTrimming="CharacterEllipsis">
                         <TextBlock.ToolTip>

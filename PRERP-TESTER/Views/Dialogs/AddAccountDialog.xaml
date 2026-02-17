@@ -35,70 +35,168 @@
                     </Grid>
                 </Border>
                 <StackPanel Margin="25,18,25,25">
-                    <TextBlock Text="Username" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
-                    <Border x:Name="BorderUserName" Background="#FFECECEC" CornerRadius="12" Height="50" Margin="0,0,0,15">
-                        <TextBox x:Name="TxtUsername" Background="Transparent" BorderThickness="0"
-                                 VerticalContentAlignment="Center" Padding="15,0"
-                                 PreviewTextInput="TxtUsername_PreviewTextInput"
-                                 PreviewKeyDown="TxtUsername_PreviewKeyDown"
-                                 DataObject.Pasting="TxtUsername_Pasting"
-                                 FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"/>
-                    </Border>
+                    <TextBlock Text="Tài khoản" FontSize="14" FontWeight="SemiBold" Foreground="#FF464646" Margin="5,0,0,8"/>
+                    <Grid  Height="50" Margin="0,0,0,15">
+                        <Border x:Name="ShadowLayer" 
+                                CornerRadius="12" 
+                                Background="White">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=BorderUserName}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#2196F3" Opacity="0.4"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Border x:Name="BorderUserName" Background="#fbfbfb" CornerRadius="12" BorderThickness="1.5">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="#FFD8D8D8"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=TxtUsername}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FF5FB9FF"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBox x:Name="TxtUsername" Background="Transparent" BorderThickness="0"
+                                     VerticalContentAlignment="Center" Padding="15,0"
+                                     PreviewTextInput="TxtUsername_PreviewTextInput"
+                                     PreviewKeyDown="TxtUsername_PreviewKeyDown"
+                                     DataObject.Pasting="TxtUsername_Pasting"
+                                     FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"/>
+                        </Border>
+                    </Grid>
 
-                    <TextBlock Text="Password" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
-                    <Border Background="#FFECECEC" CornerRadius="12" Height="50" Margin="0,0,0,20" VerticalAlignment="Center">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
+                    <TextBlock Text="Mật khẩu" FontSize="14" FontWeight="SemiBold" Foreground="#FF464646" Margin="5,0,0,8"/>
+                    <Grid Margin="0,0,0,20">
+                        <Border x:Name="ShadowLayer2" 
+                                CornerRadius="12" 
+                                Background="White">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=BorderPassWord}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#2196F3" Opacity="0.4"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Border x:Name="BorderPassWord" Background="#fbfbfb" CornerRadius="12" Height="50" VerticalAlignment="Center">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="#FFD8D8D8"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=TxtPassword}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FF5FB9FF"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
 
-                            <PasswordBox Grid.Column="0" x:Name="TxtPassword" 
+                                <PasswordBox Grid.Column="0" x:Name="TxtPassword" 
                                              Background="Transparent" BorderThickness="0"
                                              VerticalContentAlignment="Center" Padding="15,0"
                                              PasswordChar="●" FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"
                                              Visibility="Visible"/>
 
-                            <TextBox Grid.Column="0"
-                                     x:Name="TxtPasswordVisible" 
-                                     Background="Transparent" BorderThickness="0"
+                                <TextBox Grid.Column="0"
+                                         x:Name="TxtPasswordVisible" 
+                                         Background="Transparent" BorderThickness="0"
+                                         VerticalContentAlignment="Center" Padding="15,0"
+                                         FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"
+                                         Visibility="Collapsed"/>
+
+                                <ToggleButton x:Name="BtnShowPassword"
+                                              Grid.Column="1"
+                                              Background="Transparent" BorderThickness="0"
+                                              Margin="0,0,10,0" Cursor="Hand"
+                                              Click="BtnShowPassword_Click">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                    <iconPacks:PackIconMaterial x:Name="IconEye" Kind="EyeOff" Width="20" Height="20" VerticalAlignment="Center" Foreground="#FF8E8E8E">
+                                        <iconPacks:PackIconMaterial.Style>
+                                            <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#FFE2E2E2"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </iconPacks:PackIconMaterial.Style>
+                                    </iconPacks:PackIconMaterial>
+                                </ToggleButton>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    
+                    <TextBlock Text="Tên hiển thị" FontSize="14" Foreground="#FF464646" FontWeight="SemiBold" Margin="5,0,0,0"/>
+                    <TextBlock Text="Tên đặt riêng, không phải tên đầy đủ của tài khoản trên hệ thống" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
+                    <Grid Height="50" Margin="0,0,0,20">
+                        <Border x:Name="ShadowLayer3" 
+                                CornerRadius="12" 
+                                Background="White">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=BorderDisplayName}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#2196F3" Opacity="0.4"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Border x:Name="BorderDisplayName" Background="#fbfbfb" CornerRadius="12" >
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="#FFD8D8D8"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=TxtDisplayName}" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FF5FB9FF"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBox x:Name="TxtDisplayName" Background="Transparent" BorderThickness="0"
                                      VerticalContentAlignment="Center" Padding="15,0"
-                                     FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"
-                                     Visibility="Collapsed"/>
+                                     FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"/>
+                        </Border>
+                    </Grid>
 
-                            <ToggleButton x:Name="BtnShowPassword"
-                                          Grid.Column="1"
-                                          Background="Transparent" BorderThickness="0"
-                                          Margin="0,0,10,0" Cursor="Hand"
-                                          Click="BtnShowPassword_Click">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <ContentPresenter />
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                                <iconPacks:PackIconMaterial x:Name="IconEye" Kind="EyeOff" Width="20" Height="20" VerticalAlignment="Center" Foreground="#FF8E8E8E">
-                                    <iconPacks:PackIconMaterial.Style>
-                                        <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#FFE2E2E2"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </iconPacks:PackIconMaterial.Style>
-                                </iconPacks:PackIconMaterial>
-                            </ToggleButton>
-                        </Grid>
-                    </Border>
-
-                    <TextBlock Text="Tên hiển thị" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
-                    <Border Background="#FFECECEC" CornerRadius="12" Height="50" Margin="0,0,0,20">
-                        <TextBox x:Name="TxtDisplayName" Background="Transparent" BorderThickness="0"
-                                 VerticalContentAlignment="Center" Padding="15,0"
-                                 FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"/>
-                    </Border>
-
-                    <TextBlock Text="Loại tài khoản" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
+                    <TextBlock Text="Hệ thống đăng nhập" FontSize="14" FontWeight="SemiBold" Foreground="#FF464646" Margin="5,0,0,0"/>
+                    <TextBlock Text="Chọn hệ thống tự động đăng nhập cho tài khoản" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                         <RadioButton x:Name="RbStaff"
                                      Content="Nhân viên"
@@ -115,8 +213,9 @@
                                      Style="{StaticResource AccountTypeButtonStyleRight}"
                                      Cursor="Hand"/>
                     </StackPanel>
-                    
-                    <TextBlock Text="Server" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
+
+                    <TextBlock Text="Server" FontSize="14" FontWeight="SemiBold" Foreground="#FF464646" Margin="5,0,0,0"/>
+                    <TextBlock Text="Phân loại server test của tài khoản" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,25">
 
                         <RadioButton x:Name="RbCapp"

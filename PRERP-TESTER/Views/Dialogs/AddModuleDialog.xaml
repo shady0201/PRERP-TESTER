@@ -37,13 +37,36 @@
                     </Grid>
                 </Border>
                 <StackPanel Margin="25,18,25,25">
-                    <TextBlock Text="Tên module" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
-                    <Border Background="#FFECECEC" CornerRadius="12" Height="50" Margin="0,0,0,15">
-                        <TextBox x:Name="TxtModuleName" Background="Transparent"
-                                 BorderThickness="0"
-                                 VerticalContentAlignment="Center" Padding="15,0"
-                                 FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"/>
-                    </Border>
+                    <TextBlock Text="Tên module" FontSize="14" FontWeight="SemiBold" Foreground="#FF464646" Margin="5,0,0,8"/>
+                    <Grid Margin="0,0,0,15" Height="50">
+                        <Border x:Name="ShadowLayer" 
+                                CornerRadius="12" 
+                                Background="White">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsKeyboardFocusWithin, ElementName=MainContentBorder}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="BorderBrush" Value="#FF2271AF"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#2196F3" Opacity="0.4"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Border x:Name="MainContentBorder"  Background="#FFF7F7F7" CornerRadius="12">
+                            <TextBox x:Name="TxtModuleName" Background="Transparent"
+                                     BorderThickness="0"
+                                     VerticalContentAlignment="Center" Padding="15,0"
+                                     FontSize="16" FontWeight="SemiBold" Foreground="#2D3E50"/>
+                        </Border>
+                    </Grid>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="Hủy" Click="BtnCancel_Click" 

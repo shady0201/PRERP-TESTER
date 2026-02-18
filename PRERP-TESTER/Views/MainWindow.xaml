@@ -161,17 +161,13 @@
                                             Command="{Binding CreateModuleCommand}"
                                             Width="25" Height="25"
                                             Style="{StaticResource CreateDataMenuStyle}">
-                                        <iconPacks:PackIconMaterial Kind="PlusCircle"  Width="20" Height="20" VerticalAlignment="Center" Foreground="#3794FF">
-                                            <iconPacks:PackIconMaterial.Style>
-                                                <Style TargetType="iconPacks:PackIconMaterial">
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Foreground" Value="#4775ef"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </iconPacks:PackIconMaterial.Style>
-                                        </iconPacks:PackIconMaterial>
+                                        <iconPacks:PackIconMaterial Kind="Plus"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                        <Button.ToolTip>
+                                            <ToolTip Padding="4,1" HasDropShadow="True"
+                                                      SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
+                                                <TextBlock Text="Tạo mới module"/>
+                                            </ToolTip>
+                                        </Button.ToolTip>
                                     </Button>
                                 </Grid>
                             </Border>
@@ -322,17 +318,15 @@
                                                             Command="{Binding CreateAccountCommand}"
                                                             Width="25" Height="25"
                                                             Style="{StaticResource CreateDataMenuStyle}">
-                                                    <iconPacks:PackIconMaterial Kind="PlusCircle"  Width="20" Height="20" VerticalAlignment="Center" Foreground="#3794FF">
-                                                        <iconPacks:PackIconMaterial.Style>
-                                                            <Style TargetType="iconPacks:PackIconMaterial">
-                                                                <Style.Triggers>
-                                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                                        <Setter Property="Foreground" Value="#4775ef"/>
-                                                                    </Trigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </iconPacks:PackIconMaterial.Style>
-                                                    </iconPacks:PackIconMaterial>
+                                                    <iconPacks:PackIconMaterial Kind="Plus"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                                    <Button.ToolTip>
+                                                        <ToolTip Padding="4,1"
+                                                                 HasDropShadow="True"
+                                                                 SnapsToDevicePixels="True"
+                                                                 Style="{StaticResource TooltipAccountName}">
+                                                            <TextBlock Text="Thêm mới tài khoản"/>
+                                                        </ToolTip>
+                                                    </Button.ToolTip>
                                                 </Button>
                                             </Grid>
                                         </Border>

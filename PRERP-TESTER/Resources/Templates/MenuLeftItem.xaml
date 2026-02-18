@@ -291,7 +291,7 @@
                                 <TextBlock Text="{Binding DisplayName}"/>
                             </ToolTip>
                         </TextBlock.ToolTip>
-                        </TextBlock>
+                     </TextBlock>
                     <TextBlock Grid.Row="1" Text="{Binding Username}" VerticalAlignment="Center" 
                                Margin="10,0,0,0" Foreground="#FF1F2937" FontSize="13" TextTrimming="CharacterEllipsis"/>
                 </Grid>

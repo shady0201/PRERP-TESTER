@@ -43,12 +43,12 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
-                    <Border x:Name="MainBorder" 
-                        CornerRadius="10" 
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Margin="0,1"
-                        SnapsToDevicePixels="True">
+                    <Border x:Name="MainBorder"
+                            CornerRadius="10"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Margin="0,1"
+                            SnapsToDevicePixels="True">
                         <ContentPresenter />
                     </Border>
                     <ControlTemplate.Triggers>

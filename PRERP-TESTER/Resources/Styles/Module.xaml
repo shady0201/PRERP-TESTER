@@ -4,8 +4,8 @@
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <Style x:Key="AddAccountStyle" TargetType="Button">
-        <Setter Property="Background" Value="#3794FF"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="#FF636363"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Height" Value="10"/>
@@ -15,13 +15,17 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" CornerRadius="5"
+                    <Border x:Name="border"
                             Padding="10,0"
+                            CornerRadius="8"
+                            BorderBrush="#FFB9B9B9"
+                            BorderThickness="0.6"
+                            Margin="5,0,0,0"
                             Background="{TemplateBinding Background}" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <iconPacks:PackIconMaterial Kind="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" 
                                                     Width="18" Height="18"
-                                                    Foreground="White"
+                                                    Foreground="#FF636363"
                                                     Margin="0,0,6,0"
                                                     VerticalAlignment="Center"/>
                             <ContentPresenter VerticalAlignment="Center"/>
@@ -29,22 +33,17 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#5DA9FF"/>
+                            <Setter TargetName="border" Property="Background" Value="#FFF7F7F7"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#1A73E8"/>
+                            <Setter TargetName="border" Property="Background" Value="#FFF7F7F7"/>
                             <Setter TargetName="border" Property="RenderTransform">
                                 <Setter.Value>
                                     <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="border" Property="RenderTransformOrigin" Value="0.5,0.5"/>
-                        </Trigger>
-
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Background" Value="#CCCCCC"/>
-                            <Setter Property="Foreground" Value="#888888"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

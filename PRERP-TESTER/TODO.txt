@@ -1,4 +1,6 @@
-﻿- Lưu các trạng thái app:
+﻿- Chuột phải item account trong module.
+
+- Lưu các trạng thái app:
  + Select module
  + select account
  + collapse/expand

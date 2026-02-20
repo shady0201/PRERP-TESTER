@@ -99,8 +99,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <!-- Account List-->
-                    <Border Background="White" Padding="0,5,0,0" CornerRadius="6,0,0,0" BorderThickness="0,0,1,0" BorderBrush="#FFDADADA">
-                        <Grid Grid.Column="0">
+                    <Border Grid.Column="0" Background="White" Padding="0,5,0,0" CornerRadius="6,0,0,0" BorderThickness="0,0,1,0" BorderBrush="#FFDADADA">
+                        <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -110,8 +110,8 @@
                             <!-- Header control-->
                             <Button Grid.Row="0"
                                     Command="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=ToggleAccountListCommand}"
-                                    Margin="5,0,10,0">
-                                    <iconPacks:PackIconMaterial Kind="ChevronRight" Width="16" Height="16" Foreground="#FF757575"/>
+                                    Margin="10,0,10,0">
+                                    <iconPacks:PackIconMaterial Kind="ChevronRight" Width="12" Height="12" Foreground="#FF757575"/>
                                 <Button.Style>
                                     <Style TargetType="Button" BasedOn="{StaticResource StyleButtonCollapse}">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -123,7 +123,7 @@
                                     </Style>
                                 </Button.Style>
                             </Button>
-                            <Separator Grid.Row="1" Background="#FFA4A4A4" Margin="6,4">
+                            <Separator Grid.Row="1" Background="#FFA4A4A4" Margin="6,10">
                                 <Separator.Style>
                                 <Style TargetType="Separator">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -142,8 +142,8 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Button Command="{Binding AddAccountToModuleCommand}"
-                                                Width="auto"
-                                                Style="{StaticResource StyleButtonCollapse}">
+                                            Width="auto"
+                                            Style="{StaticResource StyleButtonCollapse}">
                                         <Border Padding="6,3">
                                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                                 <iconPacks:PackIconMaterial Kind="Plus"
@@ -179,7 +179,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-                                    <iconPacks:PackIconMaterial Kind="ChevronLeft" Width="16" Height="16" Foreground="#FF757575"/>
+                                    <iconPacks:PackIconMaterial Kind="ChevronLeft" Width="12" Height="12" Foreground="#FF757575"/>
                                 </Button>
                             </Grid>
                             <!-- List account -->
@@ -190,7 +190,7 @@
                                 <AdornerDecorator>
                                     <ListBox ItemsSource="{Binding ModuleAccounts}"
                                                     SelectedItem="{Binding SelectedAccountModule}"
-                                                    ItemContainerStyle="{StaticResource AccountItemContainerStyle}"
+                                                    ItemContainerStyle="{StaticResource ItemAccountSelectContainerStyle}"
                                                     Background="Transparent"
                                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                     ScrollViewer.VerticalScrollBarVisibility="Auto"

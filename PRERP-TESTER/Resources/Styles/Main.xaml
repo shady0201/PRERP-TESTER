@@ -1,6 +1,58 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <Style x:Key="GoogleCheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Width="18" Height="18">
+                                <Border x:Name="checkBoxBorder"
+                                    BorderBrush="#70757a"
+                                    BorderThickness="2"
+                                    Background="Transparent"
+                                    CornerRadius="2"/>
+
+                                <Path x:Name="optionMark"
+                                  Data="M 1.5,4.5 L 4,7 L 8.5,1.5"
+                                  Stroke="White"
+                                  StrokeThickness="2"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Visibility="Collapsed"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"/>
+                            </Grid>
+                            <ContentPresenter x:Name="contentPresenter" 
+                                          Grid.Column="1" 
+                                          Margin="{TemplateBinding Padding}" 
+                                          VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="checkBoxBorder" Property="Background" Value="#1a73e8"/>
+                            <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="#1a73e8"/>
+                            <Setter TargetName="optionMark" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="#1a73e8"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="checkBoxBorder" Property="Opacity" Value="0.5"/>
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="StyleButtonCollapse" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Width" Value="14"/>

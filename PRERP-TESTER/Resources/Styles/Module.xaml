@@ -46,16 +46,15 @@
         </Setter>
     </Style>
 
-    <Style x:Key="AccountItemContainerStyle" TargetType="ListBoxItem">
+    <Style x:Key="ItemAccountSelectContainerStyle" TargetType="ListBoxItem">
         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="Border"
-						    Margin="0,0"
-                            BorderThickness="4,0,0,0"
-						    Background="White">
+                        BorderThickness="4,0,0,0"
+					    Background="White">
                         <StackPanel Orientation="Horizontal">
                             <ContentPresenter VerticalAlignment="Center"/>
                         </StackPanel>

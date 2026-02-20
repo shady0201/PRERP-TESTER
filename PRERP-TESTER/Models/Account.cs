@@ -99,8 +99,13 @@ namespace PRERP_TESTER.Models
 
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public string AccountAvatar => GetAvatarUrl();
+        public string Initials => !string.IsNullOrWhiteSpace(DisplayName)
+                        ? DisplayName.Trim().Substring(0, 1).ToUpper()
+                        : "?";
 
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        public string AvatarColor => GetColorFromName(DisplayName);
 
         // details view
         [Newtonsoft.Json.JsonIgnore]
@@ -188,27 +193,9 @@ namespace PRERP_TESTER.Models
             Departments = Array.Empty<Department>();
         }
 
-        public string GetAvatarUrl()
-        {
-            if (string.IsNullOrEmpty(AvatarUrl))
-            {
-                switch (Role)
-                {
-                    case AccountRole.STAFF:
-                        return "pack://application:,,,/Assets/Avatar/staff.png";
-                    case AccountRole.STUDENT:
-                        return "pack://application:,,,/Resources/Avatar/student.png";
-                    default:
-                        return "pack://application:,,,/Resources/Avatar/staff.png";
-                }
-            }
-            else
-            {
-                return AvatarUrl;
-            }
-       }
-
         // PRIVATE
+
+
 
         private Department[] ParseDepartments(JToken? node)
         {
@@ -258,6 +245,14 @@ namespace PRERP_TESTER.Models
             }
 
             return resultList.ToArray();
+        }
+
+        private string GetColorFromName(string? name)
+        {
+            if (string.IsNullOrEmpty(name)) return "#FF757575";
+            string[] colors = { "#FF2196F3", "#FF4CAF50", "#FFF44336", "#FFFF9800", "#FF9C27B0", "#FF00BCD4" };
+            int hash = Math.Abs(name.GetHashCode());
+            return colors[hash % colors.Length];
         }
 
     }

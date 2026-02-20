@@ -139,15 +139,14 @@
                                             <MouseBinding MouseAction="LeftClick" 
                                                           Command="{Binding ToggleModuleExpandCommand}" />
                                         </Border.InputBindings>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                            <TextBlock Foreground="#FF404040" Text="Module" Margin="0,0,5,0" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <iconPacks:PackIconMaterial Grid.Column="1" Width="10" Height="10" Margin="0,5,0,0" VerticalAlignment="Center" Foreground="#FF616060" >
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10,0,0,0">
+                                            <iconPacks:PackIconMaterial Grid.Column="1" Width="10" Height="10" Margin="0,3,0,0" VerticalAlignment="Center" Foreground="#FF616060" >
                                                 <iconPacks:PackIconMaterial.Style>
                                                     <Style TargetType="iconPacks:PackIconMaterial">
                                                         <Setter Property="Kind" Value="ChevronDown"/>
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsModuleExpanded}" Value="False">
-                                                                <Setter Property="Kind" Value="ChevronLeft"/>
+                                                                <Setter Property="Kind" Value="ChevronRight"/>
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
                                                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -156,6 +155,7 @@
                                                     </Style>
                                                 </iconPacks:PackIconMaterial.Style>
                                             </iconPacks:PackIconMaterial>
+                                            <TextBlock Foreground="#FF404040" Text="Module" Margin="10,0,0,0" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                         </StackPanel>
                                     </Border>
                                     <Button Grid.Column="1"
@@ -183,7 +183,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </StackPanel.Style>
-                                <StackPanel Margin="0,5" >
+                                <StackPanel Margin="15,5" >
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
                                             <Setter Property="Visibility" Value="Visible"/>
@@ -260,9 +260,8 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                             </StackPanel>
-                            
                             <!-- Account -->
-                            <Grid Grid.Row="4">
+                            <Grid Grid.Row="4" Margin="0,10,0,0">
                                 <Border x:Name="MenuContentHolder">
                                     <Border.Style>
                                         <Style TargetType="Border">
@@ -280,7 +279,7 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- Label Account -->
-                                        <Border Grid.Row="0" Margin="0,10,0,0">
+                                        <Border Grid.Row="0">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Style.Triggers>
@@ -300,20 +299,20 @@
                                                         <MouseBinding   MouseAction="LeftClick"
                                                                         Command="{Binding ToggleAccountExpandCommand}" />
                                                     </Border.InputBindings>
-                                                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                                        <TextBlock Text= "Tài khoản" Foreground="#FF404040" FontSize="16" Margin="0,0,5,0" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                                        <iconPacks:PackIconMaterial Grid.Column="1" Margin="0,5,0,0" Width="10" Height="10" VerticalAlignment="Center" Foreground="#FF5B5B5B" >
+                                                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10,0,0,0">
+                                                        <iconPacks:PackIconMaterial Grid.Column="1" Margin="0,3,0,0" Width="10" Height="10" VerticalAlignment="Center" Foreground="#FF5B5B5B" >
                                                             <iconPacks:PackIconMaterial.Style>
                                                                 <Style TargetType="iconPacks:PackIconMaterial">
                                                                     <Setter Property="Kind" Value="ChevronDown"/>
                                                                     <Style.Triggers>
                                                                         <DataTrigger Binding="{Binding IsAccountExpanded}" Value="False">
-                                                                            <Setter Property="Kind" Value="ChevronLeft"/>
+                                                                            <Setter Property="Kind" Value="ChevronRight"/>
                                                                         </DataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>
                                                             </iconPacks:PackIconMaterial.Style>
                                                         </iconPacks:PackIconMaterial>
+                                                        <TextBlock Text= "Tài khoản" Foreground="#FF404040" FontSize="16" Margin="10,0,0,0" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <Button Grid.Column="1"
@@ -343,7 +342,7 @@
                                                 </Style>
                                             </StackPanel.Style>
                                             <!-- Tìm kiếm Account -->
-                                            <StackPanel Margin="0,5" >
+                                            <StackPanel Margin="15,5" >
                                                 <Border Background="White" BorderThickness="1" CornerRadius="4" Padding="5,2" Height="35">
                                                     <Border.Style>
                                                         <Style TargetType="Border">
@@ -417,7 +416,7 @@
                         </StackPanel>
                     </Grid>
                 </ScrollViewer>
-                <Separator Margin="5,0,5,0" Grid.Row="2" Background="#FFA2A2A2"/>
+                <Separator Margin="5,0,5,0" Grid.Row="2" Background="#d0d0d0"/>
                 <!-- Settings -->
                 <StackPanel Grid.Row="3">
                     <Border Margin="0,0,0,0" Height="50">

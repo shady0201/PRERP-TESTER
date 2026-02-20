@@ -209,11 +209,56 @@
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Column="0" Width="30" Height="30" Margin="5,0,0,0" VerticalAlignment="Center">
-                    <Border CornerRadius="15" BorderBrush="#FF888888" BorderThickness="0.7">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding AccountAvatar, TargetNullValue={x:Null}, FallbackValue={x:Null}}" Stretch="UniformToFill"/>
-                        </Border.Background>
-                    </Border>
+                    <Grid>
+                        <Border CornerRadius="15" 
+                                Background="{Binding AvatarColor}" 
+                                BorderBrush="#40000000" 
+                                BorderThickness="0.5">
+                            <TextBlock Text="{Binding Initials}" 
+                               Foreground="White" 
+                               FontSize="14" 
+                               FontWeight="Bold"
+                               VerticalAlignment="Center" 
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,1"/>
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding AvatarUrl}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding AvatarUrl}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+
+                        <Border CornerRadius="15" ClipToBounds="True" BorderThickness="1" BorderBrush="#40000000">
+                            <Image Source="{Binding AvatarUrl, TargetNullValue={x:Null}, FallbackValue={x:Null}}" 
+                                   Stretch="UniformToFill"
+                                   RenderOptions.BitmapScalingMode="HighQuality">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="15,15" RadiusX="15" RadiusY="15" />
+                                </Image.Clip>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding AvatarUrl}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding AvatarUrl}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </Border>
+                    </Grid>
                     <ToolTipService.InitialShowDelay>0</ToolTipService.InitialShowDelay>
                     <ToolTipService.BetweenShowDelay>0</ToolTipService.BetweenShowDelay>
                     <Border.ToolTip>

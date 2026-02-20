@@ -61,7 +61,7 @@
                             </Style>
                         </Border.Style>
                     </Border>
-                    <Border x:Name="BorderSearchPickAcc" Height="30" Background="#FFFBFBFB" CornerRadius="5" Margin="10,10,10,10" Padding="10,5">
+                    <Border x:Name="BorderSearchPickAcc" Height="35" Background="#FFFBFBFB" CornerRadius="5" Margin="10,10,10,10" Padding="10,5">
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter Property="BorderBrush" Value="#FFD8D8D8"/>
@@ -155,6 +155,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <CheckBox   Grid.Column="0" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" 
+                                                Style="{StaticResource GoogleCheckBoxStyle}"
                                                 VerticalAlignment="Center"
                                                 IsHitTestVisible="False"
                                                 Margin="0,0,10,0"/>

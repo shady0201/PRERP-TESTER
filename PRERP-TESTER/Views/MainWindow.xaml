@@ -194,7 +194,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-                                    <Border Background="White" BorderThickness="1" CornerRadius="4" Padding="5,2" Height="35">
+                                    <Border Background="White" BorderThickness="1" CornerRadius="15" Padding="5,2" Height="35">
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Setter Property="BorderBrush" Value="#d8d8d8"/>
@@ -343,7 +343,7 @@
                                             </StackPanel.Style>
                                             <!-- Tìm kiếm Account -->
                                             <StackPanel Margin="15,5" >
-                                                <Border Background="White" BorderThickness="1" CornerRadius="4" Padding="5,2" Height="35">
+                                                <Border Background="White" BorderThickness="1" CornerRadius="15" Padding="5,2" Height="35">
                                                     <Border.Style>
                                                         <Style TargetType="Border">
                                                             <Setter Property="BorderBrush" Value="#d8d8d8"/>

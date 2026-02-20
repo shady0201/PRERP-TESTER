@@ -24,10 +24,10 @@
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="#FF3396F1"/>
+                            <Setter Property="Background" Value="#E8EAED"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" Value="#FF3396F1"/>
+                            <Setter Property="Background" Value="#E8EAED"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

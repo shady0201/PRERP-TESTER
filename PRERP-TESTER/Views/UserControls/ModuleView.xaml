@@ -99,101 +99,130 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <!-- Account List-->
-                    <Border Background="White" CornerRadius="6,0,0,0" BorderThickness="0,0,1,0" BorderBrush="#FFDADADA">
+                    <Border Background="White" Padding="0,5,0,0" CornerRadius="6,0,0,0" BorderThickness="0,0,1,0" BorderBrush="#FFDADADA">
                         <Grid Grid.Column="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <!-- Header control-->
-                                <Button Grid.Row="0"
-                                        Command="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=ToggleAccountListCommand}"
-                                        Margin="5,0,10,0">
-                                    <iconPacks:PackIconMaterial Kind="MenuOpen" Width="18" Height="18"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <!-- Header control-->
+                            <Button Grid.Row="0"
+                                    Command="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=ToggleAccountListCommand}"
+                                    Margin="5,0,10,0">
+                                    <iconPacks:PackIconMaterial Kind="ChevronRight" Width="16" Height="16" Foreground="#FF757575"/>
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource StyleButtonCollapse}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=IsAccountListCollapsed}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Separator Grid.Row="1" Background="#FFA4A4A4" Margin="6,4">
+                                <Separator.Style>
+                                <Style TargetType="Separator">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=IsAccountListCollapsed}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                                </Separator.Style>
+                            </Separator>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Command="{Binding AddAccountToModuleCommand}"
+                                                Width="auto"
+                                                Style="{StaticResource StyleButtonCollapse}">
+                                        <Border Padding="6,3">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <iconPacks:PackIconMaterial Kind="Plus"
+                                                                                Foreground="#FF757575"
+                                                                                Width="16" Height="160"
+                                                                                VerticalAlignment="Center"/>
+                                                <TextBlock Text="Thêm tài khoản" FontSize="14" Margin="6,0,0,0" Foreground="#FF757575" VerticalAlignment="Center">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=IsAccountListCollapsed}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Border>
+                                    </Button>
+                                </StackPanel>
+                                <Button Grid.Column="2"
+                                            Command="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=ToggleAccountListCommand}"
+                                            Margin="5,0,10,0">
                                     <Button.Style>
                                         <Style TargetType="Button" BasedOn="{StaticResource StyleButtonCollapse}">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Setter Property="Visibility" Value="Visible"/>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=IsAccountListCollapsed}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
+                                    <iconPacks:PackIconMaterial Kind="ChevronLeft" Width="16" Height="16" Foreground="#FF757575"/>
                                 </Button>
-                                <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Button Command="{Binding AddAccountToModuleCommand}"
-                                            Grid.Column="0"
-                                            Content="Thêm TK"
-                                            FontSize="12"
-                                            Height="30"
-                                            Tag="AccountMultiplePlus"
-                                            Style="{StaticResource AddAccountStyle}">
-                                    </Button>
-                                    <Button Grid.Column="2"
-                                            Command="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=ToggleAccountListCommand}"
-                                            Style="{StaticResource StyleButtonCollapse}" 
-                                            Margin="5,0,10,0">
-                                        <iconPacks:PackIconMaterial Kind="Backburger" Width="18" Height="18">
-                                            <iconPacks:PackIconMaterial.Style>
-                                                <Style TargetType="iconPacks:PackIconMaterial">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=IsAccountListCollapsed}" Value="True">
-                                                            <Setter Property="Kind" Value="MenuOpen"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </iconPacks:PackIconMaterial.Style>
-                                        </iconPacks:PackIconMaterial>
-                                    </Button>
-                                </Grid>
-                                <!-- List account -->
-                                <Border Grid.Row="2"
-                                        Margin="0,5,0,0"
-                                        Background="White"
-                                        Height="auto">
-                                    <AdornerDecorator>
-                                        <ListBox ItemsSource="{Binding ModuleAccounts}"
-                                                     SelectedItem="{Binding SelectedAccountModule}"
-                                                     ItemContainerStyle="{StaticResource AccountItemContainerStyle}"
-                                                     Background="Transparent"
-                                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                     AllowDrop="True"
-                                                     PreviewMouseMove="ListBox_PreviewMouseMove"
-                                                     Drop="ListBox_Drop"
-                                                     DragOver="ListBox_DragOver"
-                                                     BorderThickness="0">
-                                            <ListBox.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Vertical" Height="Auto">
-                                                        <i:Interaction.Behaviors>
-                                                            <ei:FluidMoveBehavior AppliesTo="Children" Duration="0:0:0.3">
-                                                                <ei:FluidMoveBehavior.EaseY>
-                                                                    <CubicEase EasingMode="EaseOut"/>
-                                                                </ei:FluidMoveBehavior.EaseY>
-                                                                <ei:FluidMoveBehavior.EaseX>
-                                                                    <CubicEase EasingMode="EaseOut"/>
-                                                                </ei:FluidMoveBehavior.EaseX>
-                                                            </ei:FluidMoveBehavior>
-                                                        </i:Interaction.Behaviors>
-                                                    </StackPanel>
-                                                </ItemsPanelTemplate>
-                                            </ListBox.ItemsPanel>
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
-                                    </AdornerDecorator>
-                                </Border>
+                            </Grid>
+                            <!-- List account -->
+                            <Border Grid.Row="3"
+                                    Margin="0,5,0,0"
+                                    Background="White"
+                                    Height="auto">
+                                <AdornerDecorator>
+                                    <ListBox ItemsSource="{Binding ModuleAccounts}"
+                                                    SelectedItem="{Binding SelectedAccountModule}"
+                                                    ItemContainerStyle="{StaticResource AccountItemContainerStyle}"
+                                                    Background="Transparent"
+                                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                    AllowDrop="True"
+                                                    PreviewMouseMove="ListBox_PreviewMouseMove"
+                                                    Drop="ListBox_Drop"
+                                                    DragOver="ListBox_DragOver"
+                                                    BorderThickness="0">
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Vertical" Height="Auto">
+                                                    <i:Interaction.Behaviors>
+                                                        <ei:FluidMoveBehavior AppliesTo="Children" Duration="0:0:0.3">
+                                                            <ei:FluidMoveBehavior.EaseY>
+                                                                <CubicEase EasingMode="EaseOut"/>
+                                                            </ei:FluidMoveBehavior.EaseY>
+                                                            <ei:FluidMoveBehavior.EaseX>
+                                                                <CubicEase EasingMode="EaseOut"/>
+                                                            </ei:FluidMoveBehavior.EaseX>
+                                                        </ei:FluidMoveBehavior>
+                                                    </i:Interaction.Behaviors>
+                                                </StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </AdornerDecorator>
+                            </Border>
                         </Grid>
                     </Border>
                     <!-- web browers-->

@@ -6,54 +6,49 @@
     <Style x:Key="AddAccountStyle" TargetType="Button">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="#FF636363"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Height" Value="10"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="MinHeight" Value="30"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border"
-                            Padding="10,0"
+                            Padding="0,0"
                             CornerRadius="8"
-                            BorderBrush="#FFB9B9B9"
-                            BorderThickness="0.6"
-                            Margin="5,0,0,0"
-                            Background="{TemplateBinding Background}" >
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <iconPacks:PackIconMaterial Kind="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" 
-                                                    Width="18" Height="18"
-                                                    Foreground="#FF636363"
-                                                    Margin="0,0,6,0"
-                                                    VerticalAlignment="Center"/>
-                            <ContentPresenter VerticalAlignment="Center"/>
-                        </StackPanel>
+                            Background="{TemplateBinding Background}">
+
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      RecognizesAccessKey="True"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                     </Border>
+
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#FFF7F7F7"/>
+                            <Setter TargetName="border" Property="Background" Value="#E8EAED"/>
                         </Trigger>
-
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#FFF7F7F7"/>
-                            <Setter TargetName="border" Property="RenderTransform">
+                            <Setter TargetName="border" Property="Background" Value="#E8EAED"/>
+                            <Setter Property="RenderTransform">
                                 <Setter.Value>
-                                    <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                    <ScaleTransform ScaleX="0.97" ScaleY="0.97"/>
                                 </Setter.Value>
                             </Setter>
-                            <Setter TargetName="border" Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
     </Style>
 
     <Style x:Key="AccountItemContainerStyle" TargetType="ListBoxItem">
         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">

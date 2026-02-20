@@ -104,7 +104,7 @@ namespace PRERP_TESTER.ViewModels
         {
             if (accountVM == null) return;
 
-            bool bConfirm = DialogService.ShowConfirm("Bạn có muốn gỡ tài khoản này?", $"Bạn có chắc chắn muốn gỡ tài khoản {accountVM.Account.DisplayName} khỏi module {ModuleEntity} không?");
+            bool bConfirm = DialogService.ShowConfirm("Bạn có muốn gỡ tài khoản này?", $"Bạn có chắc chắn muốn gỡ tài khoản {accountVM.Account.DisplayName} khỏi module {ModuleEntity.Name} không?");
 
             if (bConfirm)
             {

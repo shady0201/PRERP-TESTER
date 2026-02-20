@@ -1,7 +1,6 @@
-﻿+ left menu style:
-+ Module:
+﻿+ Module:
  - User accounts list:
-  + Chuột phải mở details.
+  + Chuột phải mở menu: Fix content data
   + thu gọn list, chỉ hiển thị avatar + tooltip
 
 + Lưu trạng thái hết hạn token.

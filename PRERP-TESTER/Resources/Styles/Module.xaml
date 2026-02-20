@@ -54,6 +54,7 @@
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="Border"
 						    Margin="0,0"
+                            BorderThickness="4,0,0,0"
 						    Background="White">
                         <StackPanel Orientation="Horizontal">
                             <ContentPresenter VerticalAlignment="Center"/>
@@ -64,11 +65,9 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="#FF3579D4"/>
                             <Setter TargetName="Border" Property="Background" Value="#7FCBE2FF"/>
-                            <Setter TargetName="Border" Property="BorderThickness" Value="4,0,0,0"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>
-                            <Setter TargetName="Border" Property="BorderThickness" Value="0"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

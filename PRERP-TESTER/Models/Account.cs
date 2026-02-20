@@ -97,6 +97,10 @@ namespace PRERP_TESTER.Models
             set => SetProperty(ref _departments, value);
         }
 
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        public string AccountAvatar => GetAvatarUrl();
+
 
         // details view
         [Newtonsoft.Json.JsonIgnore]
@@ -183,6 +187,26 @@ namespace PRERP_TESTER.Models
             PermissionsHASSET = Array.Empty<Permission>();
             Departments = Array.Empty<Department>();
         }
+
+        public string GetAvatarUrl()
+        {
+            if (string.IsNullOrEmpty(AvatarUrl))
+            {
+                switch (Role)
+                {
+                    case AccountRole.STAFF:
+                        return "pack://application:,,,/Assets/Avatar/staff.png";
+                    case AccountRole.STUDENT:
+                        return "pack://application:,,,/Resources/Avatar/student.png";
+                    default:
+                        return "pack://application:,,,/Resources/Avatar/staff.png";
+                }
+            }
+            else
+            {
+                return AvatarUrl;
+            }
+       }
 
         // PRIVATE
 

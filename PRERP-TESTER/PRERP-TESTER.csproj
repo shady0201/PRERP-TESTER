@@ -11,6 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Avatar\staff.png" />
+    <None Remove="Assets\Avatar\student.png" />
     <None Remove="Assets\Backgrounds\bg_1.jpg" />
     <None Remove="Assets\Backgrounds\bg_10.jpg" />
     <None Remove="Assets\Backgrounds\bg_11.jpg" />
@@ -49,6 +51,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Avatar\staff.png" />
+    <Resource Include="Assets\Avatar\student.png" />
     <Resource Include="Assets\Backgrounds\bg_1.jpg" />
     <Resource Include="Assets\Backgrounds\bg_10.jpg" />
     <Resource Include="Assets\Backgrounds\bg_11.jpg" />

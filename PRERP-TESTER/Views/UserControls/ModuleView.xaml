@@ -16,7 +16,7 @@
         <conv:SubtractValueConverter x:Key="SubtractValueConverter" />
     </UserControl.Resources>
 
-    <Border Padding="10" Background="White">
+    <Border Padding="10" Background="WhiteSmoke">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

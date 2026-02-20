@@ -36,49 +36,11 @@
                 </Grid.ColumnDefinitions>
                 <!--Avatar-->
                 <Border Grid.Column="0" Width="30" Height="30" Margin="5,0,0,0" VerticalAlignment="Center">
-                    <Grid>
-                        <iconPacks:PackIconMaterial x:Name="AccIcon"
-                                        Kind="Account" 
-                                        Foreground="#FF777777"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Width="18" Height="18">
-                            <iconPacks:PackIconMaterial.Style>
-                                <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-
-                                        <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </iconPacks:PackIconMaterial.Style>
-                        </iconPacks:PackIconMaterial>
-                        <Border x:Name="AvatarBorder" CornerRadius="6" BorderBrush="#FF888888" BorderThickness="0.7">
-                            <Border.Background>
-                                <ImageBrush ImageSource="{Binding Account.AvatarUrl, TargetNullValue={x:Null}, FallbackValue={x:Null}}" 
-                                Stretch="UniformToFill"/>
-                            </Border.Background>
-                            <Border.Style>
-                                <Style TargetType="Border">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-
-                                        <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                        </Border>
-                    </Grid>
+                    <Border x:Name="AvatarBorder" CornerRadius="6" BorderBrush="#FF888888" BorderThickness="0.7">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding Account.AccountAvatar, TargetNullValue={x:Null}, FallbackValue={x:Null}}" Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
                     <ToolTipService.InitialShowDelay>0</ToolTipService.InitialShowDelay>
                     <ToolTipService.BetweenShowDelay>0</ToolTipService.BetweenShowDelay>
                     <Border.ToolTip>
@@ -112,14 +74,17 @@
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
-                        <ToolTipService.InitialShowDelay>0</ToolTipService.InitialShowDelay>
-                        <ToolTipService.BetweenShowDelay>0</ToolTipService.BetweenShowDelay>
+                    <!---
+                    <ToolTipService.InitialShowDelay>0</ToolTipService.InitialShowDelay>
+                    <ToolTipService.BetweenShowDelay>0</ToolTipService.BetweenShowDelay>
                     <TextBlock.ToolTip>
                         <ToolTip Padding="8,2" HasDropShadow="True"
                                      SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
                             <TextBlock Text="{Binding Account.DisplayName}" FontWeight="SemiBold"/>
                         </ToolTip>
                     </TextBlock.ToolTip>
+                    -->
+                    
                  </TextBlock>
             </Grid>
         </Border>

@@ -6,76 +6,96 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <DataTemplate x:Key="AccountItem">
-        <Grid Margin="0,5,5,5" Width="195" MaxWidth="195">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <!--Avatar-->
-            <Grid Grid.Column="0" Width="30" Height="30" Margin="0,0,7,0" VerticalAlignment="Center">
-                <iconPacks:PackIconMaterial x:Name="AccIcon"
-                                            Kind="Account" 
-                                            Foreground="#FF777777"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Width="18" Height="18">
-                    <iconPacks:PackIconMaterial.Style>
-                        <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Account.IsLoggedIn}" Value="True">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Account.IsLoggedIn}" Value="False">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </iconPacks:PackIconMaterial.Style>
-                </iconPacks:PackIconMaterial>
-                <Image Source="{Binding Account.AvatarUrl, TargetNullValue={x:Null}, FallbackValue={x:Null}}"
-                       Stretch="UniformToFill"
-                       Width="30" Height="30">
-                    <Image.Clip>
-                        <EllipseGeometry Center="15,15" RadiusX="15" RadiusY="15"/>
-                    </Image.Clip>
-                    <Image.Style>
-                        <Style TargetType="Image">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Account.IsLoggedIn}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
+        <Border>
+            <Border.ContextMenu>
+                <ContextMenu Style="{StaticResource TabContextMenuStyle}">
+                    <MenuItem Header="Thông tin" 
+                              Style="{StaticResource TabContextMenuLeftStyle}"
+                              Command="{Binding DataContext.ShowAccountDetailCommand,RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                              CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Kind="CardAccountDetailsStarOutline" Width="14" Height="14"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
 
-                                <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="{x:Null}">
+                    <MenuItem Header="Gỡ tài khoản" 
+                              Style="{StaticResource TabContextMenuLeftStyle}"
+                              Foreground="#EF4444"
+                              Command="{Binding DataContext.RemoveAccountFromModuleCommand,RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                              CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="14" Height="14" Foreground="#EF4444"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </Border.ContextMenu>
+            <Grid Margin="0,5,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!--Avatar-->
+                <Border Grid.Column="0" Width="30" Height="30" Margin="0,0,7,0" VerticalAlignment="Center">
+                    <Grid>
+                        <iconPacks:PackIconMaterial x:Name="AccIcon"
+                                        Kind="Account" 
+                                        Foreground="#FF777777"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Width="18" Height="18">
+                            <iconPacks:PackIconMaterial.Style>
+                                <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
                                     <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
 
-                                <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>
-                <Ellipse Width="30" Height="30" 
-                         Stroke="#FFE0E0E0" StrokeThickness="1"
-                         IsHitTestVisible="False"/>
-            </Grid>
-            <!-- Info -->
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock  Grid.Row="0"
-                                x:Name="AccText"
-                                VerticalAlignment="Center"
-                                Text="{Binding Account.DisplayName}"
-                                FontSize="14"
-                                FontWeight="SemiBold"
-                                TextTrimming="CharacterEllipsis">
+                                        <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </iconPacks:PackIconMaterial.Style>
+                        </iconPacks:PackIconMaterial>
+                        <Border x:Name="AvatarBorder" CornerRadius="6" BorderBrush="#FF888888" BorderThickness="0.7">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding Account.AvatarUrl, TargetNullValue={x:Null}, FallbackValue={x:Null}}" 
+                                Stretch="UniformToFill"/>
+                            </Border.Background>
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding Account.AvatarUrl}" Value="">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                    </Grid>
+                    <ToolTipService.InitialShowDelay>0</ToolTipService.InitialShowDelay>
+                    <ToolTipService.BetweenShowDelay>0</ToolTipService.BetweenShowDelay>
+                    <Border.ToolTip>
+                        <ToolTip Padding="8,2" HasDropShadow="True"
+                                 SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
+                            <TextBlock Text="{Binding Account.DisplayName}" FontWeight="SemiBold"/>
+                        </ToolTip>
+                    </Border.ToolTip>
+                </Border>
+                <!-- Account Name -->
+                <TextBlock  Grid.Column="1"
+                                    x:Name="AccText"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Account.DisplayName}"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    TextTrimming="CharacterEllipsis">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" Value="#FF636363"/>
@@ -86,64 +106,17 @@
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
-                    <ToolTipService.InitialShowDelay>0</ToolTipService.InitialShowDelay>
-                    <ToolTipService.BetweenShowDelay>0</ToolTipService.BetweenShowDelay>
+                        <ToolTipService.InitialShowDelay>0</ToolTipService.InitialShowDelay>
+                        <ToolTipService.BetweenShowDelay>0</ToolTipService.BetweenShowDelay>
                     <TextBlock.ToolTip>
                         <ToolTip Padding="8,2" HasDropShadow="True"
-                                 SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
+                                     SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
                             <TextBlock Text="{Binding Account.DisplayName}" FontWeight="SemiBold"/>
                         </ToolTip>
                     </TextBlock.ToolTip>
-                </TextBlock>
-
-                <Button Grid.Row="1"
-                        Command="{Binding DataContext.ShowAccountDetailCommand,RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                        CommandParameter="{Binding}"
-                        FontWeight="SemiBold"
-                        Cursor="Hand">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Foreground" Value="#FF777777"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Foreground" Value="#FF4683C7"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                        <TextBlock Text="Chi tiết"/>
-                        <iconPacks:PackIconMaterial Kind="ListBoxOutline" Width="10" Height="10" VerticalAlignment="Center" Margin="4,0,0,0" />
-                    </StackPanel>
-                </Button>
+                 </TextBlock>
             </Grid>
-            <!--Delete button-->
-            <Button x:Name="DeleteBtn"
-                    Grid.Column="2"
-                    Opacity="0"
-                    Width="20" Height="20"
-                    VerticalAlignment="Top"
-                    Command="{Binding DataContext.RemoveAccountFromModuleCommand,
-                                RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                CommandParameter="{Binding}"
-                    Style="{StaticResource CloseTabButtonStyle}"
-                    Cursor="Hand"
-                    Margin="10,0,0,0">
-            </Button>
-        </Grid>
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
-                <Setter TargetName="DeleteBtn" Property="Opacity" Value="1"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                
-            </DataTrigger>
-        </DataTemplate.Triggers>
+        </Border>
     </DataTemplate>
 
 </ResourceDictionary>

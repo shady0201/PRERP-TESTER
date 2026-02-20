@@ -19,14 +19,12 @@ namespace PRERP_TESTER.Views.UserControls
             {
                 DependencyObject originalSource = e.OriginalSource as DependencyObject;
 
-                // Tránh kích hoạt kéo thả khi nhấn vào nút Xóa
                 if (FindAncestor<Button>(originalSource) != null) return;
 
                 var item = FindAncestor<ListBoxItem>(originalSource);
 
                 if (item != null)
                 {
-                    // Khởi tạo dữ liệu kéo thả
                     var data = new DataObject("AccountVM", item.DataContext);
                     DragDrop.DoDragDrop(item, data, DragDropEffects.Move);
                 }
@@ -55,19 +53,24 @@ namespace PRERP_TESTER.Views.UserControls
 
                         if (oldIndex != -1 && newIndex != -1 && oldIndex != newIndex)
                         {
+                            // Lấy vị trí chuột tương đối theo trục Y (chiều dọc)
                             Point relativeMousePos = e.GetPosition(targetItem);
                             bool shouldMove = false;
 
+                            // Nếu đang kéo xuống dưới
                             if (oldIndex < newIndex)
                             {
-                                if (relativeMousePos.X > targetItem.ActualWidth / 2)
+                                // Kéo chuột quá nửa chiều cao của item đích về phía dưới
+                                if (relativeMousePos.Y > targetItem.ActualHeight / 2)
                                 {
                                     shouldMove = true;
                                 }
                             }
+                            // Nếu đang kéo ngược lên trên
                             else if (oldIndex > newIndex)
                             {
-                                if (relativeMousePos.X < targetItem.ActualWidth / 2)
+                                // Kéo chuột quá nửa chiều cao của item đích về phía trên
+                                if (relativeMousePos.Y < targetItem.ActualHeight / 2)
                                 {
                                     shouldMove = true;
                                 }
@@ -91,10 +94,9 @@ namespace PRERP_TESTER.Views.UserControls
 
         private void ListBox_Drop(object sender, DragEventArgs e)
         {
-            e.Handled = true; // Vị trí đã được cập nhật trong DragOver
+            e.Handled = true;
         }
 
-        // Helper tìm phần tử cha trong Visual Tree
         private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
         {
             do

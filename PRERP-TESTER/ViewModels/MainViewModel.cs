@@ -112,6 +112,16 @@ namespace PRERP_TESTER.ViewModels
                 }
             }
         }
+
+        private bool _isAccountListCollapsed = true;
+        public bool IsAccountListCollapsed
+        {
+            get => _isAccountListCollapsed;
+            set => SetProperty(ref _isAccountListCollapsed, value);
+        }
+
+        public ICommand ToggleAccountListCommand { get; }
+
         public ObservableCollection<ModuleViewModel> Modules { get; set; } = [];
 
         public ModuleViewModel? SelectedModule { get; set; }
@@ -156,6 +166,8 @@ namespace PRERP_TESTER.ViewModels
             ToggleAccountExpandCommand = new RelayCommand(() => IsAccountExpanded = !IsAccountExpanded);
 
             ShowAccountDetailCommand = new RelayCommand<Account>(ShowAccountDetail);
+
+            ToggleAccountListCommand = new RelayCommand(() => IsAccountListCollapsed = !IsAccountListCollapsed);
 
             TestCommand = new RelayCommand(ExecuteTest);
 

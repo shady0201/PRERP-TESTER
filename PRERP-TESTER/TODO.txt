@@ -1,5 +1,8 @@
-﻿+ Style count number.
-+ Style module, accont menu.
+﻿+ left menu style:
++ Module:
+ - User accounts list:
+  + Chuột phải mở details.
+  + thu gọn list, chỉ hiển thị avatar + tooltip
 
 + Lưu trạng thái hết hạn token.
 + Xoá thông tin login nếu đăng xuất: Trường hợp khả thi là kiểm tra session thay đổi => gọi api => không thành công thì xoá thông tin login.

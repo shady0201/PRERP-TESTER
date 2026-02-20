@@ -6,19 +6,19 @@
                 xmlns:conv="clr-namespace:PRERP_TESTER.Converters"
                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-                xmlns:ei="http://schemas.microsoft.com/xaml/behaviors"
+                xmlns:ei="http://schemas.microsoft.com/xaml/behaviors" xmlns:helper="clr-namespace:PRERP_TESTER.Helper"
                 mc:Ignorable="av"
                 x:Class="PRERP_TESTER.Views.UserControls.ModuleView"
+                xmlns:vm="clr-namespace:PRERP_TESTER.ViewModels"
                 av:DesignHeight="346.928" av:DesignWidth="754.237">
 
     <UserControl.Resources>
         <conv:SubtractValueConverter x:Key="SubtractValueConverter" />
     </UserControl.Resources>
 
-    <Border Padding="6" Background="White">
+    <Border Padding="0,6,6,6" Background="White">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -35,15 +35,6 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <!---
-                            <iconPacks:PackIconMaterial Kind="Folder" 
-                                                        Width="20" Height="20"
-                                                        Grid.Column="0"
-                                                        Margin="0,0,6,0"
-                                                        Foreground="#FFE2A862"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"/>
-                        -->
                         <TextBlock Text="{Binding Name}" Grid.Column="1" TextTrimming="CharacterEllipsis" FontSize="24" FontWeight="SemiBold" Foreground="#FF525252"/>
                     </Grid>
                     
@@ -58,85 +49,123 @@
                     </Grid>
                 </Grid>
             </Border>
-            <!-- Account List-->
-            <Border Grid.Row="1"
-                    Background="White"
-                    BorderBrush="#FFA5A5A5"
-                    BorderThickness="0,0,0,1.5"
-                    Height="auto"
-                    Padding="0,0,0,2"
-                    Margin="0,0,0,5">
-                <AdornerDecorator>
-                    <ListBox ItemsSource="{Binding ModuleAccounts}"
-                                 SelectedItem="{Binding SelectedAccountModule}"
-                                 ItemContainerStyle="{StaticResource AccountItemContainerStyle}"
-                                 Background="Transparent"
-                                 MinHeight="40px"
-                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                 MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}, Converter={StaticResource SubtractValueConverter}, ConverterParameter=0}"
-                                 AllowDrop="True"
-                                 PreviewMouseMove="ListBox_PreviewMouseMove"
-                                 Drop="ListBox_Drop"
-                                 DragOver="ListBox_DragOver"
-                                 BorderThickness="0">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Height="Auto">
-                                    <i:Interaction.Behaviors>
-                                        <ei:FluidMoveBehavior AppliesTo="Children" Duration="0:0:0.3">
-                                            <ei:FluidMoveBehavior.EaseY>
-                                                <CubicEase EasingMode="EaseOut"/>
-                                            </ei:FluidMoveBehavior.EaseY>
-                                            <ei:FluidMoveBehavior.EaseX>
-                                                <CubicEase EasingMode="EaseOut"/>
-                                            </ei:FluidMoveBehavior.EaseX>
-                                        </ei:FluidMoveBehavior>
-                                    </i:Interaction.Behaviors>
-                                </StackPanel>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </AdornerDecorator>
-            </Border>
-            <!-- web browers-->
-            <ItemsControl ItemsSource="{Binding ModuleAccounts}" Grid.Row="2" Grid.ColumnSpan="2">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Visibility="{Binding IsSelected, Converter={StaticResource BoolToVis}}">
-                            <ContentControl Content="{Binding}">
-                                <ContentControl.Style>
-                                    <Style TargetType="ContentControl">
-                                        <Setter Property="ContentTemplate" Value="{x:Null}" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsLoaded}" Value="True">
-                                                <Setter Property="ContentTemplate">
-                                                    <Setter.Value>
-                                                        <DataTemplate>
-                                                            <ContentPresenter Content="{Binding}" />
-                                                        </DataTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ContentControl.Style>
-                            </ContentControl>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="AccountListColumn">
+                        <ColumnDefinition.Style>
+                            <Style TargetType="ColumnDefinition">
+                                <Setter Property="Width" Value="200"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=IsAccountListCollapsed}" Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <helper:GridLengthAnimation 
+                                                            Storyboard.TargetProperty="Width"
+                                                            From="200" To="50" Duration="0:0:0.3">
+                                                        <helper:GridLengthAnimation.EasingFunction>
+                                                            <CubicEase EasingMode="EaseOut"/>
+                                                        </helper:GridLengthAnimation.EasingFunction>
+                                                    </helper:GridLengthAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <helper:GridLengthAnimation 
+                                                    Storyboard.TargetProperty="Width"
+                                                    From="0" To="220" Duration="0:0:0.3">
+                                                        <helper:GridLengthAnimation.EasingFunction>
+                                                            <CubicEase EasingMode="EaseOut"/>
+                                                        </helper:GridLengthAnimation.EasingFunction>
+                                                    </helper:GridLengthAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ColumnDefinition.Style>
+                    </ColumnDefinition>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Account List-->
+                <Border Grid.Column="0"
+                        Background="White"
+                        Height="auto"
+                        Padding="0,0,0,0">
+                    <AdornerDecorator>
+                        <ListBox ItemsSource="{Binding ModuleAccounts}"
+                                     SelectedItem="{Binding SelectedAccountModule}"
+                                     ItemContainerStyle="{StaticResource AccountItemContainerStyle}"
+                                     Background="Transparent"
+                                     MinHeight="40px"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                     AllowDrop="True"
+                                     PreviewMouseMove="ListBox_PreviewMouseMove"
+                                     Drop="ListBox_Drop"
+                                     DragOver="ListBox_DragOver"
+                                     BorderThickness="0">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" Height="Auto">
+                                        <i:Interaction.Behaviors>
+                                            <ei:FluidMoveBehavior AppliesTo="Children" Duration="0:0:0.3">
+                                                <ei:FluidMoveBehavior.EaseY>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </ei:FluidMoveBehavior.EaseY>
+                                                <ei:FluidMoveBehavior.EaseX>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </ei:FluidMoveBehavior.EaseX>
+                                            </ei:FluidMoveBehavior>
+                                        </i:Interaction.Behaviors>
+                                    </StackPanel>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource AccountItem}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </AdornerDecorator>
+                </Border>
+                <!-- web browers-->
+                <ItemsControl ItemsSource="{Binding ModuleAccounts}" Grid.Column="1" Grid.ColumnSpan="2">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Visibility="{Binding IsSelected, Converter={StaticResource BoolToVis}}">
+                                <ContentControl Content="{Binding}">
+                                    <ContentControl.Style>
+                                        <Style TargetType="ContentControl">
+                                            <Setter Property="ContentTemplate" Value="{x:Null}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsLoaded}" Value="True">
+                                                    <Setter Property="ContentTemplate">
+                                                        <Setter.Value>
+                                                            <DataTemplate>
+                                                                <ContentPresenter Content="{Binding}" />
+                                                            </DataTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
         </Grid>
     </Border>
 </UserControl>

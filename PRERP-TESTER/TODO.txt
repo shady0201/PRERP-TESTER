@@ -1,6 +1,4 @@
-﻿- Chuột phải item account trong module.
-
-- Lưu các trạng thái app:
+﻿- Lưu các trạng thái app:
  + Select module
  + select account
  + collapse/expand
@@ -8,8 +6,6 @@
 
 - Ghim module làm các tab load lại.
 - Thêm valid các trường input trong form.
-- Chỉnh style module view cho đẹp hơn.
-- Chỉnh style danh sách account trong module cho dễ nhận biết.
 
 * Chức năng hỗ trợ test tài khoản thi sinh viên.
 * Light/Dark mode.

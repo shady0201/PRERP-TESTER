@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                    x:Class="PRERP_TESTER.Resources.Styles.Module"
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <Style x:Key="AddAccountStyle" TargetType="Button">
@@ -49,6 +50,7 @@
     <Style x:Key="ItemAccountSelectContainerStyle" TargetType="ListBoxItem">
         <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <EventSetter Event="PreviewMouseRightButtonDown" Handler="OnMouseRightButtonDownItemLeft" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">

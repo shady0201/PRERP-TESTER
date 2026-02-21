@@ -1,17 +1,17 @@
-﻿using MahApps.Metro.Controls;
-using PRERP_TESTER.Models;
-using PRERP_TESTER.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace PRERP_TESTER.Resources.Styles
 {
-    public partial class MenuLeft : ResourceDictionary
+    public partial class Module : ResourceDictionary
     {
-        public MenuLeft()
+        public Module()
         {
             InitializeComponent();
         }
@@ -25,5 +25,6 @@ namespace PRERP_TESTER.Resources.Styles
                 item.ContextMenu.IsOpen = true;
             }
         }
+
     }
 }

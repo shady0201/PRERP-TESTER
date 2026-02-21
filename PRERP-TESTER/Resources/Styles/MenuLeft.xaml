@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    x:Class="PRERP_TESTER.Resources.Templates.MenuLeft"
+                    x:Class="PRERP_TESTER.Resources.Styles.MenuLeft"
                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
 
     <Style x:Key="TabContextMenuLeftStyle" TargetType="MenuItem">

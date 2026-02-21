@@ -169,7 +169,7 @@
                                                                                 Foreground="#FF757575"
                                                                                 Width="16" Height="16"
                                                                                 VerticalAlignment="Center"/>
-                                                <TextBlock Text="Thêm tài khoản" FontSize="14" Margin="6,0,0,0" Foreground="#FF757575" VerticalAlignment="Center">
+                                                <TextBlock Text="Thêm tài khoản" FontSize="14" Margin="6,0,0,0" Foreground="#FF545454" VerticalAlignment="Center">
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock">
                                                             <Setter Property="Visibility" Value="Visible"/>

@@ -389,7 +389,7 @@
                                                                  HasDropShadow="True"
                                                                  SnapsToDevicePixels="True"
                                                                  Style="{StaticResource TooltipAccountName}">
-                                                            <TextBlock Text="Thêm mới tài khoản"/>
+                                                            <TextBlock Text="Tạo mới tài khoản"/>
                                                         </ToolTip>
                                                     </Button.ToolTip>
                                                 </Button>

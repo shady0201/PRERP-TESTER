@@ -105,7 +105,7 @@
                                 Command="{Binding ToggleMenuCommand}"
                                 Style="{StaticResource StyleButtonCollapse}"
                                 Margin="0,0,5,0">
-                            <iconPacks:PackIconMaterial Kind="Menu" VerticalAlignment="Center"/>
+                            <iconPacks:PackIconMaterial Kind="Menu" VerticalAlignment="Center" Foreground="#FF656565"/>
                         </Button>
                     </Grid>
                 </Border>

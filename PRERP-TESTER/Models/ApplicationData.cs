@@ -14,5 +14,12 @@ namespace PRERP_TESTER.Models
         public List<HistoryItem> History { get; set; } = new();
         public ServerType ServerType { get; set; }
 
+        public bool IsAccountExpanded { get; set; } = false;
+        public bool IsModuleExpanded { get; set; } = false;
+        public bool IsDarkMode { get; set; } = false;
+        public bool IsAccountListCollapsed { get; set; } = false;
+        public bool IsMenuCollapsed { get; set; } = false;
+        public string? SelectedModuleId { get; set; } = null;
+
     }
 }

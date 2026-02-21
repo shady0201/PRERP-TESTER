@@ -111,6 +111,8 @@
                 </Border>
                 <ScrollViewer Grid.Row="1"
                               VerticalScrollBarVisibility="Auto"
+                              VirtualizingStackPanel.ScrollUnit="Pixel"
+                              CanContentScroll="False"
                               HorizontalScrollBarVisibility="Disabled">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -132,6 +134,7 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Background="Transparent" Grid.Column="0" Cursor="Hand">
@@ -159,13 +162,35 @@
                                         </StackPanel>
                                     </Border>
                                     <Button Grid.Column="1"
+                                            Command="{Binding ToggleSearchModuleExpandCommand}"
+                                            Margin="0,0,5,0"
+                                            Width="25" Height="25">
+                                        <iconPacks:PackIconMaterial Kind="Magnify"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                        <Button.ToolTip>
+                                            <ToolTip Padding="4,1" HasDropShadow="True"
+                                                     SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
+                                                <TextBlock Text="Tìm kiếm module"/>
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                        <Button.Style>
+                                            <Style TargetType="Button" BasedOn="{StaticResource CreateDataMenuStyle}">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsSearchModuleExpanded}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button Grid.Column="2"
                                             Command="{Binding CreateModuleCommand}"
                                             Width="25" Height="25"
                                             Style="{StaticResource CreateDataMenuStyle}">
                                         <iconPacks:PackIconMaterial Kind="Plus"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
                                         <Button.ToolTip>
                                             <ToolTip Padding="4,1" HasDropShadow="True"
-                                                      SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
+                                                        SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
                                                 <TextBlock Text="Tạo mới module"/>
                                             </ToolTip>
                                         </Button.ToolTip>
@@ -183,13 +208,18 @@
                                         </Style.Triggers>
                                     </Style>
                                 </StackPanel.Style>
+                                
+                                <!-- search module -->
                                 <StackPanel Margin="15,5" >
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
-                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="Visibility" Value="Collapsed"/>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
                                                     <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsSearchModuleExpanded}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -215,16 +245,19 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <iconPacks:PackIconMaterial x:Name="SearchAccIcon" Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Width="14" Margin="4,0,0,0" />
+                                            <iconPacks:PackIconMaterial Grid.Column="0" x:Name="SearchAccIcon" Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Width="14" Margin="4,0,0,0" />
                                             <TextBox Grid.Column="1" 
                                                      Text="{Binding SearchModuleText, UpdateSourceTrigger=PropertyChanged}"
                                                      Background="Transparent" BorderThickness="0" 
                                                      FontSize="14" Margin="5,0"
                                                      VerticalContentAlignment="Center"/>
 
-                                            <TextBlock IsHitTestVisible="False" Text="Tên module..." 
-                                                       VerticalAlignment="Center" Grid.Column="1" Margin="5,0"
+                                            <TextBlock Grid.Column="1"
+                                                       IsHitTestVisible="False"
+                                                       Text="Tên module..." 
+                                                       VerticalAlignment="Center" Margin="5,0"
                                                        Foreground="#FF5D5D5D" FontSize="14">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
@@ -240,12 +273,20 @@
                                                     </Style>
                                                 </TextBlock.Style>
                                             </TextBlock>
+                                            <Button Grid.Column="2"
+                                                    Command="{Binding ToggleSearchModuleExpandCommand}"
+                                                    Style="{StaticResource CreateDataMenuStyle}"
+                                                    Width="25" Height="25">
+                                                <iconPacks:PackIconMaterial Kind="Upload"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                            </Button>
                                         </Grid>
                                     </Border>
                                 </StackPanel>
+                                
                                 <ListBox ItemsSource="{Binding ModuleMenuView}"
                                         SelectedItem="{Binding SelectedModule}"
                                         ItemContainerStyle="{StaticResource MenuItemModuleStyle}"
+                                        PreviewMouseWheel="ListBox_PreviewMouseWheel"
                                         Background="Transparent"
                                         BorderThickness="0"
                                         Padding="0,0,0,0"
@@ -293,6 +334,7 @@
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Border Grid.Column="0" Background="Transparent" Cursor="Hand">
                                                     <Border.InputBindings>
@@ -316,6 +358,28 @@
                                                     </StackPanel>
                                                 </Border>
                                                 <Button Grid.Column="1"
+                                                        Command="{Binding ToggleSearchAccountExpandCommand}"
+                                                        Margin="0,0,5,0"
+                                                        Width="25" Height="25">
+                                                    <iconPacks:PackIconMaterial Kind="Magnify"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                                    <Button.ToolTip>
+                                                        <ToolTip Padding="4,1" HasDropShadow="True"
+                                                                    SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
+                                                            <TextBlock Text="Tìm kiếm module"/>
+                                                        </ToolTip>
+                                                    </Button.ToolTip>
+                                                    <Button.Style>
+                                                        <Style TargetType="Button" BasedOn="{StaticResource CreateDataMenuStyle}">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsSearchAccountExpanded}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
+                                                <Button Grid.Column="2"
                                                             Command="{Binding CreateAccountCommand}"
                                                             Width="25" Height="25"
                                                             Style="{StaticResource CreateDataMenuStyle}">
@@ -343,6 +407,19 @@
                                             </StackPanel.Style>
                                             <!-- Tìm kiếm Account -->
                                             <StackPanel Margin="15,5" >
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsMenuCollapsed}" Value="True">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsSearchAccountExpanded}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
                                                 <Border Background="White" BorderThickness="1" CornerRadius="15" Padding="5,2" Height="35">
                                                     <Border.Style>
                                                         <Style TargetType="Border">
@@ -363,8 +440,8 @@
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="15*"/>
-                                                            <ColumnDefinition Width="182*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
                                                         </Grid.ColumnDefinitions>
                                                         <iconPacks:PackIconMaterial Kind="Magnify" Foreground="Gray" VerticalAlignment="Center" Width="14" Margin="4,0,0,0" />
                                                         <TextBox Grid.Column="1" 
@@ -390,15 +467,22 @@
                                                                 </Style>
                                                             </TextBlock.Style>
                                                         </TextBlock>
+                                                        <Button Grid.Column="2"
+                                                                Command="{Binding ToggleSearchAccountExpandCommand}"
+                                                                Style="{StaticResource CreateDataMenuStyle}"
+                                                                Width="25" Height="25">
+                                                            <iconPacks:PackIconMaterial Kind="Upload"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                                        </Button>
                                                     </Grid>
                                                 </Border>
                                             </StackPanel>
                                             <!-- Danh sách Account-->
                                             <ListBox ItemsSource="{Binding AccountMenuView}"
                                                     ItemContainerStyle="{StaticResource MenuItemAccountStyle}"
+                                                    PreviewMouseWheel="ListBox_PreviewMouseWheel"
                                                     Background="Transparent"
                                                     BorderThickness="0"
-                                                    Padding="0,0,0,0"
+                                                    Margin="0,0,0,20"
                                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                     VerticalAlignment="Stretch">

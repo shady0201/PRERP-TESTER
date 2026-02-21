@@ -75,10 +75,9 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
                             <Border x:Name="rectangle"
-                                    Background="#A0A0A0" 
-                                    CornerRadius="5"
-                                    Margin="0,0"
-                        SnapsToDevicePixels="True"/>
+                                    Background="#a9a9a9" 
+                                    CornerRadius="2"
+                                    SnapsToDevicePixels="True"/>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
                                     <Setter TargetName="rectangle" Property="Background" Value="#808080"/>
@@ -93,7 +92,7 @@
             <Style TargetType="{x:Type ScrollBar}">
                 <Setter Property="MinHeight" Value="0"/>
                 <Setter Property="MinWidth" Value="0"/>
-                <Setter Property="Width" Value="10"/>
+                <Setter Property="Width" Value="5"/>
                 <Setter Property="Background" Value="Transparent"/>
 
                 <Setter Property="Template">
@@ -108,7 +107,7 @@
                                         <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource InvisibleRepeatButtonStyle}"/>
                                     </Track.IncreaseRepeatButton>
                                     <Track.Thumb>
-                                        <Thumb Style="{StaticResource ModernScrollBarThumb}" />
+                                        <Thumb Style="{StaticResource ModernScrollBarThumb}" Margin="4,0,-3,0"/>
                                     </Track.Thumb>
                                 </Track>
                             </Grid>
@@ -119,7 +118,7 @@
                 <Style.Triggers>
                     <Trigger Property="Orientation" Value="Horizontal">
                         <Setter Property="Width" Value="Auto"/>
-                        <Setter Property="Height" Value="10"/>
+                        <Setter Property="Height" Value="5"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ScrollBar}">
@@ -132,7 +131,7 @@
                                                 <RepeatButton Command="{x:Static ScrollBar.PageRightCommand}" Style="{StaticResource InvisibleRepeatButtonStyle}"/>
                                             </Track.IncreaseRepeatButton>
                                             <Track.Thumb>
-                                                <Thumb Style="{StaticResource ModernScrollBarThumb}" Margin="0,1"/>
+                                                <Thumb Style="{StaticResource ModernScrollBarThumb}"/>
                                             </Track.Thumb>
                                         </Track>
                                     </Grid>

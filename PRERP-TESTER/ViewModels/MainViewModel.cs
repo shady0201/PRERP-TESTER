@@ -86,6 +86,27 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _isModuleExpanded, value);
         }
 
+        private bool _isAccountExpanded = true;
+        public bool IsAccountExpanded
+        {
+            get => _isAccountExpanded;
+            set => SetProperty(ref _isAccountExpanded, value);
+        }
+
+        private bool _isSearchAccountExpanded = false;
+        public bool IsSearchAccountExpanded
+        {
+            get => _isSearchAccountExpanded;
+            set => SetProperty(ref _isSearchAccountExpanded, value);
+        }
+
+        private bool _isSearchModuleExpanded = false;
+        public bool IsSearchModuleExpanded
+        {
+            get => _isSearchModuleExpanded;
+            set => SetProperty(ref _isSearchModuleExpanded, value);
+        }
+
         private bool _isDarkMode = true;
         public bool IsDarkMode
         {
@@ -93,12 +114,7 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _isDarkMode, value);
         }
 
-        private bool _isAccountExpanded = true;
-        public bool IsAccountExpanded
-        {
-            get => _isAccountExpanded;
-            set => SetProperty(ref _isAccountExpanded, value);
-        }
+
 
         private ServerType _serverType;
         public ServerType ServerType
@@ -140,6 +156,8 @@ namespace PRERP_TESTER.ViewModels
 
         public ICommand ToggleModuleExpandCommand { get; }
         public ICommand ToggleAccountExpandCommand { get; }
+        public ICommand ToggleSearchModuleExpandCommand { get; }
+        public ICommand ToggleSearchAccountExpandCommand { get; }
         public ICommand TestCommand { get; }
         public ICommand ShowAccountDetailCommand { get; }
         public static MainViewModel Instance { get; private set; }
@@ -165,6 +183,9 @@ namespace PRERP_TESTER.ViewModels
             ToggleModuleExpandCommand = new RelayCommand(() => IsModuleExpanded = !IsModuleExpanded);
             ToggleAccountExpandCommand = new RelayCommand(() => IsAccountExpanded = !IsAccountExpanded);
 
+            ToggleSearchModuleExpandCommand = new RelayCommand(() => IsSearchModuleExpanded = !IsSearchModuleExpanded);
+            ToggleSearchAccountExpandCommand = new RelayCommand(() => IsSearchAccountExpanded = !IsSearchAccountExpanded);
+
             ShowAccountDetailCommand = new RelayCommand<Account>(ShowAccountDetail);
 
             ToggleAccountListCommand = new RelayCommand(() => IsAccountListCollapsed = !IsAccountListCollapsed);
@@ -187,6 +208,7 @@ namespace PRERP_TESTER.ViewModels
                 SelectedPopupAccount = m.Value;
                 IsAccountPopupOpen = true;
             });
+            
         }
 
         public void ShowAccountDetail(Account account)
@@ -421,8 +443,15 @@ namespace PRERP_TESTER.ViewModels
                 DefaultHistory();
             }
 
-            // Cập nhật server type
+            // select module
+            SelectedModule = Modules.FirstOrDefault(m => m.ModuleEntity.Id == data.SelectedModuleId) ?? null;
+
+            // App data
             ServerType = data.ServerType;
+            IsAccountListCollapsed = data.IsAccountListCollapsed;
+            IsAccountExpanded = data.IsAccountExpanded;
+            IsModuleExpanded = data.IsModuleExpanded;
+            IsMenuCollapsed = data.IsMenuCollapsed;
 
             UpdateCurrentServer();
         }
@@ -480,6 +509,11 @@ namespace PRERP_TESTER.ViewModels
                 Modules = Modules.Select(m => m.ModuleEntity).ToList(),
                 ServerType = GobalSetting.ServerType,
                 History = History.ToList(),
+                IsAccountListCollapsed = IsAccountListCollapsed,
+                IsAccountExpanded = IsAccountExpanded,
+                IsModuleExpanded = IsModuleExpanded,
+                IsMenuCollapsed = IsMenuCollapsed,
+                SelectedModuleId = SelectedModule?.ModuleEntity.Id
             };
         }
 
@@ -604,21 +638,13 @@ namespace PRERP_TESTER.ViewModels
         // Item mouse event
         private void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // Đánh dấu sự kiện đã được xử lý (Handled = true)
-            // Điều này sẽ chặn ListBox không nhận được tín hiệu nhấn chuột phải, 
-            // do đó nó sẽ không thay đổi SelectedItem.
             e.Handled = true;
 
-            // LƯU Ý: Vì chúng ta chặn sự kiện, ContextMenu có thể không tự mở.
-            // Chúng ta sẽ ép ContextMenu mở thủ công khi nhấn chuột phải.
             var listBoxItem = sender as ListBoxItem;
             if (listBoxItem != null)
             {
-                // Tìm Border hoặc Content bên trong có chứa ContextMenu
-                // Ở đây chúng ta tìm đến Border đầu tiên bên trong ListBoxItem
                 var frameworkElement = listBoxItem.ContentTemplate.LoadContent() as FrameworkElement;
 
-                // Hoặc đơn giản hơn, nếu ContextMenu nằm trên Border mà bạn đã gán Tag:
                 if (listBoxItem.ContextMenu != null)
                 {
                     listBoxItem.ContextMenu.PlacementTarget = listBoxItem;
@@ -626,10 +652,7 @@ namespace PRERP_TESTER.ViewModels
                 }
                 else
                 {
-                    // Nếu bạn đặt ContextMenu bên trong DataTemplate (trên Border như đoạn code trước)
-                    // Chúng ta cần tìm element đó và mở menu của nó.
-                    // Nhưng cách nhanh nhất là dùng ContextMenuService:
-                    var border = FindVisualChild<Border>(listBoxItem); // Hàm bổ trợ tìm Border
+                    var border = FindVisualChild<Border>(listBoxItem);
                     if (border != null && border.ContextMenu != null)
                     {
                         border.ContextMenu.PlacementTarget = border;
@@ -639,7 +662,6 @@ namespace PRERP_TESTER.ViewModels
             }
         }
 
-        // Hàm bổ trợ để tìm Border bên trong ListBoxItem (nếu cần)
         private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)

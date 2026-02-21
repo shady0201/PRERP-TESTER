@@ -183,8 +183,8 @@ namespace PRERP_TESTER.ViewModels
             ToggleModuleExpandCommand = new RelayCommand(() => IsModuleExpanded = !IsModuleExpanded);
             ToggleAccountExpandCommand = new RelayCommand(() => IsAccountExpanded = !IsAccountExpanded);
 
-            ToggleSearchModuleExpandCommand = new RelayCommand(() => IsSearchModuleExpanded = !IsSearchModuleExpanded);
-            ToggleSearchAccountExpandCommand = new RelayCommand(() => IsSearchAccountExpanded = !IsSearchAccountExpanded);
+            ToggleSearchModuleExpandCommand = new RelayCommand(ExecuteToggleSearchModule);
+            ToggleSearchAccountExpandCommand = new RelayCommand(ExecuteToggleSearchAccount);
 
             ShowAccountDetailCommand = new RelayCommand<Account>(ShowAccountDetail);
 
@@ -351,6 +351,108 @@ namespace PRERP_TESTER.ViewModels
             ModuleMenuView?.Refresh();
             SaveAllData();
         }
+        private void ExecuteImportData()
+        {
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "JSON Files (*.json)|*.json",
+                Title = "Chọn file dữ liệu để nhập"
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string json = File.ReadAllText(openFileDialog.FileName);
+                    var importedData = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationData>(json);
+
+                    if (importedData == null) throw new Exception("File không đúng định dạng dữ liệu Prerp.");
+
+                    foreach (var acc in importedData.Accounts)
+                    {
+                        var checkDuplicate = Accounts.Any(a => a.Username.Equals(acc.Username.Trim(), StringComparison.OrdinalIgnoreCase)
+                                                    && a.ServerType == acc.ServerType);
+                        if (!checkDuplicate)
+                        {
+                            Accounts.Add(acc);
+                        }
+                    }
+
+                    foreach (var entity in importedData.Modules)
+                    {
+                        var checkDuplicateModule = Modules.Any(m => m.Name == entity.Name);
+                        if (!checkDuplicateModule)
+                        {
+                            Modules.Add(new ModuleViewModel(entity, Accounts));
+                        }
+                    }
+                    ServerType = importedData.ServerType;
+                    UpdateCurrentServer();
+                    SaveAllData();
+
+                    ToastService.Show("Nhập dữ liệu thành công!", "Dữ liệu đã được nhập và lưu thành công.", ToastType.Success);
+                }
+                catch (Exception ex)
+                {
+                    LogService.LogError(ex, "MainViewModel - ExecuteImportData");
+                    ToastService.Show("Lỗi khi nhập dữ liệu", $"Không thể nhập dữ liệu từ file: {ex.Message}", ToastType.Error);
+                }
+            }
+        }
+        private void ExecuteExportData()
+        {
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "JSON Files (*.json)|*.json",
+                FileName = $"Data_TestApp_{DateTime.Now:yyyyMMdd_HHmm}",
+                Title = "Xuất dữ liệu"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    var data = GetAppData();
+                    data.History = [];
+                    string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                    File.WriteAllText(saveFileDialog.FileName, json);
+
+                    ToastService.Show("Xuất dữ liệu thành công!", "Dữ liệu đã được xuất ra file thành công.", ToastType.Success);
+                }
+                catch (Exception ex)
+                {
+                    LogService.LogError(ex, "MainViewModel - ExecuteExportData");
+                    ToastService.Show("Lỗi khi xuất dữ liệu", $"Không thể xuất dữ liệu ra file: {ex.Message}", ToastType.Error);
+
+                }
+            }
+        }
+
+        private void ExecuteToggleSearchAccount()
+        {
+            IsSearchAccountExpanded = !IsSearchAccountExpanded;
+            if (!IsSearchAccountExpanded)
+            {
+                SearchAccountText = "";
+            }
+            else
+            {
+                IsAccountExpanded = true;
+            }
+        }
+
+        private void ExecuteToggleSearchModule()
+        {
+            IsSearchModuleExpanded = !IsSearchModuleExpanded;
+            if (!IsSearchModuleExpanded)
+            {
+                SearchModuleText = "";
+            }
+            else
+            {
+                IsModuleExpanded = true;
+            }
+        }
+
         private async Task DeleteAccountSessionFolderAsync(string accountId, int delayMs = 3000)
         {
             await Task.Run(async () =>
@@ -532,83 +634,6 @@ namespace PRERP_TESTER.ViewModels
             AccountMenuView?.Refresh();
             ModuleMenuView?.Refresh();
 
-        }
-
-        private void ExecuteImportData()
-        {
-            var openFileDialog = new Microsoft.Win32.OpenFileDialog
-            {
-                Filter = "JSON Files (*.json)|*.json",
-                Title = "Chọn file dữ liệu để nhập"
-            };
-            if (openFileDialog.ShowDialog() == true)
-            {
-                try
-                {
-                    string json = File.ReadAllText(openFileDialog.FileName);
-                    var importedData = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationData>(json);
-
-                    if (importedData == null) throw new Exception("File không đúng định dạng dữ liệu Prerp.");
-
-                    foreach (var acc in importedData.Accounts)
-                    {
-                        var checkDuplicate = Accounts.Any(a => a.Username.Equals(acc.Username.Trim(), StringComparison.OrdinalIgnoreCase)
-                                                    && a.ServerType == acc.ServerType);
-                        if (!checkDuplicate)
-                        {
-                            Accounts.Add(acc);
-                        }
-                    }
-
-                    foreach (var entity in importedData.Modules)
-                    {
-                        var checkDuplicateModule = Modules.Any(m => m.Name == entity.Name);
-                        if (!checkDuplicateModule)
-                        {
-                            Modules.Add(new ModuleViewModel(entity, Accounts));
-                        }
-                    }
-                    ServerType = importedData.ServerType;
-                    UpdateCurrentServer();
-                    SaveAllData();
-
-                    ToastService.Show("Nhập dữ liệu thành công!", "Dữ liệu đã được nhập và lưu thành công.", ToastType.Success);
-                }
-                catch (Exception ex)
-                {
-                    LogService.LogError(ex, "MainViewModel - ExecuteImportData");
-                    ToastService.Show("Lỗi khi nhập dữ liệu", $"Không thể nhập dữ liệu từ file: {ex.Message}", ToastType.Error);
-                }
-            }
-        }
-
-        private void ExecuteExportData()
-        {
-            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
-            {
-                Filter = "JSON Files (*.json)|*.json",
-                FileName = $"Data_TestApp_{DateTime.Now:yyyyMMdd_HHmm}",
-                Title = "Xuất dữ liệu"
-            };
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                try
-                {
-                    var data = GetAppData();
-                    data.History = [];
-                    string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-                    File.WriteAllText(saveFileDialog.FileName, json);
-
-                    ToastService.Show("Xuất dữ liệu thành công!", "Dữ liệu đã được xuất ra file thành công.", ToastType.Success);
-                }
-                catch (Exception ex)
-                {
-                    LogService.LogError(ex, "MainViewModel - ExecuteExportData");
-                    ToastService.Show("Lỗi khi xuất dữ liệu", $"Không thể xuất dữ liệu ra file: {ex.Message}", ToastType.Error);
-                    
-                }
-            }
         }
 
         // Web history

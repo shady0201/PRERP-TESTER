@@ -124,7 +124,7 @@
 					        TextTrimming="CharacterEllipsis">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
-                            <Setter Property="Foreground" Value="#FF1F2937"/>
+                            <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
                             <Setter Property="FontSize" Value="13"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Path=IsSelected}" Value="True">
@@ -294,7 +294,7 @@
                                    Text="{Binding DisplayName}"
                                    VerticalAlignment="Center" 
                                    Margin="10,0,10,0"
-                                   Foreground="#FF1F2937" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource PrimaryText}" FontSize="13" FontWeight="SemiBold"
                                    TextTrimming="CharacterEllipsis">
                         <TextBlock.ToolTip>
                             <ToolTip Padding="4,1" HasDropShadow="True"
@@ -304,7 +304,7 @@
                         </TextBlock.ToolTip>
                      </TextBlock>
                     <TextBlock Grid.Row="1" Text="{Binding Username}" VerticalAlignment="Center" 
-                               Margin="10,0,0,0" Foreground="#FF1F2937" FontSize="13" TextTrimming="CharacterEllipsis"/>
+                               Margin="10,0,0,0" Foreground="{DynamicResource PrimaryText}" FontSize="13" TextTrimming="CharacterEllipsis"/>
                 </Grid>
             </Grid>
         </Border>

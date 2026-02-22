@@ -107,11 +107,17 @@ namespace PRERP_TESTER.ViewModels
             set => SetProperty(ref _isSearchModuleExpanded, value);
         }
 
-        private bool _isDarkMode = true;
+        private bool _isDarkMode = false;
         public bool IsDarkMode
         {
             get => _isDarkMode;
-            set => SetProperty(ref _isDarkMode, value);
+            set
+            {
+                if (SetProperty(ref _isDarkMode, value))
+                {
+                    ApplyTheme(value);
+                }
+            }
         }
 
 
@@ -697,6 +703,22 @@ namespace PRERP_TESTER.ViewModels
                 if (childOfChild != null) return childOfChild;
             }
             return null;
+        }
+
+        private void ApplyTheme(bool isDark)
+        {
+            string themeUri = isDark ? "Resources/Themes/DarkTheme.xaml" : "Resources/Themes/LightTheme.xaml";
+            var newDict = new ResourceDictionary { Source = new Uri(themeUri, UriKind.Relative) };
+
+            var mergedDicts = Application.Current.Resources.MergedDictionaries;
+
+            var oldDict = mergedDicts.FirstOrDefault(d => d.Contains("PrimaryBackground"));
+
+            if (oldDict != null)
+            {
+                mergedDicts.Remove(oldDict);
+            }
+            mergedDicts.Add(newDict);
         }
 
     }

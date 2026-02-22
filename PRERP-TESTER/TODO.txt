@@ -1,8 +1,5 @@
 ﻿- Lưu các trạng thái app:
- + Select module
- + select account
- + collapse/expand
- + theme
+ + Theme
 
 - Ghim module làm các tab load lại.
 - Thêm valid các trường input trong form.

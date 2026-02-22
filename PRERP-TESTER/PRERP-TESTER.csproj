@@ -90,10 +90,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Resources\Themes\DarkMode.xaml">
+    <Page Update="Resources\Themes\DarkTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Resources\Themes\LightMode.xaml">
+    <Page Update="Resources\Themes\LightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Resources\Templates\AccountsModuleItem.xaml">

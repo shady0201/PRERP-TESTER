@@ -12,7 +12,7 @@
         Closing="Window_Closing"
         WindowStartupLocation="CenterScreen">
 
-    <Grid Background="White">
+    <Grid Background="{DynamicResource PrimaryBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="MenuColumn">
                 <ColumnDefinition.Style>
@@ -60,7 +60,7 @@
 
         <!-- Menu Left -->
         <Border Grid.Column="0"
-                BorderBrush="#FFCCCCCC"
+                BorderBrush="{DynamicResource BorderBrushDefault}"
                 BorderThickness="0,0,1,0"
                 Padding="5,0,5,0"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -89,7 +89,7 @@
                                 <MouseBinding MouseAction="LeftClick" Command="{Binding ToggleMenuCommand}"/>
                             </Image.InputBindings>
                         </Image>
-                        <TextBlock Grid.Column="1" Width="auto" Height="auto" Text="{Binding ServerType}" Foreground="#FF404040" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center">
+                        <TextBlock Grid.Column="1" Width="auto" Height="auto" Text="{Binding ServerType}" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="Visibility" Value="Visible"/>
@@ -616,20 +616,29 @@
                                                     Style="{StaticResource ExportImportButtonStyle}"
                                                     Command="{Binding ExportDataCommand}"/>
                                         </StackPanel>
+                                        <TextBlock Text="Theme"
+                                                   Margin="5,10,0,5"
+                                                   FontSize="14" FontWeight="SemiBold" Foreground="#FF444444"/>
+                                        <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                                            <RadioButton GroupName="ThemeGroup"
+                                                         Style="{StaticResource ServerToggleLeftStyle}"
+                                                         Cursor="Hand"
+                                                         IsChecked="{Binding IsDarkMode, Converter={StaticResource ComparisonConverter}, ConverterParameter=False, Mode=TwoWay}">
+                                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                    <iconPacks:PackIconMaterial Kind="WeatherSunny" Width="14" Height="14" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                                    <TextBlock Text="Light" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                                </StackPanel>
+                                            </RadioButton>
 
-                                        <StackPanel Margin="5,20,0,0" Orientation="Horizontal">
-
-                                            <StackPanel Margin="0,0,0,10">
-                                                <TextBlock Text="Dark mode"
-                                                       VerticalAlignment="Center"
-                                                       FontSize="14" FontWeight="SemiBold"
-                                                       Foreground="#FF444444"/>
-                                            </StackPanel>
-                                            <StackPanel>
-                                                <CheckBox Style="{StaticResource ModernSwitchStyle}"
-                                                          Margin="10,0,0,0"
-                                                          IsChecked="{Binding IsDarkMode, Mode=TwoWay}"/>
-                                            </StackPanel>
+                                            <RadioButton GroupName="ThemeGroup"
+                                                         Style="{StaticResource ServerToggleRightStyle}"
+                                                         Cursor="Hand"
+                                                         IsChecked="{Binding IsDarkMode, Converter={StaticResource ComparisonConverter}, ConverterParameter=True, Mode=TwoWay}">
+                                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                    <iconPacks:PackIconMaterial Kind="MoonWaningCrescent" Width="14" Height="14" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                                    <TextBlock Text="Dark" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                                </StackPanel>
+                                            </RadioButton>
                                         </StackPanel>
 
                                     </StackPanel>
@@ -645,7 +654,7 @@
         <ItemsControl ItemsSource="{Binding Modules}" Grid.Column="1" Grid.ColumnSpan="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid />
+                    <Grid/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>

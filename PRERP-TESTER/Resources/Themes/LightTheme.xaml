@@ -9,5 +9,11 @@
     
     <SolidColorBrush x:Key="PrimaryText" Color="#333333"/>
 	<SolidColorBrush x:Key="AccentColor" Color="#007ACC"/>
-    
+
+    <SolidColorBrush x:Key="IconColor" Color="#FF757575"/>
+    <SolidColorBrush x:Key="IconHoverColor" Color="#E8EAED"/>
+
+    <SolidColorBrush x:Key="ItemSelectedBackground" Color="#007ACC" Opacity="0.15" />
+    <SolidColorBrush x:Key="ItemSelectedForeground" Color="#007ACC" />
+
 </ResourceDictionary>

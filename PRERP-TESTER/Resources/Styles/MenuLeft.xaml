@@ -53,12 +53,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="MainBorder" Property="Background" Value="#15000000"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource ItemSelectedBackground}"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="MainBorder" Property="Background" Value="#e6f0fc"/>
-                            <Setter TargetName="MainBorder" Property="BorderThickness" Value="1"/>
-                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="#3883fb"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource ItemSelectedBackground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -82,7 +80,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="MainBorder" Property="Background" Value="WhiteSmoke"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource ItemSelectedBackground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -96,7 +94,7 @@
         <Setter Property="Width" Value="30"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="Foreground" Value="#FF757575"/>
+        <Setter Property="Foreground" Value="{DynamicResource IconColor}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Cursor" Value="Hand"/>
@@ -111,7 +109,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="bg" Property="Fill" Value="#E8EAED"/>
+                            <Setter TargetName="bg" Property="Fill" Value="{DynamicResource IconHoverColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

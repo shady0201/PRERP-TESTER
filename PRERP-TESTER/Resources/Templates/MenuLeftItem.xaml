@@ -269,20 +269,19 @@
                     </Border.ToolTip>
                 </Border>
                 <Border Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderBrush="White" BorderThickness="2">
-                    <iconPacks:PackIconMaterial  Kind="CircleSmall" Foreground="#1e981e" Width="12" Height="12">
-                        <iconPacks:PackIconMaterial.Style>
-                            <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </iconPacks:PackIconMaterial.Style>
-                    </iconPacks:PackIconMaterial>
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <iconPacks:PackIconMaterial  Kind="CircleSmall" Foreground="#1e981e" Width="12" Height="12"/>
                 </Border>
 
                 <Grid Grid.Column="1" VerticalAlignment="Center">

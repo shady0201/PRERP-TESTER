@@ -5,7 +5,7 @@
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <Style x:Key="AddAccountStyle" TargetType="Button">
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#FF636363"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Cursor" Value="Hand"/>
@@ -55,8 +55,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="Border"
-                        BorderThickness="4,0,0,0"
-					    Background="White">
+                            BorderThickness="0,0,0,0"
+					        Background="Transparent">
                         <StackPanel Orientation="Horizontal">
                             <ContentPresenter VerticalAlignment="Center"/>
                         </StackPanel>
@@ -64,8 +64,7 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="BorderBrush" Value="#FF3579D4"/>
-                            <Setter TargetName="Border" Property="Background" Value="#7FCBE2FF"/>
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource ItemSelectedBackground}"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>

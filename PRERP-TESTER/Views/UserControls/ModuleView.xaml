@@ -39,7 +39,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" Grid.Column="1" TextTrimming="CharacterEllipsis" FontSize="24" FontWeight="SemiBold" Foreground="#FF525252"/>
+                        <TextBlock Text="{Binding Name}" Grid.Column="1" TextTrimming="CharacterEllipsis" FontSize="24" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryText}"/>
                     </Grid>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -48,7 +48,7 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="6" Grid.ColumnSpan="2">
+            <Border Grid.Row="1" Background="Transparent" CornerRadius="6" Grid.ColumnSpan="2">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition x:Name="AccountListColumn">
@@ -92,18 +92,11 @@
                     </Grid.ColumnDefinitions>
                     <!-- Account List-->
                     <Border Grid.Column="0"
-                            Background="White"
+                            Background="{DynamicResource CardBackground}"
                             Padding="0,5,0,0"
                             CornerRadius="6"
                             BorderThickness="1"
-                            BorderBrush="#FFB9B9B9">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#FFCECECE"
-                                              Direction="0"
-                                              ShadowDepth="0"
-                                              Opacity="0.3"
-                                              BlurRadius="4"/>
-                        </Border.Effect>
+                            BorderBrush="{DynamicResource BorderBrushDefault}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -209,7 +202,7 @@
                             <Border Grid.Row="3"
                                     Margin="0,5,0,0"
                                     Padding="0,0,0,5"
-                                    Background="White"
+                                    Background="Transparent"
                                     CornerRadius="0,0,6,6"
                                     Height="auto">
                                 <AdornerDecorator>

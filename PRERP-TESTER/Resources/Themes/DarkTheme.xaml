@@ -13,6 +13,12 @@
     <SolidColorBrush x:Key="IconColor" Color="#FFB0B0B0"/>
     <SolidColorBrush x:Key="IconHoverColor" Color="#FFBBBBBB" Opacity="0.15"/>
 
+    <SolidColorBrush x:Key="SeparatorBackground" Color="#565555"/>
+
+    <SolidColorBrush x:Key="CardBackground" Color="#1E1E1E"/>
+    
+    
+
     <SolidColorBrush x:Key="ItemSelectedBackground" Color="#E0E0E0" Opacity="0.15" />
     <SolidColorBrush x:Key="ItemSelectedForeground" Color="#3794FF" />
 

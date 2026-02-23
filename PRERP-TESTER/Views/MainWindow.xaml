@@ -105,7 +105,7 @@
                                 Command="{Binding ToggleMenuCommand}"
                                 Style="{StaticResource StyleButtonCollapse}"
                                 Margin="0,0,5,0">
-                            <iconPacks:PackIconMaterial Kind="Menu" VerticalAlignment="Center" Foreground="#FF656565"/>
+                            <iconPacks:PackIconMaterial Kind="Menu" VerticalAlignment="Center" Foreground="{DynamicResource IconColor}"/>
                         </Button>
                     </Grid>
                 </Border>
@@ -143,7 +143,7 @@
                                                           Command="{Binding ToggleModuleExpandCommand}" />
                                         </Border.InputBindings>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10,0,0,0">
-                                            <iconPacks:PackIconMaterial Grid.Column="1" Width="10" Height="10" Margin="0,3,0,0" VerticalAlignment="Center" Foreground="#FF616060" >
+                                            <iconPacks:PackIconMaterial Grid.Column="1" Width="10" Height="10" Margin="0,3,0,0" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryText}" >
                                                 <iconPacks:PackIconMaterial.Style>
                                                     <Style TargetType="iconPacks:PackIconMaterial">
                                                         <Setter Property="Kind" Value="ChevronDown"/>
@@ -158,14 +158,14 @@
                                                     </Style>
                                                 </iconPacks:PackIconMaterial.Style>
                                             </iconPacks:PackIconMaterial>
-                                            <TextBlock Foreground="#FF404040" Text="Module" Margin="10,0,0,0" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <TextBlock Foreground="{DynamicResource PrimaryText}" Text="Module" Margin="10,0,0,0" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                         </StackPanel>
                                     </Border>
                                     <Button Grid.Column="1"
                                             Command="{Binding ToggleSearchModuleExpandCommand}"
                                             Margin="0,0,5,0"
                                             Width="25" Height="25">
-                                        <iconPacks:PackIconMaterial Kind="Magnify"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                        <iconPacks:PackIconMaterial Kind="Magnify"  Width="15" Height="15" VerticalAlignment="Center" Foreground="{DynamicResource IconColor}"/>
                                         <Button.ToolTip>
                                             <ToolTip Padding="4,1" HasDropShadow="True"
                                                      SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
@@ -187,7 +187,7 @@
                                             Command="{Binding CreateModuleCommand}"
                                             Width="25" Height="25"
                                             Style="{StaticResource CreateDataMenuStyle}">
-                                        <iconPacks:PackIconMaterial Kind="Plus"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                        <iconPacks:PackIconMaterial Kind="Plus"  Width="15" Height="15" VerticalAlignment="Center" Foreground="{DynamicResource IconColor}"/>
                                         <Button.ToolTip>
                                             <ToolTip Padding="4,1" HasDropShadow="True"
                                                         SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
@@ -342,7 +342,7 @@
                                                                         Command="{Binding ToggleAccountExpandCommand}" />
                                                     </Border.InputBindings>
                                                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10,0,0,0">
-                                                        <iconPacks:PackIconMaterial Grid.Column="1" Margin="0,3,0,0" Width="10" Height="10" VerticalAlignment="Center" Foreground="#FF5B5B5B" >
+                                                        <iconPacks:PackIconMaterial Grid.Column="1" Margin="0,3,0,0" Width="10" Height="10" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryText}" >
                                                             <iconPacks:PackIconMaterial.Style>
                                                                 <Style TargetType="iconPacks:PackIconMaterial">
                                                                     <Setter Property="Kind" Value="ChevronDown"/>
@@ -354,14 +354,14 @@
                                                                 </Style>
                                                             </iconPacks:PackIconMaterial.Style>
                                                         </iconPacks:PackIconMaterial>
-                                                        <TextBlock Text= "Tài khoản" Foreground="#FF404040" FontSize="16" Margin="10,0,0,0" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                                        <TextBlock Text= "Tài khoản" Foreground="{DynamicResource PrimaryText}" FontSize="16" Margin="10,0,0,0" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <Button Grid.Column="1"
                                                         Command="{Binding ToggleSearchAccountExpandCommand}"
                                                         Margin="0,0,5,0"
                                                         Width="25" Height="25">
-                                                    <iconPacks:PackIconMaterial Kind="Magnify"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                                    <iconPacks:PackIconMaterial Kind="Magnify"  Width="15" Height="15" VerticalAlignment="Center" Foreground="{DynamicResource IconColor}"/>
                                                     <Button.ToolTip>
                                                         <ToolTip Padding="4,1" HasDropShadow="True"
                                                                     SnapsToDevicePixels="True" Style="{StaticResource TooltipAccountName}">
@@ -383,7 +383,7 @@
                                                             Command="{Binding CreateAccountCommand}"
                                                             Width="25" Height="25"
                                                             Style="{StaticResource CreateDataMenuStyle}">
-                                                    <iconPacks:PackIconMaterial Kind="Plus"  Width="15" Height="15" VerticalAlignment="Center" Foreground="#FF656565"/>
+                                                    <iconPacks:PackIconMaterial Kind="Plus"  Width="15" Height="15" VerticalAlignment="Center" Foreground="{DynamicResource IconColor}"/>
                                                     <Button.ToolTip>
                                                         <ToolTip Padding="4,1"
                                                                  HasDropShadow="True"
@@ -500,7 +500,7 @@
                         </StackPanel>
                     </Grid>
                 </ScrollViewer>
-                <Separator Margin="5,0,5,0" Grid.Row="2" Background="#d0d0d0"/>
+                <Separator Margin="5,0,5,0" Grid.Row="2" Background="{DynamicResource SeparatorBackground}"/>
                 <!-- Settings -->
                 <StackPanel Grid.Row="3">
                     <Border Margin="0,0,0,0" Height="50">
@@ -533,9 +533,10 @@
                                 </ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" 
-                                       Foreground="#FF404040" 
+                                       Foreground="{DynamicResource PrimaryText}" 
                                        Text="Cài đặt"
                                        VerticalAlignment="Center"
+                                       FontWeight="SemiBold"
                                        Margin="10,0,0,0"
                                        FontSize="16" Grid.ColumnSpan="2">
                                 <TextBlock.Style>
@@ -552,7 +553,7 @@
                                           x:Name="BtnToggleSetting"
                                           Width="25" Height="25"
                                           Margin="6,6,10,6"
-                                          Foreground="DimGray"
+                                          Foreground="{DynamicResource IconColor}"
                                           BorderThickness="1"
                                           Cursor="Hand">
                                 <ToggleButton.Template>
@@ -562,19 +563,17 @@
                                                 CornerRadius="14">
                                             <iconPacks:PackIconMaterial Kind="CogOutline" 
                                                     Width="16" Height="16"
-                                                    Foreground="{TemplateBinding Foreground}"
+                                                    Foreground="{DynamicResource IconColor}"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
-                                                <Setter Property="Foreground" Value="#FF509BFF"/>
+                                                <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource IconHoverColor}"/>
                                             </Trigger>
 
                                             <Trigger Property="IsChecked" Value="True">
-                                                <Setter TargetName="MainBorder" Property="Background" Value="#E0E0E0"/>
-                                                <Setter Property="Foreground" Value="#FF509BFF"/>
+                                                <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource IconHoverColor}"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>

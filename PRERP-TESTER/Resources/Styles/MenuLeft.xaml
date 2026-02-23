@@ -164,7 +164,7 @@
                 <ControlTemplate TargetType="RadioButton">
                     <Border x:Name="ActionBorder" 
                         Background="Transparent" 
-                        BorderBrush="#FFE0E0E0" 
+                        BorderBrush="#FFA2A2A2" 
                         BorderThickness="1,1,0.5,1" 
                         CornerRadius="4,0,0,4"
                         Width="60" Padding="0,5">
@@ -194,7 +194,7 @@
                 <ControlTemplate TargetType="RadioButton">
                     <Border x:Name="ActionBorder" 
                             Background="Transparent" 
-                            BorderBrush="#FFE0E0E0" 
+                            BorderBrush="#FFA2A2A2" 
                             BorderThickness="0.5,1,1,1" 
                             CornerRadius="0,4,4,0"
                             Width="60" Padding="0,5">

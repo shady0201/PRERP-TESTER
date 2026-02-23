@@ -36,20 +36,20 @@
                 </Grid.ColumnDefinitions>
 
                 <ListBox Grid.Column="0"
-                             AlternationCount="1000"
-                             x:Name="TabHeaderListBox"
-                             AllowDrop="True"
-                             PreviewMouseMove="ListBox_PreviewMouseMove"
-                             DragOver="ListBox_DragOver"
-                             Drop="ListBox_Drop"
-                             ItemsSource="{Binding TabViewModels}"
-                             SelectedItem="{Binding SelectedTab}"
-                             ItemContainerStyle="{StaticResource TabWebHeaderStyle}"
-                             BorderThickness="0"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             Background="Transparent"
-                             Grid.Row="0"
-                             MaxWidth="{Binding ActualWidth, ElementName=ParentGrid, Converter={StaticResource SubtractValueConverter}, ConverterParameter=40}">
+                         Grid.Row="0"
+                        AlternationCount="1000"
+                        x:Name="TabHeaderListBox"
+                        AllowDrop="True"
+                        PreviewMouseMove="ListBox_PreviewMouseMove"
+                        DragOver="ListBox_DragOver"
+                        Drop="ListBox_Drop"
+                        ItemsSource="{Binding TabViewModels}"
+                        SelectedItem="{Binding SelectedTab}"
+                        ItemContainerStyle="{StaticResource TabWebHeaderStyle}"
+                        BorderThickness="0"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        Background="Transparent"
+                        MaxWidth="{Binding ActualWidth, ElementName=ParentGrid, Converter={StaticResource SubtractValueConverter}, ConverterParameter=40}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Rows="1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
@@ -122,8 +122,8 @@
                                                                             <iconPacks:PackIconMaterial Kind="Refresh" Width="14" Height="14" VerticalAlignment="Center"/>
                                                                         </Button>
                                                                     </StackPanel>
-
-                                                                    <Border Grid.Column="1" Background="#FFE0E0E0" BorderBrush="#DCDCDC" BorderThickness="1" CornerRadius="15" Padding="10,2">
+                                                                    <!-- Input Address-->
+                                                                    <Border Grid.Column="1" Background="{DynamicResource InputBackground}" BorderBrush="{DynamicResource InputBorder}" BorderThickness="1" CornerRadius="15" Padding="10,2">
                                                                         <Grid>
                                                                             <Grid.ColumnDefinitions>
                                                                                 <ColumnDefinition Width="Auto"/>
@@ -154,7 +154,7 @@
                                                                                             <DataTrigger Binding="{Binding IsSecure}" Value="{x:Null}">
                                                                                                 <Setter Property="Kind" Value="Google"/>
                                                                                                 <Setter Property="Visibility" Value="Visible"/>
-                                                                                                <Setter Property="Foreground" Value="#FF3A3A3A"/>
+                                                                                                <Setter Property="Foreground" Value="{DynamicResource IconColor}"/>
                                                                                             </DataTrigger>
                                                                                         </Style.Triggers>
                                                                                     </Style>
@@ -164,8 +164,7 @@
                                                                                 <TextBox x:Name="UrlTextBox"
                                                                                              Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" 
                                                                                              Style="{StaticResource AddressBarTextBoxStyle}"
-                                                                                             BorderThickness="0" 
-                                                                                             FontSize="14"
+                                                                                             BorderThickness="0"
                                                                                              VerticalAlignment="Center"
                                                                                              Background="Transparent">
                                                                                     <TextBox.InputBindings>

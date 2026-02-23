@@ -156,7 +156,7 @@
                     </Grid>
                     
                     <TextBlock Text="Tên hiển thị" FontSize="14" Foreground="#FF464646" FontWeight="SemiBold" Margin="5,0,0,0"/>
-                    <TextBlock Text="Tên đặt riêng, không phải tên đầy đủ của tài khoản trên hệ thống" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
+                    <TextBlock Text="Tên đặt riêng, không phải tên đầy đủ của tài khoản" FontSize="14" Foreground="#FF464646" Margin="5,0,0,8"/>
                     <Grid Height="50" Margin="0,0,0,20">
                         <Border x:Name="ShadowLayer3" 
                                 CornerRadius="12" 

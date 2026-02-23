@@ -26,8 +26,8 @@
     </Style>
 
     <Style x:Key="TooltipAccountName" TargetType="ToolTip">
-        <Setter Property="Background" Value="#FF2F2F2F"/>
-        <Setter Property="Foreground" Value="#FFE2E2E2"/>
+        <Setter Property="Background" Value="{DynamicResource TooltipBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TooltipForeground}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Placement" Value="Mouse"/>
@@ -37,7 +37,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
                     <Border Background="{TemplateBinding Background}" 
-                            CornerRadius="6" 
+                            CornerRadius="6"
+                            BorderBrush="{DynamicResource BorderBrushDefault}"
+                            BorderThickness="0.8"
                             Padding="10,8"
                             SnapsToDevicePixels="True">
                         <ContentPresenter Margin="{TemplateBinding Padding}" 

@@ -1,23 +1,38 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
+    <!-- Background -->
     <SolidColorBrush x:Key="PrimaryBackground" Color="#1E1E1E"/>
 	<SolidColorBrush x:Key="SecondaryBackground" Color="#2D2D2D"/>
-
+    
+    <!-- Border -->
     <SolidColorBrush x:Key="BorderBrushDefault" Color="#FF404040"/>
+    
+    <!-- Text -->
+    <SolidColorBrush x:Key="PrimaryText" Color="#f7f8f8"/>
 
-    <SolidColorBrush x:Key="PrimaryText" Color="#E0E0E0"/>
-	<SolidColorBrush x:Key="AccentColor" Color="#3794FF"/>
-
+    <!-- Icon -->
     <SolidColorBrush x:Key="IconColor" Color="#FFB0B0B0"/>
     <SolidColorBrush x:Key="IconHoverColor" Color="#FFBBBBBB" Opacity="0.15"/>
-
-    <SolidColorBrush x:Key="SeparatorBackground" Color="#FF525151"/>
-
+    
+    <!-- Item List-->
     <SolidColorBrush x:Key="ItemSelectedBackground" Color="#E0E0E0" Opacity="0.15" />
 
+    <!-- Browser -->
     <SolidColorBrush x:Key="BrowserTabBackground" Color="#2D2D2D" />
-
     <SolidColorBrush x:Key="BrowserTabSelect" Color="#E0E0E0" Opacity="0.15"/>
+    
+    <!-- Separator -->
+    <SolidColorBrush x:Key="SeparatorBackground" Color="#FF525151"/>
+    
+    <!-- Tooltip -->
+    <SolidColorBrush x:Key="TooltipBackground" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="TooltipForeground" Color="#f7f8f8"/>
+
+    <!-- Input -->
+    <SolidColorBrush x:Key="InputBackground" Color="#333334"/>
+    <SolidColorBrush x:Key="InputBorder" Color="#FFF" Opacity="0.08"/>
+    <SolidColorBrush x:Key="InputForeColor" Color="#F7F8F8"/>
+    <SolidColorBrush x:Key="InputPlaceholder" Color="#606060"/>
 
 </ResourceDictionary>

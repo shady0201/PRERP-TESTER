@@ -5,7 +5,7 @@ using PRERP_TESTER.Models;
 
 namespace PRERP_TESTER.ViewModels
 {
-    public class AccountViewModel : LazyLoadViewModel
+    public class BrowserViewModel : LazyLoadViewModel
     {
         public Account Account { get; }
         public string ModuleID { get; set; }
@@ -24,8 +24,8 @@ namespace PRERP_TESTER.ViewModels
         }
         public ICommand AddTabCommand { get; }
 
-        public static AccountViewModel? Instance { get; private set; }
-        public AccountViewModel(Account account,string moduleID, TabWeb[] tabWebs)
+        public static BrowserViewModel? Instance { get; private set; }
+        public BrowserViewModel(Account account,string moduleID, TabWeb[] tabWebs)
         {
             Account = account;
             ModuleID = moduleID;

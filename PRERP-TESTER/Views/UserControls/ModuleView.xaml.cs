@@ -38,12 +38,12 @@ namespace PRERP_TESTER.Views.UserControls
             if (e.Data.GetDataPresent("AccountVM"))
             {
                 ListBox? listBox = sender as ListBox;
-                AccountViewModel draggedData = e.Data.GetData("AccountVM") as AccountViewModel;
+                BrowserViewModel draggedData = e.Data.GetData("AccountVM") as BrowserViewModel;
                 ListBoxItem targetItem = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
 
                 if (targetItem != null && listBox != null)
                 {
-                    var targetData = targetItem.DataContext as AccountViewModel;
+                    var targetData = targetItem.DataContext as BrowserViewModel;
                     var viewModel = listBox.DataContext as ModuleViewModel;
 
                     if (viewModel != null && draggedData != null && targetData != draggedData)

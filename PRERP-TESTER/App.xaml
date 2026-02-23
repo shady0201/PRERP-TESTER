@@ -52,8 +52,8 @@
                 <views:ModuleView />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:AccountViewModel}">
-                <views:AccountView />
+            <DataTemplate DataType="{x:Type vm:BrowserViewModel}">
+                <views:BrowserView />
             </DataTemplate>
             
             

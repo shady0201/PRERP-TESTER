@@ -20,16 +20,16 @@ namespace PRERP_TESTER.ViewModels
 
         public ModuleEntity ModuleEntity { get; }
 
-        public ObservableCollection<AccountViewModel> ModuleAccounts { get; set; } = [];
+        public ObservableCollection<BrowserViewModel> ModuleAccounts { get; set; } = [];
 
         private readonly ObservableCollection<Account> AllSystemAccounts;
 
-        public AccountViewModel? SelectedAccountModule { get; set; }
+        public BrowserViewModel? SelectedAccountModule { get; set; }
 
         public ICommand AddAccountToModuleCommand { get; }
 
-        public IRelayCommand<AccountViewModel> RemoveAccountFromModuleCommand { get; }
-        public IRelayCommand<AccountViewModel> ShowAccountDetailCommand { get; }
+        public IRelayCommand<BrowserViewModel> RemoveAccountFromModuleCommand { get; }
+        public IRelayCommand<BrowserViewModel> ShowAccountDetailCommand { get; }
         public bool IsPinned
         {
             get => ModuleEntity.IsPinned;
@@ -57,7 +57,7 @@ namespace PRERP_TESTER.ViewModels
                     var account = allSystemAccounts.First(a => a.Id == module.AccountModules[i].AccountID);
                     if (account != null)
                     {
-                        var accountVM = new AccountViewModel(account, module.Id, module.AccountModules[i].TabWebItems);
+                        var accountVM = new BrowserViewModel(account, module.Id, module.AccountModules[i].TabWebItems);
                         ModuleAccounts.Add(accountVM);
                     }
 
@@ -65,8 +65,8 @@ namespace PRERP_TESTER.ViewModels
             }
 
             AddAccountToModuleCommand = new RelayCommand(ExecuteAddAccountToModule);
-            RemoveAccountFromModuleCommand = new RelayCommand<AccountViewModel>(ExecuteRemoveAccount);
-            ShowAccountDetailCommand = new RelayCommand<AccountViewModel>(ExecuteShowAccountDetail);
+            RemoveAccountFromModuleCommand = new RelayCommand<BrowserViewModel>(ExecuteRemoveAccount);
+            ShowAccountDetailCommand = new RelayCommand<BrowserViewModel>(ExecuteShowAccountDetail);
 
             SelectedAccountModule = ModuleAccounts.FirstOrDefault();
         }
@@ -93,14 +93,14 @@ namespace PRERP_TESTER.ViewModels
                     var list = ModuleEntity.AccountModules.ToList();
                     list.Add(newAccountModule);
                     ModuleEntity.AccountModules = list.ToArray();
-                    var accountVM = new AccountViewModel(acc, ModuleEntity.Id, newAccountModule.TabWebItems);
+                    var accountVM = new BrowserViewModel(acc, ModuleEntity.Id, newAccountModule.TabWebItems);
                     ModuleAccounts.Add(accountVM);
                 }
                 SelectedAccountModule = ModuleAccounts.FirstOrDefault();
             }
         }
 
-        private void ExecuteRemoveAccount(AccountViewModel? accountVM)
+        private void ExecuteRemoveAccount(BrowserViewModel? accountVM)
         {
             if (accountVM == null) return;
 
@@ -113,13 +113,13 @@ namespace PRERP_TESTER.ViewModels
             }
         }
 
-        private void ExecuteShowAccountDetail(AccountViewModel? accountVM)
+        private void ExecuteShowAccountDetail(BrowserViewModel? accountVM)
         {
             if (accountVM.Account == null) return;
             WeakReferenceMessenger.Default.Send(new ShowAccountDetailMessage(accountVM.Account));
         }
 
-        public void RemoveAccount(AccountViewModel? accountVM)
+        public void RemoveAccount(BrowserViewModel? accountVM)
         {
             if (accountVM == null) return;
 

@@ -1,10 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    <SolidColorBrush x:Key="PrimaryBackground" Color="#FFFFFF"/>
-	<SolidColorBrush x:Key="SecondaryBackground" Color="#F4F7F9"/>
 
-    <SolidColorBrush x:Key="BorderBrushDefault" Color="#D1D5DB"/>
+    <SolidColorBrush x:Key="PrimaryBackground" Color="#FFE6E6E6"/>
+	<SolidColorBrush x:Key="SecondaryBackground" Color="#FFF7F9FB"/>
+
+    <SolidColorBrush x:Key="BorderBrushDefault" Color="#FFCECECE"/>
 
     <SolidColorBrush x:Key="PrimaryText" Color="#333333"/>
 	<SolidColorBrush x:Key="AccentColor" Color="#007ACC"/>
@@ -14,9 +14,12 @@
 
     <SolidColorBrush x:Key="SeparatorBackground" Color="#d0d0d0"/>
 
-    <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
-
     <SolidColorBrush x:Key="ItemSelectedBackground" Color="#007ACC" Opacity="0.15" />
-    <SolidColorBrush x:Key="ItemSelectedForeground" Color="#007ACC" />
+
+    <SolidColorBrush x:Key="BrowserTabBackground" Color="#FFECECEC" />
+
+    <SolidColorBrush x:Key="BrowserTabSelect" Color="#FFF7F9FB" />
+    
+    
 
 </ResourceDictionary>

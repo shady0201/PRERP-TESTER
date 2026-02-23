@@ -55,7 +55,7 @@
                         <ColumnDefinition x:Name="AccountListColumn">
                             <ColumnDefinition.Style>
                                 <Style TargetType="ColumnDefinition">
-                                    <Setter Property="Width" Value="200"/>
+                                    <Setter Property="Width" Value="210"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Source={x:Static vm:MainViewModel.Instance}, Path=IsAccountListCollapsed}" Value="True">
                                             <DataTrigger.EnterActions>
@@ -63,7 +63,7 @@
                                                     <Storyboard>
                                                         <helper:GridLengthAnimation 
                                                                 Storyboard.TargetProperty="Width"
-                                                                From="200" To="55" Duration="0:0:0.3">
+                                                                From="210" To="55" Duration="0:0:0.3">
                                                             <helper:GridLengthAnimation.EasingFunction>
                                                                 <CubicEase EasingMode="EaseOut"/>
                                                             </helper:GridLengthAnimation.EasingFunction>
@@ -251,7 +251,7 @@
                             Margin="6,0,0,0"
                             CornerRadius="6,6,0,0"
                             BorderThickness="1"
-                            BorderBrush="#FFB9B9B9">
+                            BorderBrush="{DynamicResource BorderBrushDefault}">
                         <ItemsControl ItemsSource="{Binding ModuleAccounts}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>

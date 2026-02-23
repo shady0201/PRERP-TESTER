@@ -78,7 +78,7 @@
                         Command="{Binding DismissCommand}"
                         VerticalAlignment="Top"
                         Cursor="Hand"
-                        Style="{StaticResource CreateDataMenuStyle}" 
+                        Style="{StaticResource StyleButtonCollapse}" 
                         Background="Transparent" BorderThickness="0">
                     <iconPacks:PackIconMaterial Kind="Close" Width="12" Height="12" Foreground="#999"/>
                 </Button>

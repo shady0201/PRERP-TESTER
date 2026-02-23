@@ -99,10 +99,9 @@
                                     VerticalAlignment="Center"
                                     Text="{Binding Account.DisplayName}"
                                     FontSize="14"
-                                    FontWeight="SemiBold"
                                     TextWrapping="NoWrap"
                                     Margin="6,0,0,0"
-                                    MaxWidth="164"
+                                    MaxWidth="150"
                                     TextTrimming="CharacterEllipsis">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">

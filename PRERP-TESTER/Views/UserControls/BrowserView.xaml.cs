@@ -8,9 +8,9 @@ using System.Windows.Media;
 
 namespace PRERP_TESTER.Views.UserControls
 {
-    public partial class AccountView : UserControl
+    public partial class BrowserView : UserControl
     {
-        public AccountView()
+        public BrowserView()
         {
             InitializeComponent();
         }
@@ -44,7 +44,7 @@ namespace PRERP_TESTER.Views.UserControls
                 if (targetItem != null && listBox != null)
                 {
                     var targetData = targetItem.DataContext as TabViewModel;
-                    var viewModel = listBox.DataContext as AccountViewModel;
+                    var viewModel = listBox.DataContext as BrowserViewModel;
 
                     if (viewModel != null && draggedData != null && targetData != draggedData)
                     {

@@ -184,11 +184,11 @@ namespace PRERP_TESTER.Extensions
 
                             string newUrl = args.Uri;
 
-                            if (AccountViewModel.Instance != null)
+                            if (BrowserViewModel.Instance != null)
                             {
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                    AccountViewModel.Instance.AddTabFromUrl(newUrl);
+                                    BrowserViewModel.Instance.AddTabFromUrl(newUrl);
                                 });
                             }
                         };

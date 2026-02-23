@@ -15,6 +15,9 @@
     <SolidColorBrush x:Key="SeparatorBackground" Color="#FF525151"/>
 
     <SolidColorBrush x:Key="ItemSelectedBackground" Color="#E0E0E0" Opacity="0.15" />
-    <SolidColorBrush x:Key="ItemSelectedForeground" Color="#3794FF" />
+
+    <SolidColorBrush x:Key="BrowserTabBackground" Color="#2D2D2D" />
+
+    <SolidColorBrush x:Key="BrowserTabSelect" Color="#E0E0E0" Opacity="0.15"/>
 
 </ResourceDictionary>

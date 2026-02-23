@@ -4,20 +4,15 @@
     <SolidColorBrush x:Key="PrimaryBackground" Color="#1E1E1E"/>
 	<SolidColorBrush x:Key="SecondaryBackground" Color="#2D2D2D"/>
 
-    <SolidColorBrush x:Key="BorderBrushDefault" Color="#374151"/>
-    <SolidColorBrush x:Key="BorderBrushSubtle" Color="#1F2937"/>
-    
-	<SolidColorBrush x:Key="PrimaryText" Color="#E0E0E0"/>
+    <SolidColorBrush x:Key="BorderBrushDefault" Color="#FF404040"/>
+
+    <SolidColorBrush x:Key="PrimaryText" Color="#E0E0E0"/>
 	<SolidColorBrush x:Key="AccentColor" Color="#3794FF"/>
 
     <SolidColorBrush x:Key="IconColor" Color="#FFB0B0B0"/>
     <SolidColorBrush x:Key="IconHoverColor" Color="#FFBBBBBB" Opacity="0.15"/>
 
-    <SolidColorBrush x:Key="SeparatorBackground" Color="#565555"/>
-
-    <SolidColorBrush x:Key="CardBackground" Color="#1E1E1E"/>
-    
-    
+    <SolidColorBrush x:Key="SeparatorBackground" Color="#FF525151"/>
 
     <SolidColorBrush x:Key="ItemSelectedBackground" Color="#E0E0E0" Opacity="0.15" />
     <SolidColorBrush x:Key="ItemSelectedForeground" Color="#3794FF" />

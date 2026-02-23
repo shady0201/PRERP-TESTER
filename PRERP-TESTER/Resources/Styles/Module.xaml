@@ -56,6 +56,7 @@
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="Border"
                             BorderThickness="0,0,0,0"
+                            Margin="0,0,0,1"
 					        Background="Transparent">
                         <StackPanel Orientation="Horizontal">
                             <ContentPresenter VerticalAlignment="Center"/>
@@ -66,8 +67,8 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource ItemSelectedBackground}"/>
                         </Trigger>
-                        <Trigger Property="IsSelected" Value="False">
-                            <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource ItemSelectedBackground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

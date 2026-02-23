@@ -560,7 +560,7 @@ namespace PRERP_TESTER.ViewModels
             IsAccountExpanded = data.IsAccountExpanded;
             IsModuleExpanded = data.IsModuleExpanded;
             IsMenuCollapsed = data.IsMenuCollapsed;
-
+            IsDarkMode = data.IsDarkMode;
             UpdateCurrentServer();
         }
 
@@ -617,11 +617,12 @@ namespace PRERP_TESTER.ViewModels
                 Modules = Modules.Select(m => m.ModuleEntity).ToList(),
                 ServerType = GobalSetting.ServerType,
                 History = History.ToList(),
+                SelectedModuleId = SelectedModule?.ModuleEntity.Id,
                 IsAccountListCollapsed = IsAccountListCollapsed,
                 IsAccountExpanded = IsAccountExpanded,
                 IsModuleExpanded = IsModuleExpanded,
                 IsMenuCollapsed = IsMenuCollapsed,
-                SelectedModuleId = SelectedModule?.ModuleEntity.Id
+                IsDarkMode = IsDarkMode
             };
         }
 

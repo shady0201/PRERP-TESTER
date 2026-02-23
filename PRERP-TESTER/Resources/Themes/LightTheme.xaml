@@ -5,8 +5,7 @@
 	<SolidColorBrush x:Key="SecondaryBackground" Color="#F4F7F9"/>
 
     <SolidColorBrush x:Key="BorderBrushDefault" Color="#D1D5DB"/>
-    <SolidColorBrush x:Key="BorderBrushSubtle" Color="#F3F4F6"/>
-    
+
     <SolidColorBrush x:Key="PrimaryText" Color="#333333"/>
 	<SolidColorBrush x:Key="AccentColor" Color="#007ACC"/>
 

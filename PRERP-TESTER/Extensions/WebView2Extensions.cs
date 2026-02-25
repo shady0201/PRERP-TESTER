@@ -324,7 +324,8 @@ namespace PRERP_TESTER.Extensions
         private static async Task VerifyAndSyncUserInfo(Account account, string sessionValue)
         {
             account.LastSessionValue = sessionValue;
-            string url = "https://prerp.bmtu.edu.vn/sftraining/query_handle?utf8=%E2%9C%93&lang=vi&function=session";
+            // https://prerp.bmtu.edu.vn
+            string url = $"{GobalSetting.CurrentBaseUrl.Replace("/mywork","")}/sftraining/query_handle?utf8=%E2%9C%93&lang=vi&function=session";
             try
             {
                 using (var client = new HttpClient())

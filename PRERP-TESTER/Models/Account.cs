@@ -135,15 +135,18 @@ namespace PRERP_TESTER.Models
             FullName = query["user_fullname"]?.ToString() ?? "No Name";
 
             var use_info = query["user_info"];
-            sId = use_info["sid"]?.ToString() ?? "";
-            Email = use_info["email"]?.ToString() ?? "";
-            StaffType = use_info["staff_type"]?.ToString() ?? "";
-            Education = use_info["education"]?.ToString() ?? "";
-            AcademicRank = use_info["academic_rank"]?.ToString() ?? "";
-            Status = use_info["status"]?.ToString() ?? "";
-            Mobile = use_info["mobile"]?.ToString() ?? "";
+            if (use_info != null)
+            {
+                sId = use_info["sid"]?.ToString() ?? "";
+                Email = use_info["email"]?.ToString() ?? "";
+                StaffType = use_info["staff_type"]?.ToString() ?? "";
+                Education = use_info["education"]?.ToString() ?? "";
+                AcademicRank = use_info["academic_rank"]?.ToString() ?? "";
+                Status = use_info["status"]?.ToString() ?? "";
+                Mobile = use_info["mobile"]?.ToString() ?? "";
+            }
 
-            AvatarUrl = "https://prerp.bmtu.edu.vn/mdata/hrm/" + (query["user_avatar"]?.ToString());
+            AvatarUrl = $"{GobalSetting.CurrentBaseUrl.Replace("/mywork","")}/mdata/hrm/" + (query["user_avatar"]?.ToString());
 
             // permissions
             PermissionsSFT = ParsePermissions(query["permissions_sft"]);

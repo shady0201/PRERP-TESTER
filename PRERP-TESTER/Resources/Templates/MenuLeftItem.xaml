@@ -267,7 +267,7 @@
                         </ToolTip>
                     </Border.ToolTip>
                 </Border>
-                <Border Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderBrush="White" BorderThickness="2">
+                <Border Grid.Column="0" CornerRadius="12" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderBrush="White" BorderThickness="2">
                     <Border.Style>
                         <Style TargetType="{x:Type Border}">
                             <Style.Triggers>

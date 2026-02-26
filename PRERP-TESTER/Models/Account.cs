@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Windows.Media.Media3D;
 
 namespace PRERP_TESTER.Models
 {
@@ -145,8 +146,10 @@ namespace PRERP_TESTER.Models
                 Status = use_info["status"]?.ToString() ?? "";
                 Mobile = use_info["mobile"]?.ToString() ?? "";
             }
-
-            AvatarUrl = $"{GobalSetting.CurrentBaseUrl.Replace("/mywork","")}/mdata/hrm/" + (query["user_avatar"]?.ToString());
+            if(query["user_avatar"] != null)
+            {
+                AvatarUrl = $"{GobalSetting.CurrentBaseUrl.Replace("/mywork","")}/mdata/hrm/" + (query["user_avatar"]?.ToString());
+            }
 
             // permissions
             PermissionsSFT = ParsePermissions(query["permissions_sft"]);

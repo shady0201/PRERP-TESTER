@@ -1,8 +1,12 @@
-﻿- Lưu các trạng thái app:
- + Theme
-
-- Ghim module làm các tab load lại.
-- Thêm valid các trường input trong form.
+﻿- Laucher:
+ + Login, check-update.
+- Module:
+ + Document file.
+ + Highlight + focus
+ + Quy trình
+ + Issue list: owner (kèm quyền hạn), content, image, file, trạng thái, ưu tiên
+ + Ghim module làm các tab load lại.
+ + Thêm valid các trường input trong form.
 
 * Chức năng hỗ trợ test tài khoản thi sinh viên.
 * Light/Dark mode.
@@ -12,3 +16,6 @@ Chứa data:
 
 Chứa webview folder:
 Thư mục chạy của app => Thư mục Session
+
+
+https://capp.bmtu.edu.vn/sftraining/writing_scoring/show?exam_id=2728&exscheduledetail_id=425&lang=vi

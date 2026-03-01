@@ -235,7 +235,7 @@
                                 Grid.Column="0"
                                 Background="Transparent"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="0,0,0,0"
+                                BorderThickness="0"
                                 Height="40"
                                 Padding="8,0,8,0"
                                 HorizontalAlignment="Stretch"

@@ -6,16 +6,20 @@
  + Ghim module làm các tab load lại.
 
 - Thêm valid các trường input trong form.
-- Quản lý module:
- + Document
- + Issue/Bug
- + Dev/Leader
- + Account
 
-- Check kết nối mạng lan.
+- Quản lý module:
+ + Base url.
+ + Document, tài liệu.
+ + Issue/Bug.
+ + Dev list.
+ + Accounts test.
+
+- Máy chủ dữ liệu:
+ + Server.
+ + Kết nối.
+ + Quản lý file.
 
 - Light/Dark mode.
-
 
 * Chức năng hỗ trợ test tài khoản thi sinh viên.
 

@@ -1,4 +1,6 @@
-﻿- Tab web header: thêm icon tài khoản phía trước đầu danh sách tab để dễ nhận biết
+﻿* Blazor Hybrid.
+* Template: https://mudblazor.com/
+
 
 - Laucher:
  + Login, check-update.
